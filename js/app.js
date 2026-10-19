@@ -327,7 +327,7 @@
     return spec ? {...view,recordId:spec.targetId,lineIndex:spec.indices[view.presentationVersion || 1]?.[view.lineIndex] ?? 0,dPositionCurrent:true} : view;
   }
 
-  function loadProgress(imported = null) {
+  function loadProgress(imported = null, syncBgm = true) {
     try {
       const parsed = imported || JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
       state.progress = {records:{}};
@@ -343,6 +343,7 @@
       if (typeof saved.resumeRecordId === 'string' && archive.getRecord(saved.resumeRecordId)) state.progress.resumeRecordId = saved.resumeRecordId;
       state.progress.resetGeneration = Number.isSafeInteger(saved.resetGeneration) && saved.resetGeneration >= 0 ? saved.resetGeneration : 0;
       state.progress.endingPhotoSeen = saved.endingPhotoSeen === true;
+      state.progress.postEndingBgm = ['waiting-commander','side-story'].includes(saved.postEndingBgm) ? saved.postEndingBgm : 'waiting-commander';
       if (saved.records && typeof saved.records === "object" && !Array.isArray(saved.records)) {
         state.progress.records = saved.records;
       } else if ("completed" in saved || "lineIndex" in saved) {
@@ -629,7 +630,7 @@
       // A malformed save is recoverable; availability is checked on the next write.
       state.progress = { version:24, c02LayoutVersion:1, records: {} };
     }
-    window.RustedPrayerBgm?.setEndingPhotoSeen(state.progress.endingPhotoSeen === true);
+    if(syncBgm)window.RustedPrayerBgm?.setEndingPhotoSeen(state.progress.endingPhotoSeen === true,state.progress.postEndingBgm);
   }
 
   function c02Position(index,version=20) {
@@ -2748,6 +2749,8 @@
     $('#setting-effects').value = state.effectsReduced ? 'reduced' : 'normal';
     $('#setting-ending-group').hidden = !allRecordsRead();
     $('#setting-ending').value = state.endingAnimation ? 'show' : 'skip';
+    $('#setting-post-ending-bgm-group').hidden = !state.progress.endingPhotoSeen;
+    $('#setting-post-ending-bgm').value = state.progress.postEndingBgm || 'waiting-commander';
     $('#setting-identities').value = state.characterLabels ? 'on' : 'off';
     $('#setting-resume').value = state.autoResume ? 'on' : 'off';
     $('#setting-motion-note').textContent = reduceMotion ? '기기의 동작 줄이기가 적용 중입니다.' : '흔들림과 화면 전환 효과를 줄일 수 있습니다.';
@@ -2997,7 +3000,7 @@
         if(!image.hidden && !state.progress.endingPhotoSeen) {
           state.progress.endingPhotoSeen=true;
           saveProgress();
-          window.RustedPrayerBgm?.setEndingPhotoSeen(true);
+          window.RustedPrayerBgm?.setEndingPhotoSeen(true,state.progress.postEndingBgm);
         }
         scheduleEndingShutter();
         return true;
@@ -3100,7 +3103,7 @@
 
   function confirmReset() {
     if (state.screen !== 'reset-screen' || state.loading) return;
-    const next = {...state.progress, version:24, records:{}, endingPhotoSeen:false,
+    const next = {...state.progress, version:24, records:{}, endingPhotoSeen:false, postEndingBgm:'waiting-commander',
       instant:state.instant, continuous:state.continuous, textSize:state.textSize, dialoguePosition:state.dialoguePosition,
       textSpeed:state.textSpeed, autoSpeed:state.autoSpeed, rememberAuto:state.rememberAuto, autoEnabled:state.autoEnabled, effectsReduced:state.effectsReduced, endingAnimation:state.endingAnimation,
       characterLabels:state.characterLabels, autoResume:state.autoResume, aIdentificationIntroSeen:false,
@@ -3137,7 +3140,10 @@
       if (!imported || typeof imported !== 'object' || Array.isArray(imported) || !imported.records || typeof imported.records !== 'object' || Array.isArray(imported.records) || (imported.version && (!Number.isInteger(imported.version) || imported.version > 24 || imported.version < 1))) throw Error('지원하는 진행도 파일이 아닙니다.');
       // Import into a temporary progress object, using the same old-save migrations.
       const previous = state.progress;
-      loadProgress(imported);
+      loadProgress(imported,false);
+      state.progress.endingPhotoSeen ||= previous.endingPhotoSeen === true;
+      if(previous.endingPhotoSeen === true)state.progress.postEndingBgm=['waiting-commander','side-story'].includes(previous.postEndingBgm) ? previous.postEndingBgm : 'waiting-commander';
+      window.RustedPrayerBgm?.setEndingPhotoSeen(state.progress.endingPhotoSeen,state.progress.postEndingBgm);
       state.progress.resetGeneration = previous.resetGeneration || 0;
       state.progress.aIdentificationIntroSeen ||= previous.aIdentificationIntroSeen === true;
       state.progress.readingSetupSeen ||= previous.readingSetupSeen === true;
@@ -3230,6 +3236,14 @@
       labLayout.observe($('#dialogue-box'));
       labLayout.observe($('#story-stage'));
     }
+    $('#setting-post-ending-bgm').addEventListener('change',event=>{
+      if(!state.progress.endingPhotoSeen)return;
+      const track=event.target.value;
+      if(!['waiting-commander','side-story'].includes(track))return;
+      state.progress.postEndingBgm=track;
+      saveProgress();
+      window.RustedPrayerBgm?.setPostEndingBgm(track);
+    });
     $('#profile-image').addEventListener('error', () => { $('#profile-image').hidden = true; });
     $('#profile-overlay').addEventListener('click', event => {
       if (event.target === $('#profile-overlay')) closeProfile();
