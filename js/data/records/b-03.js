@@ -307,7 +307,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "연화는 흙투성이가 된 두 손을 내려다본다. 손금 사이에 검은 흙이 깊이 박혀 있다."
+      "text": "연화는 흙투성이가 된 두 손을 내려다본다. 손 여기저기 검은 흙이 깊이 박혀 있다."
     },
     {
       "type": "dialogue",
@@ -907,7 +907,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "연화는 흙투성이가 된 두 손을 내려다본다. 손금 사이에 검은 흙이 깊이 박혀 있다.",
+      "text": "연화는 흙투성이가 된 두 손을 내려다본다. 손 여기저기 검은 흙이 깊이 박혀 있다.",
       "tone": "narration",
       "sourceIndices": [
         42
@@ -1451,6 +1451,10 @@ window.RustedPrayerArchive.registerRecord({
     {
       "index": 18,
       "before": "안 남았는데?"
+    },
+    {
+      "index": 38,
+      "before": "연화는 흙투성이가 된 두 손을 내려다본다. 손금 사이에 검은 흙이 깊이 박혀 있다."
     }
   ],
   "v24IndexMap": [
