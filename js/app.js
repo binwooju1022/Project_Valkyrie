@@ -2470,6 +2470,11 @@
         selectSettingsCategory('display');
         $('#setting-dialogue-position').focus();
       },
+      "show-identity-settings": () => {
+        if(state.screen!=='settings-screen')openReadingSettings();
+        selectSettingsCategory('display');
+        $('#setting-identities').focus();
+      },
       'start-prepared-story':()=>{
         if(state.screen==='settings-screen' && state.settingsStartRecordId===currentRecord()?.id && currentRecord()?.readerMode!=='report') startStory(false,null,'replace');
       },

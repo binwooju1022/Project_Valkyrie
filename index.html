@@ -9,6 +9,23 @@
       content="손상된 기록 매체를 복구해 UNIT-01과 UNIT-02의 기억을 열람하는 인터랙티브 아카이브"
     />
     <title>녹슨 기도 — 기록 보관소</title>
+    <link rel="canonical" href="https://binwooju1022.github.io/Project_Valkyrie/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content="녹슨 기도" />
+    <meta property="og:title" content="녹슨 기도 — 기록 보관소" />
+    <meta property="og:description" content="손상된 기록 매체를 복구해 UNIT-01과 UNIT-02의 기억을 열람하는 인터랙티브 아카이브" />
+    <meta property="og:url" content="https://binwooju1022.github.io/Project_Valkyrie/" />
+    <meta property="og:image" content="https://binwooju1022.github.io/Project_Valkyrie/assets/social/rusted-prayer-og.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1733" />
+    <meta property="og:image:height" content="907" />
+    <meta property="og:image:alt" content="검녹색 기록 보관소 화면에 표시된 녹슨 기도 제목" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="녹슨 기도 — 기록 보관소" />
+    <meta name="twitter:description" content="손상된 기록 매체를 복구해 UNIT-01과 UNIT-02의 기억을 열람하는 인터랙티브 아카이브" />
+    <meta name="twitter:image" content="https://binwooju1022.github.io/Project_Valkyrie/assets/social/rusted-prayer-og.png" />
+    <meta name="twitter:image:alt" content="검녹색 기록 보관소 화면에 표시된 녹슨 기도 제목" />
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="stylesheet" href="./css/presentation.css" />
     <link rel="stylesheet" href="./css/reader.css" />
@@ -79,7 +96,7 @@
           <button id="archive-tools-toggle" class="text-button archive-tools-toggle" data-action="toggle-archive-tools" type="button" aria-controls="archive-tools" aria-expanded="false">읽기 도구 ▾</button>
         </header>
 
-        <div class="archive-overview"><span id="archive-progress"></span><div class="archive-guidance"><span class="archive-unlock-note">A → B → C → D · 앞 기록을 완료하면 다음 기록이 열립니다.</span><p class="archive-shortcuts">재생 중 · Space · Enter · → : 다음 · ← : 이전<br>L : 재생 기록 보기·닫기<br>Esc : 나가기 · H : UI 숨기기·복원</p></div></div>
+        <div class="archive-overview"><span id="archive-progress"></span><div class="archive-guidance"><span class="archive-unlock-note">A → B → C → D · 앞 기록을 완료하면 다음 기록이 열립니다.</span><p class="archive-shortcuts">Space · Enter · → : 다음 · ← : 이전<br>L : 재생 기록 보기·닫기<br>Esc : 나가기 · H : UI 숨기기·복원</p></div></div>
         <p id="archive-notice" class="reading-note" role="status" hidden></p>
         <nav id="archive-tools" class="reader-tools" aria-label="읽기 도구">
           <button class="text-button" data-action="show-settings" type="button">읽기 설정</button>
@@ -233,7 +250,7 @@
           <aside id="a-identity-hud" class="a-identity-hud" hidden aria-label="스쿼드 인물 식별">
             <header><span>스쿼드 식별</span><small>DRONE HUD</small></header>
             <div id="a-identity-roster" class="a-identity-roster"></div>
-            <footer><span id="a-identity-note"></span><button class="text-button" data-action="show-settings" type="button">읽기 설정</button></footer>
+            <footer><span id="a-identity-note"></span><button class="text-button" data-action="show-identity-settings" type="button">읽기 설정</button></footer>
           </aside>
           <aside id="a-drone-hud" class="a-drone-hud" hidden aria-label="드론 상태"><span>DRONE-02 · LIVE</span><img id="a-drone-panel" draggable="false" alt="드론 표정"/><small>기록 중 · 신호 정상</small></aside>
           <div id="lab-monitor-area" class="lab-monitor-area" hidden>
