@@ -69,6 +69,9 @@
     progress: { records: {} },
     screen: 'boot-screen',
     loading: null,
+    reportContext: null,
+    presentedRecordId: null,
+    reportScrollTimer: null,
     advanceLocked: false,
     gateTimer: null,
     attachmentPending: false,
@@ -198,6 +201,7 @@
 
   function resumeDMain() {
     if(syncResetFromStorage())return;
+    if(validReportContext()) {returnReportMain();return;}
     const resume=dMainResumeRecord();
     if(!mainRecords.some(record=>record.diskId==='D' && isRecordUnlocked(record)))return;
     clearPlaybackTimers();state.auto=false;updateAutoButton();
@@ -212,6 +216,74 @@
       $('#d-record-hint').textContent=D_MAIN_GUIDANCE;
       moveArchivePane(1);
     }
+  }
+
+  function validReportContext(context=state.reportContext) {
+    const record=archive.getRecord(context?.recordId);
+    return record?.diskId==='D' && !record.relatedReport && isRecordUnlocked(record) ? context : null;
+  }
+
+  function rememberReportPosition() {
+    if(state.loading)return;
+    const record=currentRecord();
+    if(state.screen!=='objective-screen' || record?.readerMode!=='report' || record.relatedReport)return;
+    const progress=recordProgress(record.id);progress.reportScroll=Math.max(0,window.scrollY || 0);
+    if(state.reportContext?.recordId===record.id)state.reportContext.scrollTop=progress.reportScroll;
+  }
+
+  function captureReportContext() {
+    const record=currentRecord();if(record?.diskId!=='D' || record.relatedReport)return;
+    rememberReportPosition();saveProgress();
+    state.reportContext={recordId:record.id,screen:state.screen==='story-screen'?'story-screen':'objective-screen',lineIndex:state.lineIndex,telemetryPage:state.telemetryPage,scrollTop:window.scrollY || 0};
+  }
+
+  function syncReadingMusic(record,index,screen) {
+    const context=validReportContext(),main=context&&archive.getRecord(context.recordId);
+    if(main && (screen==='objective-screen' && record?.relatedReport || screen==='archive-screen' && state.archiveRecordKind==='related')) {
+      window.RustedPrayerBgm?.sync(main,context.lineIndex,main.readerMode==='report'?'objective-screen':'story-screen');
+    }else window.RustedPrayerBgm?.sync(record,index,screen);
+  }
+
+  function reportCompletionLabel(record) {
+    if(record?.diskId==='D' && !record.relatedReport && record.readerMode==='report') {
+      const next=archive.getRecord(record.nextId);return next?`${recordNumber(next)}으로 계속`:'마지막 사진 보기';
+    }
+    return record?.relatedReport && validReportContext()?'확인하고 본편으로 돌아가기':record?.epilogue?'기록 마치기':'보고서 열람 완료';
+  }
+
+  function syncReportFlow() {
+    const context=validReportContext(),record=currentRecord(),main=context&&archive.getRecord(context.recordId);
+    const visible=Boolean(context && record?.readerMode==='report' && state.screen==='objective-screen');
+    $('#report-flow').hidden=!visible;$('#objective-screen').classList.toggle('has-report-flow',visible);
+    if(!visible)return;
+    $('#report-flow-label').textContent=record.id===main.id?`${recordNumber(main)} · 본편 문서`:`${recordNumber(main)}에서 자료 확인 중`;
+    $('#report-return').hidden=record.id===main.id;$('#report-return').textContent=main.readerMode==='report'?`${recordNumber(main)} 본문으로`:'본편 이어보기';
+    $('#report-next').hidden=main.readerMode!=='report';$('#report-next').textContent=reportCompletionLabel(main);
+  }
+
+  async function returnReportMain() {
+    const context=validReportContext();if(!context)return;
+    const previousId=state.selectedRecordId,previousKind=state.archiveRecordKind;
+    const record=archive.getRecord(context.recordId);
+    state.selectedRecordId=record.id;state.archiveRecordKind='main';selectDisk('D',false);
+    if(record.readerMode==='report') {
+      recordProgress(record.id).reportScroll=context.scrollTop;await openObjective('replace');
+    }else if(context.screen==='objective-screen')await openObjective('replace');
+    else {
+      await startStory(false,context.lineIndex,'replace',null,context.telemetryPage);
+      if(state.screen!=='story-screen'){state.selectedRecordId=previousId;state.archiveRecordKind=previousKind;selectDisk('D',false);}
+    }
+  }
+
+  async function continueMainReport() {
+    const context=validReportContext(),record=context&&archive.getRecord(context.recordId);
+    if(!record || record.readerMode!=='report')return;
+    const progress=recordProgress(record.id);progress.completed=true;progress.inProgress=false;progress.lineIndex=0;
+    if(state.progress.resumeRecordId===record.id)delete state.progress.resumeRecordId;
+    saveProgress();
+    const next=archive.getRecord(record.nextId);
+    if(next && isRecordUnlocked(next))await startStory(true,0,'push',next);
+    else if(record.epilogue && allRecordsRead())await openEnding('replace',false);
   }
 
   function recordProgress(recordId) {
@@ -275,6 +347,7 @@
       const migrateC03=saved.version===24 && saved.c03LayoutVersion!==1;
       const migrateD04=saved.version===24 && saved.d04LayoutVersion!==1;
       const migrateB07=saved.version===24 && saved.b07LayoutVersion!==1;
+      const migrateD05=saved.version===24 && saved.d05LayoutVersion!==1;
       migrateDProgress(saved);
       const migrationRecords=orderedRecords.filter(record=>record.diskId!=='D');
       if (typeof saved.resumeRecordId === 'string' && archive.getRecord(saved.resumeRecordId)) state.progress.resumeRecordId = saved.resumeRecordId;
@@ -441,6 +514,16 @@
         for(const oldIndex of [25,81])if(progress.seenIndex===record.v24IndexMap[oldIndex])progress.seenIndex=record.b07SplitSeenIndexMap[oldIndex];
       }
       state.progress.b07LayoutVersion=1;
+      if(migrateD05 && state.progress.records['D-11']) {
+        const progress=state.progress.records['D-11'],record=archive.getRecord('D-11'),map=record.v24IndexMap;
+        if(Number.isInteger(progress.lineIndex))progress.lineIndex=map[progress.lineIndex]??0;
+        if(Number.isInteger(progress.seenIndex))progress.seenIndex=record.d05SplitSeenIndexMap[progress.seenIndex]??0;
+        if(progress.seenPages && typeof progress.seenPages==='object') {
+          const pages={};for(const [index,page] of Object.entries(progress.seenPages))if(Number.isInteger(map[index])){pages[map[index]]=page;if(record.d05SplitSeenIndexMap[index]!==map[index])pages[record.d05SplitSeenIndexMap[index]]=page;}progress.seenPages=pages;
+        }
+      }
+      if(saved.version<24 && state.progress.records['D-11']?.seenIndex===archive.getRecord('D-11').v24IndexMap[24])state.progress.records['D-11'].seenIndex=archive.getRecord('D-11').d05SplitSeenIndexMap[24];
+      state.progress.d05LayoutVersion=1;
       state.progress.c02LayoutVersion=1;
       if (!saved.version || saved.version<24) for (const progress of Object.values(state.progress.records)) {
         if (progress && typeof progress==='object') delete progress.seenPages;
@@ -465,6 +548,9 @@
       state.identificationIntroActive = false;
       state.progress.bookmarks = Array.isArray(saved.bookmarks) ? saved.bookmarks.map(mark => {
         const octoberRecord=archive.getRecord(mark?.recordId);
+        if(migrateD05 && mark?.recordId==='D-11' && Number.isInteger(mark.index)) {
+          const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];return line?{...mark,index,text:line.text}:null;
+        }
         if(migrateB07 && mark?.recordId==='B-07' && Number.isInteger(mark.index)) {
           const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];
           return line?{...mark,index,text:line.text}:null;
@@ -576,9 +662,12 @@
         }
         if (progress.inProgress) state.progress.resumeRecordId = record.id;
       }
+      if(state.screen==='objective-screen' && !record.relatedReport && progress.inProgress) {
+        rememberReportPosition();state.progress.resumeRecordId=record.id;
+      }
     }
 
-    Object.assign(state.progress, {version:24,b03LayoutVersion:1,c03LayoutVersion:1,d04LayoutVersion:1,b07LayoutVersion:1,instant:state.instant,continuous:state.continuous,textSize:state.textSize,
+    Object.assign(state.progress, {version:24,b03LayoutVersion:1,c03LayoutVersion:1,d04LayoutVersion:1,b07LayoutVersion:1,d05LayoutVersion:1,instant:state.instant,continuous:state.continuous,textSize:state.textSize,
       dialoguePosition:state.dialoguePosition,textSpeed:state.textSpeed,autoSpeed:state.autoSpeed,rememberAuto:state.rememberAuto,autoEnabled:state.autoEnabled,effectsReduced:state.effectsReduced,endingAnimation:state.endingAnimation,characterLabels:state.characterLabels,autoResume:state.autoResume});
     if (!storageAvailable) return;
 
@@ -594,7 +683,7 @@
   }
 
   function viewState() {
-    return {rustedPrayer:true, presentationVersion:24, c02LayoutVersion:1, b03LayoutVersion:1, c03LayoutVersion:1, d04LayoutVersion:1, b07LayoutVersion:1, resetGeneration:state.progress.resetGeneration || 0, screen:state.screen, diskId:state.selectedDisk, recordId:state.selectedRecordId, lineIndex:state.lineIndex,telemetryPage:state.telemetryLineIndex===state.lineIndex ? state.telemetryPage : 0,transitionPaused:state.screen==='transition-screen' && state.transitionPaused,transitionAuto:state.screen==='transition-screen' && state.auto,settingsStartRecordId:state.screen==='settings-screen' ? state.settingsStartRecordId : null,endingFromGallery:state.endingFromGallery,archiveRecordKind:state.archiveRecordKind};
+    return {rustedPrayer:true, presentationVersion:24, c02LayoutVersion:1, b03LayoutVersion:1, c03LayoutVersion:1, d04LayoutVersion:1, b07LayoutVersion:1,d05LayoutVersion:1, reportContext:state.reportContext?{...state.reportContext}:null,resetGeneration:state.progress.resetGeneration || 0, screen:state.screen, diskId:state.selectedDisk, recordId:state.selectedRecordId, lineIndex:state.lineIndex,telemetryPage:state.telemetryLineIndex===state.lineIndex ? state.telemetryPage : 0,transitionPaused:state.screen==='transition-screen' && state.transitionPaused,transitionAuto:state.screen==='transition-screen' && state.auto,settingsStartRecordId:state.screen==='settings-screen' ? state.settingsStartRecordId : null,endingFromGallery:state.endingFromGallery,archiveRecordKind:state.archiveRecordKind};
   }
 
   function rememberView() {
@@ -614,7 +703,10 @@
     closeProfile(false);
     clearTimeout(state.previewTimer);
     state.screen = id;
-    window.RustedPrayerBgm?.sync(currentRecord(),state.lineIndex,id);
+    state.presentedRecordId=currentRecord()?.id || null;
+    if(['story-screen','ending-screen','gallery-screen','boot-screen'].includes(id))state.reportContext=null;
+    syncReadingMusic(currentRecord(),state.lineIndex,id);
+    syncReportFlow();
     if(id!=='story-screen')window.RustedPrayerSfx?.syncScene(currentRecord(),state.lineIndex,state.telemetryPage,id);
     if (id !== 'story-screen') $('#screen-fx').hidden = true;
     screens.forEach((screen) => {
@@ -676,6 +768,7 @@
     $('#loading-cancel').hidden = initial;
     $('#loading-overlay').setAttribute('tabindex', '-1');
     $('#loading-overlay').focus();
+    let failedAssets=[];
     try {
       while (!job.controller.signal.aborted) {
         $('#loading-retry').hidden = true;
@@ -692,6 +785,7 @@
           waitForSignal(motionReduced() ? 0 : duration, job.controller.signal),
         ]);
         if (job.controller.signal.aborted || state.loading !== job) return false;
+        failedAssets=result.failed;
         if (!result.failed.length) break;
         $('#loading-status').textContent = `${result.failed.length}개 미디어를 불러오지 못했습니다.`;
         $('#loading-detail').textContent = '다시 시도하거나 미디어 없이 기록을 계속 볼 수 있습니다.';
@@ -706,7 +800,7 @@
       }
       if (job.controller.signal.aborted || state.loading !== job) return false;
       // Keep the opaque cover until the actual displayed image and destination are ready.
-      const reveal=commit ? await commit(job.controller.signal) : null;
+      const reveal=commit ? await commit(job.controller.signal,{failed:failedAssets}) : null;
       if (reveal === false) {
         if (state.loading === job) cancelLoading();
         return false;
@@ -742,6 +836,7 @@
       selectReadingPosition(); showScreen('archive-screen','replace'); return;
     }
     view=migrateDView(view);
+    state.reportContext=validReportContext(view.reportContext)?{...view.reportContext}:null;
     const record = archive.getRecord(view.recordId);
     if (record && isRecordUnlocked(record)) {
       state.selectedRecordId = record.id;
@@ -752,10 +847,11 @@
       const oldPosition = view.presentationVersion === 4 ? view.lineIndex : Math.max(0, (view.lineIndex || 0) - (record.introSceneCount || 0));
       const position = view.dPositionCurrent || view.presentationVersion >= 24 ? view.lineIndex : view.presentationVersion === 23 ? record.v23IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 22 ? record.v22IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 21 ? record.v21IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion >= 19 ? record.v20IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 18 ? record.v18IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 17 ? record.v17IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 16 ? record.v16IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 15 ? record.v15IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 14 ? record.v14IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 13 ? record.v13IndexMap?.[view.lineIndex] ?? view.lineIndex : (view.presentationVersion === 12 || view.presentationVersion === 11 && record.v12IndexMap) ? record.v12IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 11 ? record.v11IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 10 ? record.v10IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 9 ? record.v9IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 8 ? record.v8IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 7 ? record.v7IndexMap?.[view.lineIndex] ?? view.lineIndex : view.presentationVersion === 6 ? record.v6IndexMap?.[view.lineIndex] ?? 0 : view.presentationVersion === 5 ? record.v5IndexMap?.[view.lineIndex] ?? 0 : record.v4IndexMap?.[oldPosition] ?? 0;
       if (record.readerMode === 'report') {
-        openObjective('replace');
+        await openObjective('replace');
         $('#report-section-'+position)?.scrollIntoView?.({block:'start'});
       } else {
         const target=record.id==='B-03' && view.presentationVersion===24 && view.b03LayoutVersion!==1 ? record.v24IndexMap[position]??0
+          : record.id==='D-11' && view.presentationVersion===24 && view.d05LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='B-07' && view.presentationVersion===24 && view.b07LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='C-03' && view.presentationVersion===24 && view.c03LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='D-06' && view.presentationVersion===24 && view.d04LayoutVersion!==1 ? record.v24IndexMap[position]??0
@@ -778,7 +874,7 @@
     else if (view.screen === 'library-screen') { renderLibrary(); showScreen('library-screen','none'); }
     else if (view.screen === 'gallery-screen') {renderGallery();showScreen('gallery-screen','none');}
     else if (view.screen === 'ending-screen' && allRecordsRead()) await openEnding('none',view.endingFromGallery===true);
-    else if (view.screen === 'objective-screen' && isRecordUnlocked(record)) openObjective('none');
+    else if (view.screen === 'objective-screen' && isRecordUnlocked(record)) await openObjective('none');
     else if (view.screen === 'complete-screen' && recordProgress(currentRecord().id).completed) {
       renderCompletion(currentRecord()); showScreen('complete-screen', 'none');
     } else showScreen(view.screen === 'boot-screen' ? 'boot-screen' : 'archive-screen', 'none');
@@ -796,9 +892,11 @@
     if (state.loading) { cancelLoading(); return; }
     clearPlaybackTimers();
     state.auto = false; updateAutoButton();
+    if(state.screen==='objective-screen' && currentRecord()?.relatedReport && validReportContext()) {returnReportMain();return;}
     // Closing a record follows its screen hierarchy, independent of previously visited records.
     if (state.screen === 'story-screen') openObjective('replace');
     else if (state.screen === 'objective-screen' || state.screen === 'complete-screen') {
+      rememberReportPosition();saveProgress();state.reportContext=null;
       selectDisk(currentRecord().diskId);
       showScreen('archive-screen', 'replace');
     }
@@ -1042,6 +1140,38 @@
   }
 
   function openObjective(historyMode = 'push') {
+    const record=currentRecord();if(!record || !isRecordUnlocked(record))return;
+    if(record.readerMode!=='report' || !media.assetsFor(record).some(asset=>asset.type==='image'))return renderObjective(historyMode);
+    return prepareReport(record,historyMode);
+  }
+
+  async function prepareReport(record,historyMode) {
+    const previous={recordId:['objective-screen','story-screen'].includes(state.screen)?state.presentedRecordId:record.id,screen:state.screen,lineIndex:state.lineIndex,context:state.reportContext?{...state.reportContext}:null,scrollTop:window.scrollY || 0};
+    const ready=await loadTransition('기록 자료 준비',record,0,false,async(signal,{failed})=>{
+      const reveal=renderObjective(historyMode,false);
+      const unavailable=new Set(failed.filter(asset=>asset.type==='image').map(asset=>media.url(asset.src)));
+      let abort;
+      const cancelled=new Promise(resolve=>{abort=()=>resolve(false);signal.addEventListener('abort',abort,{once:true});});
+      try {
+        const images=[...$('#objective-body').querySelectorAll('img')];
+        const decoded=Promise.all(images.map(async image=>{
+          try {if(unavailable.has(image.src))throw Error('unavailable');if(image.decode)await image.decode();}
+          catch {if(signal.aborted)return;image.hidden=true;image.parentElement?.insertAdjacentHTML?.('beforeend','<p class="report-image-unavailable">이미지를 불러오지 못했습니다.</p>');}
+        })).then(()=>true);
+        if(!await Promise.race([decoded,cancelled]) || signal.aborted)return false;
+        return reveal;
+      }finally{signal.removeEventListener('abort',abort);}
+    },false);
+    if(!ready && state.screen===previous.screen) {
+      const original=archive.getRecord(previous.recordId);state.reportContext=previous.context;
+      if(original){state.selectedRecordId=original.id;state.archiveRecordKind=original.relatedReport?'related':'main';state.lineIndex=previous.lineIndex;
+        if(previous.screen==='objective-screen'){renderObjective('none');window.scrollTo({top:previous.scrollTop,behavior:'instant'});}
+      }
+    }
+    return ready;
+  }
+
+  function renderObjective(historyMode = 'push',reveal = true) {
     const record = currentRecord();
     if (!isRecordUnlocked(record)) return;
 
@@ -1073,7 +1203,7 @@
     $('#objective-screen').classList.toggle('terminal-reader', report && record.reportStyle==='terminal');
     if (report) {
       $('#objective-title').textContent = record.title;
-      $('#objective-body').innerHTML = record.reportSections.map((section,index) => `<section id="report-section-${index}" class="report-section${record.id==='C-00' && index===0 ? ' report-section-no-divider' : ''}">${record.id==='C-00' && section.attachmentImage ? '' : `<h2>${escapeHtml(section.cardTitle || '기록')}</h2>`}${renderSheet(section,index)}</section>`).join('') + `<footer class="report-end"><span>${record.epilogue ? '— 복구 기록의 끝 —' : '— 문서 끝 —'}</span><button id="report-finish" class="button button-primary" data-action="complete-report" type="button">${record.epilogue ? '기록 마치기' : '보고서 열람 완료'}</button>${record.relatedReport ? dMainReturnMarkup() : ''}</footer>`;
+      $('#objective-body').innerHTML = record.reportSections.map((section,index) => `<section id="report-section-${index}" class="report-section${record.id==='C-00' && index===0 ? ' report-section-no-divider' : ''}">${record.id==='C-00' && section.attachmentImage ? '' : `<h2>${escapeHtml(section.cardTitle || '기록')}</h2>`}${renderSheet(section,index)}</section>`).join('') + `<footer class="report-end"><span>${record.epilogue ? '— 복구 기록의 끝 —' : '— 문서 끝 —'}</span><button id="report-finish" class="button button-primary" data-action="complete-report" type="button">${reportCompletionLabel(record)}</button>${record.relatedReport ? dMainReturnMarkup() : ''}</footer>`;
       if(record.reportStyle==='terminal') {
         $('#objective-title').textContent=record.fileName;
         $('#objective-body').innerHTML=renderTerminalReport(record);
@@ -1083,7 +1213,16 @@
     } else $('#start-story').hidden = false;
     syncReadingSetupGuide();
     renderDReportBrowser();
-    showScreen("objective-screen", historyMode);
+    const finish=()=>{
+      if(report && !record.relatedReport) {
+        progress.inProgress=true;state.progress.resumeRecordId=record.id;
+        if(record.diskId==='D')state.reportContext={recordId:record.id,screen:'objective-screen',lineIndex:state.lineIndex,scrollTop:Math.max(0,progress.reportScroll || 0),telemetryPage:0};
+      }
+      showScreen('objective-screen',historyMode);
+      if(report && !record.relatedReport) {window.scrollTo({top:Math.max(0,progress.reportScroll || 0),behavior:'instant'});saveProgress();}
+      return true;
+    };
+    return reveal?finish():finish;
   }
 
   function rememberArchiveScroll() {
@@ -1126,7 +1265,7 @@
       const attachment=src ? `<figure class="terminal-attachment"><img src="${escapeHtml(media.url(src))}" alt="${escapeHtml(label)}"><figcaption>첨부 이미지 / ${escapeHtml(label)}</figcaption></figure>` : '';
       return `<section id="report-section-${index}" class="terminal-log-line" data-kind="${kind}"><span class="terminal-line-number" aria-hidden="true">&gt;</span><div><p>${escapeHtml(text)}</p>${attachment}</div></section>`;
     }).join('');
-    return `<div class="terminal-command"><span>RECOVERY&gt; type ${escapeHtml(record.fileName)}</span><span class="terminal-session-state">복구 로그</span></div><div class="terminal-preamble">${renderDocument(record.objective)}</div><div class="terminal-output" aria-label="스캔 출력 기록">${lines}</div><footer class="report-end terminal-end"><span>출력 종료 <span class="terminal-cursor" aria-hidden="true">▌</span></span><button id="report-finish" class="button button-primary" data-action="complete-report" type="button">로그 열람 완료</button></footer>`;
+    return `<div class="terminal-command"><span>RECOVERY&gt; type ${escapeHtml(record.fileName)}</span><span class="terminal-session-state">복구 로그</span></div><div class="terminal-preamble">${renderDocument(record.objective)}</div><div class="terminal-output" aria-label="스캔 출력 기록">${lines}</div><footer class="report-end terminal-end"><span>출력 종료 <span class="terminal-cursor" aria-hidden="true">▌</span></span><button id="report-finish" class="button button-primary" data-action="complete-report" type="button">${reportCompletionLabel(record)}</button></footer>`;
   }
 
   function handleObjectiveAction() {
@@ -1826,7 +1965,7 @@
     $('#gallery-filters').innerHTML=filters.map(([value,label])=>`<button class="text-button" data-action="filter-gallery" data-gallery-filter="${value}" aria-pressed="${state.galleryFilter===value}" type="button">${label}</button>`).join('');
     const items=galleryItems();
     $('#gallery-count').textContent=`열람한 이미지 ${items.length}개 · 읽은 장면의 사진이 이곳에 모입니다.`;
-    $('#gallery-grid').innerHTML=items.length ? items.map((item,index)=>`<button class="gallery-tile" data-action="open-gallery-image" data-gallery-index="${index}" data-gallery-kind="${item.kind}" type="button"><img loading="lazy" decoding="async" width="512" height="288" src="${escapeHtml(media.url(item.preview || item.src))}" alt="${escapeHtml(item.title)}"><span>${escapeHtml(item.title)}${item.kind==='ending' ? '<small>초점을 맞추고 사진을 펼칩니다.</small>' : ''}</span></button>`).join('') : '<p>아직 열람한 이미지가 없습니다.</p>';
+    $('#gallery-grid').innerHTML=items.length ? items.map((item,index)=>`<button class="gallery-tile" data-action="open-gallery-image" data-gallery-index="${index}" data-gallery-kind="${item.kind}" type="button"><img loading="lazy" decoding="async" width="512" height="288" src="${escapeHtml(media.url(item.preview || item.src))}" alt="${escapeHtml(item.title)}"><span>${escapeHtml(item.title)}</span></button>`).join('') : '<p>아직 열람한 이미지가 없습니다.</p>';
     $('#gallery-viewer').hidden=true;
     $('#gallery-grid').inert=false;
   }
@@ -2463,8 +2602,10 @@
     const actions = {
       'settings-category':()=>selectSettingsCategory(target?.dataset.settingsCategory),
       'd-record-kind':()=>{rememberArchiveScroll();state.archiveRecordKind=target?.dataset.kind==='related' ? 'related' : 'main';selectDisk('D');restoreArchiveScroll();},
-      'open-d-report':()=>{const record=archive.getRecord(target?.dataset.reportId);if(record?.diskId==='D'&&record.readerMode==='report'&&isRecordUnlocked(record)){state.selectedRecordId=record.id;state.archiveRecordKind=record.relatedReport?'related':'main';selectDisk('D',false);openObjective('replace');}},
-      'show-related':()=>{clearPlaybackTimers();state.auto=false;updateAutoButton();saveProgress();state.archiveRecordKind='related';selectDisk('D');showScreen('archive-screen');},
+      'open-d-report':()=>{const record=archive.getRecord(target?.dataset.reportId);if(record?.diskId==='D'&&record.readerMode==='report'&&isRecordUnlocked(record)){const mode=currentRecord()?.relatedReport?'replace':'push';if(!currentRecord()?.relatedReport)captureReportContext();rememberView();state.selectedRecordId=record.id;state.archiveRecordKind=record.relatedReport?'related':'main';selectDisk('D',false);openObjective(mode);}},
+      'show-related':()=>{captureReportContext();clearPlaybackTimers();state.auto=false;updateAutoButton();saveProgress();state.archiveRecordKind='related';selectDisk('D');showScreen('archive-screen');},
+      'return-report-main':returnReportMain,
+      'continue-main-report':continueMainReport,
       'resume-main':resumeDMain,
       'archive-pane':()=>moveArchivePane(Number(target?.dataset.archivePane)),
       'archive-open-record':()=>{if(isRecordUnlocked(currentRecord())){state.archiveToolsOpen=false;syncArchiveTools();openObjective();}},
@@ -2486,7 +2627,7 @@
       "open-profile": () => openProfile(target?.dataset.profile,target),
       "close-profile": closeProfile,
       "back-archive": goBack,
-      "show-archive": () => { state.archiveRecordKind=currentRecord()?.relatedReport ? 'related' : 'main';selectDisk(state.selectedDisk); showScreen('archive-screen'); },
+      "show-archive": () => { rememberReportPosition();saveProgress();state.reportContext=null;state.archiveRecordKind=currentRecord()?.relatedReport ? 'related' : 'main';selectDisk(state.selectedDisk); showScreen('archive-screen'); },
       "exit-story": exitStory,
       "toggle-log": toggleLog,
       "toggle-ui": toggleUi,
@@ -2529,7 +2670,12 @@
         nextLine();
       },
       "complete-report": () => {
-        if (state.screen === 'objective-screen' && currentRecord()?.readerMode === 'report') completeRecord();
+        if(state.screen!=='objective-screen' || currentRecord()?.readerMode!=='report')return;
+        if(validReportContext()) {
+          if(!currentRecord().relatedReport){continueMainReport();return;}
+          const progress=recordProgress(currentRecord().id);progress.completed=true;progress.inProgress=false;saveProgress();returnReportMain();return;
+        }
+        completeRecord();
       },
       "toggle-instant": () => {
         state.instant = !state.instant;
@@ -2577,6 +2723,7 @@
   }
 
   function pauseForReadingScreen(id) {
+    if(state.screen==='objective-screen'){rememberReportPosition();saveProgress();}
     if (id==='settings-screen') rememberSettingsPlayback();
     if (state.isTyping) finishTyping();
     clearPlaybackTimers();
@@ -2805,10 +2952,11 @@
     setLogOpen(false);
     rememberView();
     if (record.readerMode === 'report') {
+      state.reportContext=null;
       state.selectedRecordId = record.id;
       state.archiveRecordKind=record.relatedReport ? 'related' : 'main';
       selectDisk(record.diskId,false);
-      openObjective();
+      await openObjective();
       $('#report-section-'+index)?.scrollIntoView?.({block:'start'});
     } else await startStory(false,index,'push',record);
   }
@@ -2845,6 +2993,8 @@
       return ()=>{
         if(!current())return false;
         if(fromGallery)closeGalleryImage(false);
+        const parent=validReportContext();
+        if(parent && archive.getRecord(parent.recordId)?.epilogue){state.selectedRecordId=parent.recordId;state.archiveRecordKind='main';selectDisk('D',false);}
         state.endingFromGallery=fromGallery;
         setEndingDetails(false);
         $('#ending-board-image').src=media.url(ending.board?.src || './assets/cutscenes/ending-board-writing.png');
@@ -3117,8 +3267,9 @@
         if (state.autoResume && !resume?.relatedReport && (resume?.story.length || resume?.readerMode==='report') && recordProgress(resume.id).inProgress && isRecordUnlocked(resume)) {
           state.selectedRecordId=resume.id;selectDisk(resume.diskId,false);
           if(resume.readerMode==='report') {
-            openObjective('push');
-            $('#report-section-'+state.lineIndex)?.scrollIntoView?.({block:'start'});
+            const hasSavedScroll=Number.isFinite(recordProgress(resume.id).reportScroll);
+            const restored=await openObjective('push');
+            if(restored && !hasSavedScroll)$('#report-section-'+state.lineIndex)?.scrollIntoView?.({block:'start'});
           } else await startStory(false,null,'push');
         }
       }
@@ -3287,7 +3438,8 @@
     // overwrite the archive position after the popstate handler returns.
     if('scrollRestoration' in history)history.scrollRestoration='manual';
     window.addEventListener('popstate', event => { restoreView(event.state); });
-    window.addEventListener('pagehide', () => { if(state.screen==='story-screen')saveProgress();cancelLoading(); clearPlaybackTimers(); settleACamera(); clearTimeout(state.previewTimer); clearEndingShutter(); });
+    window.addEventListener('scroll',()=>{if(state.screen!=='objective-screen' || currentRecord()?.relatedReport || currentRecord()?.readerMode!=='report')return;rememberReportPosition();clearTimeout(state.reportScrollTimer);state.reportScrollTimer=setTimeout(()=>{saveProgress();rememberView();},150);},{passive:true});
+    window.addEventListener('pagehide', () => { if(['story-screen','objective-screen'].includes(state.screen))saveProgress();cancelLoading(); clearPlaybackTimers(); settleACamera(); clearTimeout(state.previewTimer);clearTimeout(state.reportScrollTimer); clearEndingShutter(); });
   }
 
   loadProgress();

@@ -54,23 +54,23 @@ window.RustedPrayerArchive.registerRecord({
     21,
     22,
     23,
-    31,
-    32,
-    32,
     32,
     33,
+    33,
+    33,
     34,
-    34,
-    34,
+    35,
+    35,
     35,
     36,
     37,
-    37,
+    38,
     38,
     39,
     40,
     41,
-    42
+    42,
+    43
   ],
   "v4IndexMap": [
     0,
@@ -119,23 +119,23 @@ window.RustedPrayerArchive.registerRecord({
     21,
     22,
     23,
-    31,
-    32,
-    32,
     32,
     33,
+    33,
+    33,
     34,
-    34,
-    34,
+    35,
+    35,
     35,
     36,
     37,
-    37,
+    38,
     38,
     39,
     40,
     41,
-    42
+    42,
+    43
   ],
   "introSceneCount": 2,
   "narrativeStart": 4,
@@ -277,7 +277,11 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : ···그래서? 그때 그 반푼이가 헬레틱이 됐다고 말하고 싶은 거야? 침식에 걸렸다고 무조건 헬레틱이 되는 건 아니라 하지 않았어?"
+      "text": "연구원 A : ···그래서? 그때 그 반푼이가 헬레틱이 됐다고 말하고 싶은 거야?"
+    },
+    {
+      "type": "dialogue",
+      "text": "연구원 A : 침식에 걸렸다고 무조건 헬레틱이 되는 건 아니랬는데."
     },
     {
       "type": "dialogue",
@@ -667,10 +671,23 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연구원 A",
-      "text": "···그래서? 그때 그 반푼이가 헬레틱이 됐다고 말하고 싶은 거야? 침식에 걸렸다고 무조건 헬레틱이 되는 건 아니라 하지 않았어?",
+      "text": "···그래서? 그때 그 반푼이가 헬레틱이 됐다고 말하고 싶은 거야?",
       "tone": "dialogue",
       "sourceIndices": [
         28
+      ],
+      "sceneArt": {
+        "kind": "cutscene",
+        "fixture": "cutscene",
+        "alt": "d-11 이미지"
+      }
+    },
+    {
+      "speaker": "연구원 A",
+      "text": "침식에 걸렸다고 무조건 헬레틱이 되는 건 아니랬는데.",
+      "tone": "dialogue",
+      "sourceIndices": [
+        29
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -683,7 +700,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···예. 일단은 추측입니다. 그 사이 간극이 꽤 기니까 우연일 수도 있고요.",
       "tone": "dialogue",
       "sourceIndices": [
-        29
+        30
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -696,7 +713,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "잠시 정적.",
       "tone": "narration",
       "sourceIndices": [
-        30
+        31
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -709,7 +726,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "만약 네 말이 맞다고 치자. 그래서 뇌 스캔 도중 그 장면이 계속 나왔다고 치자.",
       "tone": "dialogue",
       "sourceIndices": [
-        31
+        32
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -722,7 +739,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "근데 그게 뭐야, 스캔이 '이 장면 중요합니다, 인류의 미래가 걸려 있어요, 얘가 헬레틱이 될 겁니다' 하고 보여준 거라는 거야?",
       "tone": "dialogue",
       "sourceIndices": [
-        32
+        33
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -735,7 +752,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "게다가 그때 로그까지 다 확인했잖아. 결론은 '원인 모름. 그냥 님프 오류로 추정됨.' 이라고 떠서 그대로 보고했고.",
       "tone": "dialogue",
       "sourceIndices": [
-        33
+        34
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -748,7 +765,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···그랬었죠. 누가 일부러 조작해서 보여준 게 아닌 이상···",
       "tone": "dialogue",
       "sourceIndices": [
-        34
+        35
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -761,7 +778,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "긴 정적.",
       "tone": "narration",
       "sourceIndices": [
-        35
+        36
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -774,7 +791,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "하. 우리 진짜 피곤한가 보다. 조작이라니.",
       "tone": "dialogue",
       "sourceIndices": [
-        36
+        37
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -787,7 +804,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그러게요. 하하.",
       "tone": "dialogue",
       "sourceIndices": [
-        37
+        38
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -800,7 +817,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "두 사람이 짧게 웃는다.",
       "tone": "narration",
       "sourceIndices": [
-        38
+        39
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -813,7 +830,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그래도 보고는 해.",
       "tone": "dialogue",
       "sourceIndices": [
-        39
+        40
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -826,7 +843,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "이걸요?",
       "tone": "dialogue",
       "sourceIndices": [
-        40
+        41
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -839,7 +856,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "저 얘기 말고. 다크매터 가능성.",
       "tone": "dialogue",
       "sourceIndices": [
-        41
+        42
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -852,7 +869,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "아.",
       "tone": "dialogue",
       "sourceIndices": [
-        42
+        43
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -865,7 +882,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그 헬레틱이 다크매터를 쓰고 있을 수도 있잖아.",
       "tone": "dialogue",
       "sourceIndices": [
-        43
+        44
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -878,7 +895,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그렇네요.",
       "tone": "dialogue",
       "sourceIndices": [
-        44
+        45
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -891,7 +908,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그러면 대응책은 미리 만들어야지. 옛날 데이터라도 살펴보고.",
       "tone": "dialogue",
       "sourceIndices": [
-        45
+        46
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -904,7 +921,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "알겠습니다.",
       "tone": "dialogue",
       "sourceIndices": [
-        46
+        47
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -961,7 +978,6 @@ window.RustedPrayerArchive.registerRecord({
     22,
     23,
     24,
-    25,
     26,
     27,
     28,
@@ -978,7 +994,8 @@ window.RustedPrayerArchive.registerRecord({
     39,
     40,
     41,
-    42
+    42,
+    43
   ],
   "v5IndexMap": [
     0,
@@ -1027,23 +1044,23 @@ window.RustedPrayerArchive.registerRecord({
     21,
     22,
     23,
-    31,
-    32,
-    32,
     32,
     33,
+    33,
+    33,
     34,
-    34,
-    34,
+    35,
+    35,
     35,
     36,
     37,
-    37,
+    38,
     38,
     39,
     40,
     41,
-    42
+    42,
+    43
   ],
   "previousId": "D-06",
   "nextId": "D-14",
@@ -1094,23 +1111,23 @@ window.RustedPrayerArchive.registerRecord({
     21,
     22,
     23,
-    31,
-    32,
-    32,
     32,
     33,
+    33,
+    33,
     34,
-    34,
-    34,
+    35,
+    35,
     35,
     36,
     37,
-    37,
+    38,
     38,
     39,
     40,
     41,
-    42
+    42,
+    43
   ],
   "v7IndexMap": [
     0,
@@ -1159,23 +1176,23 @@ window.RustedPrayerArchive.registerRecord({
     21,
     22,
     23,
-    31,
-    32,
-    32,
     32,
     33,
+    33,
+    33,
     34,
-    34,
-    34,
+    35,
+    35,
     35,
     36,
     37,
-    37,
+    38,
     38,
     39,
     40,
     41,
-    42
+    42,
+    43
   ],
   "v8IndexMap": [
     0,
@@ -1201,7 +1218,6 @@ window.RustedPrayerArchive.registerRecord({
     21,
     22,
     23,
-    31,
     32,
     33,
     34,
@@ -1212,7 +1228,8 @@ window.RustedPrayerArchive.registerRecord({
     39,
     40,
     41,
-    42
+    42,
+    43
   ],
   "v10IndexMap": [
     0,
@@ -1239,7 +1256,6 @@ window.RustedPrayerArchive.registerRecord({
     21,
     22,
     23,
-    31,
     32,
     33,
     34,
@@ -1250,7 +1266,8 @@ window.RustedPrayerArchive.registerRecord({
     39,
     40,
     41,
-    42
+    42,
+    43
   ],
   "relatedReport": false,
   "unlockAfter": null,
@@ -1281,6 +1298,241 @@ window.RustedPrayerArchive.registerRecord({
     22,
     23,
     24,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+  ],
+  "v20PageMap": {},
+  "bookmarkTextAliases": [
+    {
+      "index": 22,
+      "before": "쏘지도 못하고 끝난, 쓸모도 없던 그 장면."
+    },
+    {
+      "index": 24,
+      "before": "···그래서? 그때 그 반푼이가 헬레틱이 됐다고 말하고 싶은 거야? 침식에 걸렸다고 무조건 헬레틱이 되는 건 아니라 하지 않았어?"
+    }
+  ],
+  "v21IndexMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+  ],
+  "v22IndexMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+  ],
+  "v23IndexMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+  ],
+  "v24IndexMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+  ],
+  "d05SplitSeenIndexMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
     25,
     26,
     27,
@@ -1298,13 +1550,7 @@ window.RustedPrayerArchive.registerRecord({
     39,
     40,
     41,
-    42
-  ],
-  "v20PageMap": {},
-  "bookmarkTextAliases": [
-    {
-      "index": 22,
-      "before": "쏘지도 못하고 끝난, 쓸모도 없던 그 장면."
-    }
+    42,
+    43
   ]
 });

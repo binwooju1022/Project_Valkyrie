@@ -1,4 +1,4 @@
-/* D routes including the approved D-04 reply. */
+/* D route positions including the approved D-05 split. */
 window.RustedPrayerDLayout = {
   "version": 20,
   "migrations": {
@@ -4067,23 +4067,23 @@ window.RustedPrayerDLayout = {
           21,
           22,
           23,
-          31,
-          32,
-          32,
           32,
           33,
+          33,
+          33,
           34,
-          34,
-          34,
+          35,
+          35,
           35,
           36,
           37,
-          37,
+          38,
           38,
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "2": [
           0,
@@ -4132,23 +4132,23 @@ window.RustedPrayerDLayout = {
           21,
           22,
           23,
-          31,
-          32,
-          32,
           32,
           33,
+          33,
+          33,
           34,
-          34,
-          34,
+          35,
+          35,
           35,
           36,
           37,
-          37,
+          38,
           38,
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "3": [
           0,
@@ -4197,23 +4197,23 @@ window.RustedPrayerDLayout = {
           21,
           22,
           23,
-          31,
-          32,
-          32,
           32,
           33,
+          33,
+          33,
           34,
-          34,
-          34,
+          35,
+          35,
           35,
           36,
           37,
-          37,
+          38,
           38,
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "4": [
           0,
@@ -4262,23 +4262,23 @@ window.RustedPrayerDLayout = {
           21,
           22,
           23,
-          31,
-          32,
-          32,
           32,
           33,
+          33,
+          33,
           34,
-          34,
-          34,
+          35,
+          35,
           35,
           36,
           37,
-          37,
+          38,
           38,
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "5": [
           0,
@@ -4327,23 +4327,23 @@ window.RustedPrayerDLayout = {
           21,
           22,
           23,
-          31,
-          32,
-          32,
           32,
           33,
+          33,
+          33,
           34,
-          34,
-          34,
+          35,
+          35,
           35,
           36,
           37,
-          37,
+          38,
           38,
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "6": [
           0,
@@ -4392,23 +4392,23 @@ window.RustedPrayerDLayout = {
           21,
           22,
           23,
-          31,
-          32,
-          32,
           32,
           33,
+          33,
+          33,
           34,
-          34,
-          34,
+          35,
+          35,
           35,
           36,
           37,
-          37,
+          38,
           38,
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "7": [
           0,
@@ -4457,23 +4457,23 @@ window.RustedPrayerDLayout = {
           21,
           22,
           23,
-          31,
-          32,
-          32,
           32,
           33,
+          33,
+          33,
           34,
-          34,
-          34,
+          35,
+          35,
           35,
           36,
           37,
-          37,
+          38,
           38,
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "8": [
           0,
@@ -4499,7 +4499,6 @@ window.RustedPrayerDLayout = {
           21,
           22,
           23,
-          31,
           32,
           33,
           34,
@@ -4510,7 +4509,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "9": [
           0,
@@ -4538,7 +4538,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4555,7 +4554,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "10": [
           0,
@@ -4582,7 +4582,6 @@ window.RustedPrayerDLayout = {
           21,
           22,
           23,
-          31,
           32,
           33,
           34,
@@ -4593,7 +4592,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "11": [
           0,
@@ -4621,7 +4621,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4638,7 +4637,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "12": [
           0,
@@ -4666,7 +4666,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4683,7 +4682,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "13": [
           0,
@@ -4711,7 +4711,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4728,7 +4727,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "14": [
           0,
@@ -4756,7 +4756,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4773,7 +4772,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "15": [
           0,
@@ -4801,7 +4801,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4818,7 +4817,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "16": [
           0,
@@ -4846,7 +4846,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4863,7 +4862,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "17": [
           0,
@@ -4891,7 +4891,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4908,7 +4907,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "18": [
           0,
@@ -4936,7 +4936,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4953,7 +4952,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ],
         "19": [
           0,
@@ -4981,7 +4981,6 @@ window.RustedPrayerDLayout = {
           22,
           23,
           24,
-          25,
           26,
           27,
           28,
@@ -4998,7 +4997,8 @@ window.RustedPrayerDLayout = {
           39,
           40,
           41,
-          42
+          42,
+          43
         ]
       }
     },

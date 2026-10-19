@@ -207,23 +207,15 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 블랙박스도 부서졌고 드론 저장부도 손상됐고,\n이래저래 망가진 뒤에 뇌 스캔까지 한 거라\n자료가 제대로 맞을 리가 없습니다."
+      "text": "연구원 B : 블랙박스도 부서졌고 드론 저장부도 손상됐고, 이래저래 망가진 뒤에 뇌 스캔까지 한 거라 자료가 제대로 맞을 리가 없습니다."
     },
     {
       "type": "dialogue",
       "text": "연구원 A : 하···"
     },
     {
-      "type": "separator",
-      "text": ""
-    },
-    {
       "type": "text",
       "text": "키보드 입력음."
-    },
-    {
-      "type": "separator",
-      "text": ""
     },
     {
       "type": "dialogue",
@@ -235,11 +227,11 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : 구도도 다르고 화질도 다르고\n뭐 하나 맞는 게 없는데?"
+      "text": "연구원 A : 구도도 다르고 화질도 다르고 뭐 하나 맞는 게 없는데?"
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 하나는 카메라 기록이고,\n일부는 개체가 기억하고 있던 장면을 기반으로 복원된 겁니다."
+      "text": "연구원 B : 하나는 카메라 기록이고, 일부는 개체가 기억하고 있던 장면을 기반으로 복원된 겁니다."
     },
     {
       "type": "dialogue",
@@ -259,7 +251,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : 하나는 카메라가 기록한 거고\n하나는 이 기체 뇌에 남아 있던 영상이다?"
+      "text": "연구원 A : 하나는 카메라가 기록한 거고 하나는 이 기체 뇌에 남아 있던 영상이다?"
     },
     {
       "type": "dialogue",
@@ -287,7 +279,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : 전투 데이터 좀 뽑으려고 가져왔더니\n영상부터 손으로 맞춰야 하잖아."
+      "text": "연구원 A : 전투 데이터 좀 뽑으려고 가져왔더니 영상부터 손으로 맞춰야 하잖아."
     },
     {
       "type": "dialogue",
@@ -303,7 +295,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 마지막 구간 저장부가 같이 망가졌습니다."
+      "text": "연구원 B : 네. 그 뒤는 완전 망가져서 복구가 안 된답니다."
     },
     {
       "type": "dialogue",
@@ -311,11 +303,11 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 뇌는 그나마 멀쩡한데,\n광학계가 망가져 있었습니다."
+      "text": "연구원 B : 뇌는 그나마 멀쩡한데, 광학계가 망가져 있었습니다."
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 멀쩡한 영상이 남아 있을 거라고 기대하시면 안 되죠."
+      "text": "연구원 B : 다른 건 더 심각하고 그나마 살린 게 이 자료들입니다."
     },
     {
       "type": "dialogue",
@@ -566,7 +558,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "키보드 입력음.",
       "tone": "narration",
       "sourceIndices": [
-        23
+        22
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -579,7 +571,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "이거 같은 장면 맞아?",
       "tone": "dialogue",
       "sourceIndices": [
-        25
+        23
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -592,7 +584,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "시간축으로는 같은 구간입니다.",
       "tone": "dialogue",
       "sourceIndices": [
-        26
+        24
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -605,7 +597,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "구도도 다르고 화질도 다르고 뭐 하나 맞는 게 없는데?",
       "tone": "dialogue",
       "sourceIndices": [
-        27
+        25
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -618,7 +610,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "하나는 카메라 기록이고, 일부는 개체가 기억하고 있던 장면을 기반으로 복원된 겁니다.",
       "tone": "dialogue",
       "sourceIndices": [
-        28
+        26
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -631,7 +623,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그래서 어느 쪽이 맞는데.",
       "tone": "dialogue",
       "sourceIndices": [
-        29
+        27
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -644,7 +636,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "모릅니다.",
       "tone": "dialogue",
       "sourceIndices": [
-        30
+        28
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -657,7 +649,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···",
       "tone": "dialogue",
       "sourceIndices": [
-        31
+        29
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -670,7 +662,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "정확히는 둘 다 자료 자체는 진짜입니다.",
       "tone": "dialogue",
       "sourceIndices": [
-        32
+        30
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -683,7 +675,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "하나는 카메라가 기록한 거고 하나는 이 기체 뇌에 남아 있던 영상이다?",
       "tone": "dialogue",
       "sourceIndices": [
-        33
+        31
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -696,7 +688,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "예.",
       "tone": "dialogue",
       "sourceIndices": [
-        34
+        32
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -709,7 +701,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "진짜 일거리 더럽게 늘려주네.",
       "tone": "dialogue",
       "sourceIndices": [
-        35
+        33
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -722,7 +714,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "아오, 평소에도 도움이 안 되더니.",
       "tone": "dialogue",
       "sourceIndices": [
-        36
+        34
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -735,7 +727,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···",
       "tone": "dialogue",
       "sourceIndices": [
-        37
+        35
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -748,7 +740,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "왜.",
       "tone": "dialogue",
       "sourceIndices": [
-        38
+        36
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -761,7 +753,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "아닙니다.",
       "tone": "dialogue",
       "sourceIndices": [
-        39
+        37
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -774,7 +766,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "전투 데이터 좀 뽑으려고 가져왔더니 영상부터 손으로 맞춰야 하잖아.",
       "tone": "dialogue",
       "sourceIndices": [
-        40
+        38
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -787,7 +779,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "최악인 건 안 될 수도 있는 거고.",
       "tone": "dialogue",
       "sourceIndices": [
-        41
+        39
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -800,7 +792,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "상태가 이 모양인데 복구되는 것만 해도 다행이죠.",
       "tone": "dialogue",
       "sourceIndices": [
-        42
+        40
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -813,7 +805,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "드론은 더 없어?",
       "tone": "dialogue",
       "sourceIndices": [
-        43
+        41
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -823,10 +815,10 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연구원 B",
-      "text": "마지막 구간 저장부가 같이 망가졌습니다.",
+      "text": "네. 그 뒤는 완전 망가져서 복구가 안 된답니다.",
       "tone": "dialogue",
       "sourceIndices": [
-        44
+        42
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -839,7 +831,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "뇌 스캔에서 추출한 건?",
       "tone": "dialogue",
       "sourceIndices": [
-        45
+        43
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -852,7 +844,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "뇌는 그나마 멀쩡한데, 광학계가 망가져 있었습니다.",
       "tone": "dialogue",
       "sourceIndices": [
-        46
+        44
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -862,10 +854,10 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연구원 B",
-      "text": "멀쩡한 영상이 남아 있을 거라고 기대하시면 안 되죠.",
+      "text": "다른 건 더 심각하고 그나마 살린 게 이 자료들입니다.",
       "tone": "dialogue",
       "sourceIndices": [
-        47
+        45
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -878,7 +870,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "오늘 야근이네.",
       "tone": "dialogue",
       "sourceIndices": [
-        48
+        46
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -891,7 +883,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그러게요.",
       "tone": "dialogue",
       "sourceIndices": [
-        49
+        47
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1141,6 +1133,14 @@ window.RustedPrayerArchive.registerRecord({
     {
       "index": 9,
       "before": "이건 또 왜 이렇게 깨끗해?"
+    },
+    {
+      "index": 38,
+      "before": "마지막 구간 저장부가 같이 망가졌습니다."
+    },
+    {
+      "index": 41,
+      "before": "멀쩡한 영상이 남아 있을 거라고 기대하시면 안 되죠."
     }
   ],
   "displayId": "D-01"

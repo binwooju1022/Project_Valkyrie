@@ -43274,9 +43274,9 @@ window.RustedPrayerMediaManifest = {
         "monitorView": {
           "images": [
             {
-              "src": "./assets/cutscenes/d-10-heretic.webp",
-              "label": "최근 지상 관측",
-              "alt": "최근 지상 관측",
+              "src": "./assets/cutscenes/d-epilogue-red-eyes.jpeg",
+              "label": "침식 장면 / UNIT-02",
+              "alt": "침식 장면 / UNIT-02",
               "fit": "contain",
               "zoom": 1,
               "focus": [
@@ -43370,6 +43370,26 @@ window.RustedPrayerMediaManifest = {
         }
       },
       "42": {
+        "mode": "stage",
+        "monitorView": {
+          "images": [
+            {
+              "src": "./assets/cutscenes/d-10-heretic.webp",
+              "label": "최근 지상 관측",
+              "alt": "최근 지상 관측",
+              "fit": "contain",
+              "zoom": 1,
+              "focus": [
+                50,
+                50
+              ]
+            }
+          ],
+          "layout": "single",
+          "active": 0
+        }
+      },
+      "43": {
         "mode": "stage",
         "monitorView": {
           "images": [
@@ -44961,7 +44981,7 @@ window.RustedPrayerMediaManifest = {
         "track": "side-story"
       },
       "D-14": {
-        "track": "side-story"
+        "track": "empathize"
       },
       "D-03": {
         "track": "recognition-underworld"
@@ -44977,11 +44997,11 @@ window.RustedPrayerMediaManifest = {
         "continueOnIntro": true,
         "cues": [
           {
-            "at": 31,
+            "at": 32,
             "track": null
           },
           {
-            "at": 32,
+            "at": 33,
             "track": "empathize"
           }
         ]
