@@ -11,6 +11,7 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const archiveMobileQuery=window.matchMedia('(max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse)');
   const archivePanelIds=['archive-media-panel','archive-files-panel','archive-detail-panel'];
+  const defaultDialoguePosition=()=>archiveMobileQuery.matches ? 'left' : 'center';
 
   const STORAGE_KEY = "rusted-prayer-mvp-progress";
   // Only adjacent recordings of one event share a playback flow.
@@ -50,7 +51,7 @@
     transition: null,
     transitionPaused: false,
     textSize: 'normal',
-    dialoguePosition: 'left',
+    dialoguePosition: defaultDialoguePosition(),
     textSpeed: 'normal',
     autoSpeed: 'normal',
     rememberAuto: true,
@@ -429,7 +430,7 @@
       state.instant = saved.instant === true;
       state.continuous = saved.continuous !== false;
       state.textSize = ['small','normal','large'].includes(saved.textSize) ? saved.textSize : 'normal';
-      state.dialoguePosition = ['left','center','right'].includes(saved.dialoguePosition) ? saved.dialoguePosition : 'left';
+      state.dialoguePosition = ['left','center','right'].includes(saved.dialoguePosition) ? saved.dialoguePosition : defaultDialoguePosition();
       state.textSpeed = ['slow','normal','fast'].includes(saved.textSpeed) ? saved.textSpeed : 'normal';
       state.autoSpeed = ['slow','normal','fast'].includes(saved.autoSpeed) ? saved.autoSpeed : 'normal';
       state.rememberAuto = saved.rememberAuto !== false;
@@ -1085,6 +1086,7 @@
     const first=playable && !state.progress.readingSetupSeen;
     $('#reading-setup-guide').hidden=!first;
     $('#objective-reading-settings').hidden=!playable || first;
+    $('#dialogue-position-guide').hidden=!playable;
     $('#start-story').textContent=first ? '바로 읽기' : state.lineIndex>0 || progress.inProgress ? '이어 보기' : '재생하기';
   }
 
@@ -2463,6 +2465,11 @@
       "toggle-ui": toggleUi,
       "toggle-auto": toggleAuto,
       "show-settings": openReadingSettings,
+      "show-dialogue-settings": () => {
+        if(state.screen!=='settings-screen')openReadingSettings();
+        selectSettingsCategory('display');
+        $('#setting-dialogue-position').focus();
+      },
       'start-prepared-story':()=>{
         if(state.screen==='settings-screen' && state.settingsStartRecordId===currentRecord()?.id && currentRecord()?.readerMode!=='report') startStory(false,null,'replace');
       },
@@ -2591,7 +2598,7 @@
 
   function changeReadingSettings() {
     state.textSize = $('#setting-size').value;
-    state.dialoguePosition = ['left','center','right'].includes($('#setting-dialogue-position').value) ? $('#setting-dialogue-position').value : 'left';
+    state.dialoguePosition = ['left','center','right'].includes($('#setting-dialogue-position').value) ? $('#setting-dialogue-position').value : defaultDialoguePosition();
     const speed = $('#setting-speed').value;
     state.instant = speed === 'instant';
     if (!state.instant) state.textSpeed = speed;

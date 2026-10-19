@@ -116,6 +116,9 @@ html { min-width:0; }
 .playback-options #objective-reading-settings {width:100%;margin:0 0 .5rem;text-align:left;padding:.6rem;}
 .playback-options #objective-continuous {display:block;width:100%;min-height:44px;padding:.6rem;text-align:left;}
 .playback-options .reading-note {margin:.25rem .6rem 0;}
+.dialogue-position-guide {margin:.5rem 0 1rem;padding:.65rem .6rem;background:var(--surface-raised);}
+.playback-options .dialogue-position-guide .reading-note {margin:0;font-size:.8rem;}
+.dialogue-position-guide .text-button {display:block;min-height:44px;margin-top:.25rem;padding:.4rem 0;text-align:left;font-size:.85rem;}
 .playback-details {border-top:1px solid var(--line);padding:.15rem 0;}
 .playback-details summary {min-height:44px;padding:.7rem .2rem;color:var(--muted);font-size:.85rem;cursor:pointer;}
 .playback-details[open] summary {color:var(--phosphor);}
