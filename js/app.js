@@ -251,16 +251,6 @@
     return record?.relatedReport && validReportContext()?'확인하고 본편으로 돌아가기':record?.epilogue?'기록 마치기':'보고서 열람 완료';
   }
 
-  function syncReportFlow() {
-    const context=validReportContext(),record=currentRecord(),main=context&&archive.getRecord(context.recordId);
-    const visible=Boolean(context && record?.readerMode==='report' && state.screen==='objective-screen');
-    $('#report-flow').hidden=!visible;$('#objective-screen').classList.toggle('has-report-flow',visible);
-    if(!visible)return;
-    $('#report-flow-label').textContent=record.id===main.id?`${recordNumber(main)} · 본편 문서`:`${recordNumber(main)}에서 자료 확인 중`;
-    $('#report-return').hidden=record.id===main.id;$('#report-return').textContent=main.readerMode==='report'?`${recordNumber(main)} 본문으로`:'본편 이어보기';
-    $('#report-next').hidden=main.readerMode!=='report';$('#report-next').textContent=reportCompletionLabel(main);
-  }
-
   async function returnReportMain() {
     const context=validReportContext();if(!context)return;
     const previousId=state.selectedRecordId,previousKind=state.archiveRecordKind;
@@ -706,7 +696,6 @@
     state.presentedRecordId=currentRecord()?.id || null;
     if(['story-screen','ending-screen','gallery-screen','boot-screen'].includes(id))state.reportContext=null;
     syncReadingMusic(currentRecord(),state.lineIndex,id);
-    syncReportFlow();
     if(id!=='story-screen')window.RustedPrayerSfx?.syncScene(currentRecord(),state.lineIndex,state.telemetryPage,id);
     if (id !== 'story-screen') $('#screen-fx').hidden = true;
     screens.forEach((screen) => {
@@ -2604,8 +2593,6 @@
       'd-record-kind':()=>{rememberArchiveScroll();state.archiveRecordKind=target?.dataset.kind==='related' ? 'related' : 'main';selectDisk('D');restoreArchiveScroll();},
       'open-d-report':()=>{const record=archive.getRecord(target?.dataset.reportId);if(record?.diskId==='D'&&record.readerMode==='report'&&isRecordUnlocked(record)){const mode=currentRecord()?.relatedReport?'replace':'push';if(!currentRecord()?.relatedReport)captureReportContext();rememberView();state.selectedRecordId=record.id;state.archiveRecordKind=record.relatedReport?'related':'main';selectDisk('D',false);openObjective(mode);}},
       'show-related':()=>{captureReportContext();clearPlaybackTimers();state.auto=false;updateAutoButton();saveProgress();state.archiveRecordKind='related';selectDisk('D');showScreen('archive-screen');},
-      'return-report-main':returnReportMain,
-      'continue-main-report':continueMainReport,
       'resume-main':resumeDMain,
       'archive-pane':()=>moveArchivePane(Number(target?.dataset.archivePane)),
       'archive-open-record':()=>{if(isRecordUnlocked(currentRecord())){state.archiveToolsOpen=false;syncArchiveTools();openObjective();}},
