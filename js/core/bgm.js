@@ -11,6 +11,7 @@
     if(typeof saved.muted==='boolean')muted=saved.muted;
   } catch {}
   let location={record:null,index:0,screen:'boot-screen'};
+  let endingPhotoSeen=false;
   let settingsTrack=null;
   let selected=null,unlocked=false,blocked=false,pending=false,revision=0;
   const FADE_IN_MS=800,FADE_OUT_MS=500;
@@ -86,7 +87,7 @@
     }
     if(!['boot-screen','archive-screen','objective-screen','library-screen','gallery-screen','reset-screen'].includes(screen))return null;
     const manifest=window.RustedPrayerMediaManifest.bgm;
-    const track=manifest?.main;
+    const track=endingPhotoSeen ? manifest?.ending : manifest?.main;
     return track ? {id:track,...manifest.tracks[track]} : null;
   }
   function suspended() {
@@ -158,5 +159,6 @@
   volumeInput?.addEventListener('blur',()=>readVolumeInput(true));
   volumeInput?.addEventListener('keydown',event=>{if(event.key==='Enter' || ['Enter','NumpadEnter'].includes(event.code)){event.preventDefault();readVolumeInput(true);}});
   updateControls();
-  window.RustedPrayerBgm={sync,resolve,setMuted,setVolume};
+  function setEndingPhotoSeen(value) {endingPhotoSeen=value===true;apply();}
+  window.RustedPrayerBgm={sync,resolve,setMuted,setVolume,setEndingPhotoSeen};
 })();

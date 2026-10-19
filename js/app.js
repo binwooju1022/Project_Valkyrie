@@ -342,6 +342,7 @@
       const migrationRecords=orderedRecords.filter(record=>record.diskId!=='D');
       if (typeof saved.resumeRecordId === 'string' && archive.getRecord(saved.resumeRecordId)) state.progress.resumeRecordId = saved.resumeRecordId;
       state.progress.resetGeneration = Number.isSafeInteger(saved.resetGeneration) && saved.resetGeneration >= 0 ? saved.resetGeneration : 0;
+      state.progress.endingPhotoSeen = saved.endingPhotoSeen === true;
       if (saved.records && typeof saved.records === "object" && !Array.isArray(saved.records)) {
         state.progress.records = saved.records;
       } else if ("completed" in saved || "lineIndex" in saved) {
@@ -628,6 +629,7 @@
       // A malformed save is recoverable; availability is checked on the next write.
       state.progress = { version:24, c02LayoutVersion:1, records: {} };
     }
+    window.RustedPrayerBgm?.setEndingPhotoSeen(state.progress.endingPhotoSeen === true);
   }
 
   function c02Position(index,version=20) {
@@ -2991,6 +2993,12 @@
         $('.ending-return').textContent=fromGallery ? '갤러리로 돌아가기' : '보관소로 돌아가기';
         $('#ending-screen').dataset.entrance = !image.hidden && state.endingAnimation && !motionReduced() ? 'first' : '';
         showScreen('ending-screen',historyMode);
+        // Only the successfully displayed final photo unlocks the new archive theme.
+        if(!image.hidden && !state.progress.endingPhotoSeen) {
+          state.progress.endingPhotoSeen=true;
+          saveProgress();
+          window.RustedPrayerBgm?.setEndingPhotoSeen(true);
+        }
         scheduleEndingShutter();
         return true;
       };
@@ -3092,7 +3100,7 @@
 
   function confirmReset() {
     if (state.screen !== 'reset-screen' || state.loading) return;
-    const next = {...state.progress, version:24, records:{},
+    const next = {...state.progress, version:24, records:{}, endingPhotoSeen:false,
       instant:state.instant, continuous:state.continuous, textSize:state.textSize, dialoguePosition:state.dialoguePosition,
       textSpeed:state.textSpeed, autoSpeed:state.autoSpeed, rememberAuto:state.rememberAuto, autoEnabled:state.autoEnabled, effectsReduced:state.effectsReduced, endingAnimation:state.endingAnimation,
       characterLabels:state.characterLabels, autoResume:state.autoResume, aIdentificationIntroSeen:false,
