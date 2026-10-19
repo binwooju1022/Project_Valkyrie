@@ -268,7 +268,7 @@
   async function continueMainReport() {
     const context=validReportContext(),record=context&&archive.getRecord(context.recordId);
     if(!record || record.readerMode!=='report')return;
-    const progress=recordProgress(record.id);progress.completed=true;progress.inProgress=false;progress.lineIndex=0;
+    const progress=recordProgress(record.id);progress.completed=true;progress.inProgress=false;progress.lineIndex=0;progress.reportScroll=0;
     if(state.progress.resumeRecordId===record.id)delete state.progress.resumeRecordId;
     saveProgress();
     const next=archive.getRecord(record.nextId);
@@ -1203,12 +1203,14 @@
     syncReadingSetupGuide();
     renderDReportBrowser();
     const finish=()=>{
+      // Completed reports reopen at the top; interrupted readings keep their scroll position.
+      const resumeScroll=progress.inProgress && Number.isFinite(progress.reportScroll) ? Math.max(0,progress.reportScroll) : 0;
       if(report && !record.relatedReport) {
         progress.inProgress=true;state.progress.resumeRecordId=record.id;
-        if(record.diskId==='D')state.reportContext={recordId:record.id,screen:'objective-screen',lineIndex:state.lineIndex,scrollTop:Math.max(0,progress.reportScroll || 0),telemetryPage:0};
+        if(record.diskId==='D')state.reportContext={recordId:record.id,screen:'objective-screen',lineIndex:state.lineIndex,scrollTop:resumeScroll,telemetryPage:0};
       }
       showScreen('objective-screen',historyMode);
-      if(report && !record.relatedReport) {window.scrollTo({top:Math.max(0,progress.reportScroll || 0),behavior:'instant'});saveProgress();}
+      if(report && !record.relatedReport) {window.scrollTo({top:resumeScroll,behavior:'instant'});saveProgress();}
       return true;
     };
     return reveal?finish():finish;
@@ -2404,6 +2406,7 @@
     progress.completed = true;
     progress.lineIndex = 0;
     progress.inProgress = false;
+    if(record.readerMode==='report')progress.reportScroll=0;
     progress.telemetryPage = 0;
     if (state.progress.resumeRecordId===record.id) delete state.progress.resumeRecordId;
     state.lineIndex = 0;
