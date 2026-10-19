@@ -1608,8 +1608,11 @@
   // their short focus and return without blocking dialogue progression.
   function renderCutsceneComposition(shot, resizing = false) {
     const memory=!$('#memory-card').hidden;
-    const image = memory ? $('#memory-image') : !$('#scene-art').hidden ? $('#stage-camera') : null;
     const stage = $('#story-stage');
+    // Preserve B-02's opening photo; portrait chat uses the normal messenger.
+    const portraitChat=currentRecord()?.id==='B-02' && currentStory()[state.lineIndex]?.tone==='chat'
+      && window.matchMedia('(max-width:760px) and (orientation:portrait)').matches;
+    const image = portraitChat ? null : memory ? $('#memory-image') : !$('#scene-art').hidden ? $('#stage-camera') : null;
     const copies=[$('#dialogue-box'),$('.cutscene-copy'),$('#story-caption'),$('#telemetry-panel'),$('#communication-panel')];
     if(currentRecord()?.diskId==='B')copies.push($('#system-panel'));
     copies.forEach(copy=>copy.classList.remove('composition-copy'));
@@ -1676,15 +1679,15 @@
     const phase=aCameraVisit.phase;
     $('#story-stage').dataset.aCameraPhase=phase;
     stage.dataset.aComposition='true';
-    // Keep the complete artwork and its dialogue together in portrait view.
-    // Reserve the measured text/HUD height before fitting the original image.
+    // Reserve stable mobile space: changing HUD/chat text cannot resize the artwork.
     const compact = width <= 760 && height > width && Boolean(copy);
     let captionHeight=0, hudHeight=0;
     if (compact) {
       stage.dataset.aMobileLayout='contained';
-      captionHeight=copy.getBoundingClientRect().height;
+      const communication=copy===$('#telemetry-panel') || copy===$('#communication-panel');
+      captionHeight=Math.min(height*.40,Math.max(communication ? 190 : 170,height*(communication ? .34 : .30)));
       const hud=$('#a-identity-hud');
-      hudHeight=hud.hidden ? 0 : hud.getBoundingClientRect().height+12;
+      hudHeight=hud.hidden ? 0 : Math.min(height*.20,128);
     }
     // Keep one image size for both directions; animate only its transform.
     const pictureHeight=compact ? Math.max(1,height-captionHeight-hudHeight-68) : height;
@@ -1696,7 +1699,7 @@
     stage.style.setProperty('--a-composition-left',`${(width-bw)/2}px`);
     stage.style.setProperty('--a-composition-width',`${bw}px`);
     stage.style.setProperty('--a-composition-bottom',`${compact ? Math.max(0,height-pictureTop-bh) : 0}px`);
-    stage.style.setProperty('--a-caption-height',`${copy?.getBoundingClientRect().height || 0}px`);
+    stage.style.setProperty('--a-caption-height',`${compact ? captionHeight : copy?.getBoundingClientRect().height || 0}px`);
     let zoom=1;
     let x=(width-bw)/2, y=pictureTop;
     if (compact) {
@@ -2246,11 +2249,7 @@
       }
     }
     activeCutsceneShot=shot;
-    if (!renderCutsceneComposition(shot) && $('#stage-camera') && !(shot.cameraContinuity && $('#stage-camera').dataset.geometry)) {
-      const waitingForEntrance=shot.mode==='cutscene' && (shot.resumeCamera ? shot.resumeCamera.phase==='focus' : shot.authoredCamera?.snapEntrance || shot.faceCamera?.snapEntrance || shot.cameraPath?.snapEntrance) && !$('#stage-camera').naturalWidth;
-      $('#stage-camera').setAttribute('style',(waitingForEntrance ? 'visibility:hidden;' : '')+cameraStyle(shot));
-      delete $('#stage-camera').dataset.geometry;
-    }
+    // Apply image fitting after updating the incoming panel visibility and content.
     if ($('#stage-camera')) $('#stage-camera').dataset.entry= !motionReduced() && !state.effectsReduced ? shot.cameraEffect : '';
     renderAIdentities(shot);
     const drone=$('#a-drone-hud');
@@ -2337,6 +2336,11 @@
     }
 
     refreshCutsceneComposition();
+    if (!cutsceneGeometry && $('#stage-camera') && !(shot.cameraContinuity && $('#stage-camera').dataset.geometry)) {
+      const waitingForEntrance=shot.mode==='cutscene' && (shot.resumeCamera ? shot.resumeCamera.phase==='focus' : shot.authoredCamera?.snapEntrance || shot.faceCamera?.snapEntrance || shot.cameraPath?.snapEntrance) && !$('#stage-camera').naturalWidth;
+      $('#stage-camera').setAttribute('style',(waitingForEntrance ? 'visibility:hidden;' : '')+cameraStyle(shot));
+      delete $('#stage-camera').dataset.geometry;
+    }
     renderResearchMedia(shot);
     if(shot.flashReturn && !motionReduced() && !state.effectsReduced) {
       const at=state.lineIndex,image=cutsceneMode ? $('#memory-image') : $('#stage-camera');
@@ -3222,7 +3226,14 @@
     },true);
     if (typeof ResizeObserver === 'function') {
       let aFrame=null;
-      const aLayout=new ResizeObserver(()=>{
+      const aLayout=new ResizeObserver(entries=>{
+        const stage=$('#story-stage');
+        const portrait=stage.clientWidth<=760 && stage.clientHeight>stage.clientWidth;
+        // Refit a portrait image only when the stage changes, not the HUD text.
+        if(state.screen==='story-screen' && portrait && !entries.some(entry=>entry.target===stage)) {
+          if(entries.some(entry=>entry.target===$('.story-hud')))syncStoryMenu();
+          return;
+        }
         if (aFrame!==null) return;
         aFrame=requestAnimationFrame(()=>{aFrame=null;if(state.screen==='story-screen')syncStoryMenu();refreshCutsceneComposition(true);});
       });
