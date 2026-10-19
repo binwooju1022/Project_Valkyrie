@@ -1782,7 +1782,13 @@
       const widePanels=panels.filter(panel=>panel.left<=width*.15 && panel.right>=width*.85);
       const safeBottom=Math.max(0,Math.min(height,...widePanels.map(panel=>panel.top)));
       const overlapsPanel=rect=>panels.some(panel=>rect.left<panel.right && rect.right>panel.left && rect.top<panel.bottom && rect.bottom>panel.top);
-      targets.parentElement.style.clipPath=`inset(0 0 ${height-safeBottom}px 0)`;
+      // Match the portrait image's visible picture band, not the full phone stage.
+      // Inline clip-path must include this bound (it overrides the CSS path clip).
+      const portrait=stage.dataset.aMobileLayout==='contained';
+      const pictureTop=portrait ? Math.max(0,Number.parseFloat(stage.style.getPropertyValue('--a-picture-top')) || 0) : 0;
+      const pictureBottom=portrait ? Math.min(height,Number.parseFloat(stage.style.getPropertyValue('--a-picture-bottom')) || height) : height;
+      const clipBottom=Math.max(pictureTop,Math.min(safeBottom,pictureBottom));
+      targets.parentElement.style.clipPath=`inset(${pictureTop}px 0 ${Math.max(0,height-clipBottom)}px 0)`;
       targets.querySelectorAll('[data-person]').forEach((target,index)=>{
         const [left,top,w,h]=shot.identities[index].bounds;
         const px=x+(left+w/2)/100*bw*zoom, py=y+(top+h/2)/100*bh*zoom;

@@ -9773,73 +9773,7 @@ window.RustedPrayerMediaManifest = {
           0
         ],
         "duration": 400,
-        "identities": [
-          {
-            "speaker": "유라",
-            "focus": [
-              72,
-              20
-            ],
-            "bounds": [
-              67,
-              12,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "가은",
-            "focus": [
-              51,
-              34
-            ],
-            "bounds": [
-              46,
-              26,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "초희",
-            "focus": [
-              37,
-              40
-            ],
-            "bounds": [
-              32,
-              32,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "세린",
-            "focus": [
-              28,
-              38
-            ],
-            "bounds": [
-              23,
-              30,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "연화",
-            "focus": [
-              12,
-              39
-            ],
-            "bounds": [
-              7,
-              31,
-              10,
-              17.8
-            ]
-          }
-        ],
+        "identities": [],
         "cameraPath": {
           "id": "footsteps",
           "duration": 4800,
@@ -9879,73 +9813,7 @@ window.RustedPrayerMediaManifest = {
           0
         ],
         "duration": 400,
-        "identities": [
-          {
-            "speaker": "유라",
-            "focus": [
-              72,
-              20
-            ],
-            "bounds": [
-              67,
-              12,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "가은",
-            "focus": [
-              51,
-              34
-            ],
-            "bounds": [
-              46,
-              26,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "초희",
-            "focus": [
-              37,
-              40
-            ],
-            "bounds": [
-              32,
-              32,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "세린",
-            "focus": [
-              28,
-              38
-            ],
-            "bounds": [
-              23,
-              30,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "연화",
-            "focus": [
-              12,
-              39
-            ],
-            "bounds": [
-              7,
-              31,
-              10,
-              17.8
-            ]
-          }
-        ],
+        "identities": [],
         "cameraPath": {
           "id": "footsteps",
           "duration": 4800,
@@ -9985,73 +9853,7 @@ window.RustedPrayerMediaManifest = {
           0
         ],
         "duration": 400,
-        "identities": [
-          {
-            "speaker": "유라",
-            "focus": [
-              72,
-              20
-            ],
-            "bounds": [
-              67,
-              12,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "가은",
-            "focus": [
-              51,
-              34
-            ],
-            "bounds": [
-              46,
-              26,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "초희",
-            "focus": [
-              37,
-              40
-            ],
-            "bounds": [
-              32,
-              32,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "세린",
-            "focus": [
-              28,
-              38
-            ],
-            "bounds": [
-              23,
-              30,
-              10,
-              17.8
-            ]
-          },
-          {
-            "speaker": "연화",
-            "focus": [
-              12,
-              39
-            ],
-            "bounds": [
-              7,
-              31,
-              10,
-              17.8
-            ]
-          }
-        ],
+        "identities": [],
         "cameraPath": {
           "id": "footsteps",
           "duration": 4800,
@@ -44877,7 +44679,7 @@ window.RustedPrayerMediaManifest = {
         ]
       },
       "A-08": {
-        "track": "in-ark"
+        "track": "side-story"
       },
       "B-01": {
         "track": "longing"
