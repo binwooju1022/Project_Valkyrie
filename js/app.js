@@ -195,6 +195,14 @@
   }
 
   function dMainReturnMarkup() {
+    const context=validReportContext(),main=context && archive.getRecord(context.recordId);
+    if(context) {
+      // Return to the exact reading position with the first button; continue forward with this one.
+      const next=main?.readerMode==='report' && archive.getRecord(main.nextId);
+      return next
+        ? '<button class="button" data-action="continue-related-report" type="button">본편 이어보기</button>'
+        : '<button class="button" data-action="browse-d-main" type="button">D편 본편 목록 보기</button>';
+    }
     const resume=dMainResumeRecord();
     return `${resume ? '' : `<p class="reading-note">${D_MAIN_GUIDANCE}</p>`}<button class="button" data-action="resume-main" type="button">${resume ? '본편 이어보기' : 'D편 본편 보기'}</button>`;
   }
@@ -216,6 +224,28 @@
       $('#d-record-hint').textContent=D_MAIN_GUIDANCE;
       moveArchivePane(1);
     }
+  }
+
+  // Continue past a main report only when explicitly chosen from a related report.
+  async function continueRelatedReport() {
+    const related=currentRecord();
+    const context=validReportContext(),main=context && archive.getRecord(context.recordId);
+    if(state.screen!=='objective-screen' || !related?.relatedReport
+      || main?.readerMode!=='report' || !archive.getRecord(main.nextId))return;
+    const progress=recordProgress(related.id);
+    progress.completed=true;progress.inProgress=false;progress.lineIndex=0;progress.reportScroll=0;
+    saveProgress();
+    await continueMainReport();
+  }
+
+  // Story contexts and last reports have no safe next chapter to skip to.
+  function browseDMain() {
+    if(syncResetFromStorage())return;
+    clearPlaybackTimers();state.auto=false;updateAutoButton();
+    state.reportContext=null;state.archiveRecordKind='main';state.selectedRecordId=null;
+    selectDisk('D');
+    showScreen('archive-screen');
+    moveArchivePane(1);
   }
 
   function validReportContext(context=state.reportContext) {
@@ -2610,6 +2640,8 @@
       'open-d-report':()=>{const record=archive.getRecord(target?.dataset.reportId);if(record?.diskId==='D'&&record.readerMode==='report'&&isRecordUnlocked(record)){const mode=currentRecord()?.relatedReport?'replace':'push';if(!currentRecord()?.relatedReport)captureReportContext();rememberView();state.selectedRecordId=record.id;state.archiveRecordKind=record.relatedReport?'related':'main';selectDisk('D',false);openObjective(mode);}},
       'show-related':()=>{captureReportContext();clearPlaybackTimers();state.auto=false;updateAutoButton();saveProgress();state.archiveRecordKind='related';selectDisk('D');showScreen('archive-screen');},
       'resume-main':resumeDMain,
+      'continue-related-report':continueRelatedReport,
+      'browse-d-main':browseDMain,
       'archive-pane':()=>moveArchivePane(Number(target?.dataset.archivePane)),
       'archive-open-record':()=>{if(isRecordUnlocked(currentRecord())){state.archiveToolsOpen=false;syncArchiveTools();openObjective();}},
       'toggle-archive-tools':()=>{state.archiveToolsOpen=!state.archiveToolsOpen;syncArchiveTools();},
