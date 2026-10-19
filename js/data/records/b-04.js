@@ -204,7 +204,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": ""
     },
     {
-      "type": "stamp",
+      "type": "text",
       "text": "[시술 후 적성 검사]"
     },
     {
@@ -217,23 +217,15 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "특수화 바디 형성 조건 : 미충족"
+      "text": "[담당자 평가]"
     },
     {
       "type": "text",
-      "text": "배정 :"
-    },
-    {
-      "type": "highlight",
-      "text": "범용 양산형 바디"
-    },
-    {
-      "type": "separator",
-      "text": ""
+      "text": "강한 이상향 반응은 검출되지 않았으나, 발키리 프로젝트에 적합한 개체로 판단됨."
     },
     {
       "type": "text",
-      "text": "특기 사항 없음."
+      "text": "향후 발키리 프로젝트용 바디는 이번에 형성된 바디와 동일한 사양으로 제작할 것을 권고함."
     }
   ],
   "story": [
@@ -538,7 +530,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "[시술 후 적성 검사]\n\n생존 : 확인\n\n강한 이상향 반응 : 미검출\n\n특수화 바디 형성 조건 : 미충족\n\n배정 :\n\n범용 양산형 바디\n\n특기 사항 없음.",
+      "text": "[시술 후 적성 검사]\n\n생존 : 확인\n\n강한 이상향 반응 : 미검출\n\n[담당자 평가]\n\n강한 이상향 반응은 검출되지 않았으나, 발키리 프로젝트에 적합한 개체로 판단됨.\n\n향후 발키리 프로젝트용 바디는 이번에 형성된 바디와 동일한 사양으로 제작할 것을 권고함.",
       "tone": "memo",
       "sourceIndices": [
         29,
@@ -546,8 +538,7 @@ window.RustedPrayerArchive.registerRecord({
         31,
         32,
         33,
-        34,
-        36
+        34
       ],
       "cardTitle": "시술 후 적성 검사",
       "rows": [
@@ -560,15 +551,15 @@ window.RustedPrayerArchive.registerRecord({
           "highlight": false
         },
         {
-          "text": "특수화 바디 형성 조건 : 미충족",
+          "type": "section-heading",
+          "text": "담당자 평가"
+        },
+        {
+          "text": "강한 이상향 반응은 검출되지 않았으나, 발키리 프로젝트에 적합한 개체로 판단됨.",
           "highlight": false
         },
         {
-          "text": "배정 : 범용 양산형 바디",
-          "highlight": false
-        },
-        {
-          "text": "특기 사항 없음.",
+          "text": "향후 발키리 프로젝트용 바디는 이번에 형성된 바디와 동일한 사양으로 제작할 것을 권고함.",
           "highlight": false
         }
       ],
@@ -733,5 +724,11 @@ window.RustedPrayerArchive.registerRecord({
     21,
     22,
     23
+  ],
+  "bookmarkTextAliases": [
+    {
+      "index": 23,
+      "before": "[시술 후 적성 검사]\n\n생존 : 확인\n\n강한 이상향 반응 : 미검출\n\n특수화 바디 형성 조건 : 미충족\n\n배정 :\n\n범용 양산형 바디\n\n특기 사항 없음."
+    }
   ]
 });

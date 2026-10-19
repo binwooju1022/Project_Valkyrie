@@ -1345,6 +1345,7 @@
     const attachment=Boolean(line.attachmentImage || window.RustedPrayerMediaManifest?.attachments?.[currentRecord().id]?.[sceneIndex]);
     const rows=visibleRows(line.rows || [{text:line.text}]).map((row,index) => {
       if(row.type==='handwriting-heading') return `${decision}<h3 class="handwriting-heading">${escapeHtml(row.text)}</h3>`;
+      if(row.type==='section-heading') return `<h3 class="sheet-heading">${escapeHtml(row.text)}</h3>`;
       const theme = SPEAKER_THEMES[row.speaker] || 'neutral';
       if (line.typeRequest && index === 0) return '<p id="request-typewriter" class="sheet-row"></p>';
       if (line.typeRequest && /^결과/.test(row.text)) return '';

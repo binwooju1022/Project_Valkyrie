@@ -250,7 +250,7 @@ html, body, body * { user-select:none; -webkit-user-select:none; -webkit-user-dr
 .decision-footer { display:flex; align-items:flex-end; justify-content:flex-end; min-height:4.5rem; margin-top:auto; padding-top:1rem; }
 .decision-footer .decision-stamp { margin:0; transform:none; min-width:5.5rem; text-align:center; animation:decision-in .25s both; }
 .communication-panel[data-kind='radio'] .message-new { animation:none; }
-.handwriting-heading { margin:1.5rem 0 .5rem; padding-top:1.2rem; border-top:1px solid #857c6466; font:500 .85rem/1.6 var(--font-mono); color:#655942; }
+.handwriting-heading, .sheet-heading { margin:1.5rem 0 .5rem; padding-top:1.2rem; border-top:1px solid #857c6466; font:500 .85rem/1.6 var(--font-mono); color:#655942; }
 .communication-panel[data-kind='radio'] .radio-text-receiving { position:relative; animation:radio-text-static 1.8s steps(1,end) infinite; }
 .radio-text-receiving::after { content:attr(data-received-text); position:absolute; inset:0; padding:inherit; color:#c5e7de; pointer-events:none; opacity:0; animation:radio-text-band 1.8s steps(1,end) infinite; }
 @keyframes radio-text-static {
