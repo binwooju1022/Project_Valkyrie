@@ -274,6 +274,7 @@
       const migrateB03=saved.version===24 && saved.b03LayoutVersion!==1;
       const migrateC03=saved.version===24 && saved.c03LayoutVersion!==1;
       const migrateD04=saved.version===24 && saved.d04LayoutVersion!==1;
+      const migrateB07=saved.version===24 && saved.b07LayoutVersion!==1;
       migrateDProgress(saved);
       const migrationRecords=orderedRecords.filter(record=>record.diskId!=='D');
       if (typeof saved.resumeRecordId === 'string' && archive.getRecord(saved.resumeRecordId)) state.progress.resumeRecordId = saved.resumeRecordId;
@@ -421,6 +422,25 @@
         for(const field of ['lineIndex','seenIndex'])if(Number.isInteger(progress[field]))progress[field]=map[progress[field]]??0;
       }
       state.progress.d04LayoutVersion=1;
+      if(migrateB07 && state.progress.records['B-07']) {
+        const progress=state.progress.records['B-07'],record=archive.getRecord('B-07'),map=record.v24IndexMap;
+        if(Number.isInteger(progress.lineIndex))progress.lineIndex=map[progress.lineIndex]??0;
+        if(Number.isInteger(progress.seenIndex))progress.seenIndex=record.b07SplitSeenIndexMap[progress.seenIndex]??0;
+        if(progress.seenPages && typeof progress.seenPages==='object') {
+          const pages={};
+          for(const [index,page] of Object.entries(progress.seenPages))if(Number.isInteger(map[index])) {
+            pages[map[index]]=page;
+            if(record.b07SplitSeenIndexMap[index]!==map[index])pages[record.b07SplitSeenIndexMap[index]]=page;
+          }
+          progress.seenPages=pages;
+        }
+      }
+      // Historical maps already target the new positions; a formerly whole line was fully seen.
+      if(saved.version<24 && state.progress.records['B-07']) {
+        const progress=state.progress.records['B-07'],record=archive.getRecord('B-07');
+        for(const oldIndex of [25,81])if(progress.seenIndex===record.v24IndexMap[oldIndex])progress.seenIndex=record.b07SplitSeenIndexMap[oldIndex];
+      }
+      state.progress.b07LayoutVersion=1;
       state.progress.c02LayoutVersion=1;
       if (!saved.version || saved.version<24) for (const progress of Object.values(state.progress.records)) {
         if (progress && typeof progress==='object') delete progress.seenPages;
@@ -445,6 +465,10 @@
       state.identificationIntroActive = false;
       state.progress.bookmarks = Array.isArray(saved.bookmarks) ? saved.bookmarks.map(mark => {
         const octoberRecord=archive.getRecord(mark?.recordId);
+        if(migrateB07 && mark?.recordId==='B-07' && Number.isInteger(mark.index)) {
+          const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];
+          return line?{...mark,index,text:line.text}:null;
+        }
         if(migrateD04 && mark?.recordId==='D-06' && Number.isInteger(mark.index)) {
           const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];
           return line?{...mark,index,text:line.text}:null;
@@ -554,7 +578,7 @@
       }
     }
 
-    Object.assign(state.progress, {version:24,b03LayoutVersion:1,c03LayoutVersion:1,d04LayoutVersion:1,instant:state.instant,continuous:state.continuous,textSize:state.textSize,
+    Object.assign(state.progress, {version:24,b03LayoutVersion:1,c03LayoutVersion:1,d04LayoutVersion:1,b07LayoutVersion:1,instant:state.instant,continuous:state.continuous,textSize:state.textSize,
       dialoguePosition:state.dialoguePosition,textSpeed:state.textSpeed,autoSpeed:state.autoSpeed,rememberAuto:state.rememberAuto,autoEnabled:state.autoEnabled,effectsReduced:state.effectsReduced,endingAnimation:state.endingAnimation,characterLabels:state.characterLabels,autoResume:state.autoResume});
     if (!storageAvailable) return;
 
@@ -570,7 +594,7 @@
   }
 
   function viewState() {
-    return {rustedPrayer:true, presentationVersion:24, c02LayoutVersion:1, b03LayoutVersion:1, c03LayoutVersion:1, d04LayoutVersion:1, resetGeneration:state.progress.resetGeneration || 0, screen:state.screen, diskId:state.selectedDisk, recordId:state.selectedRecordId, lineIndex:state.lineIndex,telemetryPage:state.telemetryLineIndex===state.lineIndex ? state.telemetryPage : 0,transitionPaused:state.screen==='transition-screen' && state.transitionPaused,transitionAuto:state.screen==='transition-screen' && state.auto,settingsStartRecordId:state.screen==='settings-screen' ? state.settingsStartRecordId : null,endingFromGallery:state.endingFromGallery,archiveRecordKind:state.archiveRecordKind};
+    return {rustedPrayer:true, presentationVersion:24, c02LayoutVersion:1, b03LayoutVersion:1, c03LayoutVersion:1, d04LayoutVersion:1, b07LayoutVersion:1, resetGeneration:state.progress.resetGeneration || 0, screen:state.screen, diskId:state.selectedDisk, recordId:state.selectedRecordId, lineIndex:state.lineIndex,telemetryPage:state.telemetryLineIndex===state.lineIndex ? state.telemetryPage : 0,transitionPaused:state.screen==='transition-screen' && state.transitionPaused,transitionAuto:state.screen==='transition-screen' && state.auto,settingsStartRecordId:state.screen==='settings-screen' ? state.settingsStartRecordId : null,endingFromGallery:state.endingFromGallery,archiveRecordKind:state.archiveRecordKind};
   }
 
   function rememberView() {
@@ -732,6 +756,7 @@
         $('#report-section-'+position)?.scrollIntoView?.({block:'start'});
       } else {
         const target=record.id==='B-03' && view.presentationVersion===24 && view.b03LayoutVersion!==1 ? record.v24IndexMap[position]??0
+          : record.id==='B-07' && view.presentationVersion===24 && view.b07LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='C-03' && view.presentationVersion===24 && view.c03LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='D-06' && view.presentationVersion===24 && view.d04LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='C-02' && view.c02LayoutVersion!==1 ? c02Position(position) : position;
@@ -2016,14 +2041,15 @@
     const fx = $('#screen-fx');
     fx.className = 'screen-fx';
     fx.classList.toggle('is-reduced',state.effectsReduced);
-    const effect=restoring || line.tone==='radio' || line.signalActivity ? '' : line.effect;
+    const sustainedRun=['B-06','B-06-01'].includes(record.id) && (line.motion==='run' || line.effect==='running-strong');
+    const effect=(restoring && !sustainedRun) || line.tone==='radio' || line.signalActivity ? '' : line.effect;
     fx.hidden = !effect || motionReduced();
     // The overlay is outside all transformed scene containers, so interference covers the viewport.
     if (effect && !motionReduced()) { void fx.offsetWidth; fx.classList.add(`fx-${effect}`); }
     stage.dataset.instrument = line.instrument || '';
     stage.dataset.tone = line.tone;
     stage.dataset.camera = line.camera || '';
-    stage.dataset.motion = restoring ? '' : line.motion || '';
+    stage.dataset.motion = restoring && !sustainedRun ? '' : line.motion || '';
     stage.dataset.novel = String(Boolean(line.novel));
     stage.dataset.effect = motionReduced() ? '' : effect || '';
     stage.dataset.telemetrySide = line.telemetrySide || 'right';

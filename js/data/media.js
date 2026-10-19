@@ -23292,16 +23292,7 @@ window.RustedPrayerMediaManifest = {
               14
             ]
           }
-        ],
-        "authoredCamera": {
-          "id": "bedside",
-          "focus": [
-            56,
-            42
-          ],
-          "zoom": 2.3,
-          "hold": true
-        }
+        ]
       },
       "64": {
         "mode": "cutscene",
@@ -23470,8 +23461,8 @@ window.RustedPrayerMediaManifest = {
         "authoredCamera": {
           "id": "bedside",
           "focus": [
-            23,
-            20
+            56,
+            42
           ],
           "zoom": 2.3,
           "hold": true
@@ -23641,7 +23632,15 @@ window.RustedPrayerMediaManifest = {
             ]
           }
         ],
-        "cameraReturn": true
+        "authoredCamera": {
+          "id": "bedside",
+          "focus": [
+            23,
+            20
+          ],
+          "zoom": 2.3,
+          "hold": true
+        }
       },
       "68": {
         "mode": "cutscene",
@@ -23719,7 +23718,8 @@ window.RustedPrayerMediaManifest = {
               14
             ]
           }
-        ]
+        ],
+        "cameraReturn": true
       },
       "69": {
         "mode": "cutscene",
@@ -24737,6 +24737,162 @@ window.RustedPrayerMediaManifest = {
       },
       "82": {
         "mode": "cutscene",
+        "src": "./assets/cutscenes/b-07-01.png",
+        "fit": "contain",
+        "zoom": 1,
+        "focus": [
+          50,
+          50
+        ],
+        "duration": 600,
+        "identities": [
+          {
+            "speaker": "연화",
+            "focus": [
+              23,
+              20
+            ],
+            "bounds": [
+              19,
+              13,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "세린",
+            "focus": [
+              45,
+              42
+            ],
+            "bounds": [
+              41,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "유라",
+            "focus": [
+              56,
+              42
+            ],
+            "bounds": [
+              52,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "초희",
+            "focus": [
+              66,
+              45
+            ],
+            "bounds": [
+              62,
+              38,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "가은",
+            "focus": [
+              77,
+              27
+            ],
+            "bounds": [
+              73,
+              20,
+              8,
+              14
+            ]
+          }
+        ]
+      },
+      "83": {
+        "mode": "cutscene",
+        "src": "./assets/cutscenes/b-07-01.png",
+        "fit": "contain",
+        "zoom": 1,
+        "focus": [
+          50,
+          50
+        ],
+        "duration": 600,
+        "identities": [
+          {
+            "speaker": "연화",
+            "focus": [
+              23,
+              20
+            ],
+            "bounds": [
+              19,
+              13,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "세린",
+            "focus": [
+              45,
+              42
+            ],
+            "bounds": [
+              41,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "유라",
+            "focus": [
+              56,
+              42
+            ],
+            "bounds": [
+              52,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "초희",
+            "focus": [
+              66,
+              45
+            ],
+            "bounds": [
+              62,
+              38,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "가은",
+            "focus": [
+              77,
+              27
+            ],
+            "bounds": [
+              73,
+              20,
+              8,
+              14
+            ]
+          }
+        ]
+      },
+      "84": {
+        "mode": "cutscene",
         "src": "./assets/cutscenes/b-07-02.png",
         "fit": "contain",
         "zoom": 1,
@@ -24822,162 +24978,6 @@ window.RustedPrayerMediaManifest = {
           "snapEntrance": true
         },
         "transition": "dissolve"
-      },
-      "83": {
-        "mode": "cutscene",
-        "src": "./assets/cutscenes/b-07-02.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "duration": 600,
-        "identities": [
-          {
-            "speaker": "연화",
-            "focus": [
-              20,
-              24
-            ],
-            "bounds": [
-              16,
-              17,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "세린",
-            "focus": [
-              45,
-              42
-            ],
-            "bounds": [
-              41,
-              35,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "유라",
-            "focus": [
-              57,
-              42
-            ],
-            "bounds": [
-              53,
-              35,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "초희",
-            "focus": [
-              67,
-              46
-            ],
-            "bounds": [
-              63,
-              39,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "가은",
-            "focus": [
-              78,
-              26
-            ],
-            "bounds": [
-              74,
-              19,
-              8,
-              14
-            ]
-          }
-        ]
-      },
-      "84": {
-        "mode": "cutscene",
-        "src": "./assets/cutscenes/b-07-02.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "duration": 600,
-        "identities": [
-          {
-            "speaker": "연화",
-            "focus": [
-              20,
-              24
-            ],
-            "bounds": [
-              16,
-              17,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "세린",
-            "focus": [
-              45,
-              42
-            ],
-            "bounds": [
-              41,
-              35,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "유라",
-            "focus": [
-              57,
-              42
-            ],
-            "bounds": [
-              53,
-              35,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "초희",
-            "focus": [
-              67,
-              46
-            ],
-            "bounds": [
-              63,
-              39,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "가은",
-            "focus": [
-              78,
-              26
-            ],
-            "bounds": [
-              74,
-              19,
-              8,
-              14
-            ]
-          }
-        ]
       },
       "85": {
         "mode": "cutscene",
@@ -25133,26 +25133,7 @@ window.RustedPrayerMediaManifest = {
               14
             ]
           }
-        ],
-        "cameraPath": {
-          "id": "shared-burden",
-          "duration": 4300,
-          "zoom": 2.15,
-          "points": [
-            [
-              67,
-              46
-            ],
-            [
-              78,
-              26
-            ],
-            [
-              45,
-              42
-            ]
-          ]
-        }
+        ]
       },
       "87": {
         "mode": "cutscene",
@@ -25308,9 +25289,184 @@ window.RustedPrayerMediaManifest = {
               14
             ]
           }
-        ]
+        ],
+        "cameraPath": {
+          "id": "shared-burden",
+          "duration": 4300,
+          "zoom": 2.15,
+          "points": [
+            [
+              67,
+              46
+            ],
+            [
+              78,
+              26
+            ],
+            [
+              45,
+              42
+            ]
+          ]
+        }
       },
       "89": {
+        "mode": "cutscene",
+        "src": "./assets/cutscenes/b-07-02.png",
+        "fit": "contain",
+        "zoom": 1,
+        "focus": [
+          50,
+          50
+        ],
+        "duration": 600,
+        "identities": [
+          {
+            "speaker": "연화",
+            "focus": [
+              20,
+              24
+            ],
+            "bounds": [
+              16,
+              17,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "세린",
+            "focus": [
+              45,
+              42
+            ],
+            "bounds": [
+              41,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "유라",
+            "focus": [
+              57,
+              42
+            ],
+            "bounds": [
+              53,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "초희",
+            "focus": [
+              67,
+              46
+            ],
+            "bounds": [
+              63,
+              39,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "가은",
+            "focus": [
+              78,
+              26
+            ],
+            "bounds": [
+              74,
+              19,
+              8,
+              14
+            ]
+          }
+        ]
+      },
+      "90": {
+        "mode": "cutscene",
+        "src": "./assets/cutscenes/b-07-02.png",
+        "fit": "contain",
+        "zoom": 1,
+        "focus": [
+          50,
+          50
+        ],
+        "duration": 600,
+        "identities": [
+          {
+            "speaker": "연화",
+            "focus": [
+              20,
+              24
+            ],
+            "bounds": [
+              16,
+              17,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "세린",
+            "focus": [
+              45,
+              42
+            ],
+            "bounds": [
+              41,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "유라",
+            "focus": [
+              57,
+              42
+            ],
+            "bounds": [
+              53,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "초희",
+            "focus": [
+              67,
+              46
+            ],
+            "bounds": [
+              63,
+              39,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "가은",
+            "focus": [
+              78,
+              26
+            ],
+            "bounds": [
+              74,
+              19,
+              8,
+              14
+            ]
+          }
+        ]
+      },
+      "91": {
         "mode": "cutscene",
         "src": "./assets/cutscenes/b-07-03.png",
         "fit": "contain",
@@ -25397,162 +25553,6 @@ window.RustedPrayerMediaManifest = {
           "snapEntrance": true
         },
         "transition": "dissolve"
-      },
-      "90": {
-        "mode": "cutscene",
-        "src": "./assets/cutscenes/b-07-03.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "duration": 600,
-        "identities": [
-          {
-            "speaker": "연화",
-            "focus": [
-              43,
-              42
-            ],
-            "bounds": [
-              39,
-              35,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "초희",
-            "focus": [
-              29,
-              45
-            ],
-            "bounds": [
-              25,
-              38,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "유라",
-            "focus": [
-              56,
-              43
-            ],
-            "bounds": [
-              52,
-              36,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "세린",
-            "focus": [
-              34,
-              25
-            ],
-            "bounds": [
-              30,
-              18,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "가은",
-            "focus": [
-              71,
-              47
-            ],
-            "bounds": [
-              67,
-              40,
-              8,
-              14
-            ]
-          }
-        ]
-      },
-      "91": {
-        "mode": "cutscene",
-        "src": "./assets/cutscenes/b-07-03.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "duration": 600,
-        "identities": [
-          {
-            "speaker": "연화",
-            "focus": [
-              43,
-              42
-            ],
-            "bounds": [
-              39,
-              35,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "초희",
-            "focus": [
-              29,
-              45
-            ],
-            "bounds": [
-              25,
-              38,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "유라",
-            "focus": [
-              56,
-              43
-            ],
-            "bounds": [
-              52,
-              36,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "세린",
-            "focus": [
-              34,
-              25
-            ],
-            "bounds": [
-              30,
-              18,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "가은",
-            "focus": [
-              71,
-              47
-            ],
-            "bounds": [
-              67,
-              40,
-              8,
-              14
-            ]
-          }
-        ]
       },
       "92": {
         "mode": "cutscene",
@@ -30079,6 +30079,162 @@ window.RustedPrayerMediaManifest = {
         ]
       },
       "150": {
+        "mode": "cutscene",
+        "src": "./assets/cutscenes/b-07-03.png",
+        "fit": "contain",
+        "zoom": 1,
+        "focus": [
+          50,
+          50
+        ],
+        "duration": 600,
+        "identities": [
+          {
+            "speaker": "연화",
+            "focus": [
+              43,
+              42
+            ],
+            "bounds": [
+              39,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "초희",
+            "focus": [
+              29,
+              45
+            ],
+            "bounds": [
+              25,
+              38,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "유라",
+            "focus": [
+              56,
+              43
+            ],
+            "bounds": [
+              52,
+              36,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "세린",
+            "focus": [
+              34,
+              25
+            ],
+            "bounds": [
+              30,
+              18,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "가은",
+            "focus": [
+              71,
+              47
+            ],
+            "bounds": [
+              67,
+              40,
+              8,
+              14
+            ]
+          }
+        ]
+      },
+      "151": {
+        "mode": "cutscene",
+        "src": "./assets/cutscenes/b-07-03.png",
+        "fit": "contain",
+        "zoom": 1,
+        "focus": [
+          50,
+          50
+        ],
+        "duration": 600,
+        "identities": [
+          {
+            "speaker": "연화",
+            "focus": [
+              43,
+              42
+            ],
+            "bounds": [
+              39,
+              35,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "초희",
+            "focus": [
+              29,
+              45
+            ],
+            "bounds": [
+              25,
+              38,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "유라",
+            "focus": [
+              56,
+              43
+            ],
+            "bounds": [
+              52,
+              36,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "세린",
+            "focus": [
+              34,
+              25
+            ],
+            "bounds": [
+              30,
+              18,
+              8,
+              14
+            ]
+          },
+          {
+            "speaker": "가은",
+            "focus": [
+              71,
+              47
+            ],
+            "bounds": [
+              67,
+              40,
+              8,
+              14
+            ]
+          }
+        ]
+      },
+      "152": {
         "mode": "cutscene",
         "src": "./assets/cutscenes/b-07-03.png",
         "fit": "contain",
@@ -44206,7 +44362,7 @@ window.RustedPrayerMediaManifest = {
       "kind": "cutscene",
       "diskId": "B",
       "recordId": "B-07",
-      "index": 82,
+      "index": 84,
       "src": "./assets/cutscenes/b-07-02.png",
       "label": "",
       "preview": "./assets/gallery/b-07-02.webp",
@@ -44216,7 +44372,7 @@ window.RustedPrayerMediaManifest = {
       "kind": "cutscene",
       "diskId": "B",
       "recordId": "B-07",
-      "index": 89,
+      "index": 91,
       "src": "./assets/cutscenes/b-07-03.png",
       "label": "",
       "preview": "./assets/gallery/b-07-03.webp",
@@ -44968,15 +45124,15 @@ window.RustedPrayerMediaManifest = {
           "through": 3
         },
         {
-          "at": 53,
+          "at": 54,
           "page": 0,
           "sound": "bed"
         },
         {
-          "at": 149,
+          "at": 151,
           "page": 0,
           "sound": "door-close",
-          "through": 150
+          "through": 152
         }
       ],
       "B-01": [
@@ -45025,10 +45181,10 @@ window.RustedPrayerMediaManifest = {
             "id": "running",
             "sound": "running",
             "from": 0,
-            "to": 3,
+            "to": 2,
             "gain": 0.55,
             "fadeIn": 120,
-            "fadeOut": 250,
+            "fadeOut": 0,
             "group": "b-retreat"
           }
         ],
@@ -45166,22 +45322,22 @@ window.RustedPrayerMediaManifest = {
           {
             "id": "steps",
             "sound": "walk_crowd",
-            "from": 140,
-            "to": 149,
+            "from": 142,
+            "to": 151,
             "gain": 0.55,
             "fadeIn": 250,
             "fadeOut": 250,
             "levels": [
               {
-                "at": 142,
+                "at": 144,
                 "gain": 0.22
               },
               {
-                "at": 145,
+                "at": 147,
                 "gain": 0.12
               },
               {
-                "at": 148,
+                "at": 150,
                 "gain": 0.06
               }
             ]

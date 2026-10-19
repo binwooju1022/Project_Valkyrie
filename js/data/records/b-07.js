@@ -34,7 +34,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -91,13 +90,12 @@ window.RustedPrayerArchive.registerRecord({
     80,
     81,
     82,
-    83,
     84,
     85,
+    86,
     87,
-    88,
+    89,
     90,
-    91,
     92,
     93,
     94,
@@ -139,9 +137,9 @@ window.RustedPrayerArchive.registerRecord({
     130,
     131,
     132,
-    132,
-    132,
     133,
+    134,
+    134,
     134,
     135,
     136,
@@ -150,15 +148,17 @@ window.RustedPrayerArchive.registerRecord({
     139,
     140,
     141,
-    141,
     142,
     143,
+    143,
     144,
+    145,
     146,
-    147,
     148,
     149,
-    150
+    150,
+    151,
+    152
   ],
   "v4IndexMap": [
     0,
@@ -187,7 +187,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -244,13 +243,12 @@ window.RustedPrayerArchive.registerRecord({
     80,
     81,
     82,
-    83,
     84,
     85,
+    86,
     87,
-    88,
+    89,
     90,
-    91,
     92,
     93,
     94,
@@ -292,9 +290,9 @@ window.RustedPrayerArchive.registerRecord({
     130,
     131,
     132,
-    132,
-    132,
     133,
+    134,
+    134,
     134,
     135,
     136,
@@ -303,15 +301,17 @@ window.RustedPrayerArchive.registerRecord({
     139,
     140,
     141,
-    141,
     142,
     143,
+    143,
     144,
+    145,
     146,
-    147,
     148,
     149,
-    150
+    150,
+    151,
+    152
   ],
   "introSceneCount": 4,
   "narrativeStart": 23,
@@ -609,7 +609,11 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "가은 : ··· 잘했어. 어쨌든 살았잖아. 그래도 다음부터는 총까지 챙기고 숨은 다음 구조 요청해. 이번에 그냥 와서 랩쳐가 엄청 몰려왔잖아."
+      "text": "가은 : ··· 잘했어. 어쨌든 살았잖아."
+    },
+    {
+      "type": "dialogue",
+      "text": "가은 : 그래도 다음부터는 총까지 챙기고 숨은 다음 구조 요청해. 이번에 그냥 와서 랩쳐가 엄청 몰려왔잖아."
     },
     {
       "type": "dialogue",
@@ -833,7 +837,11 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "연화는 문 쪽으로 향하던 시선을 거둔다. 문가에 선 채 두 손을 맞잡자 손등에 힘줄이 도드라진다. 초희는 그 손을 잠시 내려다본다."
+      "text": "연화는 문 쪽으로 향하던 시선을 거둔다. 문가에 선 채 두 손을 맞잡자 손등에 힘줄이 도드라진다."
+    },
+    {
+      "type": "text",
+      "text": "초희는 잠시 그 손을 바라본다."
     },
     {
       "type": "dialogue",
@@ -865,7 +873,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "연화가 문가를 떠나 유라의 침대 곁으로 다가간다. 유라는 곁에 선 연화를 올려다보며 작게 웃는다."
+      "text": "연화가 문가를 떠나 유라의 침대 곁으로 다가간다. 유라는 연화를 바라보며 작게 웃는다."
     },
     {
       "type": "dialogue",
@@ -1441,10 +1449,23 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "가은",
-      "text": "··· 잘했어. 어쨌든 살았잖아. 그래도 다음부터는 총까지 챙기고 숨은 다음 구조 요청해. 이번에 그냥 와서 랩쳐가 엄청 몰려왔잖아.",
+      "text": "··· 잘했어. 어쨌든 살았잖아.",
       "tone": "dialogue",
       "sourceIndices": [
         48
+      ],
+      "sceneArt": {
+        "kind": "cutscene",
+        "fixture": "cutscene",
+        "alt": "b-07 이미지"
+      }
+    },
+    {
+      "speaker": "가은",
+      "text": "그래도 다음부터는 총까지 챙기고 숨은 다음 구조 요청해. 이번에 그냥 와서 랩쳐가 엄청 몰려왔잖아.",
+      "tone": "dialogue",
+      "sourceIndices": [
+        49
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1457,7 +1478,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "어그로 쩔었지.",
       "tone": "dialogue",
       "sourceIndices": [
-        49
+        50
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1470,7 +1491,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "··· 솔직히 힘들었다.",
       "tone": "dialogue",
       "sourceIndices": [
-        50
+        51
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1483,7 +1504,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "··· 미안",
       "tone": "dialogue",
       "sourceIndices": [
-        51
+        52
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1496,7 +1517,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "풉. 푸하하하. 아. 갈비뼈 아파···",
       "tone": "dialogue",
       "sourceIndices": [
-        52
+        53
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1509,19 +1530,6 @@ window.RustedPrayerArchive.registerRecord({
       "text": "왜 웃어.",
       "tone": "dialogue",
       "sourceIndices": [
-        53
-      ],
-      "sceneArt": {
-        "kind": "cutscene",
-        "fixture": "cutscene",
-        "alt": "b-07 이미지"
-      }
-    },
-    {
-      "speaker": "유라",
-      "text": "아니.",
-      "tone": "dialogue",
-      "sourceIndices": [
         54
       ],
       "sceneArt": {
@@ -1532,7 +1540,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "유라",
-      "text": "뭔가 집에 온 것 같네.",
+      "text": "아니.",
       "tone": "dialogue",
       "sourceIndices": [
         55
@@ -1545,10 +1553,23 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "유라",
-      "text": "근데 진짜 놓고 왔어?",
+      "text": "뭔가 집에 온 것 같네.",
       "tone": "dialogue",
       "sourceIndices": [
         56
+      ],
+      "sceneArt": {
+        "kind": "cutscene",
+        "fixture": "cutscene",
+        "alt": "b-07 이미지"
+      }
+    },
+    {
+      "speaker": "유라",
+      "text": "근데 진짜 놓고 왔어?",
+      "tone": "dialogue",
+      "sourceIndices": [
+        57
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1561,7 +1582,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "응.",
       "tone": "dialogue",
       "sourceIndices": [
-        57
+        58
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1574,7 +1595,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "와.",
       "tone": "dialogue",
       "sourceIndices": [
-        58
+        59
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1587,7 +1608,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "표정 봐. 총 걱정한다.",
       "tone": "dialogue",
       "sourceIndices": [
-        59
+        60
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1600,7 +1621,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "넌 죽다 살아나서 제일 먼저 그게 궁금해?",
       "tone": "dialogue",
       "sourceIndices": [
-        60
+        61
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1613,7 +1634,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "비싸잖아. 시말서 쓰기도 귀찮은데.",
       "tone": "dialogue",
       "sourceIndices": [
-        61
+        62
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1626,7 +1647,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그게 지금 중요해?!",
       "tone": "dialogue",
       "sourceIndices": [
-        62
+        63
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1639,7 +1660,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "잠시 정적.",
       "tone": "narration",
       "sourceIndices": [
-        63
+        64
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1652,7 +1673,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "똑같이 말했네.",
       "tone": "dialogue",
       "sourceIndices": [
-        64
+        65
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1665,7 +1686,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "뭐가.",
       "tone": "dialogue",
       "sourceIndices": [
-        65
+        66
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1678,7 +1699,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "아까 실려올 때도 '총··· 비싼데··· 시말서··· 싫은데···' 계속 그랬잖아.",
       "tone": "dialogue",
       "sourceIndices": [
-        66
+        67
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1691,7 +1712,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "내가 그랬어?",
       "tone": "dialogue",
       "sourceIndices": [
-        67
+        68
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1704,7 +1725,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "했어.",
       "tone": "dialogue",
       "sourceIndices": [
-        68
+        69
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1717,7 +1738,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "기억 안 나는데.",
       "tone": "dialogue",
       "sourceIndices": [
-        69
+        70
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1730,7 +1751,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "당연하지. 의식을 잃었으니.",
       "tone": "dialogue",
       "sourceIndices": [
-        70
+        71
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1743,7 +1764,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "극한의 상황에서도 장비와 업무를 생각하는 책임감!",
       "tone": "dialogue",
       "sourceIndices": [
-        71
+        72
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1756,7 +1777,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그 책임감을 평소에 좀 발휘하지 그랬어. 어제 청소 나 혼자 했잖아.",
       "tone": "dialogue",
       "sourceIndices": [
-        72
+        73
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1769,7 +1790,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "··· 미안하다.",
       "tone": "dialogue",
       "sourceIndices": [
-        73
+        74
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1782,7 +1803,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "좋네. 난 당분간 청소 제외라.",
       "tone": "dialogue",
       "sourceIndices": [
-        74
+        75
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1795,7 +1816,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "나쁘거든.",
       "tone": "dialogue",
       "sourceIndices": [
-        75
+        76
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1808,7 +1829,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "유라가 침대에서 몸을 일으킨다.",
       "tone": "narration",
       "sourceIndices": [
-        76
+        77
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1821,7 +1842,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "아야.",
       "tone": "dialogue",
       "sourceIndices": [
-        77
+        78
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1834,7 +1855,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "움직이지 마!",
       "tone": "dialogue",
       "sourceIndices": [
-        78
+        79
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1847,7 +1868,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "나 괜찮아.",
       "tone": "dialogue",
       "sourceIndices": [
-        79
+        80
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1860,7 +1881,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "안 괜찮아.",
       "tone": "dialogue",
       "sourceIndices": [
-        80
+        81
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1873,7 +1894,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "고집쟁이.",
       "tone": "dialogue",
       "sourceIndices": [
-        81
+        82
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1886,7 +1907,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "상처란 살아남은 자에게 남겨지는—",
       "tone": "dialogue",
       "sourceIndices": [
-        82
+        83
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1899,7 +1920,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "초희.",
       "tone": "dialogue",
       "sourceIndices": [
-        83
+        84
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1912,7 +1933,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···응 조용히 할게.",
       "tone": "dialogue",
       "sourceIndices": [
-        84
+        85
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1925,7 +1946,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "잠시 소리가 잦아든다.",
       "tone": "narration",
       "sourceIndices": [
-        85
+        86
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1938,7 +1959,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "연화.",
       "tone": "dialogue",
       "sourceIndices": [
-        86
+        87
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1951,7 +1972,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "왜.",
       "tone": "dialogue",
       "sourceIndices": [
-        87
+        88
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1964,7 +1985,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "너 아까부터 왜 거기 서 있어.",
       "tone": "dialogue",
       "sourceIndices": [
-        88
+        89
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1977,7 +1998,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그냥.",
       "tone": "dialogue",
       "sourceIndices": [
-        89
+        90
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -1990,7 +2011,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "이리 와.",
       "tone": "dialogue",
       "sourceIndices": [
-        90
+        91
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2003,7 +2024,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "··· 지켜야 해.",
       "tone": "dialogue",
       "sourceIndices": [
-        91
+        92
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2016,7 +2037,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "뭐를?",
       "tone": "dialogue",
       "sourceIndices": [
-        92
+        93
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2029,7 +2050,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "우리를.",
       "tone": "dialogue",
       "sourceIndices": [
-        93
+        94
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2042,7 +2063,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "짧은 정적.",
       "tone": "narration",
       "sourceIndices": [
-        94
+        95
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2055,7 +2076,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···불안해?",
       "tone": "dialogue",
       "sourceIndices": [
-        95
+        96
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2068,7 +2089,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "아니.",
       "tone": "dialogue",
       "sourceIndices": [
-        96
+        97
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2081,7 +2102,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "거짓말.",
       "tone": "dialogue",
       "sourceIndices": [
-        97
+        98
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2094,7 +2115,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···",
       "tone": "dialogue",
       "sourceIndices": [
-        98
+        99
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2107,7 +2128,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "얼굴에 써 있는데.",
       "tone": "dialogue",
       "sourceIndices": [
-        99
+        100
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2120,7 +2141,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "세린.",
       "tone": "dialogue",
       "sourceIndices": [
-        100
+        101
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2133,7 +2154,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "왜. 맞잖아.",
       "tone": "dialogue",
       "sourceIndices": [
-        101
+        102
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2146,7 +2167,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "괜찮으니까 이리 와.",
       "tone": "dialogue",
       "sourceIndices": [
-        102
+        103
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2159,7 +2180,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "··· 아니. 여기 있을게.",
       "tone": "dialogue",
       "sourceIndices": [
-        103
+        104
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2169,10 +2190,23 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "연화는 문 쪽으로 향하던 시선을 거둔다. 문가에 선 채 두 손을 맞잡자 손등에 힘줄이 도드라진다. 초희는 그 손을 잠시 내려다본다.",
+      "text": "연화는 문 쪽으로 향하던 시선을 거둔다. 문가에 선 채 두 손을 맞잡자 손등에 힘줄이 도드라진다.",
       "tone": "narration",
       "sourceIndices": [
-        104
+        105
+      ],
+      "sceneArt": {
+        "kind": "cutscene",
+        "fixture": "cutscene",
+        "alt": "b-07 이미지"
+      }
+    },
+    {
+      "speaker": "",
+      "text": "초희는 잠시 그 손을 바라본다.",
+      "tone": "narration",
+      "sourceIndices": [
+        106
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2185,7 +2219,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "연화. 고집 피우지 마라.",
       "tone": "dialogue",
       "sourceIndices": [
-        105
+        107
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2198,7 +2232,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "우린 동료다. 같은 스쿼드다. 이게 무슨 의미인지 아냐?",
       "tone": "dialogue",
       "sourceIndices": [
-        106
+        108
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2211,7 +2245,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···",
       "tone": "dialogue",
       "sourceIndices": [
-        107
+        109
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2224,7 +2258,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "함께한다는 거다. 네가 불안하면 우리도 불안하다. 그러니 우리가 너의 짐을 나눠 들겠다.",
       "tone": "dialogue",
       "sourceIndices": [
-        108
+        110
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2237,7 +2271,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "연화는 초희를 바라보다가 가은과 세린에게로 시선을 옮긴다. 누구도 재촉하지 않는다. 맞잡은 손에서 조금씩 힘이 빠진다.",
       "tone": "narration",
       "sourceIndices": [
-        109
+        111
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2250,7 +2284,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "같이 가자. 이리 와라.",
       "tone": "dialogue",
       "sourceIndices": [
-        110
+        112
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2263,7 +2297,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "··· 알겠어.",
       "tone": "dialogue",
       "sourceIndices": [
-        111
+        113
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2273,10 +2307,10 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "연화가 문가를 떠나 유라의 침대 곁으로 다가간다. 유라는 곁에 선 연화를 올려다보며 작게 웃는다.",
+      "text": "연화가 문가를 떠나 유라의 침대 곁으로 다가간다. 유라는 연화를 바라보며 작게 웃는다.",
       "tone": "narration",
       "sourceIndices": [
-        112
+        114
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2289,7 +2323,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "봤나? 이게 바로 낭만이라는 거ㄷ···",
       "tone": "dialogue",
       "sourceIndices": [
-        113
+        115
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2302,7 +2336,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "조용히 하기로 했잖아.",
       "tone": "dialogue",
       "sourceIndices": [
-        114
+        116
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2315,7 +2349,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "아.",
       "tone": "dialogue",
       "sourceIndices": [
-        115
+        117
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2328,7 +2362,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "웬일로 잘 얘기한다 했다.",
       "tone": "dialogue",
       "sourceIndices": [
-        116
+        118
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2341,7 +2375,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "웃음소리가 퍼진다.",
       "tone": "narration",
       "sourceIndices": [
-        117
+        119
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2354,7 +2388,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "연화.",
       "tone": "dialogue",
       "sourceIndices": [
-        118
+        120
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2367,7 +2401,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "또 왜.",
       "tone": "dialogue",
       "sourceIndices": [
-        119
+        121
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2380,7 +2414,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "다음부터 그러지 마.",
       "tone": "dialogue",
       "sourceIndices": [
-        120
+        122
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2393,7 +2427,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "뭘.",
       "tone": "dialogue",
       "sourceIndices": [
-        121
+        123
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2406,32 +2440,6 @@ window.RustedPrayerArchive.registerRecord({
       "text": "총 놓고 뛰어오는 거.",
       "tone": "dialogue",
       "sourceIndices": [
-        122
-      ],
-      "sceneArt": {
-        "kind": "cutscene",
-        "fixture": "cutscene",
-        "alt": "b-07 이미지"
-      }
-    },
-    {
-      "speaker": "연화",
-      "text": "···",
-      "tone": "dialogue",
-      "sourceIndices": [
-        123
-      ],
-      "sceneArt": {
-        "kind": "cutscene",
-        "fixture": "cutscene",
-        "alt": "b-07 이미지"
-      }
-    },
-    {
-      "speaker": "유라",
-      "text": "위험하잖아.",
-      "tone": "dialogue",
-      "sourceIndices": [
         124
       ],
       "sceneArt": {
@@ -2442,7 +2450,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연화",
-      "text": "너도 그러지 마.",
+      "text": "···",
       "tone": "dialogue",
       "sourceIndices": [
         125
@@ -2455,7 +2463,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "유라",
-      "text": "뭘?",
+      "text": "위험하잖아.",
       "tone": "dialogue",
       "sourceIndices": [
         126
@@ -2468,7 +2476,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연화",
-      "text": "몰라서 물어?",
+      "text": "너도 그러지 마.",
       "tone": "dialogue",
       "sourceIndices": [
         127
@@ -2481,7 +2489,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "유라",
-      "text": "··· 알겠어. 다음엔 안 던지고 말로 할게.",
+      "text": "뭘?",
       "tone": "dialogue",
       "sourceIndices": [
         128
@@ -2494,7 +2502,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연화",
-      "text": "그게 아니라···!",
+      "text": "몰라서 물어?",
       "tone": "dialogue",
       "sourceIndices": [
         129
@@ -2506,8 +2514,8 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
-      "speaker": "세린",
-      "text": "잘 날아가긴 했어.",
+      "speaker": "유라",
+      "text": "··· 알겠어. 다음엔 안 던지고 말로 할게.",
       "tone": "dialogue",
       "sourceIndices": [
         130
@@ -2519,8 +2527,8 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
-      "speaker": "유라",
-      "text": "너도 봤어?",
+      "speaker": "연화",
+      "text": "그게 아니라···!",
       "tone": "dialogue",
       "sourceIndices": [
         131
@@ -2533,10 +2541,36 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "세린",
-      "text": "참새 영상으로.",
+      "text": "잘 날아가긴 했어.",
       "tone": "dialogue",
       "sourceIndices": [
         132
+      ],
+      "sceneArt": {
+        "kind": "cutscene",
+        "fixture": "cutscene",
+        "alt": "b-07 이미지"
+      }
+    },
+    {
+      "speaker": "유라",
+      "text": "너도 봤어?",
+      "tone": "dialogue",
+      "sourceIndices": [
+        133
+      ],
+      "sceneArt": {
+        "kind": "cutscene",
+        "fixture": "cutscene",
+        "alt": "b-07 이미지"
+      }
+    },
+    {
+      "speaker": "세린",
+      "text": "참새 영상으로.",
+      "tone": "dialogue",
+      "sourceIndices": [
+        134
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2549,32 +2583,6 @@ window.RustedPrayerArchive.registerRecord({
       "text": "훌륭한 비행이었다.",
       "tone": "dialogue",
       "sourceIndices": [
-        133
-      ],
-      "sceneArt": {
-        "kind": "cutscene",
-        "fixture": "cutscene",
-        "alt": "b-07 이미지"
-      }
-    },
-    {
-      "speaker": "연화",
-      "text": "···",
-      "tone": "dialogue",
-      "sourceIndices": [
-        134
-      ],
-      "sceneArt": {
-        "kind": "cutscene",
-        "fixture": "cutscene",
-        "alt": "b-07 이미지"
-      }
-    },
-    {
-      "speaker": "유라",
-      "text": "봐. 다들 인정하잖아.",
-      "tone": "dialogue",
-      "sourceIndices": [
         135
       ],
       "sceneArt": {
@@ -2585,7 +2593,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연화",
-      "text": "유라.",
+      "text": "···",
       "tone": "dialogue",
       "sourceIndices": [
         136
@@ -2598,10 +2606,36 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "유라",
-      "text": "알았어, 알았어.",
+      "text": "봐. 다들 인정하잖아.",
       "tone": "dialogue",
       "sourceIndices": [
         137
+      ],
+      "sceneArt": {
+        "kind": "cutscene",
+        "fixture": "cutscene",
+        "alt": "b-07 이미지"
+      }
+    },
+    {
+      "speaker": "연화",
+      "text": "유라.",
+      "tone": "dialogue",
+      "sourceIndices": [
+        138
+      ],
+      "sceneArt": {
+        "kind": "cutscene",
+        "fixture": "cutscene",
+        "alt": "b-07 이미지"
+      }
+    },
+    {
+      "speaker": "유라",
+      "text": "알았어, 알았어.",
+      "tone": "dialogue",
+      "sourceIndices": [
+        139
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2614,7 +2648,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "잠시 정적.",
       "tone": "narration",
       "sourceIndices": [
-        138
+        140
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2627,7 +2661,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그래도.",
       "tone": "dialogue",
       "sourceIndices": [
-        139
+        141
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2640,7 +2674,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "뭐.",
       "tone": "dialogue",
       "sourceIndices": [
-        140
+        142
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2653,7 +2687,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "살았잖아.",
       "tone": "dialogue",
       "sourceIndices": [
-        141
+        143
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2666,7 +2700,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···",
       "tone": "dialogue",
       "sourceIndices": [
-        142
+        144
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2679,7 +2713,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "둘 다.",
       "tone": "dialogue",
       "sourceIndices": [
-        143
+        145
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2692,7 +2726,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "몇 초간 아무도 말하지 않는다.",
       "tone": "narration",
       "sourceIndices": [
-        144
+        146
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2706,7 +2740,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···응.",
       "tone": "dialogue",
       "sourceIndices": [
-        145
+        147
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2719,7 +2753,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그래.",
       "tone": "dialogue",
       "sourceIndices": [
-        146
+        148
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2732,7 +2766,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "바로 이것이 낭—",
       "tone": "dialogue",
       "sourceIndices": [
-        147
+        149
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2745,7 +2779,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "하지 마.",
       "tone": "dialogue",
       "sourceIndices": [
-        148
+        150
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2758,7 +2792,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "지금 말하면 진짜 맞아.",
       "tone": "dialogue",
       "sourceIndices": [
-        149
+        151
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2771,7 +2805,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "아직 끝까지 말하지도 않았는데.",
       "tone": "dialogue",
       "sourceIndices": [
-        150
+        152
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2784,7 +2818,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "낭만 있다고?",
       "tone": "dialogue",
       "sourceIndices": [
-        151
+        153
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2797,7 +2831,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "역시 유라는 안다!",
       "tone": "dialogue",
       "sourceIndices": [
-        152
+        154
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2810,7 +2844,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "··· 환자라서 때릴 수도 없고",
       "tone": "dialogue",
       "sourceIndices": [
-        153
+        155
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2823,7 +2857,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "방금까지 분위기 좋았는데.",
       "tone": "dialogue",
       "sourceIndices": [
-        154
+        156
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2836,7 +2870,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "유라의 웃음소리.",
       "tone": "narration",
       "sourceIndices": [
-        155
+        157
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2849,7 +2883,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "웃지 말라니까!",
       "tone": "dialogue",
       "sourceIndices": [
-        156
+        158
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2862,7 +2896,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "아, 아파.",
       "tone": "dialogue",
       "sourceIndices": [
-        157
+        159
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2875,7 +2909,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "거봐!",
       "tone": "dialogue",
       "sourceIndices": [
-        158
+        160
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2888,7 +2922,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "이러다 쫓겨나겠네.",
       "tone": "dialogue",
       "sourceIndices": [
-        159
+        161
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2901,7 +2935,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그렇다면 장엄하게 퇴장하도록 하지.",
       "tone": "dialogue",
       "sourceIndices": [
-        160
+        162
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2914,7 +2948,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "그냥 나가.",
       "tone": "dialogue",
       "sourceIndices": [
-        161
+        163
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2927,7 +2961,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "너무해.",
       "tone": "dialogue",
       "sourceIndices": [
-        162
+        164
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2940,7 +2974,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "여러 명의 발소리.",
       "tone": "narration",
       "sourceIndices": [
-        163
+        165
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2953,7 +2987,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "연화.",
       "tone": "dialogue",
       "sourceIndices": [
-        164
+        166
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2966,7 +3000,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "발소리 하나가 멈춘다.",
       "tone": "narration",
       "sourceIndices": [
-        165
+        167
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2979,7 +3013,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "왜.",
       "tone": "dialogue",
       "sourceIndices": [
-        166
+        168
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -2992,7 +3026,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "고맙다고.",
       "tone": "dialogue",
       "sourceIndices": [
-        167
+        169
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -3005,7 +3039,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "연화가 고개를 돌린다. 유라와 눈이 마주치자 굳어 있던 입가가 조금 풀린다.",
       "tone": "narration",
       "sourceIndices": [
-        168
+        170
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -3018,7 +3052,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "···",
       "tone": "dialogue",
       "sourceIndices": [
-        169
+        171
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -3031,7 +3065,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "고마우면··· 청소 대타 해줘.",
       "tone": "dialogue",
       "sourceIndices": [
-        170
+        172
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -3044,7 +3078,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "유라의 웃음소리.",
       "tone": "narration",
       "sourceIndices": [
-        171
+        173
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -3057,7 +3091,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "문이 닫힌다.",
       "tone": "narration",
       "sourceIndices": [
-        172
+        174
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -3070,7 +3104,7 @@ window.RustedPrayerArchive.registerRecord({
       "text": "음성 종료.",
       "tone": "narration",
       "sourceIndices": [
-        173
+        175
       ],
       "sceneArt": {
         "kind": "cutscene",
@@ -3128,7 +3162,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -3175,33 +3208,32 @@ window.RustedPrayerArchive.registerRecord({
     70,
     71,
     72,
-    31,
-    74,
+    73,
+    32,
+    75,
     2,
-    76,
     77,
     78,
     79,
     80,
-    82,
-    83,
-    2,
+    81,
+    84,
     85,
+    2,
     87,
-    88,
+    89,
     90,
-    91,
     92,
     93,
     94,
-    63,
+    95,
     96,
-    97,
+    64,
     98,
     99,
-    2,
+    100,
     101,
-    102,
+    2,
     103,
     104,
     105,
@@ -3210,17 +3242,17 @@ window.RustedPrayerArchive.registerRecord({
     108,
     109,
     110,
-    2,
+    111,
     112,
-    113,
-    114,
-    40,
-    116,
-    117,
-    118,
     2,
+    114,
+    115,
+    116,
+    41,
+    118,
+    119,
     120,
-    121,
+    2,
     122,
     123,
     124,
@@ -3232,9 +3264,9 @@ window.RustedPrayerArchive.registerRecord({
     130,
     131,
     132,
-    132,
-    132,
     133,
+    134,
+    134,
     134,
     135,
     136,
@@ -3242,16 +3274,18 @@ window.RustedPrayerArchive.registerRecord({
     138,
     139,
     140,
-    1,
-    63,
+    141,
     142,
+    1,
     64,
     144,
+    65,
+    146,
     2,
-    147,
-    132,
     149,
-    150
+    134,
+    151,
+    152
   ],
   "previousId": "B-06-01",
   "nextId": "B-08",
@@ -3282,7 +3316,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -3339,13 +3372,12 @@ window.RustedPrayerArchive.registerRecord({
     80,
     81,
     82,
-    83,
     84,
     85,
+    86,
     87,
-    88,
+    89,
     90,
-    91,
     92,
     93,
     94,
@@ -3387,9 +3419,9 @@ window.RustedPrayerArchive.registerRecord({
     130,
     131,
     132,
-    132,
-    132,
     133,
+    134,
+    134,
     134,
     135,
     136,
@@ -3398,15 +3430,17 @@ window.RustedPrayerArchive.registerRecord({
     139,
     140,
     141,
-    141,
     142,
     143,
+    143,
     144,
+    145,
     146,
-    147,
     148,
     149,
-    150
+    150,
+    151,
+    152
   ],
   "v7IndexMap": [
     0,
@@ -3435,7 +3469,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -3492,13 +3525,12 @@ window.RustedPrayerArchive.registerRecord({
     80,
     81,
     82,
-    83,
     84,
     85,
+    86,
     87,
-    88,
+    89,
     90,
-    91,
     92,
     93,
     94,
@@ -3540,9 +3572,9 @@ window.RustedPrayerArchive.registerRecord({
     130,
     131,
     132,
-    132,
-    132,
     133,
+    134,
+    134,
     134,
     135,
     136,
@@ -3551,15 +3583,17 @@ window.RustedPrayerArchive.registerRecord({
     139,
     140,
     141,
-    141,
     142,
     143,
+    143,
     144,
+    145,
     146,
-    147,
     148,
     149,
-    150
+    150,
+    151,
+    152
   ],
   "v10IndexMap": [
     0,
@@ -3588,7 +3622,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -3645,7 +3678,6 @@ window.RustedPrayerArchive.registerRecord({
     80,
     81,
     82,
-    83,
     84,
     85,
     86,
@@ -3704,8 +3736,8 @@ window.RustedPrayerArchive.registerRecord({
     139,
     140,
     141,
-    141,
     142,
+    143,
     143,
     144,
     145,
@@ -3713,7 +3745,9 @@ window.RustedPrayerArchive.registerRecord({
     147,
     148,
     149,
-    150
+    150,
+    151,
+    152
   ],
   "v12IndexMap": [
     0,
@@ -3742,7 +3776,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -3799,7 +3832,6 @@ window.RustedPrayerArchive.registerRecord({
     80,
     81,
     82,
-    83,
     84,
     85,
     86,
@@ -3858,8 +3890,8 @@ window.RustedPrayerArchive.registerRecord({
     139,
     140,
     141,
-    141,
     142,
+    143,
     143,
     144,
     145,
@@ -3867,7 +3899,9 @@ window.RustedPrayerArchive.registerRecord({
     147,
     148,
     149,
-    150
+    150,
+    151,
+    152
   ],
   "v13IndexMap": [
     0,
@@ -3896,7 +3930,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -3953,7 +3986,6 @@ window.RustedPrayerArchive.registerRecord({
     80,
     81,
     82,
-    83,
     84,
     85,
     86,
@@ -4012,8 +4044,8 @@ window.RustedPrayerArchive.registerRecord({
     139,
     140,
     141,
-    141,
     142,
+    143,
     143,
     144,
     145,
@@ -4021,7 +4053,9 @@ window.RustedPrayerArchive.registerRecord({
     147,
     148,
     149,
-    150
+    150,
+    151,
+    152
   ],
   "v20IndexMap": [
     0,
@@ -4050,7 +4084,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -4107,7 +4140,6 @@ window.RustedPrayerArchive.registerRecord({
     80,
     81,
     82,
-    83,
     84,
     85,
     86,
@@ -4166,8 +4198,8 @@ window.RustedPrayerArchive.registerRecord({
     139,
     140,
     141,
-    141,
     142,
+    143,
     143,
     144,
     145,
@@ -4175,17 +4207,31 @@ window.RustedPrayerArchive.registerRecord({
     147,
     148,
     149,
-    150
+    150,
+    151,
+    152
   ],
   "v20PageMap": {},
   "bookmarkTextAliases": [
     {
-      "index": 141,
+      "index": 143,
       "before": "문이 열리는 소리."
     },
     {
-      "index": 53,
+      "index": 54,
       "before": "침대 프레임이 움직이는 소리."
+    },
+    {
+      "index": 25,
+      "before": "··· 잘했어. 어쨌든 살았잖아. 그래도 다음부터는 총까지 챙기고 숨은 다음 구조 요청해. 이번에 그냥 와서 랩쳐가 엄청 몰려왔잖아."
+    },
+    {
+      "index": 82,
+      "before": "연화는 문 쪽으로 향하던 시선을 거둔다. 문가에 선 채 두 손을 맞잡자 손등에 힘줄이 도드라진다. 초희는 그 손을 잠시 내려다본다."
+    },
+    {
+      "index": 91,
+      "before": "연화가 문가를 떠나 유라의 침대 곁으로 다가간다. 유라는 곁에 선 연화를 올려다보며 작게 웃는다."
     }
   ],
   "v21IndexMap": [
@@ -4215,7 +4261,6 @@ window.RustedPrayerArchive.registerRecord({
     23,
     24,
     25,
-    26,
     27,
     28,
     29,
@@ -4272,6 +4317,617 @@ window.RustedPrayerArchive.registerRecord({
     80,
     81,
     82,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152
+  ],
+  "v22IndexMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152
+  ],
+  "v23IndexMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152
+  ],
+  "v24IndexMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152
+  ],
+  "b07SplitSeenIndexMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
     83,
     84,
     85,
@@ -4339,6 +4995,8 @@ window.RustedPrayerArchive.registerRecord({
     147,
     148,
     149,
-    150
+    150,
+    151,
+    152
   ]
 });

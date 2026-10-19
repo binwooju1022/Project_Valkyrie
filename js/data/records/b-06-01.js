@@ -264,7 +264,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "이번에는 희미한 목소리마저 돌아오지 않는다. 연화는 유라의 손을 움켜쥔다. 놓치지 않으려는 듯 손가락에 힘을 더한다."
+      "text": "이번에는 희미한 목소리마저 돌아오지 않는다. 연화는 유라의 손을 움켜쥔다. 놓치지 않으려는 듯, 온몸에 힘을 더한다."
     },
     {
       "type": "text",
@@ -304,7 +304,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "인지 패턴 변화 감지."
+      "text": "머릿속이 빠르게 정리되기 시작한다."
     },
     {
       "type": "text",
@@ -773,7 +773,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "이번에는 희미한 목소리마저 돌아오지 않는다. 연화는 유라의 손을 움켜쥔다. 놓치지 않으려는 듯 손가락에 힘을 더한다.",
+      "text": "이번에는 희미한 목소리마저 돌아오지 않는다. 연화는 유라의 손을 움켜쥔다. 놓치지 않으려는 듯, 온몸에 힘을 더한다.",
       "tone": "narration",
       "sourceIndices": [
         33
@@ -940,7 +940,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "인지 패턴 변화 감지.",
+      "text": "머릿속이 빠르게 정리되기 시작한다.",
       "tone": "narration",
       "sourceIndices": [
         43
@@ -1424,6 +1424,14 @@ window.RustedPrayerArchive.registerRecord({
     {
       "index": 49,
       "before": "마지막으로 확인되는 장면은 UNIT-02를 업은 채 기지를 향해 달리는 UNIT-01의 옆모습이다."
+    },
+    {
+      "index": 33,
+      "before": "이번에는 희미한 목소리마저 돌아오지 않는다. 연화는 유라의 손을 움켜쥔다. 놓치지 않으려는 듯 손가락에 힘을 더한다."
+    },
+    {
+      "index": 43,
+      "before": "인지 패턴 변화 감지."
     }
   ]
 });
