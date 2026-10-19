@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050707" />
+    <meta
+      name="description"
+      content="손상된 기록 매체를 복구해 UNIT-01과 UNIT-02의 기억을 열람하는 인터랙티브 아카이브"
+    />
+    <title>녹슨 기도 — 기록 보관소</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/presentation.css" />
+    <link rel="stylesheet" href="./css/reader.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div id="loading-overlay" class="loading-overlay" role="dialog" aria-modal="true" aria-labelledby="loading-title">
+      <div class="loading-terminal">
+        <span class="eyebrow">복구 단말기 02 / 시스템 시작</span>
+        <h2 id="loading-title">전원 인가 중</h2>
+        <p id="loading-status" role="status" aria-live="polite">기록 시스템을 준비하고 있습니다.</p>
+        <progress id="loading-progress" max="100" aria-label="자료 준비 상태"></progress>
+        <p id="loading-detail" class="loading-detail">화면 신호 대기</p>
+        <div class="loading-actions">
+          <button id="loading-retry" class="button" type="button" hidden>다시 불러오기</button>
+          <button id="loading-continue" class="button button-primary" type="button" hidden>텍스트로 계속</button>
+          <button id="loading-cancel" class="text-button" type="button" hidden>취소 / 뒤로</button>
+        </div>
+      </div>
+    </div>
+
+    <main id="app" class="app-shell" inert aria-busy="true">
+      <section id="boot-screen" class="screen boot-screen" aria-labelledby="boot-title">
+        <div class="boot-terminal">
+          <div id="rotation-notice" class="rotation-notice" role="note">
+            <svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true" focusable="false">
+              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="15" y="10" width="18" height="28" rx="3" transform="rotate(-30 24 24)"/>
+                <path d="M5 22a19 19 0 0 1 29-14m0-6v6h-6M43 26a19 19 0 0 1-29 14m0 6v-6h6"/>
+              </g>
+            </svg>
+            <p><strong>가로 모드에 최적화되어 있습니다.</strong><span>기기를 가로로 돌려서 감상해 주세요.</span></p>
+          </div>
+          <p class="eyebrow">발키리 프로젝트</p>
+          <h1 id="boot-title">녹슨 기도</h1>
+          <div class="boot-log" aria-live="polite">
+            <span>보조 전원 연결</span>
+            <span>기억 매체 검사 완료</span>
+            <span>복구 매체 4개 인식 + 기록 열람 승인</span>
+          </div>
+          <button id="enter-archive" class="button button-primary" type="button">
+            기록 보관소 접속
+          </button>
+        </div>
+      </section>
+
+      <section id="gallery-screen" class="screen gallery-screen" hidden aria-labelledby="gallery-title">
+        <header class="topbar"><h1 id="gallery-title">갤러리</h1><button class="text-button" data-action="back-archive" type="button">돌아가기</button></header>
+        <nav id="gallery-filters" class="gallery-filters" aria-label="갤러리 분류"></nav>
+        <p id="gallery-count" class="reading-note"></p><div id="gallery-grid" class="gallery-grid"></div>
+        <div id="gallery-viewer" class="gallery-viewer" hidden role="dialog" aria-modal="true" aria-label="컷신 원본 보기">
+          <button id="gallery-close" class="control-button" data-action="close-gallery-image" type="button">닫기</button>
+          <figure><div class="gallery-image-area"><img id="gallery-image" draggable="false" alt=""/></div><figcaption id="gallery-caption"></figcaption></figure>
+          <nav><button id="gallery-prev" class="control-button" data-action="gallery-prev" type="button">이전</button><button id="gallery-next" class="control-button" data-action="gallery-next" type="button">다음</button></nav>
+        </div>
+      </section>
+      <section id="archive-screen" class="screen archive-screen" hidden aria-labelledby="archive-title">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">복구 단말기 02</p>
+            <h1 id="archive-title">기록 보관소</h1>
+          </div>
+          <div class="terminal-status">
+            <span class="status-light" aria-hidden="true"></span>
+            <span>오프라인 / 로컬 기록</span>
+          </div>
+          <button id="archive-tools-toggle" class="text-button archive-tools-toggle" data-action="toggle-archive-tools" type="button" aria-controls="archive-tools" aria-expanded="false">읽기 도구 ▾</button>
+        </header>
+
+        <div class="archive-overview"><span id="archive-progress"></span><div class="archive-guidance"><span class="archive-unlock-note">A → B → C → D · 앞 기록을 완료하면 다음 기록이 열립니다.</span><p class="archive-shortcuts">재생 중 · Space · Enter · → : 다음 · ← : 이전<br>L : 재생 기록 보기·닫기<br>Esc : 나가기 · H : UI 숨기기·복원</p></div></div>
+        <p id="archive-notice" class="reading-note" role="status" hidden></p>
+        <nav id="archive-tools" class="reader-tools" aria-label="읽기 도구">
+          <button class="text-button" data-action="show-settings" type="button">읽기 설정</button>
+          <button class="text-button" data-action="show-library" type="button">기록 찾기</button>
+          <button class="text-button" data-action="show-gallery" type="button">갤러리</button>
+        </nav>
+
+        <div id="archive-tabs" class="archive-tabs" role="tablist" aria-label="보관소 화면">
+          <button id="archive-tab-0" type="button" role="tab" aria-controls="archive-media-panel" aria-selected="false" tabindex="-1" data-action="archive-pane" data-archive-pane="0">물리 매체</button>
+          <button id="archive-tab-1" type="button" role="tab" aria-controls="archive-files-panel" aria-selected="true" tabindex="0" data-action="archive-pane" data-archive-pane="1">파일 목록</button>
+          <button id="archive-tab-2" type="button" role="tab" aria-controls="archive-detail-panel" aria-selected="false" tabindex="-1" data-action="archive-pane" data-archive-pane="2">선택 정보</button>
+        </div>
+        <div id="archive-layout" class="archive-layout">
+          <nav id="archive-media-panel" class="panel disk-panel" aria-label="디스크 목록">
+            <div class="panel-heading">
+              <span>물리 매체</span>
+              <span>4개</span>
+            </div>
+            <div id="disk-list" class="disk-list"></div>
+            <div id="archive-media-info" class="archive-media-info"></div>
+          </nav>
+
+          <section id="archive-files-panel" class="panel records-panel" aria-labelledby="record-list-title">
+            <div class="panel-heading">
+              <span id="record-list-title">파일 목록</span>
+              <span id="disk-integrity">--</span>
+            </div>
+            <div id="disk-summary" class="disk-summary"></div>
+            <nav id="d-record-switch" class="d-record-switch" aria-label="D편 기록 종류" hidden>
+              <button class="text-button" data-action="d-record-kind" data-kind="main" type="button" aria-pressed="true">본편</button>
+              <button class="text-button" data-action="d-record-kind" data-kind="related" type="button" aria-pressed="false">관련 보고서</button>
+            </nav>
+            <p id="d-record-hint" class="d-record-hint" hidden></p>
+            <button id="resume-d-main" class="button" data-action="resume-main" type="button" hidden>본편 이어보기</button>
+            <div id="record-list" class="record-list"></div>
+          </section>
+
+          <aside id="archive-detail-panel" class="panel detail-panel" aria-labelledby="detail-title">
+            <div class="panel-heading">
+              <span id="detail-title">선택 정보</span>
+              <span id="record-state">대기</span>
+            </div>
+            <div id="record-detail" class="record-detail"></div>
+          </aside>
+        </div>
+        <footer id="archive-open-bar" class="archive-open-bar" aria-label="선택한 기록 열기">
+          <div aria-live="polite"><strong id="archive-selected-code"></strong><span id="archive-selected-title"></span></div>
+          <button id="archive-open-record" class="button button-primary" data-action="archive-open-record" type="button">기록 열기</button>
+        </footer>
+      </section>
+
+      <section id="objective-screen" class="screen objective-screen" hidden aria-labelledby="objective-title">
+        <header class="viewer-bar">
+          <button class="text-button" data-action="back-archive" type="button">← 뒤로</button>
+          <button class="text-button" data-action="show-archive" type="button">파일 목록</button>
+          <button class="text-button" data-action="show-settings" type="button">읽기 설정</button>
+          <button class="text-button" data-action="show-library" type="button">기록 찾기</button>
+          <button id="objective-related-reports" class="text-button" data-action="show-related" type="button" hidden>관련 보고서</button>
+          <span id="objective-integrity">무결성 --</span>
+          <button class="text-button" data-bgm-toggle type="button" aria-pressed="true">♫ BGM 켜짐</button>
+        </header>
+
+        <div class="objective-layout">
+          <article class="objective-document">
+            <div class="file-heading">
+              <p id="objective-code" class="eyebrow"></p>
+              <h1 id="objective-title"></h1>
+              <p id="objective-source" class="file-source" hidden></p>
+            </div>
+            <div id="objective-body" class="objective-body"></div>
+          </article>
+          <aside id="d-report-browser" class="d-report-browser" aria-label="D편 보고서 탐색" hidden>
+            <h2>D편 자료 폴더</h2>
+            <nav id="d-report-tree" aria-label="보고서 선택"></nav>
+            <button class="text-button" data-action="show-archive" type="button">파일 목록으로</button>
+          </aside>
+
+          <aside id="analysis-card" class="analysis-card" aria-label="재생">
+            <div class="analysis-title">재생</div>
+            <div id="recommendation" class="recommendation">
+              <span>권고 행동</span>
+              <strong id="recommendation-text"></strong>
+            </div>
+            <section id="reading-setup-guide" class="reading-setup-guide" aria-labelledby="reading-setup-title" hidden>
+              <h2 id="reading-setup-title">읽기 속도 미리 맞추기</h2>
+              <p>글자 출력과 자동 읽기 속도를 미리 비교해 보세요.</p>
+              <button id="reading-setup-preview" class="button" data-action="show-settings" type="button">읽기 설정·미리보기</button>
+            </section>
+            <div class="playback-primary">
+            <button id="start-story" class="button button-danger" type="button">
+              인지 기록 동기화
+            </button>
+            <button id="restart-story" class="text-button secondary-action" type="button" hidden>처음부터 재생</button>
+            </div>
+            <div class="playback-options">
+              <button id="objective-reading-settings" class="text-button secondary-action" data-action="show-settings" type="button" hidden>읽기 설정</button>
+              <button id="objective-continuous" class="control-button" data-action="toggle-continuous" type="button" aria-pressed="true" aria-describedby="continuous-note">연속 재생 켜짐</button>
+              <p id="continuous-note" class="reading-note">같은 사건의 기록을 이어서 재생합니다.</p>
+            </div>
+            <details class="playback-details"><summary>단축키</summary>
+            <dl class="reading-shortcuts reading-note" aria-label="재생 단축키">
+              <div><dt>클릭 · Space · Enter · → :</dt><dd>문장 완성 또는 다음</dd></div>
+              <div><dt>← :</dt><dd>이전</dd></div>
+              <div><dt>L :</dt><dd>재생 기록 보기·닫기</dd></div>
+              <div><dt>Esc :</dt><dd>나가기</dd></div>
+              <div><dt>H :</dt><dd>UI 숨기기·복원</dd></div>
+            </dl>
+            <p class="reading-note">첨부 기록은 확인 버튼으로 넘깁니다.</p>
+            </details>
+            <details class="playback-details"><summary>기록 정보</summary><dl id="analysis-list"></dl></details>
+          </aside>
+        </div>
+      </section>
+
+      <section id="story-screen" class="screen story-screen" hidden aria-label="인지 기록 재생">
+          <button id="story-menu-toggle" class="story-menu-toggle" data-action="toggle-story-menu" type="button" aria-controls="story-hud" aria-expanded="false" hidden>메뉴 ▾</button>
+          <header id="story-hud" class="story-hud">
+            <div class="story-status">
+              <button class="story-back shortcut-control" data-action="exit-story" type="button" aria-label="인지 기록 종료"><span aria-hidden="true">←</span><kbd>Esc</kbd></button>
+              <span id="story-source">인지 보완 자료</span>
+              <span id="story-counter">000 / 000</span>
+              <span id="story-reliability">신뢰도 48%</span>
+            </div>
+            <div id="story-controls" class="story-controls" aria-label="재생 조작">
+              <button class="control-button" data-bgm-toggle type="button" aria-pressed="true">♫ BGM 켜짐</button>
+              <button id="auto-button" class="control-button" data-action="toggle-auto" type="button">○ 자동</button>
+              <button id="log-button" class="control-button shortcut-control" data-action="toggle-log" type="button" aria-controls="backlog" aria-expanded="false" aria-keyshortcuts="L" aria-label="재생 기록 열기 / 닫기 (L)" title="재생 기록 열기 / 닫기 (L)"><span>□ 기록</span><kbd>L</kbd></button>
+              <button class="control-button shortcut-control" data-action="toggle-ui" type="button" aria-label="UI 숨기기 / 표시" title="UI 숨기기 / 표시 (H)"><span>◇ 숨기기</span><kbd>H</kbd></button>
+              <button class="control-button shortcut-control" data-action="previous-line" type="button"><span>‹ 이전</span><kbd>←</kbd></button>
+              <button class="control-button shortcut-control" data-action="next-line" type="button"><span>다음 ›</span><kbd>Enter</kbd></button>
+              <details id="story-options" class="story-options">
+                <summary class="control-button">더보기</summary>
+                <div class="story-options-menu">
+                  <button id="story-related-reports" class="control-button" data-action="show-related" type="button" hidden>관련 보고서</button>
+                  <button class="control-button" data-action="show-settings" type="button">읽기 설정</button>
+                  <button id="bookmark-button" class="control-button" data-action="toggle-bookmark" type="button" aria-pressed="false">☆ 북마크</button>
+                  <button id="continuous-button" class="control-button" data-action="toggle-continuous" type="button" aria-pressed="true" title="같은 사건의 기록을 이어서 읽습니다">연속 재생 켜짐</button>
+                  <button id="instant-button" class="control-button" data-action="toggle-instant" type="button" aria-pressed="false">즉시 출력</button>
+                </div>
+              </details>
+            </div>
+          </header>
+        <div id="story-stage" class="story-stage">
+          <figure id="scene-art" class="scene-art d-image-surface" aria-label="복구 장면"></figure>
+          <div id="standing-art" class="standing-art" aria-hidden="true"></div>
+          <div class="a-identity-window"><div id="a-identity-targets" class="a-identity-targets" hidden aria-hidden="true"></div></div>
+          <aside id="a-identity-hud" class="a-identity-hud" hidden aria-label="스쿼드 인물 식별">
+            <header><span>스쿼드 식별</span><small>DRONE HUD</small></header>
+            <div id="a-identity-roster" class="a-identity-roster"></div>
+            <footer><span id="a-identity-note"></span><button class="text-button" data-action="show-settings" type="button">읽기 설정</button></footer>
+          </aside>
+          <aside id="a-drone-hud" class="a-drone-hud" hidden aria-label="드론 상태"><span>DRONE-02 · LIVE</span><img id="a-drone-panel" draggable="false" alt="드론 표정"/><small>기록 중 · 신호 정상</small></aside>
+          <div id="lab-monitor-area" class="lab-monitor-area" hidden>
+            <section id="lab-monitor" class="lab-monitor" aria-label="연구실 자료 화면">
+              <header class="lab-monitor-heading"><span>연구 자료</span><span id="lab-monitor-record"></span></header>
+              <div id="lab-monitor-viewport" class="lab-monitor-viewport d-image-surface"></div>
+              <footer class="lab-monitor-status"><span>관측 기록</span><span>신호 동기화</span></footer>
+            </section>
+          </div>
+          <figure id="scan-preview" class="scan-preview d-image-surface" hidden>
+            <img id="scan-preview-image" class="research-image" alt="" hidden>
+            <figcaption id="scan-preview-label"></figcaption>
+          </figure>
+          <div id="telemetry-context" class="telemetry-context" hidden></div>
+          <div id="asset-stage" class="asset-stage" aria-hidden="true">
+            <img id="scene-image" class="scene-image" alt="" hidden />
+            <div class="background-slot">
+              <span>복구된 장소</span>
+              <strong id="background-asset-label">귀환 경로 03</strong>
+            </div>
+            <div class="character-slot">
+              <span>잔존 기록</span>
+              <strong id="character-asset-label">연화 / 유라</strong>
+              <small id="framing-label">운반 장면 · 중앙 배치</small>
+            </div>
+          </div>
+
+          <div class="motion-field" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+
+          <div id="system-panel" class="system-panel" hidden>
+            <span id="system-panel-kicker">시스템</span>
+            <strong id="system-panel-title"></strong>
+            <p id="system-panel-text" aria-live="polite"></p>
+          </div>
+
+          <div id="memory-card" class="memory-card" hidden>
+            <div class="cutscene-visual">
+              <img id="memory-image" alt="" hidden />
+              <div id="memory-placeholder" class="cutscene-placeholder">
+                <span>잔존 기억</span>
+                <strong id="memory-asset-label"></strong>
+              </div>
+            </div>
+            <div class="cutscene-copy">
+              <span id="memory-kind">기억 파편</span>
+              <strong id="memory-title"></strong>
+              <p id="memory-caption" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <div id="story-caption" class="story-caption" hidden aria-live="polite"></div>
+
+          <section id="communication-panel" class="communication-panel" hidden aria-labelledby="communication-title">
+            <header><span id="communication-kind" class="eyebrow"></span><h2 id="communication-title"></h2><span id="channel-signal" class="channel-signal" aria-hidden="true"><i></i><i></i><i></i><i></i></span></header>
+            <div id="chat-members" class="chat-members" aria-label="대화 참여자 프로필" hidden></div>
+            <div id="communication-feed" class="communication-feed" aria-live="polite"></div>
+            <footer id="communication-status"></footer>
+          </section>
+          <section id="telemetry-panel" class="telemetry-panel" hidden aria-labelledby="telemetry-title">
+            <header><span id="telemetry-kind" class="eyebrow"></span><strong id="telemetry-title"></strong><span class="sensor-light" aria-hidden="true"></span></header>
+            <div class="sensor-reticle" aria-hidden="true">⌖</div>
+            <span id="telemetry-speaker"></span>
+            <p id="telemetry-text" aria-live="polite"></p>
+            <footer id="telemetry-status"></footer>
+          </section>
+          <section id="insert-card" class="insert-card" hidden aria-labelledby="insert-title">
+            <span id="insert-kicker" class="eyebrow"></span>
+            <h2 id="insert-title"></h2>
+            <p id="insert-speaker" class="insert-speaker" hidden></p>
+            <p id="insert-text" class="insert-text" aria-live="polite"></p>
+            <div id="insert-body" class="insert-body" hidden></div>
+            <span id="insert-hint" class="insert-hint">클릭하여 계속</span>
+            <button id="acknowledge-insert" class="button" data-action="acknowledge-insert" type="button" hidden>확인 · 계속</button>
+          </section>
+
+          <div id="dialogue-box" class="dialogue-box">
+            <div id="speaker-name" class="speaker-name">연화</div>
+            <p id="dialogue-text" class="dialogue-text" aria-live="polite"></p>
+            <span class="next-indicator" aria-hidden="true">▼</span>
+          </div>
+        </div>
+
+        <div id="profile-overlay" class="profile-overlay" hidden>
+          <section id="profile-dialog" class="profile-card" role="dialog" aria-modal="true" aria-labelledby="profile-name" tabindex="-1">
+            <header><span class="eyebrow">프로필</span><button id="profile-close" class="text-button" data-action="close-profile" type="button">닫기</button></header>
+            <div id="profile-picture" class="profile-picture" data-photo="default">
+              <span id="profile-initial" class="profile-initial" aria-hidden="true"></span>
+              <img id="profile-image" alt="" hidden />
+            </div>
+            <h2 id="profile-name"></h2>
+            <p id="profile-photo-label"></p>
+          </section>
+        </div>
+        <div id="backlog-dismiss" class="backlog-dismiss" hidden aria-hidden="true"></div>
+        <aside id="backlog" class="backlog" hidden aria-labelledby="backlog-title" tabindex="-1">
+          <div class="backlog-heading">
+            <h2 id="backlog-title">재생 기록</h2>
+            <button class="text-button" data-action="toggle-log" type="button">닫기</button>
+          </div>
+          <ol id="backlog-list"></ol>
+          <button id="backlog-search" class="button" data-action="show-library" type="button">읽은 기록 전체에서 찾기</button>
+        </aside>
+      </section>
+
+      <section id="transition-screen" class="screen complete-screen transition-screen" hidden aria-labelledby="transition-title">
+        <div class="complete-card transition-card">
+          <p id="transition-kicker" class="eyebrow"></p>
+          <p id="transition-completion"></p>
+          <h1 id="transition-title"></h1>
+          <p id="transition-file" class="file-source"></p>
+          <p id="transition-meta"></p>
+          <div id="transition-intro" class="objective-body"></div>
+          <p id="transition-hint" class="reading-note" role="status"></p>
+          <button id="transition-next" class="button button-primary" data-action="continue-transition" type="button">다음 기록 재생 ›</button>
+          <button id="transition-auto" class="button" data-action="toggle-auto" type="button" aria-pressed="false">자동 읽기 켜기</button>
+          <button class="button" data-action="stop-transition" type="button">여기서 멈추기 · 완료 화면</button>
+        </div>
+      </section>
+
+      <section id="settings-screen" class="screen reader-screen" hidden aria-labelledby="settings-title">
+        <header class="viewer-bar"><button class="text-button" data-action="back-archive" type="button">← 읽던 곳으로</button><h1 id="settings-title">설정</h1></header>
+        <div class="reader-panel settings-panel">
+          <nav id="settings-categories" class="settings-categories" role="tablist" aria-label="설정 종류">
+            <button id="settings-tab-reading" class="text-button" type="button" role="tab" aria-controls="settings-panel-reading" aria-selected="true" tabindex="0" data-action="settings-category" data-settings-category="reading">읽기</button>
+            <button id="settings-tab-display" class="text-button" type="button" role="tab" aria-controls="settings-panel-display" aria-selected="false" tabindex="-1" data-action="settings-category" data-settings-category="display">화면</button>
+            <button id="settings-tab-audio" class="text-button" type="button" role="tab" aria-controls="settings-panel-audio" aria-selected="false" tabindex="-1" data-action="settings-category" data-settings-category="audio">음악·효과음</button>
+            <button id="settings-tab-shortcuts" class="text-button" type="button" role="tab" aria-controls="settings-panel-shortcuts" aria-selected="false" tabindex="-1" data-action="settings-category" data-settings-category="shortcuts">단축키</button>
+            <button id="settings-tab-data" class="text-button" type="button" role="tab" aria-controls="settings-panel-data" aria-selected="false" tabindex="-1" data-action="settings-category" data-settings-category="data">기록 관리</button>
+          </nav>
+          <section id="settings-panel-reading" class="settings-category" role="tabpanel" aria-labelledby="settings-tab-reading" data-settings-panel="reading">
+            <h2>읽기 설정</h2>
+<section id="reading-speed-settings" class="reading-speed-settings" aria-label="읽기 속도 조절">
+            <p class="reading-note">속도를 조절한 뒤 아래 미리보기로 확인하세요.</p>
+            <div class="setting-row"><div class="setting-copy"><label for="setting-speed">문자 출력 속도</label><p id="setting-speed-note" class="reading-note">글자가 나타나는 속도입니다.</p></div><div class="setting-control"><select id="setting-speed" aria-describedby="setting-speed-note"><option value="slow">느리게</option><option value="normal">보통</option><option value="fast">빠르게</option><option value="instant">즉시 출력</option></select></div></div>
+            <div class="setting-row"><div class="setting-copy"><label for="setting-auto">자동 읽기 속도</label><p id="setting-auto-note" class="reading-note">자동을 켰을 때 다음 문장으로 넘어가는 속도입니다.</p></div><div class="setting-control"><select id="setting-auto" aria-describedby="setting-auto-note"><option value="slow">느리게</option><option value="normal">보통</option><option value="fast">빠르게</option></select></div></div>
+            <div id="settings-preview" class="settings-preview"><span class="eyebrow">미리보기 · 다음 문장으로 자동 전환</span><p id="reading-sample" class="reading-sample"></p><progress id="preview-progress" max="100" value="0" aria-label="다음 문장 대기"></progress><p id="preview-status" class="reading-note"></p></div>
+            
+          </section>
+<div class="setting-row"><div class="setting-copy"><label for="setting-remember-auto">자동 읽기 상태 유지</label><p id="setting-remember-auto-note" class="reading-note">기록을 바꿔도 자동 버튼의 마지막 선택을 기억합니다.</p></div><div class="setting-control"><select id="setting-remember-auto" aria-describedby="setting-remember-auto-note"><option value="on">켜기 · 마지막 선택 기억</option><option value="off">끄기 · 기록마다 직접 켜기</option></select></div></div>
+<div class="setting-row"><div class="setting-copy"><label for="setting-resume">접속 시 자동 이어보기</label><p id="setting-resume-note" class="reading-note">접속하면 보관소 대신 읽던 기록을 바로 엽니다.</p></div><div class="setting-control"><select id="setting-resume" aria-describedby="setting-resume-note"><option value="off">끄기 · 기록 보관소 열기</option><option value="on">켜기 · 읽던 곳으로 이동</option></select></div></div>
+          </section>
+          <section id="settings-panel-display" class="settings-category" role="tabpanel" aria-labelledby="settings-tab-display" data-settings-panel="display" hidden>
+            <h2>화면 설정</h2>
+<div class="setting-row"><div class="setting-copy"><label for="setting-size">글자 크기</label><p id="setting-size-note" class="reading-note">대사와 본문의 글자 크기를 조절합니다.</p></div><div class="setting-control"><select aria-describedby="setting-size-note" id="setting-size"><option value="small">작게</option><option value="normal">보통</option><option value="large">크게</option></select></div></div>
+          <div class="setting-row"><div class="setting-copy"><label for="setting-dialogue-position">대사 위치</label><p id="setting-dialogue-position-note" class="reading-note">대사 영역을 옮깁니다. 글자는 왼쪽 정렬을 유지합니다.</p></div><div class="setting-control"><select id="setting-dialogue-position" aria-describedby="setting-dialogue-position-note"><option value="left">하단 왼쪽 · 기본</option><option value="center">하단 중앙</option><option value="right">하단 오른쪽</option></select></div></div>
+<div class="setting-row"><div class="setting-copy"><label for="setting-effects">화면 효과</label><p id="setting-motion-note" class="reading-note"></p></div><div class="setting-control"><select id="setting-effects" aria-describedby="setting-motion-note"><option value="normal">기본</option><option value="reduced">효과 줄이기</option></select></div></div>
+<div class="setting-row"><div class="setting-copy"><label for="setting-identities">인물 표시</label><p id="setting-identities-note" class="reading-note">컷신에 인물 이름과 표식을 표시합니다.</p></div><div class="setting-control"><select id="setting-identities" aria-describedby="setting-identities-note"><option value="off">숨기기</option><option value="on">보이기</option></select></div></div>
+          <div id="setting-ending-group" hidden>
+            <div class="setting-row"><div class="setting-copy"><label for="setting-ending">마지막 사진 연출</label><p id="setting-ending-note" class="reading-note">완독 후 마지막 사진을 열 때의 연출입니다.</p></div><div class="setting-control"><select id="setting-ending" aria-describedby="setting-ending-note"><option value="show">연출 보기</option><option value="skip">연출 건너뛰기</option></select></div></div>
+          </div>
+          </section>
+          <section id="settings-panel-audio" class="settings-category" role="tabpanel" aria-labelledby="settings-tab-audio" data-settings-panel="audio" hidden>
+            <h2>음악·효과음 설정</h2>
+<div class="setting-row"><div class="setting-copy"><label for="bgm-enabled">배경음악</label><p id="bgm-enabled-note" class="reading-note">보관소와 장면 재생의 배경음악을 켜거나 끕니다.</p></div><div class="setting-control"><select aria-describedby="bgm-enabled-note" id="bgm-enabled"><option value="on">켜기</option><option value="off">음소거</option></select></div></div>
+          <div class="setting-row"><div class="setting-copy"><label for="bgm-volume">BGM 음량</label><p id="bgm-note" class="reading-note">보관소와 재생 중의 배경음악을 조절합니다.</p></div><div class="setting-control"><div class="volume-controls"><input id="bgm-volume" type="range" min="0" max="100" value="35" step="1" /><span class="volume-number"><input id="bgm-volume-value" type="number" min="0" max="100" value="35" step="1" inputmode="numeric" aria-label="BGM 음량 백분율" /><span aria-hidden="true">%</span></span></div></div></div>
+          <div class="setting-row"><div class="setting-copy"><label for="sfx-enabled">효과음</label><p id="sfx-enabled-note" class="reading-note">장면에 맞춰 나오는 효과음을 켜거나 끕니다.</p></div><div class="setting-control"><select aria-describedby="sfx-enabled-note" id="sfx-enabled"><option value="on">켜기</option><option value="off">음소거</option></select></div></div>
+          <div class="setting-row"><div class="setting-copy"><label for="sfx-volume">효과음 음량</label><p id="sfx-volume-note" class="reading-note">효과음의 크기를 조절합니다.</p></div><div class="setting-control"><div class="volume-controls"><input id="sfx-volume" type="range" min="0" max="100" value="60" step="1" /><span class="volume-number"><input id="sfx-volume-value" type="number" min="0" max="100" value="60" step="1" inputmode="numeric" aria-label="효과음 음량 백분율" /><span aria-hidden="true">%</span></span></div></div></div>
+          </section>
+          <section id="settings-panel-shortcuts" class="settings-category" role="tabpanel" aria-labelledby="settings-tab-shortcuts" data-settings-panel="shortcuts" hidden>
+<section class="shortcut-guide" aria-labelledby="shortcut-title">
+            <h2 id="shortcut-title">단축키</h2>
+            <dl class="shortcut-list">
+              <div><dt><kbd>Space</kbd><kbd>Enter</kbd><kbd>→</kbd></dt><dd>현재 문장 전체 표시 / 다음 묘사·장면</dd></div>
+              <div><dt><kbd>Space</kbd></dt><dd>열람 완료 화면에서 다음 기록 열기</dd></div>
+              <div><dt><kbd>←</kbd></dt><dd>이전 묘사·장면</dd></div>
+              <div><dt><kbd>H</kbd></dt><dd>재생 UI 숨기기 / 다시 표시</dd></div>
+              <div><dt><kbd>L</kbd></dt><dd>재생 기록 열기 / 닫기</dd></div>
+              <div><dt><kbd>Esc</kbd></dt><dd>열린 창 닫기 / 장면 재생 나가기</dd></div>
+            </dl>
+            <p class="reading-note">장면 클릭으로도 진행합니다. UI가 숨겨져 있으면 진행 키로 먼저 표시합니다.</p>
+          </section>
+          </section>
+          <section id="settings-panel-data" class="settings-category" role="tabpanel" aria-labelledby="settings-tab-data" data-settings-panel="data" hidden>
+<section class="save-tools" aria-labelledby="save-title"><h2 id="save-title">진행도 보관</h2><p>읽던 위치·완료 기록·북마크·설정을 파일로 보관합니다. 가져오면 기존 진행과 합칩니다.</p>
+            <button class="button" data-action="export-progress" type="button">진행도 내보내기</button>
+            <label class="import-label" for="save-import">진행도 가져오기</label><input id="save-import" type="file" accept=".json,application/json" />
+            <a id="save-download" hidden></a><p id="save-status" role="status"></p>
+          </section>
+          <section class="save-tools" aria-labelledby="reset-heading">
+            <h2 id="reset-heading">읽기 진행 초기화</h2>
+            <p>읽기 설정을 유지한 채 A-01부터 다시 시작합니다.</p>
+            <button id="reset-open" class="button" data-action="open-reset" type="button">읽기 진행 초기화…</button>
+          </section>
+          </section>
+          <footer class="settings-footer">
+            <p class="reading-note">설정은 바로 저장됩니다. 읽던 곳으로 돌아가면 이어집니다.</p>
+            <button id="settings-start-story" class="button button-primary" data-action="start-prepared-story" type="button" hidden>이 설정으로 읽기</button>
+          </footer>
+        </div>
+      </section>
+
+      <section id="reset-screen" class="screen reader-screen" hidden aria-labelledby="reset-title">
+        <div class="reader-panel reset-panel">
+          <h1 id="reset-title">읽기 진행을 초기화할까요?</h1>
+          <p id="reset-summary"></p>
+          <p>읽던 위치와 열람 이력을 지우고, 후속 기록과 마지막 사진을 다시 잠급니다. 글자 크기·읽기 속도·화면 효과 등 읽기 설정은 유지합니다.</p>
+          <label class="reset-option"><input id="reset-keep-bookmarks" type="checkbox" /> 북마크 보관하기</label>
+          <p class="reading-note">보관한 북마크는 해당 장면을 다시 읽은 뒤에 표시됩니다.</p>
+          <p>필요하면 먼저 백업을 내보내세요. 나중에 가져오면 새로 읽은 진행과 합쳐 복구합니다.</p>
+          <div class="reset-actions">
+            <button id="reset-backup" class="button" data-action="export-progress" type="button">백업 내보내기</button>
+            <button id="reset-cancel" class="button" data-action="cancel-reset" type="button">취소</button>
+            <button id="reset-confirm" class="button reset-confirm" data-action="confirm-reset" type="button">진행 초기화</button>
+          </div>
+          <p id="reset-status" role="status"></p>
+        </div>
+      </section>
+      <section id="library-screen" class="screen reader-screen" hidden aria-labelledby="library-title">
+        <header class="viewer-bar"><button class="text-button" data-action="back-archive" type="button">← 읽던 곳으로</button><h1 id="library-title">기록 찾기</h1></header>
+        <div class="reader-panel library-panel">
+          <p class="reading-note">읽은 기록 속 대사와 북마크를 찾아, 원하는 장면으로 이동합니다.</p>
+          <label for="library-search">기록명 · 인물 · 문장 검색</label><input id="library-search" type="search" placeholder="기록 번호나 기억나는 대사를 입력하세요" autocomplete="off" aria-describedby="library-help" />
+          <p id="library-help" class="reading-note">D로 D편을, D01로 한 기록을 찾을 수 있습니다. 읽은 구간만 검색합니다.</p>
+          <p id="library-count" role="status"></p><ol id="library-list" class="library-list"></ol>
+        </div>
+      </section>
+
+      <section id="ending-screen" class="screen ending-screen" hidden aria-label="마지막 사진">
+        <div class="ending-layout">
+        <figure class="ending-photo">
+          <div class="ending-frame" role="button" tabindex="0" aria-label="사진 정보 보기" aria-controls="ending-details" aria-expanded="false">
+            <img id="ending-image" width="1122" height="1402" alt="연화, 유라, 세린, 가은, 초희가 함께 찍은 사진" hidden />
+            <div id="ending-people" class="ending-people" aria-label="사진 속 인물" hidden>
+              <span class="ending-person" style="--person-x:17%;--person-y:15%">세린</span>
+              <span class="ending-person" style="--person-x:80%;--person-y:15%">가은</span>
+              <span class="ending-person" style="--person-x:10%;--person-y:43%">연화</span>
+              <span class="ending-person" style="--person-x:91%;--person-y:42%">유라</span>
+              <span class="ending-person" style="--person-x:75%;--person-y:69%">초희</span>
+            </div>
+            <div class="ending-capture" aria-hidden="true">
+              <div class="camera-meta"><span>PHOTO RECORD</span><span>AF</span></div>
+              <div class="camera-focus"><i></i><i></i><i></i><i></i></div>
+              <div class="camera-status"><span class="camera-searching">초점 조절</span><span class="camera-locked">초점 확인 · 촬영</span></div>
+              <div class="camera-shutter"></div>
+            </div>
+            <p id="ending-unavailable" class="reading-note" role="status" hidden>사진을 불러오지 못했습니다.</p>
+          </div>
+        </figure>
+        <aside id="ending-details" class="ending-details" aria-label="칠판 글씨와 크레딧" hidden>
+          <figure class="ending-board">
+            <div class="ending-board-frame"><img id="ending-board-image" width="1536" height="1024" alt="마지막 사진의 칠판 글씨 원본" /></div>
+            <figcaption>칠판에 남긴 말</figcaption>
+          </figure>
+          <section class="ending-credits" aria-labelledby="ending-credits-title">
+            <p class="ending-credits-kicker">CREDITS</p>
+            <h2 id="ending-credits-title">녹슨 기도</h2>
+            <dl class="ending-credit-list">
+              <div><dt>제작</dt><dd>빈우주</dd></div>
+              <div><dt>일러스트 · 웹 구현</dt><dd>ChatGPT</dd></div>
+              <div><dt>음악</dt><dd><span class="ending-credit-track">Epilogue — 빈우주</span><small>C-03 「눈」 후반부 사용곡</small><span class="ending-credit-track">NIKKE OST</span><small>그 외 수록곡</small></dd></div>
+            </dl>
+            <p class="ending-fanwork">「승리의 여신: 니케」 세계관을 바탕으로 한 팬메이드 작품입니다.</p>
+            <p class="ending-thanks">끝까지 함께해 주셔서 감사합니다.</p>
+          </section>
+        </aside>
+        </div>
+        <div class="ending-actions">
+          <button id="ending-details-toggle" class="text-button" data-action="toggle-ending-details" type="button" aria-controls="ending-details" aria-expanded="false">사진 정보 보기</button>
+        <button class="text-button ending-return" data-action="return-ending" type="button">보관소로 돌아가기</button>
+        </div>
+      </section>
+
+      <section id="complete-screen" class="screen complete-screen" hidden aria-labelledby="complete-title">
+        <div class="complete-card">
+          <p id="complete-kicker" class="eyebrow">기록 열람 완료</p>
+          <h1 id="complete-title">열람 완료</h1>
+          <p id="complete-message"></p>
+          <dl id="complete-stats"></dl>
+          <p id="complete-next-hint" class="reading-note">Space를 누르면 다음 기록을 엽니다.</p>
+          <button id="next-record" class="button button-primary" data-action="next-record" type="button">다음 기록</button>
+          <button id="complete-ending" class="button" data-action="show-gallery" type="button" hidden>갤러리</button>
+          <button class="button button-primary" data-action="finish-record" type="button">보관소로 돌아가기</button>
+        </div>
+      </section>
+    </main>
+    <div id="screen-fx" class="screen-fx" aria-hidden="true" hidden></div>
+    <p id="storage-notice" class="storage-notice" role="status" hidden>이 브라우저에서는 진행도를 저장할 수 없습니다. 현재 창에서는 계속 열람할 수 있습니다.</p>
+    <noscript><style>#loading-overlay, #app { display: none; }</style>기록을 열람하려면 브라우저 설정에서 JavaScript를 허용해 주세요.</noscript>
+
+    <script defer src="./js/core/registry.js"></script>
+    <script defer src="./js/data/media.js"></script>
+    <script defer src="./js/core/media.js"></script>
+    <script defer src="./js/core/bgm.js"></script>
+    <script defer src="./js/core/ambience.js"></script>
+    <script defer src="./js/core/sfx.js"></script>
+    <script defer src="./js/core/visuals.js"></script>
+    <script defer src="./js/data/disks.js"></script>
+    <script defer src="./js/data/d-layout.js"></script>
+    <script defer src="./js/data/records/a-01.js"></script>
+    <script defer src="./js/data/records/a-02.js"></script>
+    <script defer src="./js/data/records/a-03.js"></script>
+    <script defer src="./js/data/records/a-04.js"></script>
+    <script defer src="./js/data/records/a-05.js"></script>
+    <script defer src="./js/data/records/a-06.js"></script>
+    <script defer src="./js/data/records/a-07.js"></script>
+    <script defer src="./js/data/records/a-08.js"></script>
+    <script defer src="./js/data/records/b-01.js"></script>
+    <script defer src="./js/data/records/b-02.js"></script>
+    <script defer src="./js/data/records/b-03.js"></script>
+    <script defer src="./js/data/records/b-04.js"></script>
+    <script defer src="./js/data/records/b-05.js"></script>
+    <script defer src="./js/data/records/b-06.js"></script>
+    <script defer src="./js/data/records/b-06-01.js"></script>
+    <script defer src="./js/data/records/b-07.js"></script>
+    <script defer src="./js/data/records/b-08.js"></script>
+    <script defer src="./js/data/records/c-00.js"></script>
+    <script defer src="./js/data/records/c-01.js"></script>
+    <script defer src="./js/data/records/c-02.js"></script>
+    <script defer src="./js/data/records/c-03.js"></script>
+    <script defer src="./js/data/records/c-04.js"></script>
+    <script defer src="./js/data/records/c-05.js"></script>
+    <script defer src="./js/data/records/d-01.js"></script>
+    <script defer src="./js/data/records/d-03.js"></script>
+    <script defer src="./js/data/records/d-04.js"></script>
+    <script defer src="./js/data/records/d-05.js"></script>
+    <script defer src="./js/data/records/d-06.js"></script>
+    <script defer src="./js/data/records/d-07.js"></script>
+    <script defer src="./js/data/records/d-09.js"></script>
+    <script defer src="./js/data/records/d-10.js"></script>
+    <script defer src="./js/data/records/d-11.js"></script>
+    <script defer src="./js/data/records/d-14.js"></script>
+    <script defer src="./js/app.js"></script>
+  </body>
+</html>

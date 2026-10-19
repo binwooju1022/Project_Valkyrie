@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" fill="none">
+  <title>연구실 자료 HUD · 정사각형 투명 프레임</title>
+  <!-- The 100,100 to 900,900 square stays transparent for compositing. -->
+  <path d="M24 2H976L998 24V976L976 998H24L2 976V24Z M100 100V900H900V100Z" fill="#061c36" fill-opacity=".9" fill-rule="evenodd"/>
+  <path d="M24 2H976L998 24V976L976 998H24L2 976V24Z" stroke="#348cdf" stroke-opacity=".75" stroke-width="2"/>
+  <path d="M30 76V30H76 M924 30H970V76 M970 924V970H924 M76 970H30V924" stroke="#90d7ff" stroke-width="5"/>
+  <rect x="100" y="100" width="800" height="800" stroke="#50a9f2" stroke-opacity=".8" stroke-width="2"/>
+  <path d="M100 132V100H132 M868 100H900V132 M900 868V900H868 M132 900H100V868" stroke="#a6e3ff" stroke-width="4"/>
+  <path d="M38 150H54 M38 190H48 M38 230H48 M38 270H48 M38 310H54 M38 690H54 M38 730H48 M38 770H48 M38 810H48 M38 850H54 M946 150H962 M952 190H962 M952 230H962 M952 270H962 M946 310H962 M946 690H962 M952 730H962 M952 770H962 M952 810H962 M946 850H962" stroke="#4d9fdd" stroke-opacity=".6" stroke-width="2"/>
+  <path d="M450 48H550 M450 952H550" stroke="#6bbdff" stroke-opacity=".45" stroke-width="2"/>
+  <path d="M15 440V560 M985 440V560" stroke="#62bdff" stroke-width="4"/>
+  <circle cx="56" cy="952" r="4" fill="#8ad6ff"/>
+  <path d="M200 976H320 M680 976H800" stroke="#428dc5" stroke-width="2"/>
+</svg>
