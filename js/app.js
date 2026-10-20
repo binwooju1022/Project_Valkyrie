@@ -363,7 +363,7 @@
     return spec ? {...view,recordId:spec.targetId,lineIndex:spec.indices[view.presentationVersion || 1]?.[view.lineIndex] ?? 0,dPositionCurrent:true} : view;
   }
 
-  function loadProgress(imported = null) {
+  function loadProgress(imported = null, strict = false) {
     try {
       const parsed = imported || progressStore.read();
       state.progress = {records:{}};
@@ -665,7 +665,8 @@
         lastPlaybackPosition = null;
         progressStore.compact();
       }
-    } catch {
+    } catch (error) {
+      if (strict) throw error;
       // A malformed save is recoverable; availability is checked on the next write.
       state.progress = { version:24, c02LayoutVersion:1, records: {} };
     }
@@ -3236,49 +3237,149 @@
     $(status).textContent = '백업 다운로드를 요청했습니다. 파일이 저장되었는지 확인해 주세요.';
   }
 
+  function validateImport(saved) {
+    const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+    const integer = value => Number.isSafeInteger(value) && value >= 0;
+    const check = (valid, field) => { if (!valid) throw Error(`백업의 ${field} 항목이 올바르지 않습니다.`); };
+    check(object(saved),'파일 형식');
+    if (Number.isInteger(saved.version) && saved.version > 24) throw Error('더 최신 버전에서 만든 백업입니다. 현재 버전에서는 가져올 수 없습니다.');
+    check(saved.version === undefined || (integer(saved.version) && saved.version >= 1),'버전');
+    const knownId = id => typeof id === 'string' && (orderedRecords.some(record=>record.id===id) ||
+      ((saved.version || 1) < 20 && Object.hasOwn(window.RustedPrayerDLayout?.migrations || {},id)));
+    check(object(saved.records),'기록 목록');
+    for (const [id,entry] of Object.entries(saved.records)) {
+      check(knownId(id) && object(entry),`기록 ${id}`);
+      check(('completed' in entry || 'lineIndex' in entry) &&
+        (!('completed' in entry) || typeof entry.completed === 'boolean') &&
+        (!('lineIndex' in entry) || integer(entry.lineIndex)),`기록 ${id}의 완료 여부·읽기 위치`);
+      for (const key of ['seenIndex','telemetryPage']) if (key in entry) check(integer(entry[key]),`${id}.${key}`);
+      if ('inProgress' in entry) check(typeof entry.inProgress === 'boolean',`${id}.inProgress`);
+      if ('reportScroll' in entry) check(Number.isFinite(entry.reportScroll) && entry.reportScroll >= 0,`${id}.reportScroll`);
+      if ('updatedAt' in entry) check(typeof entry.updatedAt === 'string' && Number.isFinite(Date.parse(entry.updatedAt)),`${id}.updatedAt`);
+      if ('profileViews' in entry) check(Array.isArray(entry.profileViews) && entry.profileViews.every(value=>typeof value==='string'),`${id}.profileViews`);
+      if ('seenPages' in entry) {
+        check(object(entry.seenPages),`${id}.seenPages`);
+        for (const [index,page] of Object.entries(entry.seenPages)) check(/^(0|[1-9]\d*)$/.test(index) && integer(Number(index)) && integer(page),`${id}.seenPages`);
+      }
+    }
+    if ('resumeRecordId' in saved) check(knownId(saved.resumeRecordId),'이어 읽기 위치');
+    if ('resetGeneration' in saved) check(integer(saved.resetGeneration),'초기화 정보');
+    for (const key of ['instant','continuous','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume','readingSetupSeen','aIdentificationIntroSeen'])
+      if (key in saved) check(typeof saved[key] === 'boolean',key);
+    for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:['slow','normal','fast'],autoSpeed:['slow','normal','fast']}))
+      if (key in saved) check(values.includes(saved[key]),key);
+    for (const key of ['c02','b03','c03','d04','b07','d05']) if (key+'LayoutVersion' in saved) check(saved[key+'LayoutVersion']===1,key+'LayoutVersion');
+    if ('dLayoutVersion' in saved) check(saved.dLayoutVersion===20,'dLayoutVersion');
+    if ('bookmarks' in saved) {
+      check(Array.isArray(saved.bookmarks) && saved.bookmarks.length <= 2000,'북마크 목록');
+      for (const mark of saved.bookmarks) check(object(mark) && knownId(mark.recordId) && integer(mark.index) && typeof mark.text==='string','북마크');
+    }
+  }
+
+  function prepareImport(imported) {
+    validateImport(imported);
+    // Migrations may mutate their input and reading settings. Work on a copy and
+    // restore every live field before doing any storage operation.
+    const active = {...state};
+    try {
+      const copy=JSON.parse(JSON.stringify(imported));
+      // The change journal omits an untouched line-0 cursor in newly seen records.
+      for (const entry of Object.values(copy.records)) {
+        entry.completed ??= false;
+        entry.lineIndex ??= 0;
+      }
+      loadProgress(copy,true);
+      const candidate = progressSnapshot();
+      if (candidate.bookmarks.length !== (imported.bookmarks || []).length)
+        throw Error('현재 기록에 맞게 변환할 수 없는 북마크가 있습니다.');
+      for (const [id,entry] of Object.entries(candidate.records)) {
+        const record=archive.getRecord(id),lines=record?.reportSections || record?.story;
+        if (!lines || entry.lineIndex >= lines.length || (entry.seenIndex !== undefined && entry.seenIndex >= lines.length))
+          throw Error(`기록 ${id}의 읽기 위치가 범위를 벗어났습니다.`);
+        if (entry.telemetryPage !== undefined && entry.telemetryPage >= storyPages(lines[entry.lineIndex]).length)
+          throw Error(`기록 ${id}의 페이지가 범위를 벗어났습니다.`);
+        for (const [index,page] of Object.entries(entry.seenPages || {}))
+          if (!lines[index] || page >= storyPages(lines[index]).length) throw Error(`기록 ${id}의 읽은 페이지가 범위를 벗어났습니다.`);
+      }
+      return candidate;
+    } finally { Object.assign(state,active); }
+  }
+
+  let importRequest = 0;
   async function importProgress(file) {
+    const request = ++importRequest;
     if (!file) return;
     try {
+      const started = progressStore.read();
       if (file.size > 2000000) throw Error('진행도 파일이 너무 큽니다.');
-      const imported = JSON.parse(await file.text());
-      if (!imported || typeof imported !== 'object' || Array.isArray(imported) || !imported.records || typeof imported.records !== 'object' || Array.isArray(imported.records) || (imported.version && (!Number.isInteger(imported.version) || imported.version > 24 || imported.version < 1))) throw Error('지원하는 진행도 파일이 아닙니다.');
-      // Import into a temporary progress object, using the same old-save migrations.
-      if (syncResetFromStorage()) return;
+      const text = await file.text();
+      if (request !== importRequest) return;
+      const imported = JSON.parse(text,(key,value)=>{
+        if (['__proto__','prototype','constructor'].includes(key)) throw Error('백업에 지원하지 않는 항목이 있습니다.');
+        return value;
+      });
+      const candidate = prepareImport(imported);
+      if (!storageAvailable) throw Error('기기에 저장할 수 없어 가져오지 못했습니다.');
       const previous = progressStore.read();
-      progressStore.adopt(previous);
-      loadProgress(imported);
-      state.progress.resetGeneration = previous.resetGeneration || 0;
-      state.progress.aIdentificationIntroSeen ||= previous.aIdentificationIntroSeen === true;
-      state.progress.readingSetupSeen ||= previous.readingSetupSeen === true;
-      for (const record of orderedRecords) {
-        const before = previous.records[record.id], incoming = recordProgress(record.id);
-        if (!before) continue;
-        const seenPages={};
+      if (started.resetGeneration !== previous.resetGeneration || started._sync?.epoch !== previous._sync?.epoch)
+        throw Error('파일을 읽는 동안 진행이 초기화되었습니다. 백업을 다시 선택해 주세요.');
+      const next = {...previous,...candidate,records:{...previous.records},resetGeneration:previous.resetGeneration || 0};
+      // Missing legacy settings and resume locations keep their existing values.
+      for (const name of progressSettings) if (!(name in imported)) next[name]=previous[name];
+      next.aIdentificationIntroSeen ||= previous.aIdentificationIntroSeen === true;
+      next.readingSetupSeen ||= previous.readingSetupSeen === true;
+      for (const [id,incoming] of Object.entries(candidate.records)) {
+        const before=previous.records[id] || {};
+        const keepPosition=(before.lineIndex || 0)>incoming.lineIndex;
+        next.records[id]={...before,...incoming,completed:before.completed===true || incoming.completed,
+          lineIndex:Math.max(before.lineIndex || 0,incoming.lineIndex),
+          telemetryPage:keepPosition ? (before.telemetryPage || 0) : before.lineIndex===incoming.lineIndex
+            ? Math.max(before.telemetryPage || 0,incoming.telemetryPage || 0) : (incoming.telemetryPage || 0),
+          profileViews:[...new Set([...(before.profileViews || []),...(incoming.profileViews || [])])],
+          seenPages:{...before.seenPages}};
+        if (before.seenIndex !== undefined || incoming.seenIndex !== undefined)
+          next.records[id].seenIndex=Math.max(before.seenIndex || 0,incoming.seenIndex || 0);
+        for (const [index,page] of Object.entries(incoming.seenPages || {}))
+          next.records[id].seenPages[index]=Math.max(next.records[id].seenPages[index] ?? -1,page);
+        const record=archive.getRecord(id);
         record.story.forEach((line,index)=>{
           if (storyPages(line).length<2) return;
           const page=Math.max(seenPage(record,index,before),seenPage(record,index,incoming));
-          if (page>=0) seenPages[index]=page;
+          if (page>=0) next.records[id].seenPages[index]=page;
         });
-        incoming.seenPages=seenPages;
-        incoming.profileViews = [...new Set([...(Array.isArray(before.profileViews) ? before.profileViews : []), ...(Array.isArray(incoming.profileViews) ? incoming.profileViews : [])])].filter(value => typeof value === 'string');
-        incoming.completed ||= before.completed === true;
-        incoming.lineIndex = Math.min(record.story.length ? record.story.length-1 : 0,Math.max(incoming.lineIndex,before.lineIndex || 0));
-        if (Number.isInteger(incoming.seenIndex) || Number.isInteger(before.seenIndex) || incoming.lineIndex > 0) {
-          incoming.seenIndex = Math.min(Math.max(0,record.story.length-1),Math.max(incoming.seenIndex || 0,before.seenIndex || 0,incoming.lineIndex));
-        }
       }
-      for (const mark of previous.bookmarks || []) if (!bookmarkAt(mark.recordId,mark.index)) state.progress.bookmarks.push(mark);
+      next.bookmarks=[...(previous.bookmarks || [])];
+      for (const mark of candidate.bookmarks)
+        if (!next.bookmarks.some(before=>before.recordId===mark.recordId && before.index===mark.index)) next.bookmarks.push(mark);
+      if (next.bookmarks.length>2000) throw Error('합친 북마크가 2,000개를 넘습니다. 북마크를 정리한 뒤 다시 시도해 주세요.');
+      let result;
+      try {
+        progressStore.adopt(previous);
+        result=progressStore.save(next);
+      } catch {
+        progressStore.adopt(lastSavedProgress || started);
+        throw Error('기기에 저장할 수 없어 가져오지 못했습니다.');
+      }
+      if (result.reset) {
+        adoptReset(result.value,'다른 창에서 읽기 진행이 초기화되어 백업을 적용하지 않았습니다.');
+        throw Error('진행이 초기화되어 백업을 적용하지 않았습니다. 다시 선택해 주세요.');
+      }
+      acceptProgress(result.value);
+      lastPlaybackPosition=null;
+      applyReadingSettings();
       state.settingsPlaybackReturn=null;
       const selected = currentRecord();
       state.lineIndex = selected ? recordProgress(selected.id).lineIndex : 0;
-      saveProgress();
       renderSettings();
       selectDisk(state.selectedDisk,false);
       $('#save-status').textContent = '진행도를 합쳤습니다. 기존 완료 기록과 북마크는 유지했습니다.';
     } catch (error) {
-      $('#save-status').textContent = error instanceof SyntaxError ? '진행도 파일을 읽을 수 없습니다.' : error.message || '가져오지 못했습니다.';
+      if (request !== importRequest) return;
+      const reason=error instanceof SyntaxError ? '진행도 파일을 읽을 수 없습니다.' : error.message || '가져오지 못했습니다.';
+      $('#save-status').textContent = `${reason} 백업은 적용하지 않았으며 기존 기록과 설정은 유지됩니다.`;
+    } finally {
+      if (request === importRequest) $('#save-import').value = '';
     }
-    $('#save-import').value = '';
   }
 
   function bindEvents() {
