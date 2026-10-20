@@ -263,6 +263,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "a-05-scene-0001",
       "speaker": "세린",
       "text": "얘 이름 너무 길지 않아?",
       "tone": "dialogue",
@@ -276,6 +277,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0002",
       "speaker": "연화",
       "text": "뭐가.",
       "tone": "dialogue",
@@ -289,6 +291,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0003",
       "speaker": "세린",
       "text": "DATA ACQUISITION MICRO DRONE No.02.",
       "tone": "dialogue",
@@ -302,6 +305,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0004",
       "speaker": "유라",
       "text": "줄이면 DAMD-02.",
       "tone": "dialogue",
@@ -315,6 +319,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0005",
       "speaker": "가은",
       "text": "줄여도 길잖아.",
       "tone": "dialogue",
@@ -328,6 +333,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0006",
       "speaker": "세린",
       "text": "별론데.",
       "tone": "dialogue",
@@ -341,6 +347,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0007",
       "speaker": "초희",
       "text": "이름을 붙여주자.",
       "tone": "dialogue",
@@ -354,6 +361,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0008",
       "speaker": "연화",
       "text": "장비에?",
       "tone": "dialogue",
@@ -367,6 +375,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0009",
       "speaker": "초희",
       "text": "우리랑 매일 다니잖아.",
       "tone": "dialogue",
@@ -380,6 +389,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0010",
       "speaker": "유라",
       "text": "우리보다 오래 살아남을 수도 있고.",
       "tone": "dialogue",
@@ -393,6 +403,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0011",
       "speaker": "가은",
       "text": "불길한 소리 하지 마.",
       "tone": "dialogue",
@@ -406,6 +417,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0012",
       "speaker": "유라",
       "text": "참새 어때?",
       "tone": "dialogue",
@@ -419,6 +431,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0013",
       "speaker": "연화",
       "text": "왜?",
       "tone": "dialogue",
@@ -432,6 +445,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0014",
       "speaker": "유라",
       "text": "작고.",
       "tone": "dialogue",
@@ -445,6 +459,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0015",
       "speaker": "유라",
       "text": "시끄럽고.",
       "tone": "dialogue",
@@ -458,6 +473,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0016",
       "speaker": "유라",
       "text": "맨날 졸졸 따라다니잖아.",
       "tone": "dialogue",
@@ -471,6 +487,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0017",
       "speaker": "세린",
       "text": "날개도 없는데.",
       "tone": "dialogue",
@@ -484,6 +501,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0018",
       "speaker": "유라",
       "text": "그럼 네가 정해.",
       "tone": "dialogue",
@@ -497,6 +515,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0019",
       "speaker": "세린",
       "text": "···",
       "tone": "dialogue",
@@ -510,6 +529,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0020",
       "speaker": "유라",
       "text": "없지?",
       "tone": "dialogue",
@@ -523,6 +543,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0021",
       "speaker": "연화",
       "text": "···참새 해.",
       "tone": "dialogue",
@@ -536,6 +557,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0022",
       "speaker": "유라",
       "text": "결정.",
       "tone": "dialogue",
@@ -549,6 +571,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0023",
       "speaker": "가은",
       "text": "네가 혼자 결정했잖아.",
       "tone": "dialogue",
@@ -562,6 +585,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0024",
       "speaker": "유라",
       "text": "반대하는 사람?",
       "tone": "dialogue",
@@ -575,6 +599,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0025",
       "speaker": "가은",
       "text": "···",
       "tone": "dialogue",
@@ -588,6 +613,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0026",
       "speaker": "초희",
       "text": "만장일치.",
       "tone": "dialogue",
@@ -601,6 +627,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0027",
       "speaker": "가은",
       "text": "왜 그렇게 되는 건데.",
       "tone": "dialogue",
@@ -614,6 +641,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0028",
       "speaker": "초희",
       "text": "오늘부터 네 이름은 참새다.",
       "tone": "dialogue",
@@ -627,6 +655,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0029",
       "speaker": "",
       "text": "[DRONE-02 : 기동음]",
       "tone": "narration",
@@ -640,6 +669,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0030",
       "speaker": "유라",
       "text": "좋아하는데?",
       "tone": "dialogue",
@@ -653,6 +683,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0031",
       "speaker": "연화",
       "text": "그냥 기동음이야.",
       "tone": "dialogue",
@@ -666,6 +697,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0032",
       "speaker": "유라",
       "text": "넌 낭만이 없어.",
       "tone": "dialogue",
@@ -679,6 +711,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0033",
       "speaker": "초희",
       "text": "동의.",
       "tone": "dialogue",
@@ -692,6 +725,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0034",
       "speaker": "연화",
       "text": "너까지 왜.",
       "tone": "dialogue",
@@ -705,6 +739,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-05-scene-0035",
       "speaker": "",
       "text": "기안문 검토 결과\n\n요청 사항 : DRONE-02의 명칭을 참새로 변경\n사유 : 비공식 별칭은 장비 식별자로 사용할 수 없음\n\n[메모]\n\n낭만을 모르는 녀석들.",
       "tone": "memo",

@@ -216,6 +216,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "b-05-scene-0001",
       "speaker": "",
       "text": "[재생]",
       "tone": "telemetry",
@@ -237,6 +238,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0002",
       "speaker": "",
       "text": "폐허 도로에서 UNIT-01의 전방 이동 확인.\n주변 시야 확인 빈도 : 낮음.",
       "tone": "telemetry",
@@ -257,6 +259,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0003",
       "speaker": "",
       "text": "파손된 구조물 사이에서 랩쳐 1기 접근 감지.\nUNIT-01의 인지 반응 미확인. UNIT-02가 접근 방향으로 고개를 돌림.",
       "tone": "telemetry",
@@ -277,6 +280,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0004",
       "speaker": "",
       "text": "[■■:■■:■■]",
       "tone": "time",
@@ -298,6 +302,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-05-scene-0005",
       "speaker": "UNIT-02",
       "text": "연화!",
       "tone": "dialogue",
@@ -313,6 +318,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-05-scene-0006",
       "speaker": "",
       "text": "UNIT-01의 시선이 UNIT-02로 이동.\n상황 인식 지연.",
       "tone": "telemetry",
@@ -333,6 +339,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0007",
       "speaker": "",
       "text": "UNIT-02가 UNIT-01을 바라보며 웃음.\n입 모양 분석 : “괜찮아.”\n분석 신뢰도 : 64%.",
       "tone": "telemetry",
@@ -354,6 +361,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0008",
       "speaker": "",
       "text": "복부 피격.",
       "tone": "telemetry",
@@ -374,6 +382,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0009",
       "speaker": "",
       "text": "UNIT-02가 몸을 돌려 랩쳐를 향해 조준.",
       "tone": "telemetry",
@@ -394,6 +403,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0010",
       "speaker": "",
       "text": "에블라 입자 집적 반응 감지. 장비 및 총기에서 적색 발광 확인.\n집적 시간 : 0.8초. 기록상 최단 시간.\n고출력 방출.",
       "tone": "telemetry",
@@ -415,6 +425,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0011",
       "speaker": "",
       "text": "랩쳐 기능 정지 확인.\n영상 신호 오류. 프레임 손실.\n영상 복구.\n지면에 쓰러진 UNIT-02 확인. 손상 수준 : 심각.",
       "tone": "telemetry",
@@ -437,6 +448,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0012",
       "speaker": "",
       "text": "현장 이탈 권고 후 2.7초간 이동 반응 없음.",
       "tone": "telemetry",
@@ -457,6 +469,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-05-scene-0013",
       "speaker": "UNIT-01",
       "text": "···",
       "tone": "dialogue",

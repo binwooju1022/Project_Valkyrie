@@ -3,13 +3,14 @@
 
   // Each change is durable before returning to the reader. Web Locks only compact
   // the journal; closing a tab before its lock runs cannot discard its changes.
-  function create({storage, key, locks, normalize, onError}) {
+  function create({storage, key, locks, normalize, onError, bookmarkId=(_recordId,id)=>id}) {
     const prefix = key + ":change:";
     const clone = value => JSON.parse(JSON.stringify(value));
     const equal = (a,b) => JSON.stringify(a) === JSON.stringify(b);
     const compare = (a=[0,""],b=[0,""]) => a[0]-b[0] || a[1].localeCompare(b[1]);
     const generation = value => value.resetGeneration || 0;
     let baseline = null, epoch = "", compacting = null;
+    const markIdentity=mark=>mark.status==='unresolved' ? `unresolved:${mark.index}` : bookmarkId(mark.recordId,mark.sceneId || mark.index);
 
     function fields(value) {
       const result = {};
@@ -31,7 +32,7 @@
         }
       }
       for (const mark of value.bookmarks || [])
-        result[JSON.stringify(["bookmarks",mark.recordId,mark.index])] = mark;
+        result[JSON.stringify(["bookmarks",mark.recordId,markIdentity(mark)])] = mark;
       return result;
     }
 
@@ -47,13 +48,15 @@
       }
       if (generation(change) !== generation(snapshot) || change.epoch !== meta.epoch) return snapshot;
       meta.clock = Math.max(meta.clock,change.stamp[0]);
-      for (const [path,value] of Object.entries(change.fields)) {
-        const parts = JSON.parse(path), name = parts[2] || parts[0];
-        const previousStamp = meta.fields[path];
+      for (const [rawPath,value] of Object.entries(change.fields)) {
+        const parts = JSON.parse(rawPath), name = parts[2] || parts[0];
+        if(parts[0]==="bookmarks")parts[2]=bookmarkId(parts[1],parts[2]);
+        const path=JSON.stringify(parts);
+        const previousStamp = compare(meta.fields[path],meta.fields[rawPath])>=0 ? meta.fields[path] : meta.fields[rawPath];
         const monotone = ["completed","seenIndex","seenPages","profileViews","readingSetupSeen","aIdentificationIntroSeen","endingViewed"].includes(name);
         if (!monotone && compare(change.stamp,previousStamp) <= 0) continue;
         if (parts[0] === "bookmarks") {
-          snapshot.bookmarks = (snapshot.bookmarks || []).filter(mark => mark.recordId !== parts[1] || mark.index !== parts[2]);
+          snapshot.bookmarks = (snapshot.bookmarks || []).filter(mark => mark.recordId !== parts[1] || markIdentity(mark) !== parts[2]);
           if (value !== null) snapshot.bookmarks.push(value);
         } else {
           let target = snapshot;

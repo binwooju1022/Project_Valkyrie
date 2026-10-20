@@ -612,6 +612,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "c-02-scene-0001",
       "speaker": "",
       "text": "바람 소리.",
       "tone": "narration",
@@ -625,6 +626,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0002",
       "speaker": "유라",
       "text": "나 힘들어.",
       "tone": "dialogue",
@@ -638,6 +640,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0003",
       "speaker": "연화",
       "text": "조금만 쉬었다 가.",
       "tone": "dialogue",
@@ -651,6 +654,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0004",
       "speaker": "유라",
       "text": "웬일로 바로 허락해주네.",
       "tone": "dialogue",
@@ -664,6 +668,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0005",
       "speaker": "연화",
       "text": "피곤해 보이니까.",
       "tone": "dialogue",
@@ -677,6 +682,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0006",
       "speaker": "유라",
       "text": "오···",
       "tone": "dialogue",
@@ -690,6 +696,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0007",
       "speaker": "연화",
       "text": "하지 마.",
       "tone": "dialogue",
@@ -703,6 +710,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0008",
       "speaker": "유라",
       "text": "아직 아무 말도 안 했는데.",
       "tone": "dialogue",
@@ -716,6 +724,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0009",
       "speaker": "연화",
       "text": "할 것 같아서.",
       "tone": "dialogue",
@@ -729,6 +738,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0010",
       "speaker": "유라",
       "text": "쳇.",
       "tone": "dialogue",
@@ -742,6 +752,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0011",
       "speaker": "",
       "text": "유라가 웃는다.",
       "tone": "narration",
@@ -755,6 +766,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0012",
       "speaker": "",
       "text": "잠시 정적.",
       "tone": "narration",
@@ -768,6 +780,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0013",
       "speaker": "유라",
       "text": "연화.",
       "tone": "dialogue",
@@ -781,6 +794,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0014",
       "speaker": "연화",
       "text": "왜.",
       "tone": "dialogue",
@@ -794,6 +808,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0015",
       "speaker": "유라",
       "text": "그때 내가 물어봤던 거 기억나?",
       "tone": "dialogue",
@@ -807,6 +822,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0016",
       "speaker": "연화",
       "text": "뭘.",
       "tone": "dialogue",
@@ -820,6 +836,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0017",
       "speaker": "유라",
       "text": "행복해질 수 있을까? 하고 물어봤던 거.",
       "tone": "dialogue",
@@ -833,6 +850,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0018",
       "speaker": "연화",
       "text": "응.",
       "tone": "dialogue",
@@ -846,6 +864,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0019",
       "speaker": "유라",
       "text": "바로 기억하네.",
       "tone": "dialogue",
@@ -859,6 +878,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0020",
       "speaker": "연화",
       "text": "네가 울었잖아.",
       "tone": "dialogue",
@@ -872,6 +892,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0021",
       "speaker": "유라",
       "text": "연화가 먼저 울었거든?",
       "tone": "dialogue",
@@ -885,6 +906,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0022",
       "speaker": "연화",
       "text": "···그랬나.",
       "tone": "dialogue",
@@ -898,6 +920,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0023",
       "speaker": "유라",
       "text": "그랬어.",
       "tone": "dialogue",
@@ -911,6 +934,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0024",
       "speaker": "",
       "text": "잠시 정적.",
       "tone": "narration",
@@ -924,6 +948,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0025",
       "speaker": "유라",
       "text": "그래서.",
       "tone": "dialogue",
@@ -937,6 +962,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0026",
       "speaker": "연화",
       "text": "뭐.",
       "tone": "dialogue",
@@ -950,6 +976,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0027",
       "speaker": "유라",
       "text": "답 바뀌었어?",
       "tone": "dialogue",
@@ -963,6 +990,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0028",
       "speaker": "연화",
       "text": "아니.",
       "tone": "dialogue",
@@ -976,6 +1004,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0029",
       "speaker": "유라",
       "text": "아직도 모르겠어?",
       "tone": "dialogue",
@@ -989,6 +1018,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0030",
       "speaker": "연화",
       "text": "미래는 모르겠어.",
       "tone": "dialogue",
@@ -1002,6 +1032,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0031",
       "speaker": "유라",
       "text": "미래는?",
       "tone": "dialogue",
@@ -1015,6 +1046,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0032",
       "speaker": "연화",
       "text": "응.",
       "tone": "dialogue",
@@ -1028,6 +1060,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0033",
       "speaker": "유라",
       "text": "그럼 지금은?",
       "tone": "dialogue",
@@ -1041,6 +1074,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0034",
       "speaker": "연화",
       "text": "행복해.",
       "tone": "dialogue",
@@ -1054,6 +1088,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0035",
       "speaker": "유라",
       "text": "···",
       "tone": "dialogue",
@@ -1067,6 +1102,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0036",
       "speaker": "연화",
       "text": "왜.",
       "tone": "dialogue",
@@ -1080,6 +1116,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0037",
       "speaker": "유라",
       "text": "아니.",
       "tone": "dialogue",
@@ -1093,6 +1130,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0038",
       "speaker": "유라",
       "text": "그냥 듣고 싶었어.",
       "tone": "dialogue",
@@ -1106,6 +1144,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0039",
       "speaker": "연화",
       "text": "이상해.",
       "tone": "dialogue",
@@ -1119,6 +1158,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0040",
       "speaker": "유라",
       "text": "뭐가.",
       "tone": "dialogue",
@@ -1132,6 +1172,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0041",
       "speaker": "연화",
       "text": "갑자기 그런 걸 왜 물어봐.",
       "tone": "dialogue",
@@ -1145,6 +1186,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0042",
       "speaker": "유라",
       "text": "가끔 확인해야지.",
       "tone": "dialogue",
@@ -1158,6 +1200,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0043",
       "speaker": "연화",
       "text": "뭘.",
       "tone": "dialogue",
@@ -1171,6 +1214,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0044",
       "speaker": "유라",
       "text": "행복한지.",
       "tone": "dialogue",
@@ -1184,6 +1228,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0045",
       "speaker": "연화",
       "text": "그런 것도 확인해?",
       "tone": "dialogue",
@@ -1197,6 +1242,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0046",
       "speaker": "유라",
       "text": "연화는 안 하니까 내가 해줘야지. 정신 건강은 중요하다고.",
       "tone": "dialogue",
@@ -1210,6 +1256,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0047",
       "speaker": "연화",
       "text": "···",
       "tone": "dialogue",
@@ -1223,6 +1270,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0048",
       "speaker": "유라",
       "text": "자. 다시.",
       "tone": "dialogue",
@@ -1236,6 +1284,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0049",
       "speaker": "유라",
       "text": "뭐 때문에 행복한데?",
       "tone": "dialogue",
@@ -1249,6 +1298,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0050",
       "speaker": "연화",
       "text": "우리 애들이 나를 웃게 해.",
       "tone": "dialogue",
@@ -1262,6 +1312,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0051",
       "speaker": "유라",
       "text": "응.",
       "tone": "dialogue",
@@ -1275,6 +1326,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0052",
       "speaker": "연화",
       "text": "너도 재밌고.",
       "tone": "dialogue",
@@ -1288,6 +1340,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0053",
       "speaker": "유라",
       "text": "내가 두 번째네.",
       "tone": "dialogue",
@@ -1301,6 +1354,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0054",
       "speaker": "연화",
       "text": "그냥 말한 순서잖아.",
       "tone": "dialogue",
@@ -1314,6 +1368,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0055",
       "speaker": "유라",
       "text": "중요하지.",
       "tone": "dialogue",
@@ -1327,6 +1382,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0056",
       "speaker": "연화",
       "text": "그럼 초희 다음으로 할게.",
       "tone": "dialogue",
@@ -1340,6 +1396,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0057",
       "speaker": "유라",
       "text": "취소.",
       "tone": "dialogue",
@@ -1353,6 +1410,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0058",
       "speaker": "연화",
       "text": "왜.",
       "tone": "dialogue",
@@ -1366,6 +1424,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0059",
       "speaker": "유라",
       "text": "걔는 이길 자신 없어.",
       "tone": "dialogue",
@@ -1379,6 +1438,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0060",
       "speaker": "연화",
       "text": "낭만으로?",
       "tone": "dialogue",
@@ -1392,6 +1452,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0061",
       "speaker": "유라",
       "text": "웃기고 시끄러운 걸로.",
       "tone": "dialogue",
@@ -1405,6 +1466,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0062",
       "speaker": "",
       "text": "두 사람의 웃음소리.",
       "tone": "narration",
@@ -1418,6 +1480,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0063",
       "speaker": "유라",
       "text": "평화로워지면 뭐 할래?",
       "tone": "dialogue",
@@ -1431,6 +1494,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0064",
       "speaker": "연화",
       "text": "몰라.",
       "tone": "dialogue",
@@ -1444,6 +1508,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0065",
       "speaker": "유라",
       "text": "또 몰라?",
       "tone": "dialogue",
@@ -1457,6 +1522,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0066",
       "speaker": "연화",
       "text": "생각해본 적 없어.",
       "tone": "dialogue",
@@ -1470,6 +1536,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0067",
       "speaker": "유라",
       "text": "그럼 생각해둬.",
       "tone": "dialogue",
@@ -1483,6 +1550,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0068",
       "speaker": "연화",
       "text": "너는?",
       "tone": "dialogue",
@@ -1496,6 +1564,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0069",
       "speaker": "유라",
       "text": "아무 데도 안 가도 되는 날. 늦잠부터 자고 싶어.",
       "tone": "dialogue",
@@ -1509,6 +1578,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0070",
       "speaker": "연화",
       "text": "그다음엔?",
       "tone": "dialogue",
@@ -1522,6 +1592,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0071",
       "speaker": "유라",
       "text": "그건 아직.",
       "tone": "dialogue",
@@ -1535,6 +1606,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0072",
       "speaker": "연화",
       "text": "그럼 같이 생각해.",
       "tone": "dialogue",
@@ -1548,6 +1620,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0073",
       "speaker": "",
       "text": "잠시 정적.",
       "tone": "narration",
@@ -1561,6 +1634,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0074",
       "speaker": "유라",
       "text": "그거 좋네.",
       "tone": "dialogue",
@@ -1574,6 +1648,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0075",
       "speaker": "연화",
       "text": "응.",
       "tone": "dialogue",
@@ -1587,6 +1662,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0076",
       "speaker": "",
       "text": "멀리서 통신음.",
       "tone": "narration",
@@ -1601,6 +1677,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0077",
       "speaker": "가은",
       "text": "둘 다 언제 와!",
       "tone": "radio",
@@ -1618,6 +1695,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0078",
       "speaker": "유라",
       "text": "아.",
       "tone": "dialogue",
@@ -1631,6 +1709,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0079",
       "speaker": "세린",
       "text": "후방 확인을 무슨 관광처럼 하네.",
       "tone": "radio",
@@ -1648,6 +1727,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0080",
       "speaker": "초희",
       "text": "둘만의 시간을 방해하지 마라.",
       "tone": "radio",
@@ -1665,6 +1745,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0081",
       "speaker": "가은",
       "text": "네가 제일 방해거든?!",
       "tone": "radio",
@@ -1682,6 +1763,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0082",
       "speaker": "",
       "text": "유라가 웃는다.",
       "tone": "narration",
@@ -1695,6 +1777,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0083",
       "speaker": "유라",
       "text": "가자.",
       "tone": "dialogue",
@@ -1708,6 +1791,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0084",
       "speaker": "연화",
       "text": "응.",
       "tone": "dialogue",
@@ -1721,6 +1805,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0085",
       "speaker": "",
       "text": "두 사람의 발소리.",
       "tone": "narration",
@@ -1734,6 +1819,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0086",
       "speaker": "",
       "text": "DRONE-02가 뒤를 따라간다.",
       "tone": "narration",
@@ -1747,6 +1833,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-02-scene-0087",
       "speaker": "",
       "text": "음성 종료.",
       "tone": "narration",

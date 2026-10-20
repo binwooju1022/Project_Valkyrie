@@ -48,7 +48,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "종료 프로젝트의 침식 개체로, 회수 비용 대비 기대 연구 가치 불명."
+      "text": "종료 프로젝트의 침식 니케로, 회수 비용 대비 기대 연구 가치 불명."
     },
     {
       "type": "separator",
@@ -60,7 +60,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "과거 시험 개체와 신규 랩쳐 자료의 외형 대조 결과 별도 첨부. 실종 개체와의 동일성은 입증되지 않음."
+      "text": "과거 시험 대상과 신규 랩쳐 자료의 외형 대조 결과 별도 첨부. 실종 니케와의 동일성은 입증되지 않음."
     },
     {
       "type": "text",
@@ -93,6 +93,7 @@ window.RustedPrayerArchive.registerRecord({
   "readerMode": "report",
   "reportSections": [
     {
+      "sceneId": "d-09-scene-0001",
       "speaker": "",
       "text": "[최종 확인]\n\n침식된 UNIT-02. UNIT-01 기능 정지 후 현장에 홀로 선 모습 확인. 이후 이동 경로 불명.",
       "tone": "report",
@@ -110,8 +111,9 @@ window.RustedPrayerArchive.registerRecord({
       "report": true
     },
     {
+      "sceneId": "d-09-scene-0002",
       "speaker": "",
-      "text": "[추적 판정]\n\n추적 우선순위 낮음. 별도 회수 작전 미실시.\n\n종료 프로젝트의 침식 개체로, 회수 비용 대비 기대 연구 가치 불명.",
+      "text": "[추적 판정]\n\n추적 우선순위 낮음. 별도 회수 작전 미실시.\n\n종료 프로젝트의 침식 니케로, 회수 비용 대비 기대 연구 가치 불명.",
       "tone": "report",
       "cardTitle": "추적 판정",
       "sourceIndices": [
@@ -125,15 +127,16 @@ window.RustedPrayerArchive.registerRecord({
           "highlight": false
         },
         {
-          "text": "종료 프로젝트의 침식 개체로, 회수 비용 대비 기대 연구 가치 불명.",
+          "text": "종료 프로젝트의 침식 니케로, 회수 비용 대비 기대 연구 가치 불명.",
           "highlight": false
         }
       ],
       "report": true
     },
     {
+      "sceneId": "d-09-scene-0003",
       "speaker": "",
-      "text": "[관련 관측]\n\n과거 시험 개체와 신규 랩쳐 자료의 외형 대조 결과 별도 첨부. 실종 개체와의 동일성은 입증되지 않음.\n\n관련 자료 : HERETIC_COMPARE.PDF",
+      "text": "[관련 관측]\n\n과거 시험 대상과 신규 랩쳐 자료의 외형 대조 결과 별도 첨부. 실종 니케와의 동일성은 입증되지 않음.\n\n관련 자료 : HERETIC_COMPARE.PDF",
       "tone": "report",
       "cardTitle": "관련 관측",
       "sourceIndices": [
@@ -143,7 +146,7 @@ window.RustedPrayerArchive.registerRecord({
       ],
       "rows": [
         {
-          "text": "과거 시험 개체와 신규 랩쳐 자료의 외형 대조 결과 별도 첨부. 실종 개체와의 동일성은 입증되지 않음.",
+          "text": "과거 시험 대상과 신규 랩쳐 자료의 외형 대조 결과 별도 첨부. 실종 니케와의 동일성은 입증되지 않음.",
           "highlight": false
         },
         {

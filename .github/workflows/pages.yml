@@ -25,6 +25,8 @@ jobs:
         uses: actions/checkout@v6
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Validate scene IDs and saved progress
+        run: node --test tests/bookmarks.test.mjs tests/progress-store.test.mjs
       - name: Stage browser files
         run: |
           mkdir _site

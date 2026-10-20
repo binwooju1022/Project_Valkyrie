@@ -99,7 +99,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "참가 개체 : UNIT-03"
+      "text": "시험 대상 : UNIT-03"
     },
     {
       "type": "text",
@@ -141,7 +141,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "참가 개체 : UNIT-03"
+      "text": "시험 대상 : UNIT-03"
     },
     {
       "type": "text",
@@ -325,7 +325,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "저출력 방출은 서번트급 개체 제압에는 유효하나,\n고등급 랩쳐 상대 시 유의미한 효과를 기대하기 어려움."
+      "text": "저출력 방출은 서번트급 랩쳐 제압에는 유효하나,\n고등급 랩쳐 상대 시 유의미한 효과를 기대하기 어려움."
     },
     {
       "type": "text",
@@ -338,6 +338,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "a-03-scene-0001",
       "speaker": "",
       "text": "[현장 음성 기록]",
       "tone": "slate",
@@ -352,6 +353,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0002",
       "speaker": "",
       "text": "탕―!!",
       "tone": "narration",
@@ -366,6 +368,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0003",
       "speaker": "세린",
       "text": "···",
       "tone": "dialogue",
@@ -379,6 +382,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0004",
       "speaker": "",
       "text": "탕―!!",
       "tone": "narration",
@@ -393,6 +397,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0005",
       "speaker": "세린",
       "text": "하아.",
       "tone": "dialogue",
@@ -406,6 +411,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0006",
       "speaker": "세린",
       "text": "이거 완전 따발총이네.",
       "tone": "dialogue",
@@ -419,6 +425,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0007",
       "speaker": "유라",
       "text": "따발총?",
       "tone": "dialogue",
@@ -432,6 +439,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0008",
       "speaker": "세린",
       "text": "따.",
       "tone": "dialogue",
@@ -445,6 +453,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0009",
       "speaker": "세린",
       "text": "따끔거리는 수준.",
       "tone": "dialogue",
@@ -458,6 +467,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0010",
       "speaker": "세린",
       "text": "발.",
       "tone": "dialogue",
@@ -471,6 +481,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0011",
       "speaker": "세린",
       "text": "발전 가능성은 안 보이고.",
       "tone": "dialogue",
@@ -484,6 +495,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0012",
       "speaker": "세린",
       "text": "총.",
       "tone": "dialogue",
@@ -497,6 +509,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0013",
       "speaker": "세린",
       "text": "총체적으로 답이 없다.",
       "tone": "dialogue",
@@ -510,6 +523,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0014",
       "speaker": "초희",
       "text": "명문. 동감.",
       "tone": "dialogue",
@@ -523,6 +537,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0015",
       "speaker": "가은",
       "text": "뭐가 명문이야.",
       "tone": "dialogue",
@@ -536,6 +551,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0016",
       "speaker": "연화",
       "text": "그래도 탄환이 필요 없어서 좋잖아.",
       "tone": "dialogue",
@@ -549,6 +565,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0017",
       "speaker": "초희",
       "text": "문제가 있다.",
       "tone": "dialogue",
@@ -562,6 +579,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0018",
       "speaker": "유라",
       "text": "왜?",
       "tone": "dialogue",
@@ -575,6 +593,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0019",
       "speaker": "초희",
       "text": "따발총처럼 연속 발사는 어렵다. 게다가 낭만이 없지.",
       "tone": "dialogue",
@@ -588,6 +607,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0020",
       "speaker": "초희",
       "text": "쏠 때는 한 발 한 발 강한 느낌인데 결과는 그냥 따발총. 재미도 없다.",
       "tone": "dialogue",
@@ -601,6 +621,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0021",
       "speaker": "가은",
       "text": "그럼 멈춰서 쏘면 되잖아.",
       "tone": "dialogue",
@@ -614,6 +635,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0022",
       "speaker": "세린",
       "text": "돌겠네. 스타X래프트 시즈 탱크냐고.",
       "tone": "dialogue",
@@ -627,6 +649,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0023",
       "speaker": "세린",
       "text": "움직이면 따발총.",
       "tone": "dialogue",
@@ -640,6 +663,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0024",
       "speaker": "세린",
       "text": "멈추면 대포.",
       "tone": "dialogue",
@@ -653,6 +677,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0025",
       "speaker": "초희",
       "text": "그것이 낭만.",
       "tone": "dialogue",
@@ -666,6 +691,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0026",
       "speaker": "가은",
       "text": "넌 아까부터 왜 자꾸 낭만을 찾아.",
       "tone": "dialogue",
@@ -679,6 +705,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0027",
       "speaker": "초희",
       "text": "움직이지 않고 적의 공격을 정면으로 받으며 힘을 모은 뒤 일격.",
       "tone": "dialogue",
@@ -692,6 +719,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0028",
       "speaker": "초희",
       "text": "이 얼마나 아름다운가.",
       "tone": "dialogue",
@@ -705,6 +733,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0029",
       "speaker": "연화",
       "text": "맞으면?",
       "tone": "dialogue",
@@ -718,6 +747,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0030",
       "speaker": "초희",
       "text": "쓰러진다.",
       "tone": "dialogue",
@@ -731,6 +761,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0031",
       "speaker": "세린",
       "text": "그게 뭐가 아름답냐고",
       "tone": "dialogue",
@@ -744,6 +775,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0032",
       "speaker": "초희",
       "text": "낭만을 모르는 녀석.",
       "tone": "dialogue",
@@ -757,6 +789,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0033",
       "speaker": "가은",
       "text": "하··· 쟤 좀 어떻게 해봐라.",
       "tone": "dialogue",
@@ -770,6 +803,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0034",
       "speaker": "초희",
       "text": "왜 나를?",
       "tone": "dialogue",
@@ -783,8 +817,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-03-scene-0035",
       "speaker": "",
-      "text": "시험 담당자 메모 :\n\n기동 상태에서의 에블라 입자 집적 효율은 기대 이하.\n\n저출력 방출은 서번트급 개체 제압에는 유효하나,\n고등급 랩쳐 상대 시 유의미한 효과를 기대하기 어려움.\n\n고출력 운용 시 정지 상태에서 별도의 집적 시간이 필요함.\n\n실전 적용에는 추가 검토가 요구됨.",
+      "text": "시험 담당자 메모 :\n\n기동 상태에서의 에블라 입자 집적 효율은 기대 이하.\n\n저출력 방출은 서번트급 랩쳐 제압에는 유효하나,\n고등급 랩쳐 상대 시 유의미한 효과를 기대하기 어려움.\n\n고출력 운용 시 정지 상태에서 별도의 집적 시간이 필요함.\n\n실전 적용에는 추가 검토가 요구됨.",
       "tone": "memo",
       "sourceIndices": [
         45,
@@ -800,7 +835,7 @@ window.RustedPrayerArchive.registerRecord({
           "highlight": false
         },
         {
-          "text": "저출력 방출은 서번트급 개체 제압에는 유효하나, 고등급 랩쳐 상대 시 유의미한 효과를 기대하기 어려움.",
+          "text": "저출력 방출은 서번트급 랩쳐 제압에는 유효하나, 고등급 랩쳐 상대 시 유의미한 효과를 기대하기 어려움.",
           "highlight": false
         },
         {

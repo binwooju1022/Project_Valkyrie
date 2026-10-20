@@ -37,6 +37,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "b-06-scene-0001",
       "speaker": "",
       "text": "출처 : UNIT-01 블랙박스 / 인지 스캔\n데이터 무결성 : 48%",
       "tone": "document",
@@ -61,6 +62,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-06-scene-0002",
       "speaker": "",
       "text": "UNIT-01이 UNIT-02를 업고 이동 중.\n영상 흔들림 지속. 주무장 미확인.\n이동 속도: 기록상 최고치 초과.",
       "tone": "telemetry",
@@ -83,6 +85,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveSystemPunctuation": true
     },
     {
+      "sceneId": "b-06-scene-0003",
       "speaker": "",
       "text": "[상태 진단]\n\n대상 : UNIT-02\n손상 수준 : 심각\n기동성 : 0%\n예상 생존율 : 12.6%\n다크매터 상태 : 불안정\n권고 검사 : 다크매터 농도 재측정 및 변화 여부 확인.",
       "tone": "document",

@@ -81,7 +81,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "참가 개체 : UNIT-01 / UNIT-02 / UNIT-03 / UNIT-04 / UNIT-05\n시험 목적 : 다크매터를 이용한 방호 장비 즉시 형성 및 전투 지속 가능 시간 측정"
+      "text": "시험 대상 : UNIT-01 / UNIT-02 / UNIT-03 / UNIT-04 / UNIT-05\n시험 목적 : 다크매터를 이용한 방호 장비 즉시 형성 및 전투 지속 가능 시간 측정"
     },
     {
       "type": "text",
@@ -111,7 +111,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "참가 개체 : UNIT-01 / UNIT-02 / UNIT-03 / UNIT-04 / UNIT-05\n시험 목적 : 다크매터를 이용한 방호 장비 즉시 형성 및 전투 지속 가능 시간 측정"
+      "text": "시험 대상 : UNIT-01 / UNIT-02 / UNIT-03 / UNIT-04 / UNIT-05\n시험 목적 : 다크매터를 이용한 방호 장비 즉시 형성 및 전투 지속 가능 시간 측정"
     },
     {
       "type": "text",
@@ -235,7 +235,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "※ 4차 시험 전 참가 개체의 충분한 휴식을 권고함."
+      "text": "※ 4차 시험 전 시험 대상의 충분한 휴식을 권고함."
     },
     {
       "type": "stamp",
@@ -256,6 +256,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "a-01-scene-0001",
       "speaker": "",
       "text": "[추가 음성 기록]",
       "tone": "slate",
@@ -270,6 +271,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0002",
       "speaker": "유라",
       "text": "오.",
       "tone": "dialogue",
@@ -283,6 +285,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0003",
       "speaker": "세린",
       "text": "신기록.",
       "tone": "dialogue",
@@ -296,6 +299,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0004",
       "speaker": "가은",
       "text": "그래서 좋아할 일이야?",
       "tone": "dialogue",
@@ -309,6 +313,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0005",
       "speaker": "초희",
       "text": "인간은 기록을 경신하며 발전한다.",
       "tone": "dialogue",
@@ -322,6 +327,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0006",
       "speaker": "가은",
       "text": "우린 인간이 아니잖아.",
       "tone": "dialogue",
@@ -335,6 +341,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0007",
       "speaker": "초희",
       "text": "그럼 니케는 기록을 경신하며 발전한다.",
       "tone": "dialogue",
@@ -348,6 +355,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0008",
       "speaker": "연화",
       "text": "···",
       "tone": "dialogue",
@@ -361,6 +369,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0009",
       "speaker": "유라",
       "text": "왜 말이 없어?",
       "tone": "dialogue",
@@ -374,6 +383,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0010",
       "speaker": "연화",
       "text": "방금 깼어.",
       "tone": "dialogue",
@@ -387,6 +397,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0011",
       "speaker": "세린",
       "text": "축하해. 34분 잤어.",
       "tone": "dialogue",
@@ -400,6 +411,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0012",
       "speaker": "연화",
       "text": "전투는?",
       "tone": "dialogue",
@@ -413,6 +425,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0013",
       "speaker": "가은",
       "text": "진작 끝났어.",
       "tone": "dialogue",
@@ -426,6 +439,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0014",
       "speaker": "연화",
       "text": "···",
       "tone": "dialogue",
@@ -439,6 +453,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0015",
       "speaker": "유라",
       "text": "오늘도 훌륭한 활약이었어.",
       "tone": "dialogue",
@@ -452,6 +467,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0016",
       "speaker": "연화",
       "text": "아무것도 안 했는데.",
       "tone": "dialogue",
@@ -465,6 +481,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0017",
       "speaker": "세린",
       "text": "적의 사기 저하에 기여함.",
       "tone": "dialogue",
@@ -478,6 +495,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0018",
       "speaker": "연화",
       "text": "어떻게.",
       "tone": "dialogue",
@@ -491,6 +509,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0019",
       "speaker": "세린",
       "text": "싸우다 갑자기 적이 쓰러졌잖아.",
       "tone": "dialogue",
@@ -504,6 +523,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0020",
       "speaker": "세린",
       "text": "랩쳐도 당황은 했을 거 아냐.",
       "tone": "dialogue",
@@ -517,6 +537,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0021",
       "speaker": "초희",
       "text": "고도의 심리전.",
       "tone": "dialogue",
@@ -530,6 +551,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0022",
       "speaker": "가은",
       "text": "다들 적당히 해.",
       "tone": "dialogue",
@@ -543,8 +565,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-01-scene-0023",
       "speaker": "",
-      "text": "종합 평가 :\n\n개선 필요.\n\n※ 4차 시험 전 참가 개체의 충분한 휴식을 권고함.\n\n[수기 추가]\n\n이미 충분히 잤는데.\n\n더 자라는 의미임.\n\n겠냐고···",
+      "text": "종합 평가 :\n\n개선 필요.\n\n※ 4차 시험 전 시험 대상의 충분한 휴식을 권고함.\n\n[수기 추가]\n\n이미 충분히 잤는데.\n\n더 자라는 의미임.\n\n겠냐고···",
       "tone": "memo",
       "sourceIndices": [
         30,
@@ -562,7 +585,7 @@ window.RustedPrayerArchive.registerRecord({
           "highlight": true
         },
         {
-          "text": "※ 4차 시험 전 참가 개체의 충분한 휴식을 권고함.",
+          "text": "※ 4차 시험 전 시험 대상의 충분한 휴식을 권고함.",
           "highlight": false
         },
         {

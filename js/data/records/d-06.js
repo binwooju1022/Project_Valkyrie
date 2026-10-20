@@ -249,7 +249,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 인간성이 남아 있어서 동료 개체를 공격하지 못했다?"
+      "text": "연구원 B : 인간성이 남아 있어서 동료 니케를 공격하지 못했다?"
     },
     {
       "type": "dialogue",
@@ -265,7 +265,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : ‘침식 개체 처리 실패로 인한 UNIT-01 전투 불능.’"
+      "text": "연구원 A : ‘침식 니케 처리 실패로 인한 UNIT-01 전투 불능.’"
     },
     {
       "type": "dialogue",
@@ -309,7 +309,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : 원형 개체인데도 원인을 모른다는 거네."
+      "text": "연구원 A : 원형 니케인데도 원인을 모른다는 거네."
     },
     {
       "type": "dialogue",
@@ -361,7 +361,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : 사고 전환까지 끝난 개체잖아. 다시 굴릴 수 있으면 굴려야지."
+      "text": "연구원 A : 사고 전환까지 끝난 니케잖아. 다시 굴릴 수 있으면 굴려야지."
     },
     {
       "type": "dialogue",
@@ -390,6 +390,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "d-06-scene-0001",
       "speaker": "연구원 A",
       "text": "중요한 자료들이라고? 이게?",
       "tone": "dialogue",
@@ -403,6 +404,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0002",
       "speaker": "연구원 B",
       "text": "시스템상으로는 그렇습니다.",
       "tone": "dialogue",
@@ -416,6 +418,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0003",
       "speaker": "연구원 A",
       "text": "이게 왜? 절반은 그냥 쉬거나 떠들고 있는 장면인데.",
       "tone": "dialogue",
@@ -429,6 +432,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0004",
       "speaker": "연구원 A",
       "text": "전투 장면도 아니고 말야.",
       "tone": "dialogue",
@@ -442,6 +446,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0005",
       "speaker": "연구원 B",
       "text": "모르죠, 그냥 주마등 같은 거 아닐까요?",
       "tone": "dialogue",
@@ -455,6 +460,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0006",
       "speaker": "연구원 A",
       "text": "기계가 무슨 주마등이야.",
       "tone": "dialogue",
@@ -468,6 +474,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0007",
       "speaker": "",
       "text": "화면 조작음.",
       "tone": "narration",
@@ -481,6 +488,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0008",
       "speaker": "연구원 A",
       "text": "어. 잠시만.",
       "tone": "dialogue",
@@ -494,6 +502,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0009",
       "speaker": "",
       "text": "붉은 눈의 UNIT-02.",
       "tone": "narration",
@@ -508,6 +517,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0010",
       "speaker": "",
       "text": "총을 겨누고 있는 UNIT-01.",
       "tone": "narration",
@@ -521,6 +531,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0011",
       "speaker": "연구원 B",
       "text": "침식이네요.",
       "tone": "dialogue",
@@ -534,6 +545,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0012",
       "speaker": "연구원 A",
       "text": "응.",
       "tone": "dialogue",
@@ -547,6 +559,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0013",
       "speaker": "연구원 B",
       "text": "처리 못 했고.",
       "tone": "dialogue",
@@ -560,6 +573,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0014",
       "speaker": "연구원 A",
       "text": "응.",
       "tone": "dialogue",
@@ -573,6 +587,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0015",
       "speaker": "연구원 B",
       "text": "그래서 저렇게 망가진 거고.",
       "tone": "dialogue",
@@ -586,6 +601,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0016",
       "speaker": "연구원 A",
       "text": "그렇지.",
       "tone": "dialogue",
@@ -599,6 +615,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0017",
       "speaker": "",
       "text": "잠시 정적.",
       "tone": "narration",
@@ -612,6 +629,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0018",
       "speaker": "연구원 A",
       "text": "그래서 이게 왜 중요하다는 거야.",
       "tone": "dialogue",
@@ -625,8 +643,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0019",
       "speaker": "연구원 B",
-      "text": "인간성이 남아 있어서 동료 개체를 공격하지 못했다?",
+      "text": "인간성이 남아 있어서 동료 니케를 공격하지 못했다?",
       "tone": "dialogue",
       "sourceIndices": [
         19
@@ -638,6 +657,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0020",
       "speaker": "연구원 A",
       "text": "그걸 그대로 보고서에 쓰게?",
       "tone": "dialogue",
@@ -651,6 +671,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0021",
       "speaker": "연구원 B",
       "text": "아니면요?",
       "tone": "dialogue",
@@ -664,6 +685,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0022",
       "speaker": "연구원 A",
       "text": "간단하게 하지.",
       "tone": "dialogue",
@@ -677,8 +699,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0023",
       "speaker": "연구원 A",
-      "text": "‘침식 개체 처리 실패로 인한 UNIT-01 전투 불능.’",
+      "text": "‘침식 니케 처리 실패로 인한 UNIT-01 전투 불능.’",
       "tone": "dialogue",
       "sourceIndices": [
         23
@@ -690,6 +713,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0024",
       "speaker": "연구원 B",
       "text": "···깔끔하네요.",
       "tone": "dialogue",
@@ -703,6 +727,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0025",
       "speaker": "연구원 A",
       "text": "그렇지?",
       "tone": "dialogue",
@@ -716,6 +741,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0026",
       "speaker": "",
       "text": "연구원 A는 잠시 말을 멈추고 곰곰이 생각한다.",
       "tone": "narration",
@@ -729,6 +755,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0027",
       "speaker": "연구원 A",
       "text": "사고 전환 원인은?",
       "tone": "dialogue",
@@ -742,6 +769,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0028",
       "speaker": "연구원 B",
       "text": "UNIT-02를 업고 복귀한 사건이 계기였던 것으로 보입니다.",
       "tone": "dialogue",
@@ -755,6 +783,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0029",
       "speaker": "연구원 A",
       "text": "그걸로 성능이 저렇게 올랐다고?",
       "tone": "dialogue",
@@ -768,6 +797,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0030",
       "speaker": "연구원 B",
       "text": "예. 그런 것으로 추측됩니다.",
       "tone": "dialogue",
@@ -781,6 +811,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0031",
       "speaker": "연구원 B",
       "text": "주변 확인부터 판단 속도, 이동 속도, 탐지율, 전투 지속률, 명중률까지 전부 상승했습니다. 처치 건수도 늘었고요.",
       "tone": "dialogue",
@@ -794,6 +825,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0032",
       "speaker": "연구원 A",
       "text": "재현 가능해?",
       "tone": "dialogue",
@@ -807,6 +839,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0033",
       "speaker": "연구원 B",
       "text": "현재 자료로는 어렵습니다. 정밀 스캔에서도 저런 개인 기억을 계속 우선해서 내놓습니다.",
       "tone": "dialogue",
@@ -820,8 +853,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0034",
       "speaker": "연구원 A",
-      "text": "원형 개체인데도 원인을 모른다는 거네.",
+      "text": "원형 니케인데도 원인을 모른다는 거네.",
       "tone": "dialogue",
       "sourceIndices": [
         34
@@ -833,6 +867,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0035",
       "speaker": "연구원 B",
       "text": "원형이라고 속까지 다 아는 건 아니니까요.",
       "tone": "dialogue",
@@ -846,6 +881,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0036",
       "speaker": "연구원 A",
       "text": "그건 그렇지.",
       "tone": "dialogue",
@@ -859,6 +895,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0037",
       "speaker": "",
       "text": "연구원 A는 한숨을 크게 내쉰다.",
       "tone": "narration",
@@ -867,6 +904,7 @@ window.RustedPrayerArchive.registerRecord({
       ]
     },
     {
+      "sceneId": "d-06-scene-0038",
       "speaker": "연구원 A",
       "text": "하등 쓸모가 없네.",
       "tone": "dialogue",
@@ -880,6 +918,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0039",
       "speaker": "연구원 B",
       "text": "···",
       "tone": "dialogue",
@@ -893,6 +932,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0040",
       "speaker": "연구원 A",
       "text": "연구 관점에서 말이야.",
       "tone": "dialogue",
@@ -906,6 +946,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0041",
       "speaker": "연구원 B",
       "text": "압니다.",
       "tone": "dialogue",
@@ -919,6 +960,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0042",
       "speaker": "연구원 A",
       "text": "재활용은?",
       "tone": "dialogue",
@@ -932,6 +974,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0043",
       "speaker": "연구원 B",
       "text": "가능 판정 났습니다. 다크매터가 다시 활성화됐다네요.",
       "tone": "dialogue",
@@ -945,6 +988,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0044",
       "speaker": "연구원 B",
       "text": "일시적인 오류였나 봅니다. 프레임 쪽을 정비하면 재가동 가능성이 높다고 합니다.",
       "tone": "dialogue",
@@ -958,6 +1002,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0045",
       "speaker": "연구원 A",
       "text": "잘됐네.",
       "tone": "dialogue",
@@ -971,6 +1016,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0046",
       "speaker": "연구원 B",
       "text": "잘된 겁니까?",
       "tone": "dialogue",
@@ -984,8 +1030,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0047",
       "speaker": "연구원 A",
-      "text": "사고 전환까지 끝난 개체잖아. 다시 굴릴 수 있으면 굴려야지.",
+      "text": "사고 전환까지 끝난 니케잖아. 다시 굴릴 수 있으면 굴려야지.",
       "tone": "dialogue",
       "sourceIndices": [
         47
@@ -997,6 +1044,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0048",
       "speaker": "연구원 A",
       "text": "문제 없이 사고 전환 온 케이스가 얼마나 된다고.",
       "tone": "dialogue",
@@ -1005,6 +1053,7 @@ window.RustedPrayerArchive.registerRecord({
       ]
     },
     {
+      "sceneId": "d-06-scene-0049",
       "speaker": "연구원 B",
       "text": "···그렇죠.",
       "tone": "dialogue",
@@ -1018,6 +1067,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0050",
       "speaker": "",
       "text": "연구원 A는 피곤한 듯 기지개를 켠다.",
       "tone": "narration",
@@ -1026,6 +1076,7 @@ window.RustedPrayerArchive.registerRecord({
       ]
     },
     {
+      "sceneId": "d-06-scene-0051",
       "speaker": "연구원 A",
       "text": "하···, 재현은 안 되고, 남은 건 다시 굴려야 하고.",
       "tone": "dialogue",
@@ -1039,6 +1090,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0052",
       "speaker": "연구원 B",
       "text": "좋은 프로젝트였네요.",
       "tone": "dialogue",
@@ -1052,6 +1104,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-06-scene-0053",
       "speaker": "연구원 A",
       "text": "아주 훌륭해.",
       "tone": "dialogue",

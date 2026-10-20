@@ -111,6 +111,7 @@ window.RustedPrayerArchive.registerRecord({
   "readerMode": "report",
   "reportSections": [
     {
+      "sceneId": "c-00-scene-0001",
       "speaker": "",
       "text": "[작전 배치 기록]\n\n발키리 스쿼드, 아크 가디언 배치를 명령함.\n\n전방 손잡이(탈착식) 시험 운용을 병행하기로 함.\n\n명중률 향상 기대.",
       "tone": "report",
@@ -134,6 +135,7 @@ window.RustedPrayerArchive.registerRecord({
       ]
     },
     {
+      "sceneId": "c-00-scene-0002",
       "speaker": "",
       "text": "[수기]\n\n드디어 실전인가!\n\n아··· 탈착이라니. 이거 잃어버리면 골 아프겠네.\n\n그냥 빼고 쓰면 되는 거 아냐?\n\n오. 천재다.\n\n···그냥 장착하는 걸 권장해.",
       "tone": "memo",

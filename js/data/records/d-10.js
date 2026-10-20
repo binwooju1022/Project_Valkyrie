@@ -104,6 +104,7 @@ window.RustedPrayerArchive.registerRecord({
   "readerMode": "report",
   "reportSections": [
     {
+      "sceneId": "d-10-scene-0001",
       "speaker": "",
       "text": "형상 대조 자료\n\n과거 기록 출처 :\n\n발키리 프로젝트 보관소\n\n최근 관측 출처 :\n\n최근 지상 관측",
       "tone": "report",
@@ -132,6 +133,7 @@ window.RustedPrayerArchive.registerRecord({
       "report": true
     },
     {
+      "sceneId": "d-10-scene-0002",
       "speaker": "",
       "text": "[과거 시험 기록]\n\n<UNIT-01>\n\n[최근 관측됨]\n\n<양산형 헬레틱>",
       "tone": "comparison",
@@ -163,6 +165,7 @@ window.RustedPrayerArchive.registerRecord({
       ]
     },
     {
+      "sceneId": "d-10-scene-0003",
       "speaker": "",
       "text": "AI 분석 결과, 일부 외형적 유사성이 보고됨.",
       "tone": "report",

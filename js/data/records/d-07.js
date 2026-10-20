@@ -24,7 +24,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "introSceneCount": 0,
   "narrativeStart": -1,
-  "source": "개체 현황",
+  "source": "니케 현황",
   "integrity": "100%",
   "dataSize": "9.8 KB",
   "status": "열람 가능",
@@ -33,7 +33,7 @@ window.RustedPrayerArchive.registerRecord({
   "transcript": [
     {
       "type": "text",
-      "text": "[개체 현황]\n\nUNIT-01 : 수리 대상\n\nUNIT-02 : 침식·소재 불명\n\nUNIT-03 / UNIT-04 / UNIT-05 : 실험 장비 운용 종료 후 통상 임무 전환."
+      "text": "[니케 현황]\n\nUNIT-01 : 수리 대상\n\nUNIT-02 : 침식·소재 불명\n\nUNIT-03 / UNIT-04 / UNIT-05 : 실험 장비 운용 종료 후 통상 임무 전환."
     },
     {
       "type": "text",
@@ -74,10 +74,11 @@ window.RustedPrayerArchive.registerRecord({
   "readerMode": "report",
   "reportSections": [
     {
+      "sceneId": "d-07-scene-0001",
       "speaker": "",
-      "text": "[개체 현황]\n\nUNIT-01 : 수리 대상\n\nUNIT-02 : 침식·소재 불명\n\nUNIT-03 / UNIT-04 / UNIT-05 : 실험 장비 운용 종료 후 통상 임무 전환.",
+      "text": "[니케 현황]\n\nUNIT-01 : 수리 대상\n\nUNIT-02 : 침식·소재 불명\n\nUNIT-03 / UNIT-04 / UNIT-05 : 실험 장비 운용 종료 후 통상 임무 전환.",
       "tone": "report",
-      "cardTitle": "개체 현황",
+      "cardTitle": "니케 현황",
       "sourceIndices": [
         0
       ],
@@ -98,6 +99,7 @@ window.RustedPrayerArchive.registerRecord({
       "report": true
     },
     {
+      "sceneId": "d-07-scene-0002",
       "speaker": "",
       "text": "[기술 평가]\n\n다크매터 : 형상 구축·손상 회복 확인. 고농도 운용 시 의식 소실.\n\n에블라 응용 장치 : 유효 화력 확보. 이동 중 집적 효율 및 출력 안정성 부족.\n\n기록 통합 : 장치 손상 시 복구 품질·객관성 보장 불가.\n\nUNIT-01 사고 전환 : 전투 성능 향상 확인. 원인·재현 조건 규명 실패.",
       "tone": "report",
@@ -150,6 +152,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-07-scene-0003",
       "speaker": "",
       "text": "[최종 처분]\n\n개선 비용 대비 기대 효과 낮음. 발키리 프로젝트 종료.\n\nUNIT-01 : 수리 후 ■■■ 작전에 재배치 예정.",
       "tone": "report",
@@ -170,6 +173,7 @@ window.RustedPrayerArchive.registerRecord({
       "report": true
     },
     {
+      "sceneId": "d-07-scene-0004",
       "speaker": "",
       "text": "[신규 위협 대응]\n\n신규 헬레틱의 다크매터 운용 가능성에 대비해 방호·회복 능력 대응 수단 준비 및 추가 관측 권고.\n\n실종된 UNIT-02와의 직접적 연관성은 입증되지 않음.\n\n관련 자료 : HERETIC_COMPARE.PDF",
       "tone": "report",

@@ -221,7 +221,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "강한 이상향 반응은 검출되지 않았으나, 발키리 프로젝트에 적합한 개체로 판단됨."
+      "text": "강한 이상향 반응은 검출되지 않았으나, 발키리 프로젝트에 적합한 니케로 판단됨."
     },
     {
       "type": "text",
@@ -230,6 +230,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "b-04-scene-0001",
       "speaker": "담당자",
       "text": "시술 과정에서 사망할 가능성이 있다는 설명은 들으셨습니까?",
       "tone": "dialogue",
@@ -243,6 +244,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0002",
       "speaker": "연화",
       "text": "네.",
       "tone": "dialogue",
@@ -256,6 +258,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0003",
       "speaker": "담당자",
       "text": "성공하더라도 이전과 같은 신체로 돌아갈 수 없습니다.",
       "tone": "dialogue",
@@ -269,6 +272,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0004",
       "speaker": "연화",
       "text": "네.",
       "tone": "dialogue",
@@ -282,6 +286,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0005",
       "speaker": "담당자",
       "text": "기억 손실 및 기타 부작용이 발생할 가능성도 있습니다.",
       "tone": "dialogue",
@@ -295,6 +300,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0006",
       "speaker": "연화",
       "text": "알고 있습니다.",
       "tone": "dialogue",
@@ -308,6 +314,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0007",
       "speaker": "담당자",
       "text": "그래도 지원 의사는 변함없습니까?",
       "tone": "dialogue",
@@ -321,6 +328,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0008",
       "speaker": "연화",
       "text": "없습니다.",
       "tone": "dialogue",
@@ -334,6 +342,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0009",
       "speaker": "담당자",
       "text": "지원 동기를 말씀해 주십시오.",
       "tone": "dialogue",
@@ -347,6 +356,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0010",
       "speaker": "연화",
       "text": "···",
       "tone": "dialogue",
@@ -360,6 +370,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0011",
       "speaker": "담당자",
       "text": "거창한 이유일 필요는 없습니다.",
       "tone": "dialogue",
@@ -373,6 +384,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0012",
       "speaker": "연화",
       "text": "딱히 없습니다.",
       "tone": "dialogue",
@@ -386,6 +398,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0013",
       "speaker": "담당자",
       "text": "없다고요?",
       "tone": "dialogue",
@@ -399,6 +412,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0014",
       "speaker": "연화",
       "text": "네.",
       "tone": "dialogue",
@@ -412,6 +426,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0015",
       "speaker": "담당자",
       "text": "인류를 위해 싸우고 싶다든가.",
       "tone": "dialogue",
@@ -425,6 +440,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0016",
       "speaker": "연화",
       "text": "없습니다.",
       "tone": "dialogue",
@@ -438,6 +454,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0017",
       "speaker": "담당자",
       "text": "지상을 되찾고 싶다든가.",
       "tone": "dialogue",
@@ -451,6 +468,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0018",
       "speaker": "연화",
       "text": "그것도 없습니다.",
       "tone": "dialogue",
@@ -464,6 +482,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0019",
       "speaker": "담당자",
       "text": "그렇다면 왜 지원하셨습니까?",
       "tone": "dialogue",
@@ -477,6 +496,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0020",
       "speaker": "",
       "text": "잠시 정적.",
       "tone": "narration",
@@ -490,6 +510,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0021",
       "speaker": "연화",
       "text": "죽어도 상관없으니까요.",
       "tone": "dialogue",
@@ -503,6 +524,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0022",
       "speaker": "",
       "text": "4.2초간 응답 없음.",
       "tone": "narration",
@@ -516,6 +538,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0023",
       "speaker": "담당자",
       "text": "···알겠습니다.",
       "tone": "dialogue",
@@ -529,8 +552,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-04-scene-0024",
       "speaker": "",
-      "text": "[시술 후 적성 검사]\n\n생존 : 확인\n\n강한 이상향 반응 : 미검출\n\n[담당자 평가]\n\n강한 이상향 반응은 검출되지 않았으나, 발키리 프로젝트에 적합한 개체로 판단됨.\n\n향후 발키리 프로젝트용 바디는 이번에 형성된 바디와 동일한 사양으로 제작할 것을 권고함.",
+      "text": "[시술 후 적성 검사]\n\n생존 : 확인\n\n강한 이상향 반응 : 미검출\n\n[담당자 평가]\n\n강한 이상향 반응은 검출되지 않았으나, 발키리 프로젝트에 적합한 니케로 판단됨.\n\n향후 발키리 프로젝트용 바디는 이번에 형성된 바디와 동일한 사양으로 제작할 것을 권고함.",
       "tone": "memo",
       "sourceIndices": [
         29,
@@ -555,7 +579,7 @@ window.RustedPrayerArchive.registerRecord({
           "text": "담당자 평가"
         },
         {
-          "text": "강한 이상향 반응은 검출되지 않았으나, 발키리 프로젝트에 적합한 개체로 판단됨.",
+          "text": "강한 이상향 반응은 검출되지 않았으나, 발키리 프로젝트에 적합한 니케로 판단됨.",
           "highlight": false
         },
         {

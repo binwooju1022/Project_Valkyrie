@@ -184,6 +184,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "a-04-scene-0001",
       "speaker": "",
       "text": "에블라 입자 고출력 집적 시험 당시 촬영된 이미지.",
       "tone": "narration",
@@ -197,6 +198,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-04-scene-0002",
       "speaker": "",
       "text": "사진 중앙에는 UNIT-05가 사격 자세를 취하고 있다.",
       "tone": "narration",
@@ -210,6 +212,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-04-scene-0003",
       "speaker": "",
       "text": "총기와 복장 곳곳에서 붉은 빛이 새어 나오고 있으며, 머리카락 일부에서도 강한 색 변화가 확인된다.",
       "tone": "narration",
@@ -223,6 +226,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-04-scene-0004",
       "speaker": "",
       "text": "후방 안전선 너머에는 나머지 네 개체가 몸을 숨기고 있다.",
       "tone": "narration",
@@ -236,6 +240,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-04-scene-0005",
       "speaker": "",
       "text": "당시의 대화 기록이 남아있다.",
       "tone": "narration",
@@ -249,6 +254,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-04-scene-0006",
       "speaker": "초희",
       "text": "「낭만 시험 2차」\n\n「정식 명칭 멋대로 바꾸지 마.」\n\n「이번에도 창고 날리면 네가 책임져.」\n\n「이번엔 창고랑 좀 떨어져서 쏴.」\n\n「이 정도면 충분하다!」\n\n「지난번에도 그랬다가 날려먹었잖아!」",
       "tone": "memo",
@@ -296,6 +302,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-04-scene-0007",
       "speaker": "",
       "text": "[시험 결과]\n\n목표물 : 마스터급 모의 장갑 표적\n\n집적 시간 : 7.8초\n\n결과 : 관통\n\n부수 피해 :\n\n- 모의 표적 후방 방벽 1개 파손\n- 관측용 카메라 2대 파손\n- 보급 창고 외벽 일부 파손\n- 지휘관 임시 숙소 유리창 3장 파손",
       "tone": "memo",
@@ -350,6 +357,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-04-scene-0008",
       "speaker": "",
       "text": "[관리 부서 추가 메모]\n\n차후 고출력 시험은 기지 외곽에서 실시할 것.\n\n[수기]\n\n낭만에는 희생이 따른다.\n\n네 월급에서 깐다.\n\n우리 월급 없잖아.\n\n그럼 네 보급에서 깐다.\n\n아, 왜···",
       "tone": "memo",

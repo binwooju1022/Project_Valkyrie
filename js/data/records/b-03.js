@@ -348,6 +348,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "b-03-scene-0001",
       "speaker": "",
       "text": "햇빛이 눈꺼풀 너머까지 따뜻하게 스며든다.",
       "tone": "narration",
@@ -368,6 +369,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0002",
       "speaker": "",
       "text": "빛 속에 사람들이 서 있다. 가까이 다가설수록 흐릿하던 윤곽이 조금씩 선명해진다.",
       "tone": "narration",
@@ -382,6 +384,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0003",
       "speaker": "",
       "text": "모두 익숙한 얼굴이다. 이름을 떠올리기도 전에 입가에 웃음이 번진다.",
       "tone": "narration",
@@ -396,6 +399,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0004",
       "speaker": "",
       "text": "누군가 오래전의 이름을 부른다. 연화는 그 목소리가 들려온 쪽으로 고개를 돌린다.",
       "tone": "narration",
@@ -410,6 +414,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0005",
       "speaker": "",
       "text": "“또 늦었어.”",
       "tone": "narration",
@@ -424,6 +429,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0006",
       "speaker": "",
       "text": "“미안.”",
       "tone": "narration",
@@ -438,6 +444,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0007",
       "speaker": "",
       "text": "“맨날 미안하대.”",
       "tone": "narration",
@@ -452,6 +459,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0008",
       "speaker": "",
       "text": "“다음엔 안 늦을게.”",
       "tone": "narration",
@@ -466,6 +474,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0009",
       "speaker": "",
       "text": "“그 말도 맨날 해.”",
       "tone": "narration",
@@ -480,6 +489,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0010",
       "speaker": "",
       "text": "“이번엔 진짜야.”",
       "tone": "narration",
@@ -494,6 +504,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0011",
       "speaker": "",
       "text": "“지난번에도 그랬거든?”",
       "tone": "narration",
@@ -508,6 +519,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0012",
       "speaker": "",
       "text": "핀잔 끝에 웃음이 터진다. 연화도 어깨를 움츠리며 그 웃음 속으로 섞여 든다.",
       "tone": "narration",
@@ -522,6 +534,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0013",
       "speaker": "",
       "text": "기억은 어느새 다른 오후로 이어진다.",
       "tone": "narration",
@@ -536,6 +549,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0014",
       "speaker": "",
       "text": "손에 들려 있던 커피가 훌쩍 사라진다. 옆에 있던 누군가가 컵을 높이 들어 보인다.",
       "tone": "narration",
@@ -550,6 +564,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0015",
       "speaker": "",
       "text": "“야.”",
       "tone": "narration",
@@ -564,6 +579,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0016",
       "speaker": "",
       "text": "“한 입만.”",
       "tone": "narration",
@@ -578,6 +594,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0017",
       "speaker": "",
       "text": "“그게 한 입이야?”",
       "tone": "narration",
@@ -592,6 +609,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0018",
       "speaker": "",
       "text": "“남았잖아.”",
       "tone": "narration",
@@ -606,6 +624,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0019",
       "speaker": "",
       "text": "“안 남았는데?”",
       "tone": "narration",
@@ -620,6 +639,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0020",
       "speaker": "",
       "text": "커피의 잔향만이 남아있다. 또다시 웃음이 터지고, 그 소리가 한동안 귓가에 머문다.",
       "tone": "narration",
@@ -634,6 +654,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0021",
       "speaker": "",
       "text": "웃음이 중간에서 찢어진다. 따뜻하던 빛이 꺼지고 기억에 검은 틈이 벌어진다.",
       "tone": "narration",
@@ -655,6 +676,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0022",
       "speaker": "",
       "text": "█████████████",
       "tone": "narration",
@@ -669,6 +691,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0023",
       "speaker": "",
       "text": "틈 너머에서 불길이 솟는다. 조금 전까지 곁에 있던 얼굴들은 보이지 않는다.",
       "tone": "narration",
@@ -683,6 +706,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0024",
       "speaker": "",
       "text": "건물은 무너져 있다. 익숙했던 길은 부서진 벽과 철골 아래 묻혔다.",
       "tone": "narration",
@@ -697,6 +721,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0025",
       "speaker": "",
       "text": "먼지가 입안으로 밀려든다. 숨을 들이쉴 때마다 목 안쪽이 따갑다.",
       "tone": "narration",
@@ -711,6 +736,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0026",
       "speaker": "",
       "text": "웃음소리는 더 이상 들리지 않는다. 어디를 돌아봐도 대답해 줄 얼굴이 없다.",
       "tone": "narration",
@@ -725,6 +751,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0027",
       "speaker": "",
       "text": "연화는 잔해를 향해 이름 하나를 부른다. 목소리는 갈라진 채 먼지 속으로 흩어진다.",
       "tone": "narration",
@@ -739,6 +766,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0028",
       "speaker": "",
       "text": "잔해 사이로 바람만 흐른다. 기다리던 목소리는 돌아오지 않는다.",
       "tone": "narration",
@@ -753,6 +781,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0029",
       "speaker": "",
       "text": "이번에는 다른 이름을 부른다. 조금 더 크게, 들리지 않았을 뿐이라고 믿으며.",
       "tone": "narration",
@@ -767,6 +796,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0030",
       "speaker": "",
       "text": "잔해 사이로 바람만 흐른다. 기다리던 목소리는 돌아오지 않는다.",
       "tone": "narration",
@@ -781,6 +811,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0031",
       "speaker": "",
       "text": "또 다른 이름이 입술을 떠난다. 대답을 기다리는 동안 숨조차 제대로 쉬지 못한다.",
       "tone": "narration",
@@ -795,6 +826,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0032",
       "speaker": "",
       "text": "다시.",
       "tone": "narration",
@@ -812,6 +844,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0033",
       "speaker": "",
       "text": "다시.",
       "tone": "narration",
@@ -829,6 +862,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0034",
       "speaker": "",
       "text": "되감기던 기억이 멎는다. 불길 대신 차갑게 식은 땅이 눈앞에 남는다.",
       "tone": "narration",
@@ -850,6 +884,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0035",
       "speaker": "",
       "text": "연화는 맨손으로 흙을 판다. 손톱 밑에 흙이 파고들어도 손을 멈추지 않는다.",
       "tone": "narration",
@@ -864,6 +899,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0036",
       "speaker": "",
       "text": "한참 뒤, 작은 무덤 하나가 남는다. 그 앞에 무릎을 꿇고도 한동안 몸을 일으키지 못한다.",
       "tone": "narration",
@@ -878,6 +914,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0037",
       "speaker": "",
       "text": "세워 줄 비석은 없다. 주위를 둘러봐도 성한 돌 하나 눈에 들어오지 않는다.",
       "tone": "narration",
@@ -892,6 +929,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0038",
       "speaker": "",
       "text": "이름을 적을 만한 것도 없다. 손끝으로 흙 위를 더듬다가, 끝내 아무것도 쓰지 못한다.",
       "tone": "narration",
@@ -906,6 +944,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0039",
       "speaker": "",
       "text": "연화는 흙투성이가 된 두 손을 내려다본다. 손 여기저기 검은 흙이 깊이 박혀 있다.",
       "tone": "narration",
@@ -921,6 +960,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0040",
       "speaker": "연화",
       "text": "···미안.",
       "tone": "dialogue",
@@ -938,6 +978,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0041",
       "speaker": "",
       "text": "무덤은 아무 대답도 하지 않는다. 고개를 숙인 채 기다려도 들리는 것은 바람뿐이다.",
       "tone": "narration",
@@ -952,6 +993,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0042",
       "speaker": "연화",
       "text": "너밖에 못 찾았어.",
       "tone": "dialogue",
@@ -966,6 +1008,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0043",
       "speaker": "",
       "text": "무덤은 아무 대답도 하지 않는다. 고개를 숙인 채 기다려도 들리는 것은 바람뿐이다.",
       "tone": "narration",
@@ -980,6 +1023,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0044",
       "speaker": "연화",
       "text": "다 찾아줄 수 있을 줄 알았는데.",
       "tone": "dialogue",
@@ -994,6 +1038,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0045",
       "speaker": "연화",
       "text": "···",
       "tone": "dialogue",
@@ -1008,6 +1053,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0046",
       "speaker": "연화",
       "text": "미안.",
       "tone": "dialogue",
@@ -1022,6 +1068,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0047",
       "speaker": "",
       "text": "기억 중단",
       "tone": "narration",
@@ -1036,6 +1083,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-03-scene-0048",
       "speaker": "",
       "text": "동일 기억에 대한 반복 접근 흔적이 확인됨.",
       "tone": "narration",

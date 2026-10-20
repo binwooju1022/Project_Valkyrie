@@ -4,6 +4,7 @@
   const archive = window.RustedPrayerArchive;
   archive.validate();
   const orderedRecords = archive.getDisks().flatMap(disk => archive.getRecordsByDisk(disk.id));
+  const bookmarkCatalog = window.RustedPrayerBookmarks.create(orderedRecords,window.RustedPrayerBookmarkLegacy);
   const mainRecords=orderedRecords.filter(record=>!record.relatedReport);
   const media = window.RustedPrayerMedia;
   const recordNumber=record=>record?.displayId || record?.id || '';
@@ -107,6 +108,7 @@
       setItem:(key,value)=>localStorage.setItem(key,value),
       removeItem:key=>localStorage.removeItem(key),
     }, key:STORAGE_KEY, locks:navigator.locks,
+    bookmarkId:(recordId,id)=>typeof id==='number' ? bookmarkCatalog.legacyId(recordId,id) || id : id,
     normalize(saved) {
       // Reuse the existing migrations without changing the active reader.
       const active = {...state};
@@ -353,6 +355,7 @@
       if(archive.getRecord(saved.resumeRecordId)?.relatedReport)delete saved.resumeRecordId;
     }
     if(Array.isArray(saved.bookmarks))saved.bookmarks=saved.bookmarks.map(mark=>{
+      if(mark?.sceneId)return mark;
       const spec=layout.migrations[mark?.recordId];
       if(!spec)return mark;
       const record=archive.getRecord(spec.targetId),index=spec.indices[version]?.[mark.index] ?? 0;
@@ -580,6 +583,8 @@
       state.progress.aIdentificationIntroSeen = saved.aIdentificationIntroSeen === true;
       state.identificationIntroActive = false;
       state.progress.bookmarks = Array.isArray(saved.bookmarks) ? saved.bookmarks.map(mark => {
+        if(mark?.sceneId || mark?.status==='unresolved')return mark;
+        if((saved.version || 1)<9)return {...mark,status:'unresolved'};
         const octoberRecord=archive.getRecord(mark?.recordId);
         if(migrateD05 && mark?.recordId==='D-11' && Number.isInteger(mark.index)) {
           const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];return line?{...mark,index,text:line.text}:null;
@@ -662,12 +667,24 @@
         if (!map || !Number.isInteger(mark.index) || !lines?.[map[mark.index]]) return mark;
         const index = map[mark.index];
         return {...mark, index, text:lines[index].text};
-      }).filter(mark => {
-        const record = archive.getRecord(mark?.recordId);
-        const lines = record?.reportSections || record?.story;
-        return lines && Number.isInteger(mark.index) && mark.index >= 0 && lines[mark.index]?.text === mark.text;
-      }).slice(0,2000) : [];
+      }).map((mark,index)=>mark || {...saved.bookmarks[index],status:'unresolved'}) : [];
+      state.progress.bookmarks=bookmarkCatalog.normalize(state.progress.bookmarks);
       if (!imported) {
+        // Persist the identity migration as ordinary bookmark changes, not a reset.
+        if(JSON.stringify(saved.bookmarks || [])!==JSON.stringify(state.progress.bookmarks)) {
+          progressStore.adopt(saved);
+          try {
+            const result=progressStore.save({...saved,bookmarks:state.progress.bookmarks});
+            if(result.reset) {
+              loadProgress(result.value);
+              acceptProgress(progressStore.adopt({...progressSnapshot(),_sync:result.value._sync}));
+              return;
+            }
+            saved._sync=result.value._sync;
+          } catch {
+            storageAvailable=false;$("#storage-notice").hidden=false;
+          }
+        }
         acceptProgress(progressStore.adopt({...progressSnapshot(),_sync:saved._sync}));
         lastPlaybackPosition = null;
         progressStore.compact();
@@ -2474,7 +2491,7 @@
     } else if (instrumentMode) {
       $('#telemetry-panel').dataset.compact=String(pagedTelemetry);
       $('#telemetry-panel').dataset.kind = line.instrument;
-      $('#telemetry-panel').dataset.level = line.alert || line.systemPanel?.level === 'warning' || /심각|손상 개체 포기|오류/.test(line.text) ? 'warning' : 'info';
+      $('#telemetry-panel').dataset.level = line.alert || line.systemPanel?.level === 'warning' || /심각|(?:손상 개체|UNIT-02) 포기|오류/.test(line.text) ? 'warning' : 'info';
       $('#telemetry-kind').textContent = line.instrument === 'scan' ? '인지 스캔 / 데이터 분석' : 'DRONE-02 / 광학·음성 기록';
       $('#telemetry-title').textContent = line.systemPanel?.title && line.systemPanel.title !== record.id ? line.systemPanel.title : line.instrument === 'scan' ? 'UNIT-01 · 우선순위 검색' : 'DRONE-02 · 현장 기록';
       $('#telemetry-speaker').textContent = line.speaker && line.speaker !== '시스템' ? line.speaker + ' / 음성 감지' : '관측 데이터';
@@ -2805,7 +2822,7 @@
           <li>
             ${label ? `<strong>${escapeHtml(label)}</strong>` : ""}
             <span>${escapeHtml(text)}</span>
-            <div class="backlog-actions"><button class="text-button" data-action="jump-location" data-jump-record="${escapeHtml(currentRecord().id)}" data-jump-index="${index}" type="button">이 장면으로 이동</button>${bookmarkControl(currentRecord(),index)}</div>
+            <div class="backlog-actions"><button class="text-button" data-action="jump-location" data-jump-record="${escapeHtml(currentRecord().id)}" data-jump-index="${index}" data-jump-scene="${escapeHtml(line.sceneId)}" type="button">이 장면으로 이동</button>${bookmarkControl(currentRecord(),index)}</div>
           </li>
         `;
       })
@@ -2881,8 +2898,12 @@
       },
       "show-library": () => pauseForReadingScreen('library-screen'),
       "toggle-bookmark": () => toggleBookmark(),
-      "bookmark-location": () => toggleBookmark(target?.dataset.jumpRecord,Number(target?.dataset.jumpIndex)),
-      "jump-location": () => openReadLocation(target?.dataset.jumpRecord,Number(target?.dataset.jumpIndex)),
+      "bookmark-location": () => toggleBookmark(target?.dataset.jumpRecord,Number(target?.dataset.jumpIndex),target?.dataset.jumpScene),
+      "jump-location": () => openReadLocation(target?.dataset.jumpRecord,Number(target?.dataset.jumpIndex),target?.dataset.jumpScene),
+      "remove-unavailable-bookmark": () => {
+        state.progress.bookmarks=(state.progress.bookmarks || []).filter(mark=>bookmarkCatalog.key(mark)!==target?.dataset.bookmarkKey);
+        saveProgress();renderLibrary();$('#library-search').focus();
+      },
       "library-record-more": () => { const id=target?.dataset.libraryRecord; if (!readableLines(archive.getRecord(id)).length) return; state.libraryRecordLimits[id]=(state.libraryRecordLimits[id] || 3)+3; renderLibrary(); },
       "export-progress": exportProgress,
       "view-ending": () => openEnding(),
@@ -3092,12 +3113,13 @@
   }
 
   function bookmarkAt(recordId,index) {
-    return (state.progress.bookmarks || []).some(mark => mark.recordId === recordId && mark.index === index);
+    const record=archive.getRecord(recordId),sceneId=(record?.reportSections || record?.story)?.[index]?.sceneId;
+    return !!sceneId && (state.progress.bookmarks || []).some(mark => mark.recordId === recordId && mark.sceneId === sceneId && !mark.status);
   }
 
   function bookmarkControl(record,index) {
     const marked = bookmarkAt(record.id,index);
-    return `<button class="text-button" data-action="bookmark-location" data-jump-record="${escapeHtml(record.id)}" data-jump-index="${index}" type="button" aria-pressed="${marked}">${marked ? '★ 북마크 해제' : '☆ 북마크'}</button>`;
+    return `<button class="text-button" data-action="bookmark-location" data-jump-record="${escapeHtml(record.id)}" data-jump-index="${index}" data-jump-scene="${escapeHtml((record.reportSections || record.story)[index].sceneId)}" type="button" aria-pressed="${marked}">${marked ? '★ 북마크 해제' : '☆ 북마크'}</button>`;
   }
 
   function updateBookmarkButton() {
@@ -3106,12 +3128,17 @@
     $('#bookmark-button').setAttribute('aria-pressed',String(marked));
   }
 
-  function toggleBookmark(recordId = state.selectedRecordId, index = state.lineIndex) {
+  function toggleBookmark(recordId = state.selectedRecordId, index = state.lineIndex, sceneId = null) {
+    if(sceneId) {
+      const location=bookmarkCatalog.locate(recordId,sceneId);
+      if(!location)return;
+      recordId=location.recordId;index=location.index;
+    }
     const record = archive.getRecord(recordId), line = readableLines(record)[index];
     if (!line) return;
     state.progress.bookmarks ||= [];
-    if (bookmarkAt(recordId,index)) state.progress.bookmarks = state.progress.bookmarks.filter(mark => mark.recordId !== recordId || mark.index !== index);
-    else state.progress.bookmarks.push({recordId,index,text:line.text});
+    if (bookmarkAt(recordId,index)) state.progress.bookmarks = state.progress.bookmarks.filter(mark => mark.recordId !== recordId || mark.sceneId !== line.sceneId);
+    else state.progress.bookmarks.push({recordId,sceneId:line.sceneId,index,text:line.text || ''});
     saveProgress();
     updateBookmarkButton();
     if (state.screen === 'library-screen') renderLibrary();
@@ -3152,7 +3179,7 @@
     const marked=bookmarkAt(record.id,index);
     const location=`${record.readerMode==='report'?'항목':'본문'} ${index+1}`;
     const label=recordNumber(record)+' · '+location;
-    return `<li class="library-scene"><button class="text-button library-scene-jump" data-action="jump-location" data-jump-record="${escapeHtml(record.id)}" data-jump-index="${index}" type="button"><span class="library-location">${escapeHtml(location)} ›</span><span class="library-scene-copy">${line.speaker ? `<b>${escapeHtml(line.speaker)}</b> ` : ''}${libraryExcerpt(readableText(record,index),query)}</span></button><button class="text-button" data-action="bookmark-location" data-jump-record="${escapeHtml(record.id)}" data-jump-index="${index}" type="button" aria-pressed="${marked}" aria-label="${escapeHtml(label)} 북마크 ${marked?'해제':'추가'}">${marked?'★':'☆'}<span class="bookmark-label"> 북마크</span></button></li>`;
+    return `<li class="library-scene"><button class="text-button library-scene-jump" data-action="jump-location" data-jump-record="${escapeHtml(record.id)}" data-jump-index="${index}" data-jump-scene="${escapeHtml(line.sceneId)}" type="button"><span class="library-location">${escapeHtml(location)} ›</span><span class="library-scene-copy">${line.speaker ? `<b>${escapeHtml(line.speaker)}</b> ` : ''}${libraryExcerpt(readableText(record,index),query)}</span></button><button class="text-button" data-action="bookmark-location" data-jump-record="${escapeHtml(record.id)}" data-jump-index="${index}" data-jump-scene="${escapeHtml(line.sceneId)}" type="button" aria-pressed="${marked}" aria-label="${escapeHtml(label)} 북마크 ${marked?'해제':'추가'}">${marked?'★':'☆'}<span class="bookmark-label"> 북마크</span></button></li>`;
   }
 
   function libraryRecordGroup({record,matches,recordMatch},query) {
@@ -3164,20 +3191,27 @@
     return `<li class="library-record"><div class="library-record-heading"><div class="library-record-title"><h3>${escapeHtml(label)}</h3><p>${status}</p></div><button class="text-button library-record-open" data-action="jump-location" data-jump-record="${escapeHtml(record.id)}" data-jump-index="0" type="button" aria-label="${escapeHtml(label)} ${record.readerMode==='report'?'열기':'처음부터 보기'}">${record.readerMode==='report'?'보고서 열기':'처음부터 보기'} ›</button></div>${matches.length ? `<ol class="library-scenes">${matches.slice(0,limit).map(({line,index})=>librarySceneItem(record,line,index,query)).join('')}</ol>`:''}${remaining ? `<button class="text-button library-record-more" type="button" data-action="library-record-more" data-library-record="${escapeHtml(record.id)}">${kind} 더 보기 · ${remaining}곳 남음</button>`:''}</li>`;
   }
 
+  function unavailableBookmarkItem(mark) {
+    const label=recordNumber(archive.getRecord(mark.recordId)) || mark.recordId;
+    const status=mark.status==='missing'?'삭제되었거나 찾을 수 없는 장면':'위치 확인 필요';
+    return `<li class="library-scene"><div class="library-unavailable-copy"><b>${escapeHtml(label)} · ${status}</b><p class="library-scene-copy">${libraryExcerpt(mark.text || '저장된 문구가 없습니다.','')}</p></div><button class="text-button" data-action="remove-unavailable-bookmark" data-bookmark-key="${escapeHtml(bookmarkCatalog.key(mark))}" type="button" aria-label="${escapeHtml(label)} 북마크 삭제">삭제</button></li>`;
+  }
+
   function renderLibrary() {
     const focused=document.activeElement;
     const restoreFocus=focused?.closest?.('#library-list') ? {...focused.dataset} : null;
     const query=$('#library-search').value?.trim().toLocaleLowerCase() || '';
     const groups=libraryMatches(query);
+    const unavailable=query?[]:(state.progress.bookmarks || []).filter(mark=>mark.status);
     const count=groups.reduce((sum,group)=>sum+group.matches.length,0);
     $('#library-help').textContent=query ? '기록별로 묶어 표시합니다. 본문을 누르면 그 위치로 이동합니다.' : 'D로 D편을, D01로 한 기록을 찾을 수 있습니다. 읽은 구간만 검색합니다.';
     $('#library-count').textContent=query ? (groups.length ? `${groups.length}개 기록${count ? ` · 본문 일치 ${count}곳`:''}` : '검색 결과가 없습니다.') :
-      count ? `북마크 ${count}개 · ${groups.length}개 기록` : '아직 북마크가 없습니다. 재생 중 ☆ 북마크로 저장하세요.';
+      count || unavailable.length ? `북마크 ${count+unavailable.length}개 · ${groups.length}개 기록${unavailable.length ? ` · 위치 확인 필요 ${unavailable.length}개`:''}` : '아직 북마크가 없습니다. 재생 중 ☆ 북마크로 저장하세요.';
     $('#library-list').innerHTML=archive.getDisks().map(disk=>{
       const diskGroups=groups.filter(({record})=>record.diskId===disk.id);
       return diskGroups.length ? `<li class="library-disk"><h2>${escapeHtml(disk.id+' · '+disk.label)}</h2><ol class="library-records">${diskGroups.map(group=>libraryRecordGroup(group,query)).join('')}</ol></li>` : '';
-    }).join('');
-    if(restoreFocus?.action) {
+    }).join('')+(unavailable.length ? `<li class="library-disk"><h2>위치 확인이 필요한 북마크</h2><ol class="library-scenes">${unavailable.map(unavailableBookmarkItem).join('')}</ol></li>`:'');
+    if(restoreFocus?.action && restoreFocus.action!=='remove-unavailable-bookmark') {
       const selector=`[data-action="${restoreFocus.action}"]${restoreFocus.libraryRecord ? `[data-library-record="${restoreFocus.libraryRecord}"]` : `[data-jump-record="${restoreFocus.jumpRecord}"][data-jump-index="${restoreFocus.jumpIndex}"]`}`;
       // A removed bookmark or exhausted "more" button must not lose keyboard focus.
       const recordId=restoreFocus.libraryRecord || restoreFocus.jumpRecord;
@@ -3185,7 +3219,12 @@
     }
   }
 
-  async function openReadLocation(recordId,index) {
+  async function openReadLocation(recordId,index,sceneId=null) {
+    if(sceneId) {
+      const location=bookmarkCatalog.locate(recordId,sceneId);
+      if(!location)return;
+      recordId=location.recordId;index=location.index;
+    }
     const record = archive.getRecord(recordId);
     if (!Number.isInteger(index) || !readableLines(record)[index]) return;
     // Loading owns the pause. Keep the current line and timer closures intact
@@ -3439,7 +3478,13 @@
     if ('dLayoutVersion' in saved) check(saved.dLayoutVersion===20,'dLayoutVersion');
     if ('bookmarks' in saved) {
       check(Array.isArray(saved.bookmarks) && saved.bookmarks.length <= 2000,'북마크 목록');
-      for (const mark of saved.bookmarks) check(object(mark) && knownId(mark.recordId) && integer(mark.index) && typeof mark.text==='string','북마크');
+      for (const mark of saved.bookmarks) {
+        check(object(mark) && knownId(mark.recordId),'북마크');
+        if('sceneId' in mark)check(typeof mark.sceneId==='string' && /^[a-z0-9-]{1,100}$/.test(mark.sceneId) &&
+          (!('index' in mark) || integer(mark.index)) && (!('text' in mark) || typeof mark.text==='string'),'북마크 장면');
+        else check(integer(mark.index) && typeof mark.text==='string','북마크');
+        if('status' in mark)check(['missing','unresolved'].includes(mark.status),'북마크 상태');
+      }
     }
   }
 
@@ -3457,8 +3502,6 @@
       }
       loadProgress(copy,true);
       const candidate = progressSnapshot();
-      if (candidate.bookmarks.length !== (imported.bookmarks || []).length)
-        throw Error('현재 기록에 맞게 변환할 수 없는 북마크가 있습니다.');
       for (const [id,entry] of Object.entries(candidate.records)) {
         const record=archive.getRecord(id),lines=record?.reportSections || record?.story;
         if (!lines || entry.lineIndex >= lines.length || (entry.seenIndex !== undefined && entry.seenIndex >= lines.length))
@@ -3516,9 +3559,9 @@
           if (page>=0) next.records[id].seenPages[index]=page;
         });
       }
-      next.bookmarks=[...(previous.bookmarks || [])];
+      next.bookmarks=bookmarkCatalog.normalize(previous.bookmarks || []);
       for (const mark of candidate.bookmarks)
-        if (!next.bookmarks.some(before=>before.recordId===mark.recordId && before.index===mark.index)) next.bookmarks.push(mark);
+        if (!next.bookmarks.some(before=>bookmarkCatalog.key(before)===bookmarkCatalog.key(mark))) next.bookmarks.push(mark);
       if (next.bookmarks.length>2000) throw Error('합친 북마크가 2,000개를 넘습니다. 북마크를 정리한 뒤 다시 시도해 주세요.');
       let result;
       try {

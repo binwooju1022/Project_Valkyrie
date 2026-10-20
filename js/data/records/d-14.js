@@ -118,6 +118,7 @@ window.RustedPrayerArchive.registerRecord({
   "readerMode": "report",
   "reportSections": [
     {
+      "sceneId": "d-14-scene-0001",
       "speaker": "",
       "text": "[최종 처분]\n\n최고 우선순위로 반복 출력된 개인 기억의 전술적·기술적 가치 낮음.\n\n최종 분석 대상에서 제외.\n\n발키리 프로젝트 종료.",
       "tone": "report",
@@ -145,6 +146,7 @@ window.RustedPrayerArchive.registerRecord({
       "report": true
     },
     {
+      "sceneId": "d-14-scene-0002",
       "speaker": "",
       "text": "[수리 및 재투입]\n\nUNIT-01. 손상 프레임 정비 및 신경 연결 검사 완료.\n\n전투 행동 패턴 유지. 일반 지상 전투 재투입 승인.",
       "tone": "report",
@@ -167,6 +169,7 @@ window.RustedPrayerArchive.registerRecord({
       "report": true
     },
     {
+      "sceneId": "d-14-scene-0003",
       "speaker": "",
       "text": "[수리 완료 후 외형]\n\n개인 기억 다수 잔존·일부 손상. 기억 데이터 유지 상태 불안정.\n\n특별 관찰 대상 : 없음. 추가 정신 상담 : 불필요.",
       "tone": "report",
@@ -192,6 +195,7 @@ window.RustedPrayerArchive.registerRecord({
       "attachmentAlt": "UNIT-01 수리 완료 후 외형 · 총기 없는 정면, 측면, 후면"
     },
     {
+      "sceneId": "d-14-scene-0004",
       "speaker": "",
       "text": "[기록 종료]\n\n데이터 무결성 : 부분 보존.\n\n프로젝트 자료는 연구 목적 보존 기간 종료 후 자동 정리 예정.",
       "tone": "report",

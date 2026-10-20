@@ -34,7 +34,7 @@ export async function run({setup,ready,out,capture}) {
     ['numeric bookmark ID',backup({bookmarks:[{...mark,recordId:42}]})],
     ['missing bookmark index',backup({bookmarks:[{recordId:mark.recordId,text:mark.text}]})],
     ['missing bookmark text',backup({bookmarks:[{recordId:mark.recordId,index:0}]})],
-    ['unmatched bookmark text',backup({bookmarks:[{...mark,text:'wrong'}]})],
+    ['invalid scene ID',backup({bookmarks:[{...mark,sceneId:'<invalid>'}]})],
     ['missing record fields',backup({records:{'A-04':{}}})],
     ['record array',backup({records:{'A-04':[]}})],
     ['record null',backup({records:{'A-04':null}})],

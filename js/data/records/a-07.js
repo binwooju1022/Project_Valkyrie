@@ -424,6 +424,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "a-07-scene-0001",
       "speaker": "",
       "text": "[재생]",
       "tone": "slate",
@@ -438,6 +439,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0002",
       "speaker": "",
       "text": "바람 소리.",
       "tone": "narration",
@@ -451,6 +453,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0003",
       "speaker": "",
       "text": "다섯 명의 발소리가 일정하게 이어진다.",
       "tone": "narration",
@@ -464,6 +467,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0004",
       "speaker": "가은",
       "text": "그래서 오늘 청소 당번 누구야.",
       "tone": "dialogue",
@@ -477,6 +481,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0005",
       "speaker": "세린",
       "text": "연화.",
       "tone": "dialogue",
@@ -490,6 +495,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0006",
       "speaker": "연화",
       "text": "나 어제 했어.",
       "tone": "dialogue",
@@ -503,6 +509,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0007",
       "speaker": "세린",
       "text": "그럼 유라.",
       "tone": "dialogue",
@@ -516,6 +523,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0008",
       "speaker": "유라",
       "text": "나 탄약 정리.",
       "tone": "dialogue",
@@ -529,6 +537,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0009",
       "speaker": "세린",
       "text": "초희.",
       "tone": "dialogue",
@@ -542,6 +551,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0010",
       "speaker": "초희",
       "text": "고출력 시험 후유증이 있다.",
       "tone": "dialogue",
@@ -555,6 +565,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0011",
       "speaker": "가은",
       "text": "아주 멀쩡하게 걷고 있잖아.",
       "tone": "dialogue",
@@ -568,6 +579,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0012",
       "speaker": "초희",
       "text": "정신적 후유증.",
       "tone": "dialogue",
@@ -581,6 +593,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0013",
       "speaker": "가은",
       "text": "무슨 정신적 후유증.",
       "tone": "dialogue",
@@ -594,6 +607,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0014",
       "speaker": "초희",
       "text": "창고가 날아가는 장면이 머릿속에서 떠나지 않는다.",
       "tone": "dialogue",
@@ -607,6 +621,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0015",
       "speaker": "세린",
       "text": "네가 날렸잖아.",
       "tone": "dialogue",
@@ -620,6 +635,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0016",
       "speaker": "초희",
       "text": "그래서 더 선명하다.",
       "tone": "dialogue",
@@ -633,6 +649,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0017",
       "speaker": "유라",
       "text": "그럼 세린.",
       "tone": "dialogue",
@@ -646,6 +663,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0018",
       "speaker": "세린",
       "text": "난 오늘 다크매터 시험이 있어서.",
       "tone": "dialogue",
@@ -659,6 +677,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0019",
       "speaker": "가은",
       "text": "이미 끝난 거 아냐? 게다가 8분 잤잖아.",
       "tone": "dialogue",
@@ -672,6 +691,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0020",
       "speaker": "세린",
       "text": "어허, 8분 동안 전투 불능은 잔 게 아니지.",
       "tone": "dialogue",
@@ -685,6 +705,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0021",
       "speaker": "가은",
       "text": "하··· 다섯 명이 있는데 청소할 사람이 왜 한 명도 없어.",
       "tone": "dialogue",
@@ -698,6 +719,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0022",
       "speaker": "",
       "text": "잠시 정적.",
       "tone": "narration",
@@ -711,6 +733,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0023",
       "speaker": "가은",
       "text": "공평하게 다 같이 하자.",
       "tone": "dialogue",
@@ -724,6 +747,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0024",
       "speaker": "연화",
       "text": "그게 제일 빠르긴 해.",
       "tone": "dialogue",
@@ -737,6 +761,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0025",
       "speaker": "초희",
       "text": "민주주의의 승리.",
       "tone": "dialogue",
@@ -750,6 +775,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0026",
       "speaker": "세린",
       "text": "우린 투표 안 했는데.",
       "tone": "dialogue",
@@ -763,6 +789,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0027",
       "speaker": "초희",
       "text": "민주주의의 패배.",
       "tone": "dialogue",
@@ -776,6 +803,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0028",
       "speaker": "가은",
       "text": "그냥 풉. 빨리 가아··· 큭···",
       "tone": "dialogue",
@@ -789,6 +817,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0029",
       "speaker": "초희",
       "text": "웃겼다!",
       "tone": "dialogue",
@@ -802,6 +831,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0030",
       "speaker": "유라",
       "text": "우우··· 쉴 권리 보장하라",
       "tone": "dialogue",
@@ -815,6 +845,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0031",
       "speaker": "가은",
       "text": "평생 쉴래?",
       "tone": "dialogue",
@@ -828,6 +859,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0032",
       "speaker": "유라",
       "text": "지금 가겠습니다!",
       "tone": "dialogue",
@@ -841,6 +873,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0033",
       "speaker": "",
       "text": "몇 초간 발소리만 들린다.",
       "tone": "narration",
@@ -854,6 +887,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0034",
       "speaker": "",
       "text": "작은 기계음이 가까워진다.",
       "tone": "narration",
@@ -867,6 +901,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0035",
       "speaker": "유라",
       "text": "응?",
       "tone": "dialogue",
@@ -880,6 +915,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0036",
       "speaker": "연화",
       "text": "왜.",
       "tone": "dialogue",
@@ -893,6 +929,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0037",
       "speaker": "유라",
       "text": "참새 여기 있었네.",
       "tone": "dialogue",
@@ -906,6 +943,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0038",
       "speaker": "세린",
       "text": "언제부터 따라왔어?",
       "tone": "dialogue",
@@ -919,6 +957,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0039",
       "speaker": "유라",
       "text": "잠깐.",
       "tone": "dialogue",
@@ -932,6 +971,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0040",
       "speaker": "유라",
       "text": "···얘 촬영 중인데?",
       "tone": "dialogue",
@@ -945,6 +985,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0041",
       "speaker": "",
       "text": "발소리가 멈춘다.",
       "tone": "narration",
@@ -958,6 +999,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0042",
       "speaker": "가은",
       "text": "뭐?",
       "tone": "dialogue",
@@ -971,6 +1013,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0043",
       "speaker": "유라",
       "text": "여기. 빨간 불.",
       "tone": "dialogue",
@@ -984,6 +1027,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0044",
       "speaker": "세린",
       "text": "···",
       "tone": "dialogue",
@@ -997,6 +1041,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0045",
       "speaker": "연화",
       "text": "···",
       "tone": "dialogue",
@@ -1010,6 +1055,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0046",
       "speaker": "초희",
       "text": "···",
       "tone": "dialogue",
@@ -1023,6 +1069,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0047",
       "speaker": "가은",
       "text": "설마 아까부터?",
       "tone": "dialogue",
@@ -1036,6 +1083,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0048",
       "speaker": "유라",
       "text": "아마도?",
       "tone": "dialogue",
@@ -1049,6 +1097,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0049",
       "speaker": "가은",
       "text": "청소 당번 얘기도?",
       "tone": "dialogue",
@@ -1062,6 +1111,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0050",
       "speaker": "연화",
       "text": "아마도.",
       "tone": "dialogue",
@@ -1075,6 +1125,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0051",
       "speaker": "가은",
       "text": "초희의 정신적 후유증도?",
       "tone": "dialogue",
@@ -1088,6 +1139,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0052",
       "speaker": "연화",
       "text": "아주 선명하게.",
       "tone": "dialogue",
@@ -1101,6 +1153,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0053",
       "speaker": "초희",
       "text": "훌륭하다.",
       "tone": "dialogue",
@@ -1114,6 +1167,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0054",
       "speaker": "가은",
       "text": "뭐가 훌륭해.",
       "tone": "dialogue",
@@ -1127,6 +1181,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0055",
       "speaker": "초희",
       "text": "우리의 일상이 영상으로 보존됐다.",
       "tone": "dialogue",
@@ -1140,6 +1195,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0056",
       "speaker": "가은",
       "text": "삭제해.",
       "tone": "dialogue",
@@ -1153,6 +1209,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0057",
       "speaker": "연화",
       "text": "임무 기록용이라 못 지울걸.",
       "tone": "dialogue",
@@ -1166,6 +1223,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0058",
       "speaker": "가은",
       "text": "그럼 적어도 지금은 꺼.",
       "tone": "dialogue",
@@ -1179,6 +1237,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0059",
       "speaker": "유라",
       "text": "잠깐만.",
       "tone": "dialogue",
@@ -1192,6 +1251,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0060",
       "speaker": "가은",
       "text": "왜.",
       "tone": "dialogue",
@@ -1205,6 +1265,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0061",
       "speaker": "유라",
       "text": "이것도 기록되겠네.",
       "tone": "dialogue",
@@ -1218,6 +1279,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0062",
       "speaker": "",
       "text": "정적.",
       "tone": "narration",
@@ -1231,6 +1293,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0063",
       "speaker": "가은",
       "text": "···빨리 꺼.",
       "tone": "dialogue",
@@ -1244,6 +1307,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0064",
       "speaker": "",
       "text": "유라의 웃음소리.",
       "tone": "narration",
@@ -1257,6 +1321,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-07-scene-0065",
       "speaker": "",
       "text": "[DRONE-02 기록 중단]",
       "tone": "slate",

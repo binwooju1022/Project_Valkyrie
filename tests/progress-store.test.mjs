@@ -13,14 +13,42 @@ function fixture({locks=true}={}) {
   const normalize = value => ({records:{},bookmarks:[],resetGeneration:0,...value});
   const context = vm.createContext({window:{},crypto:webcrypto});
   vm.runInContext(code,context);
-  const store = () => {
-    const s=context.window.RustedPrayerProgressStore.create({storage,key:'save',locks:lock,normalize,onError:error=>{throw error;}});
+  const store = (options={}) => {
+    const s=context.window.RustedPrayerProgressStore.create({storage,key:'save',locks:lock,normalize,...options,onError:error=>{throw error;}});
     return {s,value:s.adopt(s.read())};
   };
   const flush = async()=>{while(pending.length){pending.shift()();await new Promise(resolve=>setImmediate(resolve));}};
   return {storage,store,flush,data};
 }
 const copy = value=>JSON.parse(JSON.stringify(value));
+
+test('bookmark journal uses stable IDs across reordered indices and stale deletions',async()=>{
+  const f=fixture(),a=f.store();
+  a.value.bookmarks=[{recordId:'A',sceneId:'a-scene-1',index:2,text:'before'}];
+  a.value=a.s.save(a.value).value;
+  const stale=f.store();
+  a.value.bookmarks[0]={...a.value.bookmarks[0],index:5,text:'after'};
+  a.value=a.s.save(a.value).value;
+  stale.value.bookmarks=[];stale.s.save(stale.value);
+  a.value.textSize='large';a.s.save(a.value);
+  await f.flush();
+  assert.equal(f.store().value.bookmarks.length,0);
+});
+
+test('legacy numeric journal entries share the new identity; unresolved marks remain separate',()=>{
+  const f=fixture({locks:false}),old=f.store();
+  old.value.bookmarks=[{recordId:'A',index:2,text:'old'}];old.value=old.s.save(old.value).value;
+  const options={bookmarkId:(_record,id)=>typeof id==='number'?'a-'+id:id};
+  const modern=f.store(options);
+  modern.value.bookmarks=[{recordId:'A',sceneId:'a-2',index:8,text:'new'},
+    {recordId:'A',index:2,text:'unresolved',status:'unresolved'}];
+  modern.value=modern.s.save(modern.value).value;
+  assert.equal(modern.value.bookmarks.length,2);
+  old.value.bookmarks=[];old.s.save(old.value);
+  const remaining=f.store(options).value.bookmarks;
+  assert.equal(remaining.length,1);
+  assert.equal(remaining[0].status,'unresolved');
+});
 
 test('ending photo viewing is monotone while archive music follows explicit changes',async()=>{
   const f=fixture(),a=f.store(),b=f.store();

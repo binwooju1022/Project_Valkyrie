@@ -260,6 +260,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "d-05-scene-0001",
       "speaker": "",
       "text": "[재생]",
       "tone": "slate",
@@ -275,6 +276,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0002",
       "speaker": "",
       "text": "이미지 노이즈.",
       "tone": "narration",
@@ -290,6 +292,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0003",
       "speaker": "",
       "text": "부서진 콘크리트.",
       "tone": "narration",
@@ -304,6 +307,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0004",
       "speaker": "",
       "text": "두 개의 머리핀.",
       "tone": "narration",
@@ -319,6 +323,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0005",
       "speaker": "UNIT-02",
       "text": "“잘 어울리네. 우리.”",
       "tone": "dialogue",
@@ -333,6 +338,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0006",
       "speaker": "",
       "text": "화면 끊김.",
       "tone": "narration",
@@ -348,6 +354,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0007",
       "speaker": "",
       "text": "의미 없는 대화 기록",
       "tone": "narration",
@@ -362,6 +369,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0008",
       "speaker": "UNIT-05",
       "text": "“전쟁터. 전우애! 낭만!”",
       "tone": "dialogue",
@@ -376,6 +384,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0009",
       "speaker": "UNIT-04",
       "text": "“또 시작이네.”",
       "tone": "dialogue",
@@ -390,6 +399,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0010",
       "speaker": "",
       "text": "영상 손상.",
       "tone": "narration",
@@ -405,6 +415,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0011",
       "speaker": "UNIT-02",
       "text": "“행복해질 수 있을까?”",
       "tone": "dialogue",
@@ -419,6 +430,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0012",
       "speaker": "",
       "text": "화면 노이즈.",
       "tone": "narration",
@@ -434,6 +446,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0013",
       "speaker": "UNIT-01",
       "text": "“행복해.”",
       "tone": "dialogue",
@@ -448,6 +461,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0014",
       "speaker": "",
       "text": "영상 전환.",
       "tone": "narration",
@@ -462,6 +476,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0015",
       "speaker": "",
       "text": "흔들리는 시야.",
       "tone": "narration",
@@ -476,6 +491,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0016",
       "speaker": "",
       "text": "등에 업힌 UNIT-02.",
       "tone": "narration",
@@ -490,6 +506,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0017",
       "speaker": "",
       "text": "“살려야 해.”",
       "tone": "narration",
@@ -504,6 +521,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0018",
       "speaker": "",
       "text": "“살려야 해.”",
       "tone": "narration",
@@ -518,6 +536,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0019",
       "speaker": "",
       "text": "“살린다.”",
       "tone": "narration",
@@ -533,6 +552,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0020",
       "speaker": "",
       "text": "화면 전환.",
       "tone": "narration",
@@ -547,6 +567,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0021",
       "speaker": "",
       "text": "정비실.",
       "tone": "narration",
@@ -561,6 +582,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0022",
       "speaker": "",
       "text": "다섯 명의 웃음소리.",
       "tone": "narration",
@@ -575,6 +597,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0023",
       "speaker": "UNIT-01",
       "text": "“지켜야 해.”",
       "tone": "dialogue",
@@ -589,6 +612,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0024",
       "speaker": "UNIT-02",
       "text": "“뭐를?”",
       "tone": "dialogue",
@@ -603,6 +627,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0025",
       "speaker": "UNIT-01",
       "text": "“우리를.”",
       "tone": "dialogue",
@@ -617,6 +642,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0026",
       "speaker": "",
       "text": "영상 노이즈.",
       "tone": "narration",
@@ -632,6 +658,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0027",
       "speaker": "",
       "text": "붉은 눈.",
       "tone": "narration",
@@ -653,6 +680,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0028",
       "speaker": "",
       "text": "총구.",
       "tone": "narration",
@@ -667,6 +695,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0029",
       "speaker": "UNIT-01",
       "text": "“나 못 쏴.”",
       "tone": "dialogue",
@@ -681,6 +710,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0030",
       "speaker": "",
       "text": "화면 손실.",
       "tone": "narration",
@@ -696,6 +726,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0031",
       "speaker": "",
       "text": "푸른 하늘.",
       "tone": "narration",
@@ -716,6 +747,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0032",
       "speaker": "",
       "text": "총성.",
       "tone": "narration",
@@ -731,6 +763,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0033",
       "speaker": "",
       "text": "기억 종료",
       "tone": "narration",
@@ -745,6 +778,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-05-scene-0034",
       "speaker": "",
       "text": "전술적 가치 : 낮음\n기술적 가치 : 낮음\n기억 우선순위 : 최고\n우선순위 사유 : 미상",
       "tone": "system",

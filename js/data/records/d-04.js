@@ -224,6 +224,7 @@ window.RustedPrayerArchive.registerRecord({
   "readerMode": "report",
   "reportSections": [
     {
+      "sceneId": "d-04-scene-0001",
       "speaker": "",
       "text": "[스캔]",
       "tone": "telemetry",
@@ -234,6 +235,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0002",
       "speaker": "",
       "text": "에블라 입자 관련 기억 확인. 우선순위 : 중간",
       "tone": "telemetry",
@@ -243,6 +245,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0003",
       "speaker": "",
       "text": "[스캔]",
       "tone": "telemetry",
@@ -253,6 +256,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0004",
       "speaker": "",
       "text": "다크매터 실험 기억 확인. 우선순위 : 중간",
       "tone": "telemetry",
@@ -262,6 +266,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0005",
       "speaker": "",
       "text": "[스캔]",
       "tone": "telemetry",
@@ -272,6 +277,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0006",
       "speaker": "",
       "text": "전투 기억 확인. 우선순위 : 높음",
       "tone": "telemetry",
@@ -281,6 +287,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0007",
       "speaker": "",
       "text": "[스캔]",
       "tone": "telemetry",
@@ -291,6 +298,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0008",
       "speaker": "",
       "text": "미분류 기억 감지.",
       "tone": "telemetry",
@@ -300,6 +308,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0009",
       "speaker": "",
       "text": "내용 : UNIT-01 / UNIT-02",
       "tone": "telemetry",
@@ -309,6 +318,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0010",
       "speaker": "",
       "text": "임시 휴식 지역.",
       "tone": "telemetry",
@@ -318,6 +328,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0011",
       "speaker": "",
       "text": "우선순위 : 긴급",
       "tone": "telemetry",
@@ -327,6 +338,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0012",
       "speaker": "",
       "text": "분석 대상에서 제외.",
       "tone": "telemetry",
@@ -336,6 +348,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0013",
       "speaker": "",
       "text": "[스캔]",
       "tone": "telemetry",
@@ -346,6 +359,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0014",
       "speaker": "",
       "text": "동일 기억 재출력.",
       "tone": "telemetry",
@@ -355,6 +369,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0015",
       "speaker": "",
       "text": "우선순위 : 긴급",
       "tone": "telemetry",
@@ -364,6 +379,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0016",
       "speaker": "",
       "text": "분석 대상에서 제외.",
       "tone": "telemetry",
@@ -373,6 +389,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0017",
       "speaker": "",
       "text": "[스캔]",
       "tone": "telemetry",
@@ -383,6 +400,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0018",
       "speaker": "",
       "text": "동일 기억 재출력.",
       "tone": "telemetry",
@@ -392,6 +410,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0019",
       "speaker": "",
       "text": "우선순위 : 최고",
       "tone": "telemetry",
@@ -401,6 +420,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0020",
       "speaker": "",
       "text": "시스템 : 우선순위 재설정",
       "tone": "telemetry",
@@ -410,6 +430,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0021",
       "speaker": "",
       "text": "해당 기억은 자동 제외할 수 없습니다.",
       "tone": "telemetry",
@@ -419,6 +440,7 @@ window.RustedPrayerArchive.registerRecord({
       "instrument": "scan"
     },
     {
+      "sceneId": "d-04-scene-0022",
       "speaker": "",
       "text": "강제 재생.",
       "tone": "telemetry",

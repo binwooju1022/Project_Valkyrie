@@ -436,6 +436,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "c-01-scene-0001",
       "speaker": "",
       "text": "[재생]",
       "tone": "telemetry",
@@ -451,6 +452,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0002",
       "speaker": "",
       "text": "폐허가 된 도로. 다수의 서번트급 랩쳐 확인. UNIT-01 선두.",
       "tone": "telemetry",
@@ -467,6 +469,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0003",
       "speaker": "",
       "text": "UNIT-02 / UNIT-03 / UNIT-04 / UNIT-05 후방 지원.",
       "tone": "telemetry",
@@ -481,6 +484,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0004",
       "speaker": "",
       "text": "랩쳐 접근. UNIT-01. 좌측 이동. 잔해를 넘어 도약. 이동 중 조준 유지.",
       "tone": "telemetry",
@@ -499,6 +503,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0005",
       "speaker": "",
       "text": "에블라 입자 반응 확인. UNIT-01 방출. 사격. 랩쳐 외장 파손. 기능 정지.",
       "tone": "telemetry",
@@ -522,6 +527,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveTelemetryLines": true
     },
     {
+      "sceneId": "c-01-scene-0006",
       "speaker": "",
       "text": "UNIT-01. 조준 방향 전환.",
       "tone": "telemetry",
@@ -538,6 +544,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0007",
       "speaker": "UNIT-02",
       "text": "오른ㅉ...!",
       "tone": "dialogue",
@@ -552,6 +559,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0008",
       "speaker": "",
       "text": "UNIT-01 빠르게 사격. 0.18초. 신기록. 랩쳐 기능 정지. 잔존 랩쳐 확인. 추가 접근 없음.",
       "tone": "telemetry",
@@ -574,6 +582,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveTelemetryLines": true
     },
     {
+      "sceneId": "c-01-scene-0009",
       "speaker": "",
       "text": "전원 집결.",
       "tone": "telemetry",
@@ -593,6 +602,7 @@ window.RustedPrayerArchive.registerRecord({
       "preserveTelemetryLines": true
     },
     {
+      "sceneId": "c-01-scene-0010",
       "speaker": "가은",
       "text": "끝.",
       "tone": "dialogue",
@@ -606,6 +616,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0011",
       "speaker": "세린",
       "text": "드디어.",
       "tone": "dialogue",
@@ -619,6 +630,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0012",
       "speaker": "유라",
       "text": "···",
       "tone": "dialogue",
@@ -632,6 +644,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0013",
       "speaker": "연화",
       "text": "왜.",
       "tone": "dialogue",
@@ -645,6 +658,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0014",
       "speaker": "유라",
       "text": "아니.",
       "tone": "dialogue",
@@ -658,6 +672,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0015",
       "speaker": "유라",
       "text": "이제 진짜 다 보네.",
       "tone": "dialogue",
@@ -671,6 +686,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0016",
       "speaker": "연화",
       "text": "봐야지.",
       "tone": "dialogue",
@@ -684,6 +700,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0017",
       "speaker": "세린",
       "text": "죽을 고비 한 번 넘기더니 레이더가 됐어.",
       "tone": "dialogue",
@@ -698,6 +715,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0018",
       "speaker": "가은",
       "text": "···",
       "tone": "dialogue",
@@ -711,6 +729,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0019",
       "speaker": "초희",
       "text": "이것이 바로 시련을 넘어 각성한 수호자의 눈—",
       "tone": "dialogue",
@@ -724,6 +743,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0020",
       "speaker": "가은",
       "text": "시끄러워.",
       "tone": "dialogue",
@@ -737,6 +757,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0021",
       "speaker": "초희",
       "text": "아직 다 안 했는데.",
       "tone": "dialogue",
@@ -750,6 +771,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0022",
       "speaker": "유라",
       "text": "잘했어, 수호자.",
       "tone": "dialogue",
@@ -763,6 +785,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0023",
       "speaker": "가은",
       "text": "너까지 왜.",
       "tone": "dialogue",
@@ -776,6 +799,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0024",
       "speaker": "초희",
       "text": "훌륭한 전투였다.",
       "tone": "dialogue",
@@ -789,6 +813,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0025",
       "speaker": "세린",
       "text": "넌 중간에 잤잖아.",
       "tone": "dialogue",
@@ -802,6 +827,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0026",
       "speaker": "초희",
       "text": "다크매터의 가능성을 몸소 증명했다.",
       "tone": "dialogue",
@@ -815,6 +841,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0027",
       "speaker": "가은",
       "text": "그냥 잤잖아.",
       "tone": "dialogue",
@@ -828,6 +855,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0028",
       "speaker": "초희",
       "text": "전투적 휴식.",
       "tone": "dialogue",
@@ -841,6 +869,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0029",
       "speaker": "유라",
       "text": "그거 좋다. 나도 전투적 휴식 할래.",
       "tone": "dialogue",
@@ -854,6 +883,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0030",
       "speaker": "가은",
       "text": "안 돼.",
       "tone": "dialogue",
@@ -867,6 +897,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0031",
       "speaker": "",
       "text": "[임무 갱신]",
       "tone": "telemetry",
@@ -882,6 +913,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0032",
       "speaker": "",
       "text": "주요 목표 제거 완료. 회수품 확보 후 귀환.",
       "tone": "telemetry",
@@ -897,6 +929,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0033",
       "speaker": "",
       "text": "[시간 경과]",
       "tone": "telemetry",
@@ -913,6 +946,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0034",
       "speaker": "",
       "text": "회수품 확보 완료. 귀환 절차 개시.",
       "tone": "telemetry",
@@ -928,6 +962,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0035",
       "speaker": "",
       "text": "귀환 대열 분리.",
       "tone": "telemetry",
@@ -943,6 +978,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0036",
       "speaker": "",
       "text": "UNIT-03 / UNIT-04 / UNIT-05 : 수집 데이터 및 손상 장비 선행 운반.",
       "tone": "telemetry",
@@ -958,6 +994,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0037",
       "speaker": "",
       "text": "UNIT-01 / UNIT-02 : 잔존 위협 확인 및 후위 경계.",
       "tone": "telemetry",
@@ -973,6 +1010,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0038",
       "speaker": "초희",
       "text": "그럼 후위는 맡기겠다.",
       "tone": "dialogue",
@@ -986,6 +1024,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0039",
       "speaker": "초희",
       "text": "수호자 연화.",
       "tone": "dialogue",
@@ -999,6 +1038,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0040",
       "speaker": "연화",
       "text": "그 이름 계속 쓸 거야?",
       "tone": "dialogue",
@@ -1012,6 +1052,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0041",
       "speaker": "세린",
       "text": "포기해. 쟤 신났어.",
       "tone": "dialogue",
@@ -1025,6 +1066,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0042",
       "speaker": "가은",
       "text": "둘 다 빨리 와.",
       "tone": "dialogue",
@@ -1038,6 +1080,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0043",
       "speaker": "유라",
       "text": "네, 엄마.",
       "tone": "dialogue",
@@ -1051,6 +1094,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0044",
       "speaker": "가은",
       "text": "누가 엄마야!",
       "tone": "dialogue",
@@ -1064,6 +1108,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0045",
       "speaker": "",
       "text": "세린의 웃음소리.",
       "tone": "narration",
@@ -1077,6 +1122,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-01-scene-0046",
       "speaker": "초희",
       "text": "그럼 먼저 간다!",
       "tone": "dialogue",

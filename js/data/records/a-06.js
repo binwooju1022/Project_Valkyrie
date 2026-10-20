@@ -297,6 +297,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "a-06-scene-0001",
       "speaker": "",
       "tone": "document",
       "cardTitle": "발키리 스쿼드 · 보급 요청",
@@ -328,6 +329,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0002",
       "speaker": "",
       "tone": "document",
       "cardTitle": "발키리 스쿼드 · 보급 요청",
@@ -358,6 +360,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0003",
       "speaker": "",
       "tone": "document",
       "cardTitle": "발키리 스쿼드 · 보급 요청",
@@ -388,6 +391,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0004",
       "speaker": "",
       "tone": "document",
       "cardTitle": "발키리 스쿼드 · 보급 요청",
@@ -418,6 +422,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0005",
       "speaker": "",
       "tone": "document",
       "cardTitle": "발키리 스쿼드 · 보급 요청",
@@ -448,6 +453,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0006",
       "speaker": "",
       "tone": "document",
       "cardTitle": "발키리 스쿼드 · 보급 요청",
@@ -481,6 +487,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0007",
       "speaker": "",
       "text": "[스쿼드 공용 채팅]",
       "tone": "chat",
@@ -499,6 +506,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0008",
       "speaker": "초희",
       "text": "됐다.",
       "tone": "chat",
@@ -516,6 +524,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0009",
       "speaker": "유라",
       "text": "진짜?",
       "tone": "chat",
@@ -533,6 +542,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0010",
       "speaker": "초희",
       "text": "진짜다.",
       "tone": "chat",
@@ -550,6 +560,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0011",
       "speaker": "가은",
       "text": "탄산음료잖아.",
       "tone": "chat",
@@ -567,6 +578,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0012",
       "speaker": "초희",
       "text": "아니다.",
       "tone": "chat",
@@ -584,6 +596,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0013",
       "speaker": "가은",
       "text": "뭐가 아닌데.",
       "tone": "chat",
@@ -601,6 +614,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0014",
       "speaker": "초희",
       "text": "탄산형 당분 보충제다.",
       "tone": "chat",
@@ -618,6 +632,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0015",
       "speaker": "연화",
       "text": "똑같잖아.",
       "tone": "chat",
@@ -635,6 +650,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0016",
       "speaker": "초희",
       "text": "행정엔 명분이 중요한 법이지.",
       "tone": "chat",
@@ -652,6 +668,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0017",
       "speaker": "유라",
       "text": "동의.",
       "tone": "chat",
@@ -669,6 +686,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0018",
       "speaker": "세린",
       "text": "동의.",
       "tone": "chat",
@@ -686,6 +704,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0019",
       "speaker": "가은",
       "text": "··· 세린이 너마저!",
       "tone": "chat",
@@ -703,6 +722,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0020",
       "speaker": "초희",
       "text": "드디어 동지가 늘었군! 네 녀석의 가면이 언제 벗겨지나 했더니!",
       "tone": "chat",
@@ -720,6 +740,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0021",
       "speaker": "가은",
       "text": "돌겠네",
       "tone": "chat",
@@ -737,6 +758,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0022",
       "speaker": "",
       "text": "[다음 날]",
       "tone": "time",
@@ -751,6 +773,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0023",
       "speaker": "연화",
       "text": "한 캔 없는데.",
       "tone": "dialogue",
@@ -764,6 +787,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0024",
       "speaker": "가은",
       "text": "아까 15개 맞게 온 거 확인했는데?",
       "tone": "dialogue",
@@ -777,6 +801,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0025",
       "speaker": "유라",
       "text": "지금 14개야.",
       "tone": "dialogue",
@@ -790,6 +815,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0026",
       "speaker": "세린",
       "text": "···",
       "tone": "dialogue",
@@ -803,6 +829,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0027",
       "speaker": "가은",
       "text": "···",
       "tone": "dialogue",
@@ -816,6 +843,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0028",
       "speaker": "연화",
       "text": "초희 어디 갔어.",
       "tone": "dialogue",
@@ -829,6 +857,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0029",
       "speaker": "",
       "text": "연화와 유라, 가은, 세린이 주위를 두리번거린다. 쌓인 보급 상자 사이와 문밖을 번갈아 살펴도 초희의 모습은 보이지 않는다.",
       "tone": "narration",
@@ -843,6 +872,7 @@ window.RustedPrayerArchive.registerRecord({
       "cameraEffect": "pan"
     },
     {
+      "sceneId": "a-06-scene-0030",
       "speaker": "가은",
       "text": "잡아.",
       "tone": "dialogue",
@@ -856,6 +886,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0031",
       "speaker": "",
       "text": "7분 후",
       "tone": "time",
@@ -870,6 +901,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0032",
       "speaker": "세린",
       "text": "찾았다! 이 도둑!!",
       "tone": "dialogue",
@@ -883,6 +915,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0033",
       "speaker": "초희",
       "text": "! 동지라고 생각했는데!!",
       "tone": "dialogue",
@@ -896,6 +929,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0034",
       "speaker": "유라",
       "text": "찾음.",
       "tone": "chat",
@@ -913,6 +947,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0035",
       "speaker": "연화",
       "text": "어디.",
       "tone": "chat",
@@ -930,6 +965,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0036",
       "speaker": "유라",
       "text": "창고 뒤.",
       "tone": "chat",
@@ -947,6 +983,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0037",
       "speaker": "",
       "text": "1분 후",
       "tone": "time",
@@ -961,6 +998,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0038",
       "speaker": "가은",
       "text": "변명할 준비는 됐겠지?",
       "tone": "dialogue",
@@ -974,6 +1012,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0039",
       "speaker": "초희",
       "text": "작전 중 피로도 감소 여부를 선행 시험하고 있었다.",
       "tone": "dialogue",
@@ -987,6 +1026,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0040",
       "speaker": "가은",
       "text": "누가 시켰는데.",
       "tone": "dialogue",
@@ -1000,6 +1040,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0041",
       "speaker": "초희",
       "text": "자율적 연구.",
       "tone": "dialogue",
@@ -1013,6 +1054,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0042",
       "speaker": "가은",
       "text": "그래서 결과는?",
       "tone": "dialogue",
@@ -1026,6 +1068,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0043",
       "speaker": "초희",
       "text": "피로도 감소.",
       "tone": "dialogue",
@@ -1039,6 +1082,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0044",
       "speaker": "유라",
       "text": "유의미한 데이터네.",
       "tone": "dialogue",
@@ -1052,6 +1096,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-06-scene-0045",
       "speaker": "가은",
       "text": "너도 이리 와.",
       "tone": "dialogue",

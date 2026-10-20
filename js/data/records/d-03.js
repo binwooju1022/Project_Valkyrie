@@ -203,7 +203,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 이번 개체는 정상 복귀한 게 아니잖습니까."
+      "text": "연구원 B : 이번 니케는 정상 복귀한 게 아니잖습니까."
     },
     {
       "type": "dialogue",
@@ -231,7 +231,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 하나는 카메라 기록이고, 일부는 개체가 기억하고 있던 장면을 기반으로 복원된 겁니다."
+      "text": "연구원 B : 하나는 카메라 기록이고, 일부는 니케가 기억하고 있던 장면을 기반으로 복원된 겁니다."
     },
     {
       "type": "dialogue",
@@ -320,6 +320,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "d-03-scene-0001",
       "speaker": "연구원 A",
       "text": "뭐야, 이거.",
       "tone": "dialogue",
@@ -333,6 +334,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0002",
       "speaker": "연구원 B",
       "text": "왜 그러십니까?",
       "tone": "dialogue",
@@ -346,6 +348,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0003",
       "speaker": "연구원 A",
       "text": "자료 상태가 왜 이래?",
       "tone": "dialogue",
@@ -359,6 +362,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0004",
       "speaker": "연구원 B",
       "text": "어디요?",
       "tone": "dialogue",
@@ -372,6 +376,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0005",
       "speaker": "연구원 A",
       "text": "여기.",
       "tone": "dialogue",
@@ -385,6 +390,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0006",
       "speaker": "연구원 A",
       "text": "방금 전까지 화면 멀쩡했잖아.",
       "tone": "dialogue",
@@ -398,6 +404,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0007",
       "speaker": "연구원 B",
       "text": "그 부분은 드론 원본이고요.",
       "tone": "dialogue",
@@ -411,6 +418,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0008",
       "speaker": "연구원 A",
       "text": "이건?",
       "tone": "dialogue",
@@ -424,6 +432,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0009",
       "speaker": "연구원 B",
       "text": "블랙박스네요.",
       "tone": "dialogue",
@@ -437,6 +446,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0010",
       "speaker": "연구원 A",
       "text": "이건 또 왜 생긴 게 달라?",
       "tone": "dialogue",
@@ -450,6 +460,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0011",
       "speaker": "연구원 B",
       "text": "뇌 스캔 쪽에서 보간된 겁니다.",
       "tone": "dialogue",
@@ -463,6 +474,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0012",
       "speaker": "연구원 A",
       "text": "···",
       "tone": "dialogue",
@@ -476,6 +488,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0013",
       "speaker": "연구원 A",
       "text": "이게 종합 기록이라고?",
       "tone": "dialogue",
@@ -489,6 +502,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0014",
       "speaker": "연구원 B",
       "text": "원래는요.",
       "tone": "dialogue",
@@ -502,6 +516,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0015",
       "speaker": "연구원 A",
       "text": "원래는?",
       "tone": "dialogue",
@@ -515,8 +530,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0016",
       "speaker": "연구원 B",
-      "text": "이번 개체는 정상 복귀한 게 아니잖습니까.",
+      "text": "이번 니케는 정상 복귀한 게 아니잖습니까.",
       "tone": "dialogue",
       "sourceIndices": [
         19
@@ -528,6 +544,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0017",
       "speaker": "연구원 B",
       "text": "블랙박스도 부서졌고 드론 저장부도 손상됐고, 이래저래 망가진 뒤에 뇌 스캔까지 한 거라 자료가 제대로 맞을 리가 없습니다.",
       "tone": "dialogue",
@@ -541,6 +558,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0018",
       "speaker": "연구원 A",
       "text": "하···",
       "tone": "dialogue",
@@ -554,6 +572,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0019",
       "speaker": "",
       "text": "키보드 입력음.",
       "tone": "narration",
@@ -567,6 +586,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0020",
       "speaker": "연구원 A",
       "text": "이거 같은 장면 맞아?",
       "tone": "dialogue",
@@ -580,6 +600,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0021",
       "speaker": "연구원 B",
       "text": "시간축으로는 같은 구간입니다.",
       "tone": "dialogue",
@@ -593,6 +614,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0022",
       "speaker": "연구원 A",
       "text": "구도도 다르고 화질도 다르고 뭐 하나 맞는 게 없는데?",
       "tone": "dialogue",
@@ -606,8 +628,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0023",
       "speaker": "연구원 B",
-      "text": "하나는 카메라 기록이고, 일부는 개체가 기억하고 있던 장면을 기반으로 복원된 겁니다.",
+      "text": "하나는 카메라 기록이고, 일부는 니케가 기억하고 있던 장면을 기반으로 복원된 겁니다.",
       "tone": "dialogue",
       "sourceIndices": [
         26
@@ -619,6 +642,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0024",
       "speaker": "연구원 A",
       "text": "그래서 어느 쪽이 맞는데.",
       "tone": "dialogue",
@@ -632,6 +656,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0025",
       "speaker": "연구원 B",
       "text": "모릅니다.",
       "tone": "dialogue",
@@ -645,6 +670,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0026",
       "speaker": "연구원 A",
       "text": "···",
       "tone": "dialogue",
@@ -658,6 +684,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0027",
       "speaker": "연구원 B",
       "text": "정확히는 둘 다 자료 자체는 진짜입니다.",
       "tone": "dialogue",
@@ -671,6 +698,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0028",
       "speaker": "연구원 A",
       "text": "하나는 카메라가 기록한 거고 하나는 이 기체 뇌에 남아 있던 영상이다?",
       "tone": "dialogue",
@@ -684,6 +712,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0029",
       "speaker": "연구원 B",
       "text": "예.",
       "tone": "dialogue",
@@ -697,6 +726,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0030",
       "speaker": "연구원 A",
       "text": "진짜 일거리 더럽게 늘려주네.",
       "tone": "dialogue",
@@ -710,6 +740,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0031",
       "speaker": "연구원 A",
       "text": "아오, 평소에도 도움이 안 되더니.",
       "tone": "dialogue",
@@ -723,6 +754,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0032",
       "speaker": "연구원 B",
       "text": "···",
       "tone": "dialogue",
@@ -736,6 +768,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0033",
       "speaker": "연구원 A",
       "text": "왜.",
       "tone": "dialogue",
@@ -749,6 +782,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0034",
       "speaker": "연구원 B",
       "text": "아닙니다.",
       "tone": "dialogue",
@@ -762,6 +796,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0035",
       "speaker": "연구원 A",
       "text": "전투 데이터 좀 뽑으려고 가져왔더니 영상부터 손으로 맞춰야 하잖아.",
       "tone": "dialogue",
@@ -775,6 +810,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0036",
       "speaker": "연구원 A",
       "text": "최악인 건, 이렇게 해도 복구가 안 될 수 있다는 거고.",
       "tone": "dialogue",
@@ -788,6 +824,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0037",
       "speaker": "연구원 B",
       "text": "상태가 이 모양인데 복구되는 것만 해도 다행이죠.",
       "tone": "dialogue",
@@ -801,6 +838,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0038",
       "speaker": "연구원 A",
       "text": "드론은 더 없어?",
       "tone": "dialogue",
@@ -814,6 +852,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0039",
       "speaker": "연구원 B",
       "text": "네. 그 뒤는 완전 망가져서 복구가 안 된답니다.",
       "tone": "dialogue",
@@ -827,6 +866,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0040",
       "speaker": "연구원 A",
       "text": "뇌 스캔에서 추출한 건?",
       "tone": "dialogue",
@@ -840,6 +880,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0041",
       "speaker": "연구원 B",
       "text": "뇌는 그나마 멀쩡한데, 광학계가 망가져 있었습니다.",
       "tone": "dialogue",
@@ -853,6 +894,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0042",
       "speaker": "연구원 B",
       "text": "다른 건 더 심각하고 그나마 살린 게 이 자료들입니다.",
       "tone": "dialogue",
@@ -866,6 +908,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0043",
       "speaker": "연구원 A",
       "text": "오늘 야근이네.",
       "tone": "dialogue",
@@ -879,6 +922,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-03-scene-0044",
       "speaker": "연구원 B",
       "text": "그러게요.",
       "tone": "dialogue",

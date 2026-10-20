@@ -73,7 +73,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "동료 개체 위치 확인 빈도 :"
+      "text": "동료 니케의 위치 확인 빈도 :"
     },
     {
       "type": "text",
@@ -178,6 +178,7 @@ window.RustedPrayerArchive.registerRecord({
   "readerMode": "report",
   "reportSections": [
     {
+      "sceneId": "b-08-scene-0001",
       "speaker": "",
       "text": "[UNIT-01 사고 패턴 변화 관찰 보고]\n\n비교 기준 :\n\n사고 발생 이전 / 사고 발생 이후",
       "tone": "document",
@@ -200,8 +201,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-08-scene-0002",
       "speaker": "",
-      "text": "주변 시야 확인 빈도 :\n\n증가\n\n후방 위협 확인 빈도 :\n\n증가\n\n미확인 영역 재확인 행동 :\n\n증가\n\n랩쳐 조기 탐지율 :\n\n증가\n\n동료 개체 위치 확인 빈도 :\n\n유의미한 증가\n\n전투 중 주의 이탈 :\n\n현저히 감소",
+      "text": "주변 시야 확인 빈도 :\n\n증가\n\n후방 위협 확인 빈도 :\n\n증가\n\n미확인 영역 재확인 행동 :\n\n증가\n\n랩쳐 조기 탐지율 :\n\n증가\n\n동료 니케의 위치 확인 빈도 :\n\n유의미한 증가\n\n전투 중 주의 이탈 :\n\n현저히 감소",
       "tone": "document",
       "cardTitle": "사고 전후 변화 비교",
       "sourceIndices": [
@@ -236,7 +238,7 @@ window.RustedPrayerArchive.registerRecord({
           "highlight": false
         },
         {
-          "text": "동료 개체 위치 확인 빈도 : 유의미한 증가",
+          "text": "동료 니케의 위치 확인 빈도 : 유의미한 증가",
           "highlight": false
         },
         {
@@ -273,7 +275,7 @@ window.RustedPrayerArchive.registerRecord({
             "증가"
           ],
           [
-            "동료 개체 위치 확인 빈도",
+            "동료 니케의 위치 확인 빈도",
             "유의미한 증가"
           ],
           [
@@ -284,6 +286,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-08-scene-0003",
       "speaker": "",
       "text": "종합 :\n\n전투 상황에서의 판단 속도 및 생존율 개선 확인.\n\n변화 원인 :\n\n사고 전환 추정",
       "tone": "document",
@@ -311,6 +314,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-08-scene-0004",
       "speaker": "",
       "text": "[담당자 메모]\n\n사고 전환으로 보임.\n\n긍정적 변화로 인해 이전보다 쓸모 있게 변함.\n\n원인 파악 후 다른 니케에도 적용할 경우\n전선에 긍정적 변화를 유도할 수 있을 것으로 보임.\n\n원인 파악을 위한 정밀 뇌 스캔 권장.",
       "tone": "memo",

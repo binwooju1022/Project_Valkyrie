@@ -201,7 +201,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 최근에 나온 양산형 헬레틱. 예전 시험 개체들하고 좀 닮지 않았습니까?"
+      "text": "연구원 B : 최근에 나온 양산형 헬레틱. 예전 시험 대상들하고 좀 닮지 않았습니까?"
     },
     {
       "type": "dialogue",
@@ -237,7 +237,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 동일 개체라고 볼 근거는 부족합니다. 다만 그 실종 개체가 원형 같은 거라면요?"
+      "text": "연구원 B : 동일 대상이라고 볼 근거는 부족합니다. 다만 그 실종 니케가 원형 같은 거라면요?"
     },
     {
       "type": "text",
@@ -358,6 +358,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "d-11-scene-0001",
       "speaker": "연구원 B",
       "text": "선배.",
       "tone": "dialogue",
@@ -371,6 +372,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0002",
       "speaker": "연구원 A",
       "text": "왜.",
       "tone": "dialogue",
@@ -384,6 +386,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0003",
       "speaker": "연구원 B",
       "text": "이것 좀 보세요.",
       "tone": "dialogue",
@@ -397,6 +400,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0004",
       "speaker": "연구원 A",
       "text": "또 뭔데.",
       "tone": "dialogue",
@@ -410,6 +414,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0005",
       "speaker": "",
       "text": "화면 전환음.",
       "tone": "narration",
@@ -423,8 +428,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0006",
       "speaker": "연구원 B",
-      "text": "최근에 나온 양산형 헬레틱. 예전 시험 개체들하고 좀 닮지 않았습니까?",
+      "text": "최근에 나온 양산형 헬레틱. 예전 시험 대상들하고 좀 닮지 않았습니까?",
       "tone": "dialogue",
       "sourceIndices": [
         9
@@ -436,6 +442,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0007",
       "speaker": "연구원 A",
       "text": "닮았다고?",
       "tone": "dialogue",
@@ -449,6 +456,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0008",
       "speaker": "연구원 B",
       "text": "여기요.",
       "tone": "dialogue",
@@ -462,6 +470,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0009",
       "speaker": "",
       "text": "화면 확대.",
       "tone": "narration",
@@ -475,6 +484,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0010",
       "speaker": "연구원 B",
       "text": "다크매터로 예전에 헬멧 만드는 시험이 있었잖아요.",
       "tone": "dialogue",
@@ -488,6 +498,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0011",
       "speaker": "연구원 A",
       "text": "그리고 쓰기만 하면 죄다 기절했지. 그래서?",
       "tone": "dialogue",
@@ -501,6 +512,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0012",
       "speaker": "연구원 B",
       "text": "헬멧 쓴 거랑 닮지 않았습니까? 헬레틱이랑요.",
       "tone": "dialogue",
@@ -514,6 +526,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0013",
       "speaker": "",
       "text": "연구원 A가 화면을 바라본다.",
       "tone": "narration",
@@ -527,6 +540,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0014",
       "speaker": "연구원 A",
       "text": "그래서, 설마 저게 침식 걸려서 사라진 거랑 똑같다고?",
       "tone": "dialogue",
@@ -540,8 +554,9 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0015",
       "speaker": "연구원 B",
-      "text": "동일 개체라고 볼 근거는 부족합니다. 다만 그 실종 개체가 원형 같은 거라면요?",
+      "text": "동일 대상이라고 볼 근거는 부족합니다. 다만 그 실종 니케가 원형 같은 거라면요?",
       "tone": "dialogue",
       "sourceIndices": [
         18
@@ -553,6 +568,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0016",
       "speaker": "",
       "text": "잠시 정적.",
       "tone": "narration",
@@ -566,6 +582,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0017",
       "speaker": "연구원 A",
       "text": "전투 스타일도 다르고, 기술 유출 기록도 없고.",
       "tone": "dialogue",
@@ -579,6 +596,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0018",
       "speaker": "연구원 B",
       "text": "예. AI 분석 결과 외형이 일부 비슷하다는 것뿐입니다.",
       "tone": "dialogue",
@@ -592,6 +610,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0019",
       "speaker": "연구원 A",
       "text": "그럼 우연이지. 그나마도 내가 보기엔 많이 다른 것 같은데.",
       "tone": "dialogue",
@@ -605,6 +624,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0020",
       "speaker": "연구원 B",
       "text": "그런데 하나 더 걸리는 게 있습니다.",
       "tone": "dialogue",
@@ -618,6 +638,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0021",
       "speaker": "연구원 A",
       "text": "뭔데.",
       "tone": "dialogue",
@@ -631,6 +652,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0022",
       "speaker": "연구원 B",
       "text": "UNIT-01 뇌 스캔이요. 그 침식 장면만 계속 재생했잖습니까.",
       "tone": "dialogue",
@@ -644,6 +666,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0023",
       "speaker": "연구원 A",
       "text": "응 그랬지.",
       "tone": "dialogue",
@@ -657,6 +680,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0024",
       "speaker": "연구원 B",
       "text": "예. 양산형 니케가 침식됐고, 꽤 시간이 지난 지금 양산형 헬레틱이 나왔잖아요.",
       "tone": "dialogue",
@@ -670,6 +694,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0025",
       "speaker": "연구원 A",
       "text": "···그래서? 그때 그 반푼이가 헬레틱이 됐다고 말하고 싶은 거야?",
       "tone": "dialogue",
@@ -683,6 +708,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0026",
       "speaker": "연구원 A",
       "text": "침식에 걸렸다고 무조건 헬레틱이 되는 건 아니랬는데.",
       "tone": "dialogue",
@@ -696,6 +722,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0027",
       "speaker": "연구원 B",
       "text": "···예. 일단은 추측입니다. 그 사이 간극이 꽤 기니까 우연일 수도 있고요.",
       "tone": "dialogue",
@@ -709,6 +736,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0028",
       "speaker": "",
       "text": "잠시 정적.",
       "tone": "narration",
@@ -722,6 +750,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0029",
       "speaker": "연구원 A",
       "text": "만약 네 말이 맞다고 치자. 그래서 뇌 스캔 도중 그 장면이 계속 나왔다고 치자.",
       "tone": "dialogue",
@@ -735,6 +764,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0030",
       "speaker": "연구원 A",
       "text": "근데 그게 뭐야, 스캔이 '이 장면 중요합니다, 인류의 미래가 걸려 있어요, 얘가 헬레틱이 될 겁니다' 하고 보여준 거라는 거야?",
       "tone": "dialogue",
@@ -748,6 +778,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0031",
       "speaker": "연구원 A",
       "text": "게다가 그때 로그까지 다 확인했잖아. 결론은 '원인 모름. 그냥 님프 오류로 추정됨.'이라고 떠서 그대로 보고했고.",
       "tone": "dialogue",
@@ -761,6 +792,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0032",
       "speaker": "연구원 B",
       "text": "···그랬었죠. 누가 일부러 조작해서 보여준 게 아닌 이상···",
       "tone": "dialogue",
@@ -774,6 +806,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0033",
       "speaker": "",
       "text": "긴 정적.",
       "tone": "narration",
@@ -787,6 +820,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0034",
       "speaker": "연구원 A",
       "text": "하. 우리 진짜 피곤한가 보다. 조작이라니.",
       "tone": "dialogue",
@@ -800,6 +834,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0035",
       "speaker": "연구원 B",
       "text": "그러게요. 하하.",
       "tone": "dialogue",
@@ -813,6 +848,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0036",
       "speaker": "",
       "text": "두 사람이 짧게 웃는다.",
       "tone": "narration",
@@ -826,6 +862,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0037",
       "speaker": "연구원 A",
       "text": "그래도 보고는 해.",
       "tone": "dialogue",
@@ -839,6 +876,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0038",
       "speaker": "연구원 B",
       "text": "이걸요?",
       "tone": "dialogue",
@@ -852,6 +890,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0039",
       "speaker": "연구원 A",
       "text": "저 얘기 말고. 다크매터 가능성.",
       "tone": "dialogue",
@@ -865,6 +904,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0040",
       "speaker": "연구원 B",
       "text": "아.",
       "tone": "dialogue",
@@ -878,6 +918,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0041",
       "speaker": "연구원 A",
       "text": "그 헬레틱이 다크매터를 쓰고 있을 수도 있잖아.",
       "tone": "dialogue",
@@ -891,6 +932,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0042",
       "speaker": "연구원 B",
       "text": "그렇네요.",
       "tone": "dialogue",
@@ -904,6 +946,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0043",
       "speaker": "연구원 A",
       "text": "그러면 대응책은 미리 만들어야지. 옛날 데이터라도 살펴보고.",
       "tone": "dialogue",
@@ -917,6 +960,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "d-11-scene-0044",
       "speaker": "연구원 B",
       "text": "알겠습니다.",
       "tone": "dialogue",

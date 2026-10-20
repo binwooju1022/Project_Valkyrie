@@ -87,7 +87,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "두 개체의 머리에서 동일 형태의 장식물 확인."
+      "text": "두 니케의 머리에서 동일 형태의 장식물 확인."
     }
   ],
   "transcript": [
@@ -105,7 +105,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "두 개체의 머리에서 동일 형태의 장식물 확인."
+      "text": "두 니케의 머리에서 동일 형태의 장식물 확인."
     },
     {
       "type": "text",
@@ -222,6 +222,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "b-02-scene-0001",
       "tone": "cutscene",
       "text": "[첨부 사진]",
       "cutsceneTitle": "",
@@ -231,6 +232,7 @@ window.RustedPrayerArchive.registerRecord({
       ]
     },
     {
+      "sceneId": "b-02-scene-0002",
       "speaker": "",
       "text": "[스쿼드 공용 채팅 / 이미지 첨부 기록]",
       "tone": "chat",
@@ -249,6 +251,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0003",
       "speaker": "세린",
       "text": "사진 잘 나왔다.",
       "tone": "chat",
@@ -266,6 +269,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0004",
       "speaker": "연화",
       "text": "흐린데.",
       "tone": "chat",
@@ -283,6 +287,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0005",
       "speaker": "세린",
       "text": "그래서 잘 나왔다고.",
       "tone": "chat",
@@ -300,6 +305,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0006",
       "speaker": "연화",
       "text": "무슨 뜻이야.",
       "tone": "chat",
@@ -317,6 +323,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0007",
       "speaker": "세린",
       "text": "얼굴이 잘 안 보이잖아.",
       "tone": "chat",
@@ -334,6 +341,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0008",
       "speaker": "초희",
       "text": "오.",
       "tone": "chat",
@@ -351,6 +359,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0009",
       "speaker": "세린",
       "text": "칭찬임.",
       "tone": "chat",
@@ -368,6 +377,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0010",
       "speaker": "가은",
       "text": "겠냐고.",
       "tone": "chat",
@@ -385,6 +395,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0011",
       "speaker": "초희",
       "text": "그런데 둘이 같은 머리핀을 하고 있군.",
       "tone": "chat",
@@ -402,6 +413,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0012",
       "speaker": "유라",
       "text": "커플 머리핀.",
       "tone": "chat",
@@ -419,6 +431,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0013",
       "speaker": "연화",
       "text": "아니야.",
       "tone": "chat",
@@ -436,6 +449,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0014",
       "speaker": "세린",
       "text": "똑같은 거 하나씩 했는데?",
       "tone": "chat",
@@ -453,6 +467,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0015",
       "speaker": "연화",
       "text": "그냥 주운 거야.",
       "tone": "chat",
@@ -470,6 +485,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0016",
       "speaker": "초희",
       "text": "우연히 폐허에서 발견한 한 쌍의 장식물.",
       "tone": "chat",
@@ -487,6 +503,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0017",
       "speaker": "초희",
       "text": "그리고 그것을 나눠 가진 두 사람.",
       "tone": "chat",
@@ -504,6 +521,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0018",
       "speaker": "초희",
       "text": "전쟁터. 전우애! 낭만!",
       "tone": "chat",
@@ -521,6 +539,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0019",
       "speaker": "가은",
       "text": "또 시작이네.",
       "tone": "chat",
@@ -538,6 +557,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0020",
       "speaker": "유라",
       "text": "들었지? 낭만 있대.",
       "tone": "chat",
@@ -555,6 +575,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0021",
       "speaker": "연화",
       "text": "초희 기준이잖아.",
       "tone": "chat",
@@ -572,6 +593,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0022",
       "speaker": "세린",
       "text": "가장 신뢰하면 안 되는 기준.",
       "tone": "chat",
@@ -589,6 +611,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0023",
       "speaker": "초희",
       "text": "배신자들.",
       "tone": "chat",
@@ -606,6 +629,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0024",
       "speaker": "유라",
       "text": "아무튼 커플 머리핀.",
       "tone": "chat",
@@ -623,6 +647,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0025",
       "speaker": "연화",
       "text": "마음대로 해.",
       "tone": "chat",
@@ -640,6 +665,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0026",
       "speaker": "유라",
       "text": "어? 프사 바꿨넿ㅎ",
       "tone": "chat",
@@ -657,6 +683,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0027",
       "speaker": "세린",
       "text": "잘 나왔다고 했잖아.",
       "tone": "chat",
@@ -674,6 +701,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "b-02-scene-0028",
       "speaker": "연화",
       "text": "··· 무슨 사진인데.",
       "tone": "chat",

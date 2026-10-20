@@ -272,6 +272,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "a-02-scene-0001",
       "speaker": "",
       "text": "■■:■■",
       "tone": "time",
@@ -286,6 +287,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0002",
       "speaker": "세린",
       "text": "오늘 4차 시험 있지?",
       "tone": "chat",
@@ -303,6 +305,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0003",
       "speaker": "가은",
       "text": "응.",
       "tone": "chat",
@@ -320,6 +323,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0004",
       "speaker": "유라",
       "text": "누가 제일 먼저 쓰러지는지 내기하자.",
       "tone": "chat",
@@ -337,6 +341,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0005",
       "speaker": "세린",
       "text": "초희.",
       "tone": "chat",
@@ -354,6 +359,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0006",
       "speaker": "연화",
       "text": "초희.",
       "tone": "chat",
@@ -371,6 +377,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0007",
       "speaker": "가은",
       "text": "나도 초희.",
       "tone": "chat",
@@ -388,6 +395,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0008",
       "speaker": "초희",
       "text": "잠깐.",
       "tone": "chat",
@@ -405,6 +413,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0009",
       "speaker": "초희",
       "text": "어째서 나지?",
       "tone": "chat",
@@ -422,6 +431,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0010",
       "speaker": "세린",
       "text": "항상 그랬잖아",
       "tone": "chat",
@@ -439,6 +449,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0011",
       "speaker": "유라",
       "text": "다크매터 쓰기 전에 항상 멋있는 말은 다 해놓고 말야",
       "tone": "chat",
@@ -456,6 +467,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0012",
       "speaker": "초희",
       "text": "그것은 전력을 다했다는 증거다.",
       "tone": "chat",
@@ -473,6 +485,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0013",
       "speaker": "가은",
       "text": "그냥 기절한 거야.",
       "tone": "chat",
@@ -490,6 +503,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0014",
       "speaker": "초희",
       "text": "한계를 넘어선 자만이 의식을 잃을 수 있다. 그건 최선을 다해야만 하는 일이지.",
       "tone": "chat",
@@ -507,6 +521,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0015",
       "speaker": "세린",
       "text": "그럼 오늘도 넘어봐.",
       "tone": "chat",
@@ -524,6 +539,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0016",
       "speaker": "초희",
       "text": "좋다.",
       "tone": "chat",
@@ -541,6 +557,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0017",
       "speaker": "초희",
       "text": "오늘의 나는 어제의 나를 뛰어넘는다.",
       "tone": "chat",
@@ -558,6 +575,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0018",
       "speaker": "",
       "text": "■■:■■",
       "tone": "time",
@@ -572,6 +590,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0019",
       "speaker": "연화",
       "text": "결과 발표.",
       "tone": "chat",
@@ -589,6 +608,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0020",
       "speaker": "유라",
       "text": "누구?",
       "tone": "chat",
@@ -606,6 +626,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0021",
       "speaker": "연화",
       "text": "초희.",
       "tone": "chat",
@@ -623,6 +644,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0022",
       "speaker": "가은",
       "text": "역시.",
       "tone": "chat",
@@ -640,6 +662,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0023",
       "speaker": "세린",
       "text": "몇 초?",
       "tone": "chat",
@@ -657,6 +680,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0024",
       "speaker": "연화",
       "text": "9.8초.",
       "tone": "chat",
@@ -674,6 +698,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0025",
       "speaker": "세린",
       "text": "빠르네. 저번보다 더",
       "tone": "chat",
@@ -691,6 +716,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0026",
       "speaker": "유라",
       "text": "그래서 초희는?",
       "tone": "chat",
@@ -708,6 +734,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0027",
       "speaker": "가은",
       "text": "아직 자고 있어.",
       "tone": "chat",
@@ -725,6 +752,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0028",
       "speaker": "유라",
       "text": "아.",
       "tone": "chat",
@@ -742,6 +770,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0029",
       "speaker": "",
       "text": "■■:■■",
       "tone": "time",
@@ -756,6 +785,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0030",
       "speaker": "초희",
       "text": "깨어났다.",
       "tone": "chat",
@@ -773,6 +803,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0031",
       "speaker": "세린",
       "text": "축하해.",
       "tone": "chat",
@@ -790,6 +821,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0032",
       "speaker": "초희",
       "text": "기록은?",
       "tone": "chat",
@@ -807,6 +839,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0033",
       "speaker": "유라",
       "text": "압도적 1위.",
       "tone": "chat",
@@ -824,6 +857,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0034",
       "speaker": "초희",
       "text": "역시.",
       "tone": "chat",
@@ -841,6 +875,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0035",
       "speaker": "가은",
       "text": "먼저 쓰러진 순위야.",
       "tone": "chat",
@@ -858,6 +893,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0036",
       "speaker": "세린",
       "text": "저번보다 더 빨라졌던데?",
       "tone": "chat",
@@ -875,6 +911,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0037",
       "speaker": "초희",
       "text": "···",
       "tone": "chat",
@@ -892,6 +929,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0038",
       "speaker": "유라",
       "text": "한계를 넘어선 자.",
       "tone": "chat",
@@ -909,6 +947,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0039",
       "speaker": "연화",
       "text": "낭만 있었어.",
       "tone": "chat",
@@ -926,6 +965,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "a-02-scene-0040",
       "speaker": "초희",
       "text": "놀리지 마라.",
       "tone": "chat",

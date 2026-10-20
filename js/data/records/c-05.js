@@ -196,6 +196,7 @@ window.RustedPrayerArchive.registerRecord({
   ],
   "story": [
     {
+      "sceneId": "c-05-scene-0001",
       "speaker": "",
       "text": "[무전 수신]",
       "tone": "radio",
@@ -214,6 +215,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0002",
       "speaker": "가은",
       "text": "연화?",
       "tone": "radio",
@@ -231,6 +233,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0003",
       "speaker": "가은",
       "text": "유라?",
       "tone": "radio",
@@ -248,6 +251,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0004",
       "speaker": "",
       "text": "두 사람에게서는 아무 응답도 돌아오지 않는다.",
       "tone": "narration",
@@ -261,6 +265,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0005",
       "speaker": "",
       "text": "[현장 대화]",
       "tone": "slate",
@@ -275,6 +280,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0006",
       "speaker": "가은",
       "text": "둘 다 왜 대답이 없어? 복귀 시간 지나지 않았나?",
       "tone": "dialogue",
@@ -288,6 +294,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0007",
       "speaker": "세린",
       "text": "참새는?",
       "tone": "dialogue",
@@ -301,6 +308,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0008",
       "speaker": "가은",
       "text": "신호가 잡혀.",
       "tone": "dialogue",
@@ -314,6 +322,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0009",
       "speaker": "세린",
       "text": "둘은?",
       "tone": "dialogue",
@@ -327,6 +336,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0010",
       "speaker": "가은",
       "text": "응답이 없어.",
       "tone": "dialogue",
@@ -340,6 +350,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0011",
       "speaker": "",
       "text": "짧은 정적.",
       "tone": "narration",
@@ -353,6 +364,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0012",
       "speaker": "",
       "text": "초희가 빠르게 달리기 시작한다.",
       "tone": "narration",
@@ -367,6 +379,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0013",
       "speaker": "",
       "text": "세린은 장비를 챙겨 초희를 따라 나설 준비를 한다. 가은은 통신 단말 앞에 남는다.",
       "tone": "narration",
@@ -380,6 +393,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0014",
       "speaker": "",
       "text": "[무전 수신]",
       "tone": "radio",
@@ -399,6 +413,7 @@ window.RustedPrayerArchive.registerRecord({
       "motion": "run"
     },
     {
+      "sceneId": "c-05-scene-0015",
       "speaker": "초희",
       "text": "연화.",
       "tone": "radio",
@@ -416,6 +431,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0016",
       "speaker": "초희",
       "text": "유라.",
       "tone": "radio",
@@ -433,6 +449,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0017",
       "speaker": "초희",
       "text": "들리면 대답해라.",
       "tone": "radio",
@@ -450,6 +467,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0018",
       "speaker": "",
       "text": "무전 너머에서는 아무 대답도 돌아오지 않는다.",
       "tone": "narration",
@@ -463,6 +481,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0019",
       "speaker": "초희",
       "text": "···",
       "tone": "radio",
@@ -481,6 +500,7 @@ window.RustedPrayerArchive.registerRecord({
       "motion": "run"
     },
     {
+      "sceneId": "c-05-scene-0020",
       "speaker": "초희",
       "text": "제발.",
       "tone": "radio",
@@ -498,6 +518,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0021",
       "speaker": "가은",
       "text": "혹시 돌아오면 바로 연락해. 난 기지에 있을 테니까!",
       "tone": "dialogue",
@@ -511,6 +532,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0022",
       "speaker": "세린",
       "text": "응. 초희랑 내가 갈게.",
       "tone": "dialogue",
@@ -525,6 +547,7 @@ window.RustedPrayerArchive.registerRecord({
       "motion": "run"
     },
     {
+      "sceneId": "c-05-scene-0023",
       "speaker": "가은",
       "text": "···무리하지 마.",
       "tone": "dialogue",
@@ -538,6 +561,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0024",
       "speaker": "",
       "text": "세린은 고개를 끄덕이며 빠르게 초희의 뒤를 쫓기 시작한다.",
       "tone": "narration",
@@ -552,6 +576,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0025",
       "speaker": "",
       "text": "이후 통신 기록 손상.",
       "tone": "narration",
@@ -565,6 +590,7 @@ window.RustedPrayerArchive.registerRecord({
       }
     },
     {
+      "sceneId": "c-05-scene-0026",
       "speaker": "시스템",
       "text": "기록 종료.",
       "tone": "system",

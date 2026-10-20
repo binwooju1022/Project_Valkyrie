@@ -65,6 +65,7 @@ window.RustedPrayerArchive.registerRecord({
   "readerMode": "report",
   "reportSections": [
     {
+      "sceneId": "d-01-scene-0001",
       "speaker": "",
       "text": "[회수 대상]\n\nUNIT-01 : 대파 / 기동 불가.\nUNIT-02 : 확인 실패.",
       "tone": "report",
@@ -85,6 +86,7 @@ window.RustedPrayerArchive.registerRecord({
       "report": true
     },
     {
+      "sceneId": "d-01-scene-0002",
       "speaker": "",
       "text": "[회수품 및 처리]\n\n표준 지급 화기 / 통신 단말 / 개인 블랙박스 / 손상된 소형 장식물\n\n블랙박스·잔존 뇌 데이터 추출 후 정비부 이관. 다크매터 재활성화 여부에 따라 재활용 검토.",
       "tone": "report",
@@ -105,6 +107,7 @@ window.RustedPrayerArchive.registerRecord({
       "report": true
     },
     {
+      "sceneId": "d-01-scene-0003",
       "speaker": "",
       "text": "[통합 복구 결과]\n\n통합 실패. 자동 보간 결과 신뢰 불가.\n\n블랙박스 : 음성·영상 및 최종 시간 정보 손상.\n\nDRONE-02 : 최종 구간 프레임·저장부 손상.\n\n인지 스캔 : 시간 배열 불안정 / 특정 기억 반복 출력.\n\n일부 영상은 잔존 기억으로 재구성됨. 자료 간 묘사가 달라 단일 원본을 특정할 수 없음. 개별 자료 수동 대조 실시.",
       "tone": "report",
