@@ -11,8 +11,7 @@
     if(typeof saved.muted==='boolean')muted=saved.muted;
   } catch {}
   let location={record:null,index:0,screen:'boot-screen'};
-  let endingPhotoSeen=false,postEndingBgm='waiting-commander';
-  let settingsTrack=null,settingsUsesMain=false;
+  let settingsTrack=null;
   let selected=null,unlocked=false,blocked=false,pending=false,revision=0;
   const FADE_IN_MS=800,FADE_OUT_MS=500;
   let gain=0,fadeTimer=null,fadeRevision=0,phase=null;
@@ -87,7 +86,7 @@
     }
     if(!['boot-screen','archive-screen','objective-screen','library-screen','gallery-screen','reset-screen'].includes(screen))return null;
     const manifest=window.RustedPrayerMediaManifest.bgm;
-    const track=endingPhotoSeen ? postEndingBgm : manifest?.main;
+    const track=manifest?.main;
     return track ? {id:track,...manifest.tracks[track]} : null;
   }
   function suspended() {
@@ -128,18 +127,9 @@
       },()=>{if(token===revision){blocked=true;updateControls();}}).finally(()=>{if(token===revision)pending=false;});
     } catch {pending=false;blocked=true;updateControls();}
   }
-  function usesMainTrack({record,screen}) {
-    if(['boot-screen','archive-screen','library-screen','gallery-screen','reset-screen'].includes(screen))return true;
-    if(screen!=='objective-screen' || record?.readerMode==='report')return false;
-    const plan=window.RustedPrayerMediaManifest.bgm?.records[record?.id];
-    return !(plan?.continueOnIntro && selected?.id===resolve(record,0)?.id);
-  }
   function sync(record,index,screen) {
-    // Settings keeps the music of its origin screen; only the archive theme is selectable.
-    if(screen==='settings-screen' && location.screen!=='settings-screen') {
-      settingsTrack=desired();
-      settingsUsesMain=usesMainTrack(location);
-    }
+    // Preserve the previous screen's target, including silence or a pending fade.
+    if(screen==='settings-screen' && location.screen!=='settings-screen')settingsTrack=desired();
     location={record,index,screen};apply();
   }
   function setMuted(value) {muted=Boolean(value);save();updateControls();apply();}
@@ -168,19 +158,5 @@
   volumeInput?.addEventListener('blur',()=>readVolumeInput(true));
   volumeInput?.addEventListener('keydown',event=>{if(event.key==='Enter' || ['Enter','NumpadEnter'].includes(event.code)){event.preventDefault();readVolumeInput(true);}});
   updateControls();
-  function setEndingPhotoSeen(value,track=postEndingBgm) {
-    endingPhotoSeen=value===true;
-    postEndingBgm=['waiting-commander','side-story'].includes(track) ? track : 'waiting-commander';
-    apply();
-  }
-  function setPostEndingBgm(track) {
-    if(!endingPhotoSeen || !['waiting-commander','side-story'].includes(track))return;
-    postEndingBgm=track;
-    if(location.screen==='settings-screen' && settingsUsesMain) {
-      const manifest=window.RustedPrayerMediaManifest.bgm;
-      settingsTrack={id:track,...manifest.tracks[track]};
-    }
-    apply();
-  }
-  window.RustedPrayerBgm={sync,resolve,setMuted,setVolume,setEndingPhotoSeen,setPostEndingBgm};
+  window.RustedPrayerBgm={sync,resolve,setMuted,setVolume};
 })();

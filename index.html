@@ -213,6 +213,11 @@
             <details class="playback-details"><summary>기록 정보</summary><dl id="analysis-list"></dl></details>
           </aside>
         </div>
+        <footer id="report-flow" class="report-flow" hidden aria-label="본편 이어보기">
+          <span id="report-flow-label"></span>
+          <button id="report-return" class="text-button" data-action="return-report-main" type="button">본편으로 돌아가기</button>
+          <button id="report-next" class="button button-primary" data-action="continue-main-report" type="button">본편 계속</button>
+        </footer>
       </section>
 
       <section id="story-screen" class="screen story-screen" hidden aria-label="인지 기록 재생">
@@ -406,9 +411,6 @@
           </section>
           <section id="settings-panel-audio" class="settings-category" role="tabpanel" aria-labelledby="settings-tab-audio" data-settings-panel="audio" hidden>
             <h2>음악·효과음 설정</h2>
-          <div id="setting-post-ending-bgm-group" hidden>
-            <div class="setting-row"><div class="setting-copy"><label for="setting-post-ending-bgm">엔딩 후 기본 BGM</label><p id="setting-post-ending-bgm-note" class="reading-note">마지막 사진을 본 뒤 보관소에서 재생되는 음악을 선택합니다.</p></div><div class="setting-control"><select id="setting-post-ending-bgm" aria-describedby="setting-post-ending-bgm-note"><option value="waiting-commander">I&#39;m waiting you Commander</option><option value="side-story">Side Story</option></select></div></div>
-          </div>
 <div class="setting-row"><div class="setting-copy"><label for="bgm-enabled">배경음악</label><p id="bgm-enabled-note" class="reading-note">보관소와 장면 재생의 배경음악을 켜거나 끕니다.</p></div><div class="setting-control"><select aria-describedby="bgm-enabled-note" id="bgm-enabled"><option value="on">켜기</option><option value="off">음소거</option></select></div></div>
           <div class="setting-row"><div class="setting-copy"><label for="bgm-volume">BGM 음량</label><p id="bgm-note" class="reading-note">보관소와 재생 중의 배경음악을 조절합니다.</p></div><div class="setting-control"><div class="volume-controls"><input id="bgm-volume" type="range" min="0" max="100" value="35" step="1" /><span class="volume-number"><input id="bgm-volume-value" type="number" min="0" max="100" value="35" step="1" inputmode="numeric" aria-label="BGM 음량 백분율" /><span aria-hidden="true">%</span></span></div></div></div>
           <div class="setting-row"><div class="setting-copy"><label for="sfx-enabled">효과음</label><p id="sfx-enabled-note" class="reading-note">장면에 맞춰 나오는 효과음을 켜거나 끕니다.</p></div><div class="setting-control"><select aria-describedby="sfx-enabled-note" id="sfx-enabled"><option value="on">켜기</option><option value="off">음소거</option></select></div></div>

@@ -251,6 +251,16 @@
     return record?.relatedReport && validReportContext()?'확인하고 본편으로 돌아가기':record?.epilogue?'기록 마치기':'보고서 열람 완료';
   }
 
+  function syncReportFlow() {
+    const context=validReportContext(),record=currentRecord(),main=context&&archive.getRecord(context.recordId);
+    const visible=Boolean(context && record?.readerMode==='report' && state.screen==='objective-screen');
+    $('#report-flow').hidden=!visible;$('#objective-screen').classList.toggle('has-report-flow',visible);
+    if(!visible)return;
+    $('#report-flow-label').textContent=record.id===main.id?`${recordNumber(main)} · 본편 문서`:`${recordNumber(main)}에서 자료 확인 중`;
+    $('#report-return').hidden=record.id===main.id;$('#report-return').textContent=main.readerMode==='report'?`${recordNumber(main)} 본문으로`:'본편 이어보기';
+    $('#report-next').hidden=main.readerMode!=='report';$('#report-next').textContent=reportCompletionLabel(main);
+  }
+
   async function returnReportMain() {
     const context=validReportContext();if(!context)return;
     const previousId=state.selectedRecordId,previousKind=state.archiveRecordKind;
@@ -268,7 +278,7 @@
   async function continueMainReport() {
     const context=validReportContext(),record=context&&archive.getRecord(context.recordId);
     if(!record || record.readerMode!=='report')return;
-    const progress=recordProgress(record.id);progress.completed=true;progress.inProgress=false;progress.lineIndex=0;progress.reportScroll=0;
+    const progress=recordProgress(record.id);progress.completed=true;progress.inProgress=false;progress.lineIndex=0;
     if(state.progress.resumeRecordId===record.id)delete state.progress.resumeRecordId;
     saveProgress();
     const next=archive.getRecord(record.nextId);
@@ -327,7 +337,7 @@
     return spec ? {...view,recordId:spec.targetId,lineIndex:spec.indices[view.presentationVersion || 1]?.[view.lineIndex] ?? 0,dPositionCurrent:true} : view;
   }
 
-  function loadProgress(imported = null, syncBgm = true) {
+  function loadProgress(imported = null) {
     try {
       const parsed = imported || JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
       state.progress = {records:{}};
@@ -342,8 +352,6 @@
       const migrationRecords=orderedRecords.filter(record=>record.diskId!=='D');
       if (typeof saved.resumeRecordId === 'string' && archive.getRecord(saved.resumeRecordId)) state.progress.resumeRecordId = saved.resumeRecordId;
       state.progress.resetGeneration = Number.isSafeInteger(saved.resetGeneration) && saved.resetGeneration >= 0 ? saved.resetGeneration : 0;
-      state.progress.endingPhotoSeen = saved.endingPhotoSeen === true;
-      state.progress.postEndingBgm = ['waiting-commander','side-story'].includes(saved.postEndingBgm) ? saved.postEndingBgm : 'waiting-commander';
       if (saved.records && typeof saved.records === "object" && !Array.isArray(saved.records)) {
         state.progress.records = saved.records;
       } else if ("completed" in saved || "lineIndex" in saved) {
@@ -630,7 +638,6 @@
       // A malformed save is recoverable; availability is checked on the next write.
       state.progress = { version:24, c02LayoutVersion:1, records: {} };
     }
-    if(syncBgm)window.RustedPrayerBgm?.setEndingPhotoSeen(state.progress.endingPhotoSeen === true,state.progress.postEndingBgm);
   }
 
   function c02Position(index,version=20) {
@@ -699,6 +706,7 @@
     state.presentedRecordId=currentRecord()?.id || null;
     if(['story-screen','ending-screen','gallery-screen','boot-screen'].includes(id))state.reportContext=null;
     syncReadingMusic(currentRecord(),state.lineIndex,id);
+    syncReportFlow();
     if(id!=='story-screen')window.RustedPrayerSfx?.syncScene(currentRecord(),state.lineIndex,state.telemetryPage,id);
     if (id !== 'story-screen') $('#screen-fx').hidden = true;
     screens.forEach((screen) => {
@@ -1206,14 +1214,12 @@
     syncReadingSetupGuide();
     renderDReportBrowser();
     const finish=()=>{
-      // Completed reports reopen at the top; interrupted readings keep their scroll position.
-      const resumeScroll=progress.inProgress && Number.isFinite(progress.reportScroll) ? Math.max(0,progress.reportScroll) : 0;
       if(report && !record.relatedReport) {
         progress.inProgress=true;state.progress.resumeRecordId=record.id;
-        if(record.diskId==='D')state.reportContext={recordId:record.id,screen:'objective-screen',lineIndex:state.lineIndex,scrollTop:resumeScroll,telemetryPage:0};
+        if(record.diskId==='D')state.reportContext={recordId:record.id,screen:'objective-screen',lineIndex:state.lineIndex,scrollTop:Math.max(0,progress.reportScroll || 0),telemetryPage:0};
       }
       showScreen('objective-screen',historyMode);
-      if(report && !record.relatedReport) {window.scrollTo({top:resumeScroll,behavior:'instant'});saveProgress();}
+      if(report && !record.relatedReport) {window.scrollTo({top:Math.max(0,progress.reportScroll || 0),behavior:'instant'});saveProgress();}
       return true;
     };
     return reveal?finish():finish;
@@ -1782,13 +1788,7 @@
       const widePanels=panels.filter(panel=>panel.left<=width*.15 && panel.right>=width*.85);
       const safeBottom=Math.max(0,Math.min(height,...widePanels.map(panel=>panel.top)));
       const overlapsPanel=rect=>panels.some(panel=>rect.left<panel.right && rect.right>panel.left && rect.top<panel.bottom && rect.bottom>panel.top);
-      // Match the portrait image's visible picture band, not the full phone stage.
-      // Inline clip-path must include this bound (it overrides the CSS path clip).
-      const portrait=stage.dataset.aMobileLayout==='contained';
-      const pictureTop=portrait ? Math.max(0,Number.parseFloat(stage.style.getPropertyValue('--a-picture-top')) || 0) : 0;
-      const pictureBottom=portrait ? Math.min(height,Number.parseFloat(stage.style.getPropertyValue('--a-picture-bottom')) || height) : height;
-      const clipBottom=Math.max(pictureTop,Math.min(safeBottom,pictureBottom));
-      targets.parentElement.style.clipPath=`inset(${pictureTop}px 0 ${Math.max(0,height-clipBottom)}px 0)`;
+      targets.parentElement.style.clipPath=`inset(0 0 ${height-safeBottom}px 0)`;
       targets.querySelectorAll('[data-person]').forEach((target,index)=>{
         const [left,top,w,h]=shot.identities[index].bounds;
         const px=x+(left+w/2)/100*bw*zoom, py=y+(top+h/2)/100*bh*zoom;
@@ -2415,7 +2415,6 @@
     progress.completed = true;
     progress.lineIndex = 0;
     progress.inProgress = false;
-    if(record.readerMode==='report')progress.reportScroll=0;
     progress.telemetryPage = 0;
     if (state.progress.resumeRecordId===record.id) delete state.progress.resumeRecordId;
     state.lineIndex = 0;
@@ -2605,6 +2604,8 @@
       'd-record-kind':()=>{rememberArchiveScroll();state.archiveRecordKind=target?.dataset.kind==='related' ? 'related' : 'main';selectDisk('D');restoreArchiveScroll();},
       'open-d-report':()=>{const record=archive.getRecord(target?.dataset.reportId);if(record?.diskId==='D'&&record.readerMode==='report'&&isRecordUnlocked(record)){const mode=currentRecord()?.relatedReport?'replace':'push';if(!currentRecord()?.relatedReport)captureReportContext();rememberView();state.selectedRecordId=record.id;state.archiveRecordKind=record.relatedReport?'related':'main';selectDisk('D',false);openObjective(mode);}},
       'show-related':()=>{captureReportContext();clearPlaybackTimers();state.auto=false;updateAutoButton();saveProgress();state.archiveRecordKind='related';selectDisk('D');showScreen('archive-screen');},
+      'return-report-main':returnReportMain,
+      'continue-main-report':continueMainReport,
       'resume-main':resumeDMain,
       'archive-pane':()=>moveArchivePane(Number(target?.dataset.archivePane)),
       'archive-open-record':()=>{if(isRecordUnlocked(currentRecord())){state.archiveToolsOpen=false;syncArchiveTools();openObjective();}},
@@ -2755,8 +2756,6 @@
     $('#setting-effects').value = state.effectsReduced ? 'reduced' : 'normal';
     $('#setting-ending-group').hidden = !allRecordsRead();
     $('#setting-ending').value = state.endingAnimation ? 'show' : 'skip';
-    $('#setting-post-ending-bgm-group').hidden = !state.progress.endingPhotoSeen;
-    $('#setting-post-ending-bgm').value = state.progress.postEndingBgm || 'waiting-commander';
     $('#setting-identities').value = state.characterLabels ? 'on' : 'off';
     $('#setting-resume').value = state.autoResume ? 'on' : 'off';
     $('#setting-motion-note').textContent = reduceMotion ? '기기의 동작 줄이기가 적용 중입니다.' : '흔들림과 화면 전환 효과를 줄일 수 있습니다.';
@@ -3002,12 +3001,6 @@
         $('.ending-return').textContent=fromGallery ? '갤러리로 돌아가기' : '보관소로 돌아가기';
         $('#ending-screen').dataset.entrance = !image.hidden && state.endingAnimation && !motionReduced() ? 'first' : '';
         showScreen('ending-screen',historyMode);
-        // Only the successfully displayed final photo unlocks the new archive theme.
-        if(!image.hidden && !state.progress.endingPhotoSeen) {
-          state.progress.endingPhotoSeen=true;
-          saveProgress();
-          window.RustedPrayerBgm?.setEndingPhotoSeen(true,state.progress.postEndingBgm);
-        }
         scheduleEndingShutter();
         return true;
       };
@@ -3109,7 +3102,7 @@
 
   function confirmReset() {
     if (state.screen !== 'reset-screen' || state.loading) return;
-    const next = {...state.progress, version:24, records:{}, endingPhotoSeen:false, postEndingBgm:'waiting-commander',
+    const next = {...state.progress, version:24, records:{},
       instant:state.instant, continuous:state.continuous, textSize:state.textSize, dialoguePosition:state.dialoguePosition,
       textSpeed:state.textSpeed, autoSpeed:state.autoSpeed, rememberAuto:state.rememberAuto, autoEnabled:state.autoEnabled, effectsReduced:state.effectsReduced, endingAnimation:state.endingAnimation,
       characterLabels:state.characterLabels, autoResume:state.autoResume, aIdentificationIntroSeen:false,
@@ -3146,10 +3139,7 @@
       if (!imported || typeof imported !== 'object' || Array.isArray(imported) || !imported.records || typeof imported.records !== 'object' || Array.isArray(imported.records) || (imported.version && (!Number.isInteger(imported.version) || imported.version > 24 || imported.version < 1))) throw Error('지원하는 진행도 파일이 아닙니다.');
       // Import into a temporary progress object, using the same old-save migrations.
       const previous = state.progress;
-      loadProgress(imported,false);
-      state.progress.endingPhotoSeen ||= previous.endingPhotoSeen === true;
-      if(previous.endingPhotoSeen === true)state.progress.postEndingBgm=['waiting-commander','side-story'].includes(previous.postEndingBgm) ? previous.postEndingBgm : 'waiting-commander';
-      window.RustedPrayerBgm?.setEndingPhotoSeen(state.progress.endingPhotoSeen,state.progress.postEndingBgm);
+      loadProgress(imported);
       state.progress.resetGeneration = previous.resetGeneration || 0;
       state.progress.aIdentificationIntroSeen ||= previous.aIdentificationIntroSeen === true;
       state.progress.readingSetupSeen ||= previous.readingSetupSeen === true;
@@ -3242,14 +3232,6 @@
       labLayout.observe($('#dialogue-box'));
       labLayout.observe($('#story-stage'));
     }
-    $('#setting-post-ending-bgm').addEventListener('change',event=>{
-      if(!state.progress.endingPhotoSeen)return;
-      const track=event.target.value;
-      if(!['waiting-commander','side-story'].includes(track))return;
-      state.progress.postEndingBgm=track;
-      saveProgress();
-      window.RustedPrayerBgm?.setPostEndingBgm(track);
-    });
     $('#profile-image').addEventListener('error', () => { $('#profile-image').hidden = true; });
     $('#profile-overlay').addEventListener('click', event => {
       if (event.target === $('#profile-overlay')) closeProfile();
