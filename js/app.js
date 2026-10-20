@@ -12,6 +12,7 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const archiveMobileQuery=window.matchMedia('(max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse)');
   const touchInputQuery=window.matchMedia('(hover:none) and (pointer:coarse)');
+  const reportMobileQuery=window.matchMedia('(max-width:900px)');
   let menuTipShown=false,menuTipActive=false,menuTipTimer=null;
   const archivePanelIds=['archive-media-panel','archive-files-panel','archive-detail-panel'];
   const defaultDialoguePosition=()=>archiveMobileQuery.matches ? 'left' : 'center';
@@ -1334,8 +1335,8 @@
     $('#objective-screen').classList.toggle('report-reader', report);
     $('#objective-screen').classList.toggle('terminal-reader', report && record.reportStyle==='terminal');
     if (report) {
-      $('#objective-title').textContent = record.title;
-      $('#objective-body').innerHTML = record.reportSections.map((section,index) => `<section id="report-section-${index}" class="report-section${record.id==='C-00' && index===0 ? ' report-section-no-divider' : ''}">${record.id==='C-00' && section.attachmentImage ? '' : `<h2>${escapeHtml(section.cardTitle || '기록')}</h2>`}${renderSheet(section,index)}</section>`).join('') + `<footer class="report-end"><span>${record.epilogue ? '— 복구 기록의 끝 —' : '— 문서 끝 —'}</span>${reportEndActions(record)}</footer>`;
+      $('#objective-title').textContent = record.title.replace(/_/g,' ');
+      $('#objective-body').innerHTML = record.reportSections.map((section,index) => `<section id="report-section-${index}" class="report-section${section.tone==='memo' ? ' report-section-memo' : ''}${record.id==='C-00' && index===0 ? ' report-section-no-divider' : ''}">${record.id==='C-00' && section.attachmentImage ? '' : `<h2>${escapeHtml(section.cardTitle || '기록')}</h2>`}${renderSheet(section,index)}</section>`).join('') + `<footer class="report-end"><span>${record.epilogue ? '— 복구 기록의 끝 —' : '— 문서 끝 —'}</span>${reportEndActions(record)}</footer>`;
       if(record.reportStyle==='terminal') {
         $('#objective-title').textContent=record.fileName;
         $('#objective-body').innerHTML=renderTerminalReport(record);
@@ -1374,11 +1375,24 @@
     const record=currentRecord(),visible=record.diskId==='D' && record.readerMode==='report';
     $('#d-report-browser').hidden=!visible;$('#objective-screen').classList.toggle('d-report-folder',visible);
     if(!visible) {$('#d-report-tree').innerHTML='';return;}
+    $('#d-report-browser').dataset.expanded='false';
+    $('#d-report-current').textContent=`${recordNumber(record)} · ${record.title.replace(/_/g,' ')}`;
+    syncDReportBrowser();
     const reports=archive.getRecordsByDisk('D').filter(item=>item.readerMode==='report');
     $('#d-report-tree').innerHTML=[false,true].map(related=>`<h3>${related?'▾ 관련 보고서':'▾ 본편 문서'}</h3>`+reports.filter(item=>Boolean(item.relatedReport)===related).map(item=>{
       const unlocked=isRecordUnlocked(item),progress=recordProgress(item.id);
       return `<button type="button" data-action="open-d-report" data-report-id="${item.id}" ${unlocked?'':'disabled'} ${item.id===record.id?'aria-current="page"':''}>${escapeHtml(recordNumber(item))}<small>${unlocked?escapeHtml(item.title)+' · '+(progress.completed?'열람 완료':'열람 가능'):'잠긴 기록'}</small></button>`;
     }).join('')).join('');
+  }
+
+  function syncDReportBrowser() {
+    const mobile=reportMobileQuery.matches;
+    const expanded=!mobile || $('#d-report-browser').dataset.expanded==='true';
+    $('#d-report-toggle').hidden=!mobile;
+    $('#d-report-current').hidden=!mobile;
+    $('#d-report-toggle').setAttribute('aria-expanded',String(expanded));
+    $('#d-report-toggle span').textContent=expanded?'▴':'▾';
+    $('#d-report-contents').hidden=!expanded;
   }
 
   function syncReadingSetupGuide() {
@@ -1562,15 +1576,16 @@
       return;
     }
     if (target.id !== 'dialogue-text') { target.textContent=text; return; }
-    // Reserve complete sentences during typing; wrapping prefers a sentence boundary.
+    // Keep the unrevealed suffix in the same inline flow to reserve natural line
+    // breaks without forcing each sentence onto its own row. Keep ellipsis runs
+    // intact so their nonbreaking styling is identical at every typing step.
     let offset=0;
-    target.innerHTML=state.fullText.split(/(?<=[.!?。])\s+/u).map(sentence=> {
-      const start=state.fullText.indexOf(sentence,offset);
-      offset=start+sentence.length;
-      const shown=sentence.slice(0,Math.max(0,text.length-start));
-      const ink=value=>escapeHtml(value).replace(/·+/g,match=>`<span class="ellipsis">${match}</span>`);
-      return `<span class="spoken-sentence"><span class="sentence-measure" aria-hidden="true">${ink(sentence)}</span><span class="sentence-ink">${ink(shown)}</span></span>`;
-    }).join(' ');
+    target.innerHTML=(state.fullText.match(/·+|[^·]+/g) || []).map(run=> {
+      const count=Math.max(0,Math.min(run.length,text.length-offset));
+      offset+=run.length;
+      const content=escapeHtml(run.slice(0,count))+(count<run.length?`<span class="typed-unrevealed" aria-hidden="true">${escapeHtml(run.slice(count))}</span>`:'');
+      return run.startsWith('·')?`<span class="ellipsis">${content}</span>`:content;
+    }).join('');
   }
 
   function startTypewriter(target, text) {
@@ -2852,6 +2867,7 @@
     const actions = {
       'settings-category':()=>selectSettingsCategory(target?.dataset.settingsCategory),
       'd-record-kind':()=>{rememberArchiveScroll();state.archiveRecordKind=target?.dataset.kind==='related' ? 'related' : 'main';selectDisk('D');restoreArchiveScroll();},
+      'toggle-d-reports':()=>{const panel=$('#d-report-browser');panel.dataset.expanded=String(panel.dataset.expanded!=='true');syncDReportBrowser();},
       'open-d-report':()=>{const record=archive.getRecord(target?.dataset.reportId);if(record?.diskId==='D'&&record.readerMode==='report'&&isRecordUnlocked(record)){const mode=currentRecord()?.relatedReport?'replace':'push';if(!currentRecord()?.relatedReport)captureReportContext();rememberView();state.selectedRecordId=record.id;state.archiveRecordKind=record.relatedReport?'related':'main';selectDisk('D',false);openObjective(mode);}},
       'show-related':()=>{captureReportContext();clearPlaybackTimers();state.auto=false;updateAutoButton();saveProgress();state.archiveRecordKind='related';selectDisk('D');showScreen('archive-screen');},
       'return-report-main':returnReportMain,
@@ -3903,6 +3919,7 @@
     });
     window.addEventListener('storage', event => { if (progressStore.isStorageKey(event.key)) syncMusicProgress(); });
     window.addEventListener('focus', syncMusicProgress);
+    reportMobileQuery.addEventListener?.('change',syncDReportBrowser);
     window.matchMedia('(max-width:760px)').addEventListener?.('change', () => {
       if (state.screen === 'story-screen') renderResearchMedia(window.RustedPrayerVisuals.resolve(currentRecord(),state.lineIndex,getActiveVisual(state.lineIndex),state.telemetryPage));
     });

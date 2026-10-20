@@ -14,7 +14,7 @@ const source=path.resolve(testRoot,'../..');
 const code=await fs.readFile(path.join(source,'js/app.js'),'utf8');
 const bgmCode=await fs.readFile(path.join(source,'js/core/bgm.js'),'utf8');
 const instrumentedBgm=bgmCode.replace('window.RustedPrayerBgm={','window.__bgmAudit={audio,desired};window.RustedPrayerBgm={');
-const exports='state,orderedRecords,mainRecords,startStory,openObjective,selectDisk,selectRecord,showScreen,handleAction,renderLine,finishTyping,clearPlaybackTimers,loadProgress,saveProgress,recordProgress,storyPages,restoreView,viewState,openReadLocation,completeRecord,importProgress,goBack,toggleAuto,setStoryMenu,toggleBookmark,confirmReset,progressStore,changeReadingSettings,cancelLoading,loadTransition,suspendPlayback,resumePlayback,playbackTasks,archiveNavigation';
+const exports='state,orderedRecords,mainRecords,startStory,openObjective,selectDisk,selectRecord,showScreen,handleAction,renderLine,finishTyping,writeTypedText,clearPlaybackTimers,loadProgress,saveProgress,recordProgress,storyPages,restoreView,viewState,openReadLocation,completeRecord,importProgress,goBack,toggleAuto,setStoryMenu,toggleBookmark,confirmReset,progressStore,changeReadingSettings,cancelLoading,loadTransition,suspendPlayback,resumePlayback,playbackTasks,archiveNavigation';
 const instrumented=code.replace(/  loadProgress\(\);\r?\n  selectReadingPosition\(\);/,`  window.__audit={${exports}};\n  loadProgress();\n  selectReadingPosition();`);
 if(instrumented===code)throw Error('instrumentation point missing');
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.svg':'image/svg+xml','.mp3':'audio/mpeg','.ogg':'audio/ogg','.woff2':'font/woff2'};

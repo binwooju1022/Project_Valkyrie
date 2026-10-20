@@ -170,8 +170,12 @@
           </article>
           <aside id="d-report-browser" class="d-report-browser" aria-label="D편 보고서 탐색" hidden>
             <h2>D편 자료 폴더</h2>
-            <nav id="d-report-tree" aria-label="보고서 선택"></nav>
-            <button class="text-button" data-action="show-archive" type="button">파일 목록으로</button>
+            <button id="d-report-toggle" class="d-report-toggle" data-action="toggle-d-reports" type="button" aria-expanded="false" aria-controls="d-report-contents" hidden>보고서 목록 <span aria-hidden="true">▾</span></button>
+            <p id="d-report-current" class="d-report-current" hidden></p>
+            <div id="d-report-contents">
+              <nav id="d-report-tree" aria-label="보고서 선택"></nav>
+              <button class="text-button" data-action="show-archive" type="button">파일 목록으로</button>
+            </div>
           </aside>
 
           <aside id="analysis-card" class="analysis-card" aria-label="재생">
