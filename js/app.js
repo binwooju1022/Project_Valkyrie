@@ -1627,6 +1627,9 @@
     delete stage.dataset.aComposition;
     delete stage.dataset.aPath;
     cutsceneGeometry = null;
+    const portraitChat=currentRecord()?.id==='B-02' && currentStory()[state.lineIndex]?.tone==='chat'
+      && window.matchMedia('(max-width:760px) and (orientation:portrait)').matches;
+    if(portraitChat) {copy?.classList.remove('composition-copy');stopAPath();return false;}
     if (shot.mode !== 'cutscene' || !image?.naturalWidth
       || typeof image.parentElement?.getBoundingClientRect !== 'function' || shot.zoom !== 1) {stopAPath();return false;}
     const bounds=image.parentElement.getBoundingClientRect();

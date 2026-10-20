@@ -700,6 +700,23 @@
 
 /* Keep the photographed scene behind B-02's chat. */
 .story-stage[data-record='B-02'][data-tone='chat'] .scene-art {opacity:.3;filter:brightness(.65);}
+/* The opening photograph remains available in portrait chat through profiles. */
+@media (max-width:760px) and (orientation:portrait) {
+  .story-stage[data-record='B-02'][data-tone='chat'] .scene-art {display:none;}
+  .story-stage[data-record='B-02'][data-tone='chat'] .communication-panel {
+    top:50%;bottom:auto;left:50%;right:auto;transform:translate(-50%,-50%);
+    width:calc(100% - 1.2rem);height:calc(100% - 2rem);max-height:calc(100% - 2rem);padding:0;
+  }
+  .story-stage[data-record='B-02'][data-tone='chat'] .communication-panel > :is(header,.chat-members,footer) {flex-shrink:0;}
+  .story-stage[data-record='B-02'][data-tone='chat'] .communication-feed {min-height:0;max-height:none;overflow-y:auto;}
+}
+/* Radio metadata must leave room for the received message, including landscape. */
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel {
+  top:auto;bottom:max(.75rem,env(safe-area-inset-bottom));height:min(18rem,calc(100% - 1.5rem));
+  min-height:min(12rem,calc(100% - 1.5rem));max-height:60%;padding:0;box-sizing:border-box;
+}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel > :is(header,footer) {flex-shrink:0;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-feed {min-height:0;max-height:none;overflow-y:auto;}
 /* Short blackout: only the overlay moves, never the artwork's fit container. */
 .screen-fx.fx-cut-blackout {background:#020504;animation:b-cut-blackout .36s ease-out both;}
 .screen-fx.fx-cut-blackout::after {content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 38px,#a2b8b62b 38px 39px,transparent 39px 73px);opacity:.3;animation:b-cut-glitch .32s steps(3,end) both;}
