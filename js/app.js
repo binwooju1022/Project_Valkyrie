@@ -786,7 +786,7 @@
     job.controller.abort();
     job.decide?.('cancel');
     if (state.screen === 'transition-screen') {
-      clearTimeout(state.autoTimer);
+      stopPlaybackTimer('autoTimer');
       state.transitionPaused = true;
       updateAutoButton();
       rememberView();
@@ -795,6 +795,7 @@
     $('#app').inert = false;
     $('#app').setAttribute('aria-busy', 'false');
     $('#' + state.screen).focus({preventScroll:true});
+    resumePlayback(job.playback);
   }
 
   function waitForSignal(milliseconds, signal) {
@@ -808,7 +809,8 @@
 
   async function loadTransition(title, record, duration = 420, initial = false, commit = null, audible = true, completionSound = 'out-02') {
     cancelLoading();
-    const job = {controller:new AbortController(), decide:null, sound:audible ? window.RustedPrayerSfx?.beginLoad(completionSound) : null};
+    const job = {controller:new AbortController(), decide:null, playback:suspendPlayback(),
+      sound:audible ? window.RustedPrayerSfx?.beginLoad(completionSound) : null};
     state.loading = job;
     $('#app').inert = true;
     $('#app').setAttribute('aria-busy', 'true');
@@ -1378,24 +1380,68 @@
     return line.speakerTheme || SPEAKER_THEMES[line.speaker] || "neutral";
   }
 
+  const playbackTasks = new Map();
+  let playbackEpoch = 0;
+
+  function stopPlaybackTimer(field) {
+    clearTimeout(state[field]);
+    state[field] = null;
+    playbackTasks.delete(field);
+  }
+
+  function setPlaybackTimer(field, callback, delay) {
+    stopPlaybackTimer(field);
+    const task = {callback,deadline:performance.now()+delay};
+    playbackTasks.set(field,task);
+    state[field] = setTimeout(()=>{
+      if (playbackTasks.get(field)!==task) return;
+      playbackTasks.delete(field);
+      state[field]=null;
+      callback();
+    },delay);
+  }
+
+  function suspendPlayback() {
+    if (!['story-screen','transition-screen'].includes(state.screen)) return null;
+    const snapshot = {epoch:playbackEpoch,screen:state.screen,recordId:state.selectedRecordId,
+      lineIndex:state.lineIndex,page:state.telemetryPage,resetGeneration:state.progress.resetGeneration || 0,
+      timers:[...playbackTasks].map(([field,task])=>({field,callback:task.callback,remaining:Math.max(0,task.deadline-performance.now())}))};
+    for (const field of ['autoTimer','typeTimer','gateTimer']) stopPlaybackTimer(field);
+    return snapshot;
+  }
+
+  function canAutoAdvance() {
+    if (state.loading || document.hidden || !state.auto || !$('#profile-overlay').hidden) return false;
+    if (state.screen==='transition-screen') return Boolean(state.transition) && !state.transitionPaused;
+    return state.screen==='story-screen' && !state.isTyping && !state.advanceLocked && !state.attachmentPending &&
+      !state.menuOpen && $('#backlog').hidden && !$('#story-options').open && !state.uiHidden;
+  }
+
+  function resumePlayback(snapshot) {
+    if (!snapshot || state.loading || snapshot.epoch!==playbackEpoch || snapshot.screen!==state.screen ||
+        snapshot.recordId!==state.selectedRecordId || snapshot.lineIndex!==state.lineIndex ||
+        snapshot.page!==state.telemetryPage || snapshot.resetGeneration!==(state.progress.resetGeneration || 0)) return;
+    for (const {field,callback,remaining} of snapshot.timers) {
+      if (field!=='autoTimer' || canAutoAdvance()) setPlaybackTimer(field,callback,remaining);
+    }
+    $('#acknowledge-insert').disabled=state.advanceLocked;
+    if (!state.autoTimer) scheduleAutoAdvance();
+  }
+
   function clearPlaybackTimers() {
-    clearTimeout(state.autoTimer);
-    clearTimeout(state.typeTimer);
-    state.autoTimer = null;
-    state.typeTimer = null;
-    clearTimeout(state.gateTimer);
-    state.gateTimer = null;
+    playbackEpoch+=1;
+    for (const field of ['autoTimer','typeTimer','gateTimer']) stopPlaybackTimer(field);
     state.advanceLocked = false;
   }
 
   function scheduleAutoAdvance() {
-    clearTimeout(state.autoTimer);
-    if (state.loading || document.hidden || !state.auto || !$('#profile-overlay').hidden) return;
+    stopPlaybackTimer('autoTimer');
+    if (!canAutoAdvance()) return;
     if (state.screen === 'transition-screen' && state.transition) {
       if (state.transitionPaused) return;
       const next = archive.getRecord(state.transition.toId);
       const length = next.objective.map(item => item.text || '').join('').length + next.title.length;
-      state.autoTimer = setTimeout(continueRecordTransition, Math.max(4000, Math.min(24000, length * 85 * speedFactor(state.autoSpeed))));
+      setPlaybackTimer('autoTimer',()=>{if(canAutoAdvance())continueRecordTransition();}, Math.max(4000, Math.min(24000, length * 85 * speedFactor(state.autoSpeed))));
       return;
     }
     if (state.screen !== 'story-screen') return;
@@ -1404,11 +1450,11 @@
     const story=currentStory(),line=story[state.lineIndex],next=story[state.lineIndex+1];
     const chatEnd=line?.tone==='chat' && (!next || next.tone!=='chat' || next.channel!==line.channel || next.session!==line.session);
     const delay = Math.max(250,readingDuration(state.fullText,line)-state.typingCredit,line?.autoPause || 0) + (line?.readingBeat?.extraAutoDelay || 0) + (chatEnd ? 1000 : 0);
-    state.autoTimer = setTimeout(() => nextLine(true), delay);
+    setPlaybackTimer('autoTimer',()=>{if(canAutoAdvance())nextLine(true);},delay);
   }
 
   function finishTyping() {
-    clearTimeout(state.typeTimer);
+    stopPlaybackTimer('typeTimer');
     if (state.typingTarget) writeTypedText(state.typingTarget,state.fullText);
     state.typeTimer = null;
     state.isTyping = false;
@@ -1467,10 +1513,10 @@
       const character = state.fullText[index - 1];
       const delay = /[.!?·。]/.test(character) ? 105 : character === " " ? 18 : 34;
       wait=Math.round(delay * speedFactor(state.textSpeed));
-      state.typeTimer = setTimeout(typeNext, wait);
+      setPlaybackTimer('typeTimer',typeNext,wait);
     };
 
-    state.typeTimer = setTimeout(typeNext, 120);
+    setPlaybackTimer('typeTimer',typeNext,120);
   }
 
   function configureCutscene(line) {
@@ -2075,7 +2121,7 @@
     if (state.screen !== 'story-screen' || currentStory()[state.lineIndex]?.tone !== 'chat') return;
     const photo = profileAtScene(speaker);
     if (!photo) return;
-    clearTimeout(state.autoTimer);
+    stopPlaybackTimer('autoTimer');
     const picture = $('#profile-picture');
     picture.dataset.photo = ['landscape','pair'].includes(photo.key) ? photo.key : 'default';
     picture.setAttribute('role','img');
@@ -2202,7 +2248,7 @@
     state.advanceLocked = hold > 0;
     $('#acknowledge-insert').hidden = !state.attachmentPending;
     $('#acknowledge-insert').disabled = state.advanceLocked;
-    if (hold) state.gateTimer=setTimeout(()=>{
+    if (hold) setPlaybackTimer('gateTimer',()=>{
       state.advanceLocked=false;
       $('#acknowledge-insert').disabled=false;
       scheduleAutoAdvance();
@@ -2515,7 +2561,7 @@
 
   function continueRecordTransition() {
     if (state.screen !== 'transition-screen' || state.loading || !state.transition) return;
-    clearTimeout(state.autoTimer);
+    stopPlaybackTimer('autoTimer');
     const next = continuousNext(currentRecord());
     if (next?.id !== state.transition.toId) { stopRecordTransition(); return; }
     // Commit the new record only after loading succeeds; cancelling keeps this card.
@@ -2571,7 +2617,7 @@
     updateAutoButton();
     if (state.screen==='transition-screen') rememberView();
     if (state.auto) scheduleAutoAdvance();
-    else clearTimeout(state.autoTimer);
+    else stopPlaybackTimer('autoTimer');
   }
 
   function updateAutoButton() {
@@ -2589,7 +2635,7 @@
   function toggleUi() {
     state.uiHidden = !state.uiHidden;
     $("#story-stage").classList.toggle("ui-hidden", state.uiHidden);
-    if (state.uiHidden) clearTimeout(state.autoTimer);
+    if (state.uiHidden) stopPlaybackTimer('autoTimer');
     else scheduleAutoAdvance();
   }
 
@@ -2603,7 +2649,7 @@
     const backlog = $("#backlog");
     setLogOpen(backlog.hidden);
     if (!backlog.hidden) {
-      clearTimeout(state.autoTimer);
+      stopPlaybackTimer('autoTimer');
       buildBacklog();
       backlog.scrollTop = backlog.scrollHeight;
       backlog.focus({preventScroll:true});
@@ -3004,9 +3050,8 @@
   async function openReadLocation(recordId,index) {
     const record = archive.getRecord(recordId);
     if (!Number.isInteger(index) || !readableLines(record)[index]) return;
-    clearPlaybackTimers();
-    state.auto = false;
-    updateAutoButton();
+    // Loading owns the pause. Keep the current line and timer closures intact
+    // until a new scene actually commits, so cancellation can resume in place.
     setLogOpen(false);
     rememberView();
     if (record.readerMode === 'report') {
@@ -3366,7 +3411,7 @@
       }
     });
     $('#story-options').addEventListener('toggle', () => {
-      if ($('#story-options').open) clearTimeout(state.autoTimer);
+      if ($('#story-options').open) stopPlaybackTimer('autoTimer');
       else scheduleAutoAdvance();
     });
     $('#backlog-dismiss').addEventListener('click', toggleLog);
@@ -3482,7 +3527,7 @@
       if (event.code === "KeyH") toggleUi();
     });
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) { clearTimeout(state.autoTimer); clearTimeout(state.previewTimer); settleACamera(); clearEndingShutter(); }
+      if (document.hidden) { stopPlaybackTimer('autoTimer'); clearTimeout(state.previewTimer); settleACamera(); clearEndingShutter(); }
       else { if (syncResetFromStorage()) return; refreshCutsceneComposition(true); scheduleAutoAdvance(); if (state.screen === 'settings-screen') startSettingsPreview(); }
     });
     window.addEventListener('storage', event => { if (progressStore.isStorageKey(event.key)) syncResetFromStorage(); });
