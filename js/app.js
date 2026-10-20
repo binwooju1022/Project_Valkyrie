@@ -1783,21 +1783,24 @@
       // screen markers drift during zoom and do not scale with desktop faces.
       targets.setAttribute('style',`width:${bw}px;height:${bh}px;transform-origin:0 0;transform:translate(${x}px,${y}px) scale(${zoom});transition:transform ${duration}ms ease;--identity-zoom:${zoom};`);
       animateAPath(targets,cutsceneGeometry);
-      const stageBounds=$('#story-stage').getBoundingClientRect();
+      const stage=$('#story-stage'), stageBounds=stage.getBoundingClientRect();
+      const contained=stage.dataset.aMobileLayout==='contained';
+      const safeTop=contained ? Math.min(height,Math.max(0,parseFloat(stage.style.getPropertyValue('--a-picture-top')) || 0)) : 0;
+      const pictureBottom=contained ? Math.min(height,parseFloat(stage.style.getPropertyValue('--a-picture-bottom')) || height) : height;
       // Only full-width captions define a shared lower edge. A small radio
       // panel must not clip unrelated faces on the other side of the artwork.
       const panels=[$('#dialogue-box'),$('.cutscene-copy'),$('#story-caption'),$('#telemetry-panel'),$('#communication-panel'),$('#system-panel')]
         .filter(panel=>!panel.hidden && panel.getBoundingClientRect().height>0)
         .map(panel=>{const rect=panel.getBoundingClientRect();return {left:rect.left-stageBounds.left-12,right:rect.right-stageBounds.left+12,top:rect.top-stageBounds.top-12,bottom:rect.bottom-stageBounds.top+12};});
       const widePanels=panels.filter(panel=>panel.left<=width*.15 && panel.right>=width*.85);
-      const safeBottom=Math.max(0,Math.min(height,...widePanels.map(panel=>panel.top)));
+      const safeBottom=Math.max(safeTop,Math.min(pictureBottom,...widePanels.map(panel=>panel.top)));
       const overlapsPanel=rect=>panels.some(panel=>rect.left<panel.right && rect.right>panel.left && rect.top<panel.bottom && rect.bottom>panel.top);
-      targets.parentElement.style.clipPath=`inset(0 0 ${height-safeBottom}px 0)`;
+      targets.parentElement.style.clipPath=`inset(${safeTop}px 0 ${height-safeBottom}px 0)`;
       targets.querySelectorAll('[data-person]').forEach((target,index)=>{
         const [left,top,w,h]=shot.identities[index].bounds;
         const px=x+(left+w/2)/100*bw*zoom, py=y+(top+h/2)/100*bh*zoom;
         const frame={left:x+left/100*bw*zoom,right:x+(left+w)/100*bw*zoom,top:y+top/100*bh*zoom,bottom:y+(top+h)/100*bh*zoom};
-        target.hidden=px<0 || px>width || py<0 || py>safeBottom
+        target.hidden=px<0 || px>width || py<safeTop || py>safeBottom
           || panels.some(panel=>!widePanels.includes(panel) && frame.left<panel.right && frame.right>panel.left && frame.top<panel.bottom && frame.bottom>panel.top);
         const label=target.querySelector('span');
         label.hidden=false;
@@ -1807,7 +1810,7 @@
         const aboveRect={left:px-halfWidth,right:px+halfWidth,top:frame.top-labelHeight,bottom:frame.top};
         const above=below.bottom>safeBottom || overlapsPanel(below);
         target.dataset.labelAbove=String(above);
-        label.hidden=above && (aboveRect.top<0 || overlapsPanel(aboveRect));
+        label.hidden=above && (aboveRect.top<safeTop || overlapsPanel(aboveRect));
       });
       targets.hidden=false;
     }
