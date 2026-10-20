@@ -88,6 +88,11 @@ html { min-width:0; }
 .settings-category .shortcut-guide,.settings-category .save-tools:first-child {margin-top:0;padding-top:0;border-top:0;}
 .settings-footer {margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--line);}
 .settings-footer > .reading-note {margin-top:0;}
+.settings-footer .button {min-height:44px;margin:.3rem .5rem .3rem 0;}
+.archive-shortcuts {white-space:pre-line;}
+.insert-scroll-note {display:block;margin:0 0 .7rem;font-size:.78rem;line-height:1.5;color:inherit;opacity:.8;}
+.auto-status {font-size:.78rem;line-height:1.5;color:var(--muted);}
+.auto-status:empty {display:none;}
 @media(max-width:600px) {.settings-categories {grid-template-columns:repeat(3,minmax(0,1fr));}.settings-category .setting-row select {min-width:0;width:100%;}.settings-category .setting-row {gap:.45rem;}}
 .setting-row {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,15rem);align-items:center;gap:1rem;margin:.65rem 0;padding:1rem;background:var(--surface-raised);}
 .setting-copy {min-width:0;}

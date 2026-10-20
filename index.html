@@ -321,6 +321,7 @@
           <section id="insert-card" class="insert-card" hidden aria-labelledby="insert-title">
             <span id="insert-kicker" class="eyebrow"></span>
             <h2 id="insert-title"></h2>
+            <span id="insert-scroll-note" class="insert-scroll-note" hidden></span>
             <p id="insert-speaker" class="insert-speaker" hidden></p>
             <p id="insert-text" class="insert-text" aria-live="polite"></p>
             <div id="insert-body" class="insert-body" hidden></div>
@@ -337,6 +338,7 @@
 
         <div id="profile-overlay" class="profile-overlay" hidden>
           <section id="profile-dialog" class="profile-card" role="dialog" aria-modal="true" aria-labelledby="profile-name" tabindex="-1">
+            <p class="auto-status" data-auto-status="profile" role="status"></p>
             <header><span class="eyebrow">프로필</span><button id="profile-close" class="text-button" data-action="close-profile" type="button">닫기</button></header>
             <div id="profile-picture" class="profile-picture" data-photo="default">
               <span id="profile-initial" class="profile-initial" aria-hidden="true"></span>
@@ -353,6 +355,7 @@
             <button class="text-button" data-action="toggle-log" type="button">닫기</button>
           </div>
           <ol id="backlog-list"></ol>
+          <p class="auto-status" data-auto-status="backlog" role="status"></p>
           <button id="backlog-search" class="button" data-action="show-library" type="button">읽은 기록 전체에서 찾기</button>
         </aside>
       </section>
@@ -423,6 +426,7 @@
               <div><dt><kbd>Esc</kbd></dt><dd>열린 창 닫기 / 장면 재생 나가기</dd></div>
             </dl>
             <p class="reading-note">장면 클릭으로도 진행합니다. UI가 숨겨져 있으면 진행 키로 먼저 표시합니다.</p>
+            <p class="reading-note">터치 화면에서는 장면을 탭해 진행하고 위쪽 메뉴에서 자동 읽기·설정을 엽니다. 긴 첨부 문서는 위로 스와이프하거나 휠·Page Down으로 읽은 뒤 확인 버튼을 누르세요. 외부 키보드에서도 위 단축키를 사용할 수 있습니다.</p>
           </section>
           </section>
           <section id="settings-panel-data" class="settings-category" role="tabpanel" aria-labelledby="settings-tab-data" data-settings-panel="data" hidden>
@@ -439,6 +443,7 @@
           </section>
           <footer class="settings-footer">
             <p class="reading-note">설정은 바로 저장됩니다. 읽던 곳으로 돌아가면 이어집니다.</p>
+            <button id="settings-return" class="button" data-action="back-archive" type="button">← 읽던 곳으로</button>
             <button id="settings-start-story" class="button button-primary" data-action="start-prepared-story" type="button" hidden>이 설정으로 읽기</button>
           </footer>
         </div>

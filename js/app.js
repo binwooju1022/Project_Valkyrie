@@ -10,6 +10,8 @@
   const numberedText=(text,record)=>String(text || '').replace(new RegExp('^'+record.id,'i'),recordNumber(record).toLowerCase());
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const archiveMobileQuery=window.matchMedia('(max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse)');
+  const touchInputQuery=window.matchMedia('(hover:none) and (pointer:coarse)');
+  let menuTipShown=false,menuTipActive=false,menuTipTimer=null;
   const archivePanelIds=['archive-media-panel','archive-files-panel','archive-detail-panel'];
   const defaultDialoguePosition=()=>archiveMobileQuery.matches ? 'left' : 'center';
 
@@ -1091,13 +1093,13 @@
     $("#record-detail").innerHTML = `
       <p class="detail-code">${escapeHtml(recordNumber(record))}</p>
       <h2>${escapeHtml(record.title || record.fileName)}</h2>
+      <button id="open-record" class="button button-primary" type="button">기록 열기</button>
       <p class="detail-filename">${escapeHtml(record.fileName)}</p>
       ${record.sample ? '<p class="eyebrow">구조 검증용 발췌</p>' : ""}
       <dl class="metadata-list">
         <div><dt>데이터 무결성</dt><dd>${escapeHtml(record.integrity)}</dd></div>
         <div><dt>데이터 크기</dt><dd>${escapeHtml(record.dataSize)}</dd></div>
       </dl>
-      <button id="open-record" class="button button-primary" type="button">기록 열기</button>
     `;
     $("#open-record").addEventListener("click", () => openObjective());
   }
@@ -1429,6 +1431,10 @@
     updateAutoButton();
     showScreen("story-screen", historyMode);
     renderLine();
+    if(touchInputQuery.matches && !menuTipShown) {
+      menuTipShown=true;menuTipActive=true;syncStoryMenu();
+      menuTipTimer=setTimeout(()=>{menuTipActive=false;syncAutoStatus();},8000);
+    }
   }
 
   function getActiveVisual(index) {
@@ -1491,6 +1497,7 @@
     }
     $('#acknowledge-insert').disabled=state.advanceLocked;
     if (!state.autoTimer) scheduleAutoAdvance();
+    syncAutoStatus();
   }
 
   function clearPlaybackTimers() {
@@ -1501,6 +1508,7 @@
 
   function scheduleAutoAdvance() {
     stopPlaybackTimer('autoTimer');
+    syncAutoStatus();
     if (!canAutoAdvance()) return;
     if (state.screen === 'transition-screen' && state.transition) {
       if (state.transitionPaused) return;
@@ -2101,6 +2109,7 @@
     return `inset:auto;left:${-100*x/w}%;top:${-100*y/h}%;width:${100/w}%;height:${100/h}%;max-width:none;object-fit:fill;`;
   }
   function setStoryMenu(open) {
+    if(open){menuTipActive=false;clearTimeout(menuTipTimer);}
     state.menuOpen=open;
     syncStoryMenu();
     scheduleAutoAdvance();
@@ -2112,7 +2121,7 @@
     $('#story-screen').dataset.menu=state.menuOpen ? 'open' : 'closed';
     $('#story-menu-toggle').hidden=!scoped;
     $('#story-menu-toggle').setAttribute('aria-expanded',String(state.menuOpen));
-    $('#story-menu-toggle').textContent=state.menuOpen ? '메뉴 닫기 · Esc ▴' : '메뉴 ▾';
+    syncAutoStatus();
     hud.inert=scoped && !state.menuOpen;
     hud.setAttribute('aria-hidden',String(scoped && !state.menuOpen));
   }
@@ -2205,6 +2214,7 @@
     else img.removeAttribute('src');
     state.profileReturnFocus = trigger;
     $('#profile-overlay').hidden = false;
+    syncAutoStatus();
     $('#story-stage').inert = true;
     $('.story-hud').inert = true;
     $('#profile-close').focus();
@@ -2479,7 +2489,7 @@
       $('#insert-text').hidden = rich;
       $('#insert-body').hidden = !rich;
       $('#insert-card').scrollTop = 0;
-      $('#insert-hint').textContent = state.attachmentPending ? '' : '클릭하여 계속';
+      $('#insert-hint').textContent = state.attachmentPending ? '' : touchInputQuery.matches ? '탭하여 계속' : '클릭 · Space로 계속';
       if (rich) {
         $('#insert-body').innerHTML = renderSheet(line);
         if (line.typeRequest) startTypewriter($('#request-typewriter'),line.text.match(/요청 품목\s*:\s*([\s\S]*?)(?=\s*수량\s*:)/)?.[1]?.trim() || line.rows[0].text);
@@ -2506,6 +2516,8 @@
     }
 
     refreshCutsceneComposition();
+    requestAnimationFrame(syncInsertScrollHint);
+    syncAutoStatus();
     renderResearchMedia(shot);
     if(shot.flashReturn && !motionReduced() && !state.effectsReduced) {
       const at=state.lineIndex,image=cutsceneMode ? $('#memory-image') : $('#stage-camera');
@@ -2689,12 +2701,54 @@
     $("#auto-button").classList.toggle("is-active", state.auto);
     $("#auto-button").setAttribute('aria-pressed', String(state.auto));
     $("#auto-button").textContent = state.auto ? "● 자동" : "○ 자동";
+    $("#auto-button").setAttribute('aria-label',state.auto?'자동 읽기 켜짐 · 눌러서 끄기':'자동 읽기 꺼짐 · 눌러서 켜기');
     $('#transition-auto').setAttribute('aria-pressed', String(state.auto));
     $('#transition-auto').textContent = state.auto ? state.transitionPaused ? '자동 읽기 끄기' : '자동 읽기 멈추기' : '자동 읽기 켜기';
     $('#transition-next').textContent = state.transitionPaused ? state.auto ? '자동으로 이어보기 ›' : '수동으로 이어보기 ›' : '다음 기록 재생 ›';
     $('#transition-hint').textContent = state.transitionPaused
       ? `불러오기를 일시 정지했습니다. 아래 버튼을 누르면 ${state.auto ? '자동' : '수동'}으로 이어집니다.`
-      : state.auto ? '잠시 후 다음 기록을 자동으로 재생합니다.' : '계속하려면 아래 버튼 또는 Space · Enter를 누르세요.';
+      : state.auto ? '잠시 후 다음 기록을 자동으로 재생합니다.' : touchInputQuery.matches ? '아래 버튼을 탭하면 계속합니다.' : '계속하려면 아래 버튼 또는 Space · Enter를 누르세요.';
+    syncAutoStatus();
+  }
+
+  function syncAutoStatus() {
+    let reason='';
+    if(state.auto) {
+      reason=state.loading?'불러오는 중'
+        : !$('#profile-overlay').hidden?'프로필을 닫으면 계속'
+        : !$('#backlog').hidden?'기록 창을 닫으면 계속'
+        : state.menuOpen || $('#story-options').open?'메뉴를 닫으면 계속'
+        : state.uiHidden?'화면을 표시하면 계속'
+        : document.hidden?'화면으로 돌아오면 계속'
+        : state.advanceLocked?'연출 대기'
+        : state.attachmentPending?'첨부 확인 대기'
+        : state.isTyping?'문자 출력 중':'재생 중';
+    }
+    const label=state.menuOpen ? (touchInputQuery.matches?'메뉴 닫기 ▴':'메뉴 닫기 · Esc ▴') : '메뉴 ▾';
+    $('#story-menu-toggle').textContent=label+(reason?' · 자동: '+reason:menuTipActive?' · 자동 읽기·설정은 여기':'');
+    $('#story-menu-toggle').dataset.autoState=reason;
+    $('[data-auto-status="profile"]').textContent=reason?'자동 켜짐 · '+reason:'';
+    $('[data-auto-status="backlog"]').textContent=reason?'자동 켜짐 · '+reason:'';
+  }
+
+  function syncInputGuidance() {
+    const touch=touchInputQuery.matches;
+    $('#app').dataset.input=touch?'touch':'keyboard';
+    $('.archive-shortcuts').textContent=touch
+      ? '탭·좌우 스와이프로 선택 · 아래에서 기록 열기\n재생 중에는 위쪽 메뉴에서 자동 읽기·설정'
+      : 'Space · Enter · → : 다음 · ← : 이전\nL : 기록 보기·닫기 · Esc : 나가기 · H : UI 숨기기';
+    $('#complete-next-hint').textContent=touch?'아래 버튼을 탭하면 다음 기록을 엽니다.':'Space를 누르면 다음 기록을 엽니다.';
+    $('#insert-hint').textContent=state.attachmentPending?'':touch?'탭하여 계속':'클릭 · Space로 계속';
+    updateAutoButton();syncInsertScrollHint();
+  }
+
+  function syncInsertScrollHint() {
+    const card=$('#insert-card'),note=$('#insert-scroll-note');
+    if(card.hidden){note.hidden=true;return;}
+    const overflow=card.scrollHeight-(note.hidden?0:note.offsetHeight)>card.clientHeight+2;
+    note.hidden=!overflow;
+    note.style.visibility=overflow && card.scrollTop+card.clientHeight<card.scrollHeight-3?'visible':'hidden';
+    note.textContent=touchInputQuery.matches?'↓ 아래 내용은 위로 스와이프해서 읽으세요':'↓ 아래 내용은 휠·Page Down으로 읽으세요';
   }
 
   function toggleUi() {
@@ -2702,12 +2756,14 @@
     $("#story-stage").classList.toggle("ui-hidden", state.uiHidden);
     if (state.uiHidden) stopPlaybackTimer('autoTimer');
     else scheduleAutoAdvance();
+    syncAutoStatus();
   }
 
   function setLogOpen(open) {
     $('#backlog').hidden = !open;
     $('#backlog-dismiss').hidden = !open;
     $('#log-button').setAttribute('aria-expanded',String(open));
+    syncAutoStatus();
   }
 
   function toggleLog() {
@@ -3449,6 +3505,15 @@
   }
 
   function bindEvents() {
+    touchInputQuery.addEventListener('change',syncInputGuidance);
+    $('#insert-card').addEventListener('scroll',syncInsertScrollHint,{passive:true});
+    $('#insert-card').addEventListener('load',syncInsertScrollHint,true);
+    const insertContentObserver=new MutationObserver(()=>requestAnimationFrame(syncInsertScrollHint));
+    for(const id of ['insert-text','insert-body'])insertContentObserver.observe($('#'+id),{childList:true,subtree:true,characterData:true});
+    if(typeof ResizeObserver==='function') {
+      const insertResize=new ResizeObserver(syncInsertScrollHint);
+      for(const id of ['insert-card','insert-text','insert-body'])insertResize.observe($('#'+id));
+    }
     $('#settings-categories').addEventListener('keydown',event=>{
       if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.code))return;
       const categories=['reading','display','audio','shortcuts','data'],index=categories.indexOf(event.target.dataset.settingsCategory);
@@ -3609,6 +3674,7 @@
     $('#story-options').addEventListener('toggle', () => {
       if ($('#story-options').open) stopPlaybackTimer('autoTimer');
       else scheduleAutoAdvance();
+      syncAutoStatus();
     });
     $('#backlog-dismiss').addEventListener('click', toggleLog);
     $('#gallery-viewer').addEventListener('click',event=>{if(!event.target.closest('button, #gallery-image, figcaption'))closeGalleryImage();});
@@ -3696,6 +3762,20 @@
         event.preventDefault();$('#story-options').open=false;setStoryMenu(false);
         $('#story-screen').focus({preventScroll:true});return;
       }
+      const insert=$('#insert-card');
+      if(!state.menuOpen && !$('#story-options').open && !state.uiHidden && !insert.hidden &&
+          insert.scrollHeight>insert.clientHeight+2 &&
+          ['Space','PageDown','PageUp','ArrowDown','ArrowUp','Home','End'].includes(event.code) &&
+          !event.target.closest('button,summary,input,select,textarea')) {
+        event.preventDefault();
+        const page=insert.clientHeight*.8;
+        const top=event.code==='Home'?0:event.code==='End'?insert.scrollHeight
+          :insert.scrollTop+(['PageUp','ArrowUp'].includes(event.code)||event.code==='Space'&&event.shiftKey?-1:1)*
+            (['ArrowDown','ArrowUp'].includes(event.code)?40:page);
+        insert.scrollTo({top,behavior:'instant'});
+        syncInsertScrollHint();
+        return;
+      }
       if (state.uiHidden && ['Space', 'Enter', 'ArrowRight', 'Escape'].includes(event.code)) { event.preventDefault(); toggleUi(); return; }
       if ($('#story-options').open && event.code === 'Escape') {
         event.preventDefault(); $('#story-options').open = false;
@@ -3725,6 +3805,7 @@
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) { stopPlaybackTimer('autoTimer'); clearTimeout(state.previewTimer); settleACamera(); clearEndingShutter(); }
       else { if (syncResetFromStorage()) return; refreshCutsceneComposition(true); scheduleAutoAdvance(); if (state.screen === 'settings-screen') startSettingsPreview(); }
+      syncAutoStatus();
     });
     window.addEventListener('storage', event => { if (progressStore.isStorageKey(event.key)) syncResetFromStorage(); });
     window.addEventListener('focus', syncResetFromStorage);
@@ -3784,6 +3865,7 @@
   updateInstantButton();
   updateContinuousButtons();
   applyReadingSettings();
+  syncInputGuidance();
   bindEvents();
   history.replaceState({...viewState(), depth:0}, '');
   loadTransition('복구 단말기 전원 인가', null, 850, true, null, true, 'in-02').then(ready => {
