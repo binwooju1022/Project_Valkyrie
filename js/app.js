@@ -775,7 +775,7 @@
     const active = $('#' + id);
     active.setAttribute('tabindex', '-1');
     active.focus({preventScroll:true});
-    if (id === 'archive-screen') {syncArchiveLayout();restoreArchiveScroll();}
+    if (id === 'archive-screen') {syncArchiveLayout(true);restoreArchiveScroll();}
     if (id === 'settings-screen') startSettingsPreview();
   }
 
@@ -958,6 +958,7 @@
   }
 
   function renderDisks() {
+    const focusedDisk=document.activeElement.closest('#disk-list [data-disk]')?.dataset.disk;
     const all = mainRecords;
     $("#archive-progress").textContent = `전체 ${all.filter(record => recordProgress(record.id).completed).length} / ${all.length} 기록 열람`;
     $("#disk-list").innerHTML = archive
@@ -994,6 +995,7 @@
     // cards; binding the stage on every render multiplies click handlers.
     $('#disk-list').querySelectorAll("[data-disk]").forEach((button) => {
       button.addEventListener("click", () => selectDisk(button.dataset.disk));
+      if (button.dataset.disk===focusedDisk) button.focus({preventScroll:true});
     });
   }
 
@@ -1040,6 +1042,7 @@
   }
 
   function renderRecordList(records = archive.getRecordsByDisk(state.selectedDisk).filter(record=>Boolean(record.relatedReport)===(state.selectedDisk==='D' && state.archiveRecordKind==='related'))) {
+    const focusedRecord=document.activeElement.closest('#record-list [data-record]')?.dataset.record;
     $("#record-list").innerHTML = records
       .map((record) => {
         const progress = recordProgress(record.id);
@@ -1059,6 +1062,7 @@
 
     $('#record-list').querySelectorAll("[data-record]").forEach((button) => {
       button.addEventListener("click", () => selectRecord(button.dataset.record));
+      if (button.dataset.record===focusedRecord) button.focus({preventScroll:true});
     });
   }
 
@@ -1107,6 +1111,8 @@
     const mobile=archiveMobileQuery.matches;
     archivePanelIds.forEach((id,index)=>{
       const panel=$('#'+id), tab=$('#archive-tab-'+index), selected=index===state.archivePane;
+      if (mobile && !selected && panel.contains(document.activeElement))
+        $('#archive-tab-'+state.archivePane).focus({preventScroll:true});
       panel.inert=mobile && !selected;
       if (mobile) {
         panel.setAttribute('role','tabpanel');
@@ -1130,22 +1136,67 @@
     $('#archive-tools-toggle').setAttribute('aria-expanded',String(state.archiveToolsOpen));
   }
 
-  function syncArchiveLayout() {
+  const archiveNavigation={target:null,touching:false,gesture:false,timer:null,width:0,mobile:null};
+
+  function syncArchiveLayout(force=false) {
     updateArchiveTabs();
     syncArchiveTools();
     const layout=$('#archive-layout');
     if (state.screen!=='archive-screen' || !layout.clientWidth) return;
-    // Resize and screen return restore the same page; inner panel scroll stays.
+    const mobile=archiveMobileQuery.matches;
+    // Browser chrome and panel content can change height during a swipe. Only
+    // width, layout mode, or returning to the archive requires repositioning.
+    if (!force && archiveNavigation.width===layout.clientWidth && archiveNavigation.mobile===mobile) return;
+    archiveNavigation.width=layout.clientWidth;
+    archiveNavigation.mobile=mobile;
+    clearTimeout(archiveNavigation.timer);
+    archiveNavigation.target=null;
+    archiveNavigation.releaseTouch?.();
+    archiveNavigation.touching=false;
+    archiveNavigation.gesture=false;
     layout.scrollTo({left:archiveMobileQuery.matches ? layout.clientWidth*state.archivePane : 0,behavior:'instant'});
+  }
+
+  function scrollArchiveTarget() {
+    const layout=$('#archive-layout');
+    if (archiveNavigation.gesture || archiveNavigation.target===null || !layout.clientWidth) return;
+    // Explicit choices are immediate. Animating them while native scroll snap
+    // retains a gesture destination can send the next touch back to that page.
+    layout.scrollTo({left:layout.clientWidth*archiveNavigation.target,behavior:'instant'});
+    scheduleArchiveSettle();
+  }
+
+  function settleArchiveScroll() {
+    if (archiveNavigation.touching || !archiveMobileQuery.matches || state.screen!=='archive-screen') return;
+    const layout=$('#archive-layout');
+    if (!layout.clientWidth) return;
+    archiveNavigation.gesture=false;
+    const destination=archiveNavigation.target ?? Math.max(0,Math.min(2,Math.round(layout.scrollLeft/layout.clientWidth)));
+    if (Math.abs(layout.scrollLeft-layout.clientWidth*destination)>1) {
+      // A pending click wins over the old gesture's final snap or momentum.
+      // Native scrolling remains in charge until it has stopped producing events.
+      archiveNavigation.target=destination;
+      scrollArchiveTarget();
+      return;
+    }
+    archiveNavigation.target=null;
+    if (state.archivePane!==destination) {state.archivePane=destination;updateArchiveTabs();}
+  }
+
+  function scheduleArchiveSettle() {
+    clearTimeout(archiveNavigation.timer);
+    archiveNavigation.timer=setTimeout(settleArchiveScroll,160);
   }
 
   function moveArchivePane(index, focusTab=false) {
     if (!archiveMobileQuery.matches) return;
     state.archivePane=Math.max(0,Math.min(2,index));
+    archiveNavigation.target=state.archivePane;
     updateArchiveTabs();
     if (focusTab) $('#archive-tab-'+state.archivePane).focus({preventScroll:true});
-    const layout=$('#archive-layout');
-    if (layout.clientWidth) layout.scrollTo({left:layout.clientWidth*state.archivePane,behavior:motionReduced() ? 'instant' : 'smooth'});
+    // Wait for an active touch and its native snap to settle. A later gesture
+    // may replace this request, but intermediate scroll positions cannot.
+    scrollArchiveTarget();
   }
 
   function stripTechnicalMetadata(value, state = {skipValue:false}) {
@@ -3391,16 +3442,44 @@
       const next=event.code==='Home'?0:event.code==='End'?categories.length-1:(index+(event.code==='ArrowRight'?1:-1)+categories.length)%categories.length;
       selectSettingsCategory(categories[next],true);
     });
-    let archiveScrollFrame=null;
-    $('#archive-layout').addEventListener('scroll',()=>{
-      if (!archiveMobileQuery.matches || state.screen!=='archive-screen' || archiveScrollFrame!==null) return;
-      archiveScrollFrame=requestAnimationFrame(()=>{
-        archiveScrollFrame=null;
-        const layout=$('#archive-layout');
-        if (!layout.clientWidth) return;
-        const index=Math.max(0,Math.min(2,Math.round(layout.scrollLeft/layout.clientWidth)));
-        if (index!==state.archivePane) {state.archivePane=index;updateArchiveTabs();}
-      });
+    const archiveLayout=$('#archive-layout');
+    archiveLayout.addEventListener('scroll',scheduleArchiveSettle,{passive:true});
+    // Debouncing also works on browsers without scrollend, and avoids accepting
+    // a late scrollend from a transition that a newer selection interrupted.
+    archiveLayout.addEventListener('scrollend',scheduleArchiveSettle,{passive:true});
+    archiveLayout.addEventListener('touchstart',event=>{
+      if (!archiveNavigation.touching) {
+        const touched=event.target;
+        // Touch events keep their original target even when rendering detaches
+        // that node. Its own listener still receives the final release.
+        touched.addEventListener('touchend',finishArchiveTouch,{passive:true});
+        touched.addEventListener('touchcancel',finishArchiveTouch,{passive:true});
+        archiveNavigation.releaseTouch=()=>{
+          touched.removeEventListener('touchend',finishArchiveTouch);
+          touched.removeEventListener('touchcancel',finishArchiveTouch);
+          archiveNavigation.releaseTouch=null;
+        };
+      }
+      archiveNavigation.touching=true;
+      archiveNavigation.gesture=true;
+      archiveNavigation.target=null;
+      clearTimeout(archiveNavigation.timer);
+    },{passive:true});
+    const finishArchiveTouch=event=>{
+      if (!archiveNavigation.touching || event.touches.length) return;
+      archiveNavigation.releaseTouch?.();
+      archiveNavigation.touching=false;
+      scheduleArchiveSettle();
+    };
+    // Also observe releases delivered outside the archive.
+    window.addEventListener('touchend',finishArchiveTouch,{passive:true,capture:true});
+    window.addEventListener('touchcancel',finishArchiveTouch,{passive:true,capture:true});
+    archiveLayout.addEventListener('wheel',event=>{
+      if (event.deltaX || event.shiftKey) {
+        archiveNavigation.target=null;
+        archiveNavigation.gesture=true;
+        scheduleArchiveSettle();
+      }
     },{passive:true});
     $('#archive-tabs').addEventListener('keydown',event=>{
       const tab=event.target.closest('[data-archive-pane]');
@@ -3409,8 +3488,8 @@
       const index=Number(tab.dataset.archivePane);
       moveArchivePane(event.code==='Home' ? 0 : event.code==='End' ? 2 : index+(event.code==='ArrowRight' ? 1 : -1),true);
     });
-    archiveMobileQuery.addEventListener?.('change',syncArchiveLayout);
-    if (typeof ResizeObserver==='function') new ResizeObserver(syncArchiveLayout).observe($('#archive-layout'));
+    archiveMobileQuery.addEventListener?.('change',()=>syncArchiveLayout());
+    if (typeof ResizeObserver==='function') new ResizeObserver(()=>syncArchiveLayout()).observe(archiveLayout);
     $('#scene-art').addEventListener('load', event => {
       if (event.target?.id === 'stage-camera') refreshCutsceneComposition();
     },true);

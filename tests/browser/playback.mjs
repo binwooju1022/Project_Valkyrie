@@ -12,7 +12,7 @@ const root=process.env.PLAYBACK_TEST_OUTPUT || await fs.mkdtemp(path.join(os.tmp
 await fs.mkdir(root,{recursive:true});
 const source=path.resolve(testRoot,'../..');
 const code=await fs.readFile(path.join(source,'js/app.js'),'utf8');
-const exports='state,orderedRecords,mainRecords,startStory,openObjective,selectDisk,selectRecord,showScreen,handleAction,renderLine,finishTyping,clearPlaybackTimers,loadProgress,saveProgress,recordProgress,storyPages,restoreView,viewState,openReadLocation,completeRecord,importProgress,goBack,toggleAuto,setStoryMenu,toggleBookmark,confirmReset,progressStore,changeReadingSettings,cancelLoading,loadTransition,suspendPlayback,resumePlayback,playbackTasks';
+const exports='state,orderedRecords,mainRecords,startStory,openObjective,selectDisk,selectRecord,showScreen,handleAction,renderLine,finishTyping,clearPlaybackTimers,loadProgress,saveProgress,recordProgress,storyPages,restoreView,viewState,openReadLocation,completeRecord,importProgress,goBack,toggleAuto,setStoryMenu,toggleBookmark,confirmReset,progressStore,changeReadingSettings,cancelLoading,loadTransition,suspendPlayback,resumePlayback,playbackTasks,archiveNavigation';
 const instrumented=code.replace(/  loadProgress\(\);\r?\n  selectReadingPosition\(\);/,`  window.__audit={${exports}};\n  loadProgress();\n  selectReadingPosition();`);
 if(instrumented===code)throw Error('instrumentation point missing');
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.svg':'image/svg+xml','.mp3':'audio/mpeg','.ogg':'audio/ogg','.woff2':'font/woff2'};
