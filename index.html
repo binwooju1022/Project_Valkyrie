@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#050707" />
     <meta
       name="description"
-      content="손상된 기록 매체를 복구해 UNIT-01과 UNIT-02의 기억을 열람하는 인터랙티브 아카이브"
+      content="기록 복원 완료. 접근 승인"
     />
     <title>녹슨 기도 — 기록 보관소</title>
     <link rel="canonical" href="https://binwooju1022.github.io/Project_Valkyrie/" />
@@ -14,7 +14,7 @@
     <meta property="og:locale" content="ko_KR" />
     <meta property="og:site_name" content="녹슨 기도" />
     <meta property="og:title" content="녹슨 기도 — 기록 보관소" />
-    <meta property="og:description" content="손상된 기록 매체를 복구해 UNIT-01과 UNIT-02의 기억을 열람하는 인터랙티브 아카이브" />
+    <meta property="og:description" content="기록 복원 완료. 접근 승인" />
     <meta property="og:url" content="https://binwooju1022.github.io/Project_Valkyrie/" />
     <meta property="og:image" content="https://binwooju1022.github.io/Project_Valkyrie/assets/social/rusted-prayer-og.png" />
     <meta property="og:image:type" content="image/png" />
@@ -23,7 +23,7 @@
     <meta property="og:image:alt" content="검녹색 기록 보관소 화면에 표시된 녹슨 기도 제목" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="녹슨 기도 — 기록 보관소" />
-    <meta name="twitter:description" content="손상된 기록 매체를 복구해 UNIT-01과 UNIT-02의 기억을 열람하는 인터랙티브 아카이브" />
+    <meta name="twitter:description" content="기록 복원 완료. 접근 승인" />
     <meta name="twitter:image" content="https://binwooju1022.github.io/Project_Valkyrie/assets/social/rusted-prayer-og.png" />
     <meta name="twitter:image:alt" content="검녹색 기록 보관소 화면에 표시된 녹슨 기도 제목" />
     <link rel="stylesheet" href="./css/styles.css" />
@@ -217,6 +217,7 @@
 
       <section id="story-screen" class="screen story-screen" hidden aria-label="인지 기록 재생">
           <button id="story-menu-toggle" class="story-menu-toggle" data-action="toggle-story-menu" type="button" aria-controls="story-hud" aria-expanded="false" hidden>메뉴 ▾</button>
+          <span id="story-menu-tip" class="story-menu-tip" hidden>자동 읽기·설정은 메뉴에서</span>
           <header id="story-hud" class="story-hud">
             <div class="story-status">
               <button class="story-back shortcut-control" data-action="exit-story" type="button" aria-label="인지 기록 종료"><span aria-hidden="true">←</span><kbd>Esc</kbd></button>
@@ -242,6 +243,7 @@
                 </div>
               </details>
             </div>
+            <span id="story-auto-status" class="auto-status" role="status"></span>
           </header>
         <div id="story-stage" class="story-stage">
           <figure id="scene-art" class="scene-art d-image-surface" aria-label="복구 장면"></figure>
@@ -410,6 +412,7 @@
           <section id="settings-panel-audio" class="settings-category" role="tabpanel" aria-labelledby="settings-tab-audio" data-settings-panel="audio" hidden>
             <h2>음악·효과음 설정</h2>
 <div class="setting-row"><div class="setting-copy"><label for="bgm-enabled">배경음악</label><p id="bgm-enabled-note" class="reading-note">보관소와 장면 재생의 배경음악을 켜거나 끕니다.</p></div><div class="setting-control"><select aria-describedby="bgm-enabled-note" id="bgm-enabled"><option value="on">켜기</option><option value="off">음소거</option></select></div></div>
+          <div class="setting-row"><div class="setting-copy"><label for="setting-archive-music">보관소 음악</label><p id="archive-music-note" class="reading-note">기록을 읽을 때는 해당 기록의 음악이 이어집니다.</p></div><div class="setting-control"><select id="setting-archive-music" aria-describedby="archive-music-note"><option value="auto">진행에 맞춰 자동 선택</option><option value="side-story">side story</option><option value="waiting-commander">I′m waiting you Commander</option></select></div></div>
           <div class="setting-row"><div class="setting-copy"><label for="bgm-volume">BGM 음량</label><p id="bgm-note" class="reading-note">보관소와 재생 중의 배경음악을 조절합니다.</p></div><div class="setting-control"><div class="volume-controls"><input id="bgm-volume" type="range" min="0" max="100" value="35" step="1" /><span class="volume-number"><input id="bgm-volume-value" type="number" min="0" max="100" value="35" step="1" inputmode="numeric" aria-label="BGM 음량 백분율" /><span aria-hidden="true">%</span></span></div></div></div>
           <div class="setting-row"><div class="setting-copy"><label for="sfx-enabled">효과음</label><p id="sfx-enabled-note" class="reading-note">장면에 맞춰 나오는 효과음을 켜거나 끕니다.</p></div><div class="setting-control"><select aria-describedby="sfx-enabled-note" id="sfx-enabled"><option value="on">켜기</option><option value="off">음소거</option></select></div></div>
           <div class="setting-row"><div class="setting-copy"><label for="sfx-volume">효과음 음량</label><p id="sfx-volume-note" class="reading-note">효과음의 크기를 조절합니다.</p></div><div class="setting-control"><div class="volume-controls"><input id="sfx-volume" type="range" min="0" max="100" value="60" step="1" /><span class="volume-number"><input id="sfx-volume-value" type="number" min="0" max="100" value="60" step="1" inputmode="numeric" aria-label="효과음 음량 백분율" /><span aria-hidden="true">%</span></span></div></div></div>

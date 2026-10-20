@@ -156,7 +156,7 @@ export async function run({setup,ready,out,capture}) {
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     await capture(page,`import-error-${width}x${height}`);
     assert.match(await upload(page,backup()),/합쳤습니다/);
-    await page.locator('#settings-screen [data-action="back-archive"]').click();
+    await page.locator('#settings-return').click();
     out('import-ui',{width,height,mobile,errorVisible:true,success:true,back:true});
     await context.close();
   }

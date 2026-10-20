@@ -12,6 +12,7 @@
   } catch {}
   let location={record:null,index:0,screen:'boot-screen'};
   let settingsTrack=null;
+  let endingViewed=false,archiveMusic='auto',settingsUsesArchive=false;
   let selected=null,unlocked=false,blocked=false,pending=false,revision=0;
   const FADE_IN_MS=800,FADE_OUT_MS=500;
   let gain=0,fadeTimer=null,fadeRevision=0,phase=null;
@@ -36,7 +37,7 @@
     if($('#bgm-enabled'))$('#bgm-enabled').value=muted ? 'off' : 'on';
     if($('#bgm-volume'))$('#bgm-volume').value=String(Math.round(volume*100));
     if($('#bgm-volume-value') && document.activeElement!==$('#bgm-volume-value'))$('#bgm-volume-value').value=String(Math.round(volume*100));
-    if($('#bgm-note'))$('#bgm-note').textContent=blocked ? '음악이 재생되지 않았습니다. 배경음악을 다시 켜면 재시도할 수 있습니다.' : '보관소에서는 메인 음악, 기록에서는 해당 음악을 재생하며 설정에서도 이어집니다.';
+    if($('#bgm-note'))$('#bgm-note').textContent=blocked ? '음악이 재생되지 않았습니다. 배경음악을 다시 켜면 재시도할 수 있습니다.' : '보관소에서는 선택한 음악, 기록에서는 해당 음악을 재생하며 설정에서도 이어집니다.';
   }
   function save() {
     try {localStorage.setItem(key,JSON.stringify({volume,muted}));} catch {}
@@ -85,9 +86,20 @@
       return track ? {id:track,...manifest.tracks[track]} : null;
     }
     if(!['boot-screen','archive-screen','objective-screen','library-screen','gallery-screen','reset-screen'].includes(screen))return null;
+    return archiveTrack();
+  }
+  function archiveTrack() {
     const manifest=window.RustedPrayerMediaManifest.bgm;
-    const track=manifest?.main;
-    return track ? {id:track,...manifest.tracks[track]} : null;
+    const track=archiveMusic==='auto' ? endingViewed ? manifest?.ending : manifest?.main : archiveMusic;
+    return track && manifest?.tracks[track] ? {id:track,...manifest.tracks[track]} : null;
+  }
+  function setProgress(progress) {
+    const viewed=progress.endingViewed===true;
+    const choice=['auto','side-story','waiting-commander'].includes(progress.archiveMusic)?progress.archiveMusic:'auto';
+    if(viewed===endingViewed && choice===archiveMusic)return;
+    endingViewed=viewed;archiveMusic=choice;
+    if(location.screen==='settings-screen' && settingsUsesArchive)settingsTrack=archiveTrack();
+    apply();
   }
   function suspended() {
     return document.hidden || muted || volume===0;
@@ -129,7 +141,13 @@
   }
   function sync(record,index,screen) {
     // Preserve the previous screen's target, including silence or a pending fade.
-    if(screen==='settings-screen' && location.screen!=='settings-screen')settingsTrack=desired();
+    if(screen==='settings-screen' && location.screen!=='settings-screen') {
+      settingsTrack=desired();
+      settingsUsesArchive=['boot-screen','archive-screen','library-screen','gallery-screen','reset-screen'].includes(location.screen) ||
+        location.screen==='objective-screen' && location.record?.readerMode!=='report' &&
+        !(window.RustedPrayerMediaManifest.bgm?.records[location.record?.id]?.continueOnIntro &&
+          selected?.id===resolve(location.record,0)?.id);
+    }
     location={record,index,screen};apply();
   }
   function setMuted(value) {muted=Boolean(value);save();updateControls();apply();}
@@ -143,6 +161,15 @@
   document.addEventListener('visibilitychange',apply);
   window.addEventListener('pagehide',suspend);
   window.addEventListener('pageshow',apply);
+  window.addEventListener('storage',event=>{
+    if(event.key!==key)return;
+    try {
+      const saved=JSON.parse(event.newValue || '{}');
+      if(typeof saved.volume==='number' && Number.isFinite(saved.volume))volume=Math.max(0,Math.min(1,saved.volume));
+      if(typeof saved.muted==='boolean')muted=saved.muted;
+      updateControls();apply();
+    } catch {}
+  });
   audio.addEventListener('error',()=>{suspend();blocked=true;updateControls();});
   for(const button of document.querySelectorAll('[data-bgm-toggle]'))button.addEventListener('click',()=>{unlocked=true;setMuted(!muted);});
   $('#bgm-enabled')?.addEventListener('change',event=>{unlocked=true;setMuted(event.target.value==='off');});
@@ -158,5 +185,5 @@
   volumeInput?.addEventListener('blur',()=>readVolumeInput(true));
   volumeInput?.addEventListener('keydown',event=>{if(event.key==='Enter' || ['Enter','NumpadEnter'].includes(event.code)){event.preventDefault();readVolumeInput(true);}});
   updateControls();
-  window.RustedPrayerBgm={sync,resolve,setMuted,setVolume};
+  window.RustedPrayerBgm={sync,resolve,setMuted,setVolume,setProgress};
 })();

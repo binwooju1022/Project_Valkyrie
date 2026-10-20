@@ -12,6 +12,8 @@ const root=process.env.PLAYBACK_TEST_OUTPUT || await fs.mkdtemp(path.join(os.tmp
 await fs.mkdir(root,{recursive:true});
 const source=path.resolve(testRoot,'../..');
 const code=await fs.readFile(path.join(source,'js/app.js'),'utf8');
+const bgmCode=await fs.readFile(path.join(source,'js/core/bgm.js'),'utf8');
+const instrumentedBgm=bgmCode.replace('window.RustedPrayerBgm={','window.__bgmAudit={audio,desired};window.RustedPrayerBgm={');
 const exports='state,orderedRecords,mainRecords,startStory,openObjective,selectDisk,selectRecord,showScreen,handleAction,renderLine,finishTyping,clearPlaybackTimers,loadProgress,saveProgress,recordProgress,storyPages,restoreView,viewState,openReadLocation,completeRecord,importProgress,goBack,toggleAuto,setStoryMenu,toggleBookmark,confirmReset,progressStore,changeReadingSettings,cancelLoading,loadTransition,suspendPlayback,resumePlayback,playbackTasks,archiveNavigation';
 const instrumented=code.replace(/  loadProgress\(\);\r?\n  selectReadingPosition\(\);/,`  window.__audit={${exports}};\n  loadProgress();\n  selectReadingPosition();`);
 if(instrumented===code)throw Error('instrumentation point missing');
@@ -22,6 +24,7 @@ const server=http.createServer((req,res)=>{
  if(p==='favicon.ico'){res.writeHead(204);res.end();return;}
  if(p==='blank'){res.end('<!doctype html><title>outside game</title><p>outside game</p>');return;}
  if(p==='js/app.js'){res.setHeader('Content-Type','text/javascript');res.end(instrumented);return;}
+ if(p==='js/core/bgm.js'){res.setHeader('Content-Type','text/javascript');res.end(instrumentedBgm);return;}
  const file=path.resolve(source,p);
  if(!file.startsWith(source+path.sep)||!fss.existsSync(file)){requests.push(p);res.writeHead(404);res.end();return;}
  res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');

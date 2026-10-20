@@ -7,14 +7,14 @@ export async function run({setup,story,out}) {
     for(const large of [false,true]) {
       await page.evaluate(large=>{const a=window.__audit;a.state.textSize=large?'large':'normal';a.state.auto=false;a.state.autoEnabled=false;a.saveProgress();},large);
       await story(page,'A-04',5);
-      if(mobile&&!large)assert.match(await page.locator('#story-menu-toggle').textContent(),/설정은 여기/);
+      if(mobile&&!large)assert.match(await page.locator('#story-menu-tip').textContent(),/설정은 메뉴에서/);
       await press('#story-menu-toggle');
       assert.equal(await page.evaluate(()=>window.__audit.state.lineIndex),5);
       await press('#auto-button');
-      assert.match(await page.locator('#story-menu-toggle').textContent(),/메뉴를 닫으면 계속/);
+      assert.match(await page.locator('#story-auto-status').textContent(),/메뉴를 닫으면 계속/);
       await press('#story-menu-toggle');
       await page.waitForFunction(()=>!window.__audit.state.advanceLocked);
-      assert.match(await page.locator('#story-menu-toggle').textContent(),/첨부 확인 대기/);
+      assert.match(await page.locator('#story-menu-toggle').getAttribute('data-auto-state'),/첨부 확인 대기/);
       assert.equal(await page.evaluate(()=>window.__audit.state.autoTimer),null);
       const overflow=await page.locator('#insert-card').evaluate(e=>e.scrollHeight>e.clientHeight+2);
       if(overflow) {
@@ -62,7 +62,7 @@ export async function run({setup,story,out}) {
       assert.equal(await page.evaluate(()=>window.__audit.state.autoTimer),null);
       await press('#profile-close');
       await page.waitForFunction(()=>!window.__audit.state.isTyping);
-      assert.match(await page.locator('#story-menu-toggle').textContent(),/재생 중/);
+      assert.match(await page.locator('#story-menu-toggle').getAttribute('data-auto-state'),/재생 중/);
       assert.ok(await page.evaluate(()=>Boolean(window.__audit.state.autoTimer)));
       await page.evaluate(()=>window.__audit.toggleAuto());
       out('usability-controls',{width,height,mobile,large,menuTouch:true,scrollHint:overflow,scrollDoesNotAdvance:true,settingsReturn:true,autoReasons:true,lastChoicePreserved:true});

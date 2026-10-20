@@ -50,7 +50,7 @@
       for (const [path,value] of Object.entries(change.fields)) {
         const parts = JSON.parse(path), name = parts[2] || parts[0];
         const previousStamp = meta.fields[path];
-        const monotone = ["completed","seenIndex","seenPages","profileViews","readingSetupSeen","aIdentificationIntroSeen"].includes(name);
+        const monotone = ["completed","seenIndex","seenPages","profileViews","readingSetupSeen","aIdentificationIntroSeen","endingViewed"].includes(name);
         if (!monotone && compare(change.stamp,previousStamp) <= 0) continue;
         if (parts[0] === "bookmarks") {
           snapshot.bookmarks = (snapshot.bookmarks || []).filter(mark => mark.recordId !== parts[1] || mark.index !== parts[2]);
@@ -60,7 +60,7 @@
           for (const part of parts.slice(0,-1)) target = target[part] ||= {};
           const field = parts.at(-1);
           if (name === "cursor") Object.assign(target,value);
-          else if (["completed","readingSetupSeen","aIdentificationIntroSeen"].includes(name)) target[field] ||= value === true;
+          else if (["completed","readingSetupSeen","aIdentificationIntroSeen","endingViewed"].includes(name)) target[field] ||= value === true;
           else if (["seenIndex","seenPages"].includes(name)) target[field] = Math.max(target[field] ?? -1,value ?? -1);
           else if (name === "profileViews") target[field] = [...new Set([...(target[field] || []),...(value || [])])];
           else if (value === null) delete target[field];
@@ -118,6 +118,17 @@
       return clone(snapshot);
     }
 
+    function adoptFields(snapshot, names) {
+      if (!baseline || epoch !== (snapshot._sync?.epoch || "") ||
+          generation(baseline) !== generation(snapshot)) return false;
+      // Refresh observed preferences without adopting another reader's cursor.
+      for (const name of names) {
+        if (Object.hasOwn(snapshot,name)) baseline[name] = clone(snapshot[name]);
+        else delete baseline[name];
+      }
+      return true;
+    }
+
     function save(current, reset=false, forceFields=[], shouldCompact=true) {
       const latest = readBatch().snapshot;
       if (!reset && (generation(current) !== generation(latest) || epoch !== latest._sync.epoch))
@@ -151,6 +162,7 @@
     return {
       read:()=>readBatch().snapshot,
       adopt,
+      adoptFields,
       save,
       compact,
       isStorageKey:name=>name === key || name?.startsWith(prefix),

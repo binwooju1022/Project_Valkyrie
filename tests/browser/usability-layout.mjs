@@ -24,7 +24,8 @@ export async function run({setup,story,out,root,capture}) {
             if(menu)assert.deepEqual(samples[key],samples[[width,height,large,id,false].join('/')],key+' menu must not resize artwork');
             assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
             const rect=await page.locator('#story-menu-toggle').boundingBox();
-            assert.ok(rect.height>=(mobile?44:28));
+            assert.ok(rect.height>=44 && rect.width<=110,'compact button with a touch-sized target');
+            assert.ok(rect.x>width-130 && rect.y>=0 && rect.y<20,'upper right corner');
             assert.equal(await page.locator('#story-menu-toggle').getAttribute('aria-expanded'),String(menu));
           }
         }

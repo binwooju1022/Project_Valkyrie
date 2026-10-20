@@ -63,6 +63,7 @@
     settingsCategory: 'reading',
     effectsReduced: false,
     endingAnimation: true,
+    archiveMusic: 'auto',
     characterLabels: false,
     autoResume: false,
     identificationIntroActive: false,
@@ -96,7 +97,7 @@
   };
 
   const $ = (selector) => document.querySelector(selector);
-  const progressSettings = ['instant','continuous','textSize','dialoguePosition','textSpeed','autoSpeed','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume'];
+  const progressSettings = ['instant','continuous','textSize','dialoguePosition','textSpeed','autoSpeed','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume','archiveMusic'];
   let lastPlaybackPosition = null, lastSavedProgress = null;
   const progressStore = window.RustedPrayerProgressStore.create({
     storage:{
@@ -572,6 +573,8 @@
         progress && (progress.completed || progress.inProgress || Number.isInteger(progress.seenIndex) || progress.lineIndex>0));
       state.effectsReduced = saved.effectsReduced === true;
       state.endingAnimation = saved.endingAnimation !== false;
+      state.archiveMusic = ['auto','side-story','waiting-commander'].includes(saved.archiveMusic) ? saved.archiveMusic : 'auto';
+      state.progress.endingViewed = saved.endingViewed === true;
       state.characterLabels = saved.characterLabels === true;
       state.autoResume = saved.autoResume === true;
       state.progress.aIdentificationIntroSeen = saved.aIdentificationIntroSeen === true;
@@ -718,7 +721,7 @@
     }
 
     Object.assign(state.progress, {version:24,b03LayoutVersion:1,c03LayoutVersion:1,d04LayoutVersion:1,b07LayoutVersion:1,d05LayoutVersion:1,instant:state.instant,continuous:state.continuous,textSize:state.textSize,
-      dialoguePosition:state.dialoguePosition,textSpeed:state.textSpeed,autoSpeed:state.autoSpeed,rememberAuto:state.rememberAuto,autoEnabled:state.autoEnabled,effectsReduced:state.effectsReduced,endingAnimation:state.endingAnimation,characterLabels:state.characterLabels,autoResume:state.autoResume});
+      dialoguePosition:state.dialoguePosition,textSpeed:state.textSpeed,autoSpeed:state.autoSpeed,rememberAuto:state.rememberAuto,autoEnabled:state.autoEnabled,effectsReduced:state.effectsReduced,endingAnimation:state.endingAnimation,characterLabels:state.characterLabels,autoResume:state.autoResume,archiveMusic:state.archiveMusic});
     if (!storageAvailable) return;
 
     try {
@@ -2117,11 +2120,11 @@
   function syncStoryMenu() {
     const scoped=Boolean(currentRecord());
     const hud=$('.story-hud');
-    if(scoped && typeof hud.getBoundingClientRect==='function')$('#story-screen').style.setProperty('--story-menu-height',`${hud.getBoundingClientRect().height}px`);
     $('#story-screen').dataset.menu=state.menuOpen ? 'open' : 'closed';
     $('#story-menu-toggle').hidden=!scoped;
     $('#story-menu-toggle').setAttribute('aria-expanded',String(state.menuOpen));
     syncAutoStatus();
+    if(scoped && typeof hud.getBoundingClientRect==='function')$('#story-screen').style.setProperty('--story-menu-height',`${hud.getBoundingClientRect().height}px`);
     hud.inert=scoped && !state.menuOpen;
     hud.setAttribute('aria-hidden',String(scoped && !state.menuOpen));
   }
@@ -2724,9 +2727,14 @@
         : state.attachmentPending?'첨부 확인 대기'
         : state.isTyping?'문자 출력 중':'재생 중';
     }
-    const label=state.menuOpen ? (touchInputQuery.matches?'메뉴 닫기 ▴':'메뉴 닫기 · Esc ▴') : '메뉴 ▾';
-    $('#story-menu-toggle').textContent=label+(reason?' · 자동: '+reason:menuTipActive?' · 자동 읽기·설정은 여기':'');
+    const label=state.menuOpen ? '닫기 ▴' : '메뉴 ▾';
+    $('#story-menu-toggle').textContent=label+(state.auto?' ●':'');
+    $('#story-menu-toggle').setAttribute('aria-label',label+(reason?' · 자동 켜짐: '+reason:' · 자동 꺼짐'));
+    $('#story-menu-toggle').title=reason?'자동 켜짐 · '+reason:'재생 메뉴 열기·닫기';
     $('#story-menu-toggle').dataset.autoState=reason;
+    $('#story-menu-tip').hidden=!menuTipActive || state.menuOpen;
+    $('#story-auto-status').textContent=reason?'자동 켜짐 · '+reason:'';
+    if(state.menuOpen)$('#story-screen').style.setProperty('--story-menu-height',`${$('.story-hud').getBoundingClientRect().height}px`);
     $('[data-auto-status="profile"]').textContent=reason?'자동 켜짐 · '+reason:'';
     $('[data-auto-status="backlog"]').textContent=reason?'자동 켜짐 · '+reason:'';
   }
@@ -2933,6 +2941,7 @@
     const record=currentRecord();
     state.settingsStartRecordId=state.screen==='objective-screen' && record?.readerMode!=='report' && record?.story.length ? record.id : null;
     if(state.settingsStartRecordId) {
+      state.settingsCategory='reading';
       state.progress.readingSetupSeen=true;
       saveProgress();
       syncReadingSetupGuide();
@@ -2963,6 +2972,7 @@
   }
 
   function applyReadingSettings() {
+    window.RustedPrayerBgm?.setProgress({endingViewed:state.progress.endingViewed===true,archiveMusic:state.archiveMusic});
     $('#app').dataset.textSize = state.textSize;
     $('#app').dataset.dialoguePosition = state.dialoguePosition;
     $('#app').dataset.reducedEffects = String(state.effectsReduced);
@@ -2972,6 +2982,13 @@
   }
 
   function renderSettings() {
+    $('#setting-archive-music').value=state.archiveMusic;
+    const endingChoice=$('#setting-archive-music option[value="waiting-commander"]');
+    endingChoice.disabled=!state.progress.endingViewed && state.archiveMusic!=='waiting-commander';
+    $('#setting-archive-music option[value="auto"]').textContent='자동 선택 · '+(state.progress.endingViewed?'마지막 사진 음악':'side story');
+    $('#archive-music-note').textContent=state.progress.endingViewed
+      ? '마지막 사진을 열람했습니다. 자동 선택 시 보관소에서 마지막 사진 음악이 흐릅니다. 기록별 음악은 그대로 유지합니다.'
+      : '마지막 사진을 열람하면 보관소의 기본 음악이 바뀝니다. 기록별 음악은 그대로 유지합니다.';
     $('#settings-start-story').hidden=state.settingsStartRecordId!==currentRecord()?.id || currentRecord()?.readerMode==='report';
     $('#setting-size').value = state.textSize;
     $('#setting-dialogue-position').value = state.dialoguePosition;
@@ -2985,7 +3002,7 @@
     $('#setting-resume').value = state.autoResume ? 'on' : 'off';
     $('#setting-motion-note').textContent = reduceMotion ? '기기의 동작 줄이기가 적용 중입니다.' : '흔들림과 화면 전환 효과를 줄일 수 있습니다.';
     applyReadingSettings();
-    selectSettingsCategory(state.settingsStartRecordId ? 'reading' : state.settingsCategory);
+    selectSettingsCategory(state.settingsCategory);
   }
 
   function selectSettingsCategory(category,focus=false) {
@@ -3229,6 +3246,7 @@
         $('#ending-screen').dataset.entrance = !image.hidden && state.endingAnimation && !motionReduced() ? 'first' : '';
         showScreen('ending-screen',historyMode);
         scheduleEndingShutter();
+        scheduleEndingViewed();
         return true;
       };
     },historyMode!=='none' && !fromGallery);
@@ -3245,6 +3263,19 @@
     $('#ending-details-toggle').setAttribute('aria-expanded',String(expanded));
     $('#ending-details-toggle').textContent=expanded ? '사진 정보 닫기' : '사진 정보 보기';
     $('#ending-details-toggle').hidden=$('#ending-image').hidden;
+  }
+
+  function scheduleEndingViewed() {
+    const attempt=state.endingAttempt;
+    // Two frames allow the decoded photo to be painted after the loading cover.
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      const image=$('#ending-image');
+      if(attempt!==state.endingAttempt || state.screen!=='ending-screen' || state.loading ||
+          document.hidden || image.hidden || !image.complete || !image.naturalWidth ||
+          !image.getBoundingClientRect().width || !allRecordsRead() || state.progress.endingViewed)return;
+      state.progress.endingViewed=true;
+      saveProgress();
+    }));
   }
 
   function toggleEndingDetails() {
@@ -3329,13 +3360,27 @@
     } catch { return false; }
   }
 
+  function syncMusicProgress() {
+    if(syncResetFromStorage() || !storageAvailable)return;
+    try {
+      const saved=progressStore.read();
+      if(saved._sync?.epoch!==progressStore.epoch){syncResetFromStorage();return;}
+      if(!progressStore.adoptFields(saved,['endingViewed','archiveMusic']))return;
+      state.progress.endingViewed=saved.endingViewed===true;
+      state.archiveMusic=['auto','side-story','waiting-commander'].includes(saved.archiveMusic)?saved.archiveMusic:'auto';
+      state.progress.archiveMusic=state.archiveMusic;
+      window.RustedPrayerBgm?.setProgress({endingViewed:state.progress.endingViewed,archiveMusic:state.archiveMusic});
+      if(state.screen==='settings-screen')renderSettings();
+    } catch {}
+  }
+
   function confirmReset() {
     if (state.screen !== 'reset-screen' || state.loading) return;
     let next;
     try {
       if (!storageAvailable) throw Error('Storage unavailable');
       const latest = progressStore.read();
-      next = {...latest,version:24,records:{},aIdentificationIntroSeen:false,
+      next = {...latest,version:24,records:{},aIdentificationIntroSeen:false,endingViewed:false,
         bookmarks:$('#reset-keep-bookmarks').checked ? [...(latest.bookmarks || [])] : []};
       delete next.resumeRecordId;
       // Commit first: failed writes leave both the saved and visible progress intact.
@@ -3386,9 +3431,9 @@
     }
     if ('resumeRecordId' in saved) check(knownId(saved.resumeRecordId),'이어 읽기 위치');
     if ('resetGeneration' in saved) check(integer(saved.resetGeneration),'초기화 정보');
-    for (const key of ['instant','continuous','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume','readingSetupSeen','aIdentificationIntroSeen'])
+    for (const key of ['instant','continuous','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume','readingSetupSeen','aIdentificationIntroSeen','endingViewed'])
       if (key in saved) check(typeof saved[key] === 'boolean',key);
-    for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:['slow','normal','fast'],autoSpeed:['slow','normal','fast']}))
+    for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:['slow','normal','fast'],autoSpeed:['slow','normal','fast'],archiveMusic:['auto','side-story','waiting-commander']}))
       if (key in saved) check(values.includes(saved[key]),key);
     for (const key of ['c02','b03','c03','d04','b07','d05']) if (key+'LayoutVersion' in saved) check(saved[key+'LayoutVersion']===1,key+'LayoutVersion');
     if ('dLayoutVersion' in saved) check(saved.dLayoutVersion===20,'dLayoutVersion');
@@ -3450,6 +3495,7 @@
       for (const name of progressSettings) if (!(name in imported)) next[name]=previous[name];
       next.aIdentificationIntroSeen ||= previous.aIdentificationIntroSeen === true;
       next.readingSetupSeen ||= previous.readingSetupSeen === true;
+      next.endingViewed ||= previous.endingViewed === true;
       for (const [id,incoming] of Object.entries(candidate.records)) {
         const before=previous.records[id] || {};
         const keepPosition=(before.lineIndex || 0)>incoming.lineIndex;
@@ -3505,6 +3551,10 @@
   }
 
   function bindEvents() {
+    $('#setting-archive-music').addEventListener('change',event=>{
+      if(!['auto','side-story','waiting-commander'].includes(event.target.value))return;
+      state.archiveMusic=event.target.value;saveProgress();
+    });
     touchInputQuery.addEventListener('change',syncInputGuidance);
     $('#insert-card').addEventListener('scroll',syncInsertScrollHint,{passive:true});
     $('#insert-card').addEventListener('load',syncInsertScrollHint,true);
@@ -3806,9 +3856,10 @@
       if (document.hidden) { stopPlaybackTimer('autoTimer'); clearTimeout(state.previewTimer); settleACamera(); clearEndingShutter(); }
       else { if (syncResetFromStorage()) return; refreshCutsceneComposition(true); scheduleAutoAdvance(); if (state.screen === 'settings-screen') startSettingsPreview(); }
       syncAutoStatus();
+      if(!document.hidden && state.screen==='ending-screen')scheduleEndingViewed();
     });
-    window.addEventListener('storage', event => { if (progressStore.isStorageKey(event.key)) syncResetFromStorage(); });
-    window.addEventListener('focus', syncResetFromStorage);
+    window.addEventListener('storage', event => { if (progressStore.isStorageKey(event.key)) syncMusicProgress(); });
+    window.addEventListener('focus', syncMusicProgress);
     window.matchMedia('(max-width:760px)').addEventListener?.('change', () => {
       if (state.screen === 'story-screen') renderResearchMedia(window.RustedPrayerVisuals.resolve(currentRecord(),state.lineIndex,getActiveVisual(state.lineIndex),state.telemetryPage));
     });
