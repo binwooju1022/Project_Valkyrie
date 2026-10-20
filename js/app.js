@@ -94,6 +94,32 @@
   };
 
   const $ = (selector) => document.querySelector(selector);
+  const progressSettings = ['instant','continuous','textSize','dialoguePosition','textSpeed','autoSpeed','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume'];
+  let lastPlaybackPosition = null, lastSavedProgress = null;
+  const progressStore = window.RustedPrayerProgressStore.create({
+    storage:{
+      get length(){return localStorage.length;},
+      key:index=>localStorage.key(index),
+      getItem:key=>localStorage.getItem(key),
+      setItem:(key,value)=>localStorage.setItem(key,value),
+      removeItem:key=>localStorage.removeItem(key),
+    }, key:STORAGE_KEY, locks:navigator.locks,
+    normalize(saved) {
+      // Reuse the existing migrations without changing the active reader.
+      const active = {...state};
+      try { loadProgress(saved); return progressSnapshot(); }
+      finally { Object.assign(state,active); }
+    },
+    onError:()=>{$("#storage-notice").hidden=false;}
+  });
+  function progressSnapshot() {
+    return {...state.progress,...Object.fromEntries(progressSettings.map(name=>[name,state[name]]))};
+  }
+  function acceptProgress(saved) {
+    state.progress = saved;
+    lastSavedProgress = JSON.parse(JSON.stringify(saved));
+    for (const name of progressSettings) if (name in saved) state[name] = saved[name];
+  }
   const motionReduced = () => reduceMotion;
   const speedFactor = value => ({slow:1.5, normal:1, fast:.6}[value] || 1);
   function readingDuration(text, line = null) {
@@ -339,7 +365,7 @@
 
   function loadProgress(imported = null) {
     try {
-      const parsed = imported || JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      const parsed = imported || progressStore.read();
       state.progress = {records:{}};
       const saved = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
       const migrateC02=saved.c02LayoutVersion!==1;
@@ -634,6 +660,11 @@
         const lines = record?.reportSections || record?.story;
         return lines && Number.isInteger(mark.index) && mark.index >= 0 && lines[mark.index]?.text === mark.text;
       }).slice(0,2000) : [];
+      if (!imported) {
+        acceptProgress(progressStore.adopt({...progressSnapshot(),_sync:saved._sync}));
+        lastPlaybackPosition = null;
+        progressStore.compact();
+      }
     } catch {
       // A malformed save is recoverable; availability is checked on the next write.
       state.progress = { version:24, c02LayoutVersion:1, records: {} };
@@ -650,21 +681,35 @@
   function saveProgress() {
     if (syncResetFromStorage()) return;
     const record = currentRecord();
+    const positionFields = [];
     if (record && (state.screen === 'story-screen' || (state.screen === 'objective-screen' && record.readerMode === 'report'))) {
       const progress = recordProgress(record.id);
-      progress.lineIndex = state.lineIndex;
-      progress.updatedAt = new Date().toISOString();
+      const position = {id:record.id,line:state.lineIndex,page:state.telemetryLineIndex === state.lineIndex ? state.telemetryPage : 0,
+        scroll:state.screen === 'objective-screen' ? Math.max(0,window.scrollY || 0) : null};
+      const moved = JSON.stringify(position) !== JSON.stringify(lastPlaybackPosition);
+      if (moved) {
+        progress.lineIndex = state.lineIndex;
+        progress.telemetryPage = position.page;
+        progress.updatedAt = new Date().toISOString();
+        positionFields.push(JSON.stringify(['records',record.id,'cursor']));
+        if ('inProgress' in progress) positionFields.push(JSON.stringify(['records',record.id,'inProgress']));
+        if (progress.inProgress) positionFields.push(JSON.stringify(['resumeRecordId']));
+      }
       if (state.screen === 'story-screen') {
         progress.seenIndex = Math.max(progress.seenIndex || 0, state.lineIndex);
-        progress.telemetryPage = state.telemetryLineIndex === state.lineIndex ? state.telemetryPage : 0;
         if (storyPages(record.story[state.lineIndex]).length>1) {
-          progress.seenPages[state.lineIndex]=Math.max(seenPage(record,state.lineIndex,progress),progress.telemetryPage);
+          progress.seenPages[state.lineIndex]=Math.max(seenPage(record,state.lineIndex,progress),position.page);
         }
-        if (progress.inProgress) state.progress.resumeRecordId = record.id;
+        if (moved && progress.inProgress) state.progress.resumeRecordId = record.id;
       }
       if(state.screen==='objective-screen' && !record.relatedReport && progress.inProgress) {
-        rememberReportPosition();state.progress.resumeRecordId=record.id;
+        if (moved) {
+          rememberReportPosition();state.progress.resumeRecordId=record.id;
+          positionFields.push(JSON.stringify(['records',record.id,'reportScroll']));
+        }
+        else if (lastSavedProgress?.records[record.id]) progress.reportScroll=lastSavedProgress.records[record.id].reportScroll;
       }
+      lastPlaybackPosition = position;
     }
 
     Object.assign(state.progress, {version:24,b03LayoutVersion:1,c03LayoutVersion:1,d04LayoutVersion:1,b07LayoutVersion:1,d05LayoutVersion:1,instant:state.instant,continuous:state.continuous,textSize:state.textSize,
@@ -675,7 +720,11 @@
       state.progress.version = 24;
       state.progress.instant = state.instant;
       state.progress.continuous = state.continuous;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
+      const result = progressStore.save(state.progress,false,positionFields);
+      if (result.reset) { adoptReset(result.value,'다른 창에서 읽기 진행이 초기화되어 새 진행을 불러왔습니다.'); return; }
+      acceptProgress(result.value);
+      applyReadingSettings();
+      if (state.screen === 'settings-screen') renderSettings();
     } catch {
       storageAvailable = false;
       $("#storage-notice").hidden = false;
@@ -1214,6 +1263,7 @@
     syncReadingSetupGuide();
     renderDReportBrowser();
     const finish=()=>{
+      lastPlaybackPosition=null;
       if(report && !record.relatedReport) {
         progress.inProgress=true;state.progress.resumeRecordId=record.id;
         if(record.diskId==='D')state.reportContext={recordId:record.id,screen:'objective-screen',lineIndex:state.lineIndex,scrollTop:Math.max(0,progress.reportScroll || 0),telemetryPage:0};
@@ -1282,6 +1332,7 @@
 
     const progress = recordProgress(record.id);
     if (!await loadTransition('인지 기록 동기화', record, 420, false, null, historyMode!=='none')) return;
+    lastPlaybackPosition=null;
     state.progress.readingSetupSeen=true;
     resetACameraVisit();
     standingCameraVisit=null;
@@ -3085,6 +3136,8 @@
     state.endingAttempt += 1;
     $('#ending-screen').dataset.entrance = '';
     loadProgress(saved);
+    acceptProgress(progressStore.adopt({...progressSnapshot(),_sync:saved._sync}));
+    lastPlaybackPosition=null;
     setLogOpen(false); $('#story-options').open = false;
     $('#backlog-list').innerHTML = ''; $('#library-list').innerHTML = '';
     $('#library-search').value = ''; state.libraryRecordLimits = {};
@@ -3099,9 +3152,9 @@
   function syncResetFromStorage() {
     if (!storageAvailable) return false;
     try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const saved = progressStore.read();
       const generation = Number.isSafeInteger(saved?.resetGeneration) ? saved.resetGeneration : 0;
-      if (generation <= (state.progress.resetGeneration || 0)) return false;
+      if (generation <= (state.progress.resetGeneration || 0) && (saved._sync?.epoch || '') === progressStore.epoch) return false;
       adoptReset(saved,'다른 창에서 읽기 진행이 초기화되어 새 진행을 불러왔습니다.');
       return true;
     } catch { return false; }
@@ -3109,16 +3162,15 @@
 
   function confirmReset() {
     if (state.screen !== 'reset-screen' || state.loading) return;
-    const next = {...state.progress, version:24, records:{},
-      instant:state.instant, continuous:state.continuous, textSize:state.textSize, dialoguePosition:state.dialoguePosition,
-      textSpeed:state.textSpeed, autoSpeed:state.autoSpeed, rememberAuto:state.rememberAuto, autoEnabled:state.autoEnabled, effectsReduced:state.effectsReduced, endingAnimation:state.endingAnimation,
-      characterLabels:state.characterLabels, autoResume:state.autoResume, aIdentificationIntroSeen:false,
-      bookmarks:$('#reset-keep-bookmarks').checked ? [...(state.progress.bookmarks || [])] : [],
-      resetGeneration:(state.progress.resetGeneration || 0) + 1};
+    let next;
     try {
       if (!storageAvailable) throw Error('Storage unavailable');
+      const latest = progressStore.read();
+      next = {...latest,version:24,records:{},aIdentificationIntroSeen:false,
+        bookmarks:$('#reset-keep-bookmarks').checked ? [...(latest.bookmarks || [])] : []};
+      delete next.resumeRecordId;
       // Commit first: failed writes leave both the saved and visible progress intact.
-      localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
+      next = progressStore.save(next,true).value;
     } catch {
       $('#reset-status').textContent = '저장할 수 없어 초기화하지 않았습니다. 기존 진행은 유지됩니다. 백업을 내보낸 뒤 다시 시도해 주세요.';
       return;
@@ -3145,7 +3197,9 @@
       const imported = JSON.parse(await file.text());
       if (!imported || typeof imported !== 'object' || Array.isArray(imported) || !imported.records || typeof imported.records !== 'object' || Array.isArray(imported.records) || (imported.version && (!Number.isInteger(imported.version) || imported.version > 24 || imported.version < 1))) throw Error('지원하는 진행도 파일이 아닙니다.');
       // Import into a temporary progress object, using the same old-save migrations.
-      const previous = state.progress;
+      if (syncResetFromStorage()) return;
+      const previous = progressStore.read();
+      progressStore.adopt(previous);
       loadProgress(imported);
       state.progress.resetGeneration = previous.resetGeneration || 0;
       state.progress.aIdentificationIntroSeen ||= previous.aIdentificationIntroSeen === true;
@@ -3431,7 +3485,7 @@
       if (document.hidden) { clearTimeout(state.autoTimer); clearTimeout(state.previewTimer); settleACamera(); clearEndingShutter(); }
       else { if (syncResetFromStorage()) return; refreshCutsceneComposition(true); scheduleAutoAdvance(); if (state.screen === 'settings-screen') startSettingsPreview(); }
     });
-    window.addEventListener('storage', event => { if (event.key === STORAGE_KEY) syncResetFromStorage(); });
+    window.addEventListener('storage', event => { if (progressStore.isStorageKey(event.key)) syncResetFromStorage(); });
     window.addEventListener('focus', syncResetFromStorage);
     window.matchMedia('(max-width:760px)').addEventListener?.('change', () => {
       if (state.screen === 'story-screen') renderResearchMedia(window.RustedPrayerVisuals.resolve(currentRecord(),state.lineIndex,getActiveVisual(state.lineIndex),state.telemetryPage));
