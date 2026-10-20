@@ -195,14 +195,6 @@
   }
 
   function dMainReturnMarkup() {
-    const context=validReportContext(),main=context && archive.getRecord(context.recordId);
-    if(context) {
-      // Return to the exact reading position with the first button; continue forward with this one.
-      const next=main?.readerMode==='report' && archive.getRecord(main.nextId);
-      return next
-        ? '<button class="button" data-action="continue-related-report" type="button">본편 이어보기</button>'
-        : '<button class="button" data-action="browse-d-main" type="button">D편 본편 목록 보기</button>';
-    }
     const resume=dMainResumeRecord();
     return `${resume ? '' : `<p class="reading-note">${D_MAIN_GUIDANCE}</p>`}<button class="button" data-action="resume-main" type="button">${resume ? '본편 이어보기' : 'D편 본편 보기'}</button>`;
   }
@@ -224,28 +216,6 @@
       $('#d-record-hint').textContent=D_MAIN_GUIDANCE;
       moveArchivePane(1);
     }
-  }
-
-  // Continue past a main report only when explicitly chosen from a related report.
-  async function continueRelatedReport() {
-    const related=currentRecord();
-    const context=validReportContext(),main=context && archive.getRecord(context.recordId);
-    if(state.screen!=='objective-screen' || !related?.relatedReport
-      || main?.readerMode!=='report' || !archive.getRecord(main.nextId))return;
-    const progress=recordProgress(related.id);
-    progress.completed=true;progress.inProgress=false;progress.lineIndex=0;progress.reportScroll=0;
-    saveProgress();
-    await continueMainReport();
-  }
-
-  // Story contexts and last reports have no safe next chapter to skip to.
-  function browseDMain() {
-    if(syncResetFromStorage())return;
-    clearPlaybackTimers();state.auto=false;updateAutoButton();
-    state.reportContext=null;state.archiveRecordKind='main';state.selectedRecordId=null;
-    selectDisk('D');
-    showScreen('archive-screen');
-    moveArchivePane(1);
   }
 
   function validReportContext(context=state.reportContext) {
@@ -747,7 +717,7 @@
     const active = $('#' + id);
     active.setAttribute('tabindex', '-1');
     active.focus({preventScroll:true});
-    if (id === 'archive-screen') {syncArchiveLayout(true);restoreArchiveScroll();}
+    if (id === 'archive-screen') {syncArchiveLayout();restoreArchiveScroll();}
     if (id === 'settings-screen') startSettingsPreview();
   }
 
@@ -1100,16 +1070,12 @@
     $('#archive-tools-toggle').setAttribute('aria-expanded',String(state.archiveToolsOpen));
   }
 
-  let archiveLayoutWidth=0;
-  function syncArchiveLayout(force=false) {
+  function syncArchiveLayout() {
     updateArchiveTabs();
     syncArchiveTools();
     const layout=$('#archive-layout');
     if (state.screen!=='archive-screen' || !layout.clientWidth) return;
-    // Ignore unrelated resize notifications (e.g. font/media loading) while
-    // a swipe is in progress. Only actual width changes or screen entry recenter.
-    if(force!==true && archiveLayoutWidth===layout.clientWidth)return;
-    archiveLayoutWidth=layout.clientWidth;
+    // Resize and screen return restore the same page; inner panel scroll stays.
     layout.scrollTo({left:archiveMobileQuery.matches ? layout.clientWidth*state.archivePane : 0,behavior:'instant'});
   }
 
@@ -1119,7 +1085,7 @@
     updateArchiveTabs();
     if (focusTab) $('#archive-tab-'+state.archivePane).focus({preventScroll:true});
     const layout=$('#archive-layout');
-    if (layout.clientWidth) layout.scrollTo({left:layout.clientWidth*state.archivePane,behavior:'instant'});
+    if (layout.clientWidth) layout.scrollTo({left:layout.clientWidth*state.archivePane,behavior:motionReduced() ? 'instant' : 'smooth'});
   }
 
   function stripTechnicalMetadata(value, state = {skipValue:false}) {
@@ -1642,11 +1608,8 @@
   // their short focus and return without blocking dialogue progression.
   function renderCutsceneComposition(shot, resizing = false) {
     const memory=!$('#memory-card').hidden;
+    const image = memory ? $('#memory-image') : !$('#scene-art').hidden ? $('#stage-camera') : null;
     const stage = $('#story-stage');
-    // Preserve B-02's opening photo; portrait chat uses the normal messenger.
-    const portraitChat=currentRecord()?.id==='B-02' && currentStory()[state.lineIndex]?.tone==='chat'
-      && window.matchMedia('(max-width:760px) and (orientation:portrait)').matches;
-    const image = portraitChat ? null : memory ? $('#memory-image') : !$('#scene-art').hidden ? $('#stage-camera') : null;
     const copies=[$('#dialogue-box'),$('.cutscene-copy'),$('#story-caption'),$('#telemetry-panel'),$('#communication-panel')];
     if(currentRecord()?.diskId==='B')copies.push($('#system-panel'));
     copies.forEach(copy=>copy.classList.remove('composition-copy'));
@@ -1657,7 +1620,6 @@
     delete stage.dataset.aMobileLayout;
     delete stage.dataset.aComposition;
     delete stage.dataset.aPath;
-    for (const key of ['--a-picture-top','--a-picture-bottom','--a-hud-top','--a-dialogue-top']) stage.style.removeProperty(key);
     cutsceneGeometry = null;
     if (shot.mode !== 'cutscene' || !image?.naturalWidth
       || typeof image.parentElement?.getBoundingClientRect !== 'function' || shot.zoom !== 1) {stopAPath();return false;}
@@ -1714,15 +1676,15 @@
     const phase=aCameraVisit.phase;
     $('#story-stage').dataset.aCameraPhase=phase;
     stage.dataset.aComposition='true';
-    // Reserve stable mobile space: changing HUD/chat text cannot resize the artwork.
-    const compact = width <= 760 && height > width;
+    // Keep the complete artwork and its dialogue together in portrait view.
+    // Reserve the measured text/HUD height before fitting the original image.
+    const compact = width <= 760 && height > width && Boolean(copy);
     let captionHeight=0, hudHeight=0;
     if (compact) {
       stage.dataset.aMobileLayout='contained';
-      const communication=copy===$('#telemetry-panel') || copy===$('#communication-panel');
-      captionHeight=copy ? Math.min(height*.40,Math.max(communication ? 190 : 170,height*(communication ? .34 : .30))) : 0;
+      captionHeight=copy.getBoundingClientRect().height;
       const hud=$('#a-identity-hud');
-      hudHeight=hud.hidden ? 0 : Math.min(height*.20,128);
+      hudHeight=hud.hidden ? 0 : hud.getBoundingClientRect().height+12;
     }
     // Keep one image size for both directions; animate only its transform.
     const pictureHeight=compact ? Math.max(1,height-captionHeight-hudHeight-68) : height;
@@ -1734,7 +1696,7 @@
     stage.style.setProperty('--a-composition-left',`${(width-bw)/2}px`);
     stage.style.setProperty('--a-composition-width',`${bw}px`);
     stage.style.setProperty('--a-composition-bottom',`${compact ? Math.max(0,height-pictureTop-bh) : 0}px`);
-    stage.style.setProperty('--a-caption-height',`${compact ? captionHeight : copy?.getBoundingClientRect().height || 0}px`);
+    stage.style.setProperty('--a-caption-height',`${copy?.getBoundingClientRect().height || 0}px`);
     let zoom=1;
     let x=(width-bw)/2, y=pictureTop;
     if (compact) {
@@ -1793,7 +1755,7 @@
     const visible=!$('#scene-art').hidden && shot.identities.length>0
       && (state.characterLabels || state.identificationIntroActive);
     hud.hidden=!(visible && state.identificationIntroActive); targets.hidden=true;
-    if (!visible) {targets.parentElement.style.clipPath='';return;}
+    if (!visible) return;
     const roster=$('#a-identity-roster'), key=JSON.stringify([shot.src,shot.identities]);
     if (roster.dataset.media !== key) {
       roster.dataset.media=key;
@@ -1849,21 +1811,10 @@
 
   function refreshCutsceneComposition(resizing = false) {
     if (state.screen !== 'story-screen' || !activeCutsceneShot) return;
-    // Clear geometry before changing identity/HUD visibility; otherwise the
-    // next scene may briefly reuse the previous scene's transform during a tap.
-    cutsceneGeometry=null;
-    try {
-      renderAIdentities(activeCutsceneShot);
-      renderCutsceneComposition(activeCutsceneShot,resizing);
-      renderAIdentities(activeCutsceneShot);
-    } catch (error) {
-      // Visual overlays must never prevent advancing the story or telemetry pages.
-      console.error('Unable to update story artwork/HUD',error);
-      cutsceneGeometry=null;
-      $('#a-identity-targets').hidden=true;
-    }
-    try {renderStandingCamera(activeCutsceneShot,resizing);}
-    catch (error) {console.error('Unable to update standing camera',error);}
+    renderAIdentities(activeCutsceneShot);
+    renderCutsceneComposition(activeCutsceneShot,resizing);
+    renderAIdentities(activeCutsceneShot);
+    renderStandingCamera(activeCutsceneShot,resizing);
   }
 
   let standingCameraVisit = null;
@@ -2295,9 +2246,13 @@
       }
     }
     activeCutsceneShot=shot;
-    // Apply image fitting after updating the incoming panel visibility and content.
+    if (!renderCutsceneComposition(shot) && $('#stage-camera') && !(shot.cameraContinuity && $('#stage-camera').dataset.geometry)) {
+      const waitingForEntrance=shot.mode==='cutscene' && (shot.resumeCamera ? shot.resumeCamera.phase==='focus' : shot.authoredCamera?.snapEntrance || shot.faceCamera?.snapEntrance || shot.cameraPath?.snapEntrance) && !$('#stage-camera').naturalWidth;
+      $('#stage-camera').setAttribute('style',(waitingForEntrance ? 'visibility:hidden;' : '')+cameraStyle(shot));
+      delete $('#stage-camera').dataset.geometry;
+    }
     if ($('#stage-camera')) $('#stage-camera').dataset.entry= !motionReduced() && !state.effectsReduced ? shot.cameraEffect : '';
-    // Identity overlays render after the new scene's geometry is prepared.
+    renderAIdentities(shot);
     const drone=$('#a-drone-hud');
     drone.hidden=!shot.dronePanel;
     if(shot.dronePanel)$('#a-drone-panel').src=media.url(shot.dronePanel);
@@ -2382,12 +2337,7 @@
     }
 
     refreshCutsceneComposition();
-    if (!cutsceneGeometry && $('#stage-camera')) {
-      const waitingForEntrance=shot.mode==='cutscene' && (shot.resumeCamera ? shot.resumeCamera.phase==='focus' : shot.authoredCamera?.snapEntrance || shot.faceCamera?.snapEntrance || shot.cameraPath?.snapEntrance) && !$('#stage-camera').naturalWidth;
-      $('#stage-camera').setAttribute('style',(waitingForEntrance ? 'visibility:hidden;' : '')+cameraStyle(shot));
-      delete $('#stage-camera').dataset.geometry;
-    }
-    try {renderResearchMedia(shot);} catch (error) {console.error('Unable to update research visual',error);}
+    renderResearchMedia(shot);
     if(shot.flashReturn && !motionReduced() && !state.effectsReduced) {
       const at=state.lineIndex,image=cutsceneMode ? $('#memory-image') : $('#stage-camera');
       bFlashTimer=setTimeout(()=>{
@@ -2656,8 +2606,6 @@
       'open-d-report':()=>{const record=archive.getRecord(target?.dataset.reportId);if(record?.diskId==='D'&&record.readerMode==='report'&&isRecordUnlocked(record)){const mode=currentRecord()?.relatedReport?'replace':'push';if(!currentRecord()?.relatedReport)captureReportContext();rememberView();state.selectedRecordId=record.id;state.archiveRecordKind=record.relatedReport?'related':'main';selectDisk('D',false);openObjective(mode);}},
       'show-related':()=>{captureReportContext();clearPlaybackTimers();state.auto=false;updateAutoButton();saveProgress();state.archiveRecordKind='related';selectDisk('D');showScreen('archive-screen');},
       'resume-main':resumeDMain,
-      'continue-related-report':continueRelatedReport,
-      'browse-d-main':browseDMain,
       'archive-pane':()=>moveArchivePane(Number(target?.dataset.archivePane)),
       'archive-open-record':()=>{if(isRecordUnlocked(currentRecord())){state.archiveToolsOpen=false;syncArchiveTools();openObjective();}},
       'toggle-archive-tools':()=>{state.archiveToolsOpen=!state.archiveToolsOpen;syncArchiveTools();},
@@ -3274,14 +3222,7 @@
     },true);
     if (typeof ResizeObserver === 'function') {
       let aFrame=null;
-      const aLayout=new ResizeObserver(entries=>{
-        const stage=$('#story-stage');
-        const portrait=stage.clientWidth<=760 && stage.clientHeight>stage.clientWidth;
-        // Refit a portrait image only when the stage changes, not the HUD text.
-        if(state.screen==='story-screen' && portrait && !entries.some(entry=>entry.target===stage)) {
-          if(entries.some(entry=>entry.target===$('.story-hud')))syncStoryMenu();
-          return;
-        }
+      const aLayout=new ResizeObserver(()=>{
         if (aFrame!==null) return;
         aFrame=requestAnimationFrame(()=>{aFrame=null;if(state.screen==='story-screen')syncStoryMenu();refreshCutsceneComposition(true);});
       });
@@ -3508,24 +3449,6 @@
     });
     window.addEventListener('storage', event => { if (event.key === STORAGE_KEY) syncResetFromStorage(); });
     window.addEventListener('focus', syncResetFromStorage);
-    let orientationLayoutFrame=null;
-    const settleOrientationLayout=()=>{
-      if(state.screen!=='story-screen')return;
-      if(orientationLayoutFrame!==null)cancelAnimationFrame(orientationLayoutFrame);
-      orientationLayoutFrame=requestAnimationFrame(()=>{
-        orientationLayoutFrame=requestAnimationFrame(()=>{
-          orientationLayoutFrame=null;
-          if(state.screen!=='story-screen')return;
-          const stage=$('#story-stage');
-          for (const key of ['--a-picture-top','--a-picture-bottom','--a-hud-top','--a-dialogue-top']) stage.style.removeProperty(key);
-          const image=$('#stage-camera');if(image)delete image.dataset.geometry;
-          $('#a-identity-targets').parentElement.style.clipPath='';
-          refreshCutsceneComposition(true);
-        });
-      });
-    };
-    window.addEventListener('orientationchange',settleOrientationLayout);
-    window.matchMedia('(orientation:portrait)').addEventListener?.('change',settleOrientationLayout);
     window.matchMedia('(max-width:760px)').addEventListener?.('change', () => {
       if (state.screen === 'story-screen') renderResearchMedia(window.RustedPrayerVisuals.resolve(currentRecord(),state.lineIndex,getActiveVisual(state.lineIndex),state.telemetryPage));
     });

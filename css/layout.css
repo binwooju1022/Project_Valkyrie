@@ -326,11 +326,11 @@
 .story-stage .insert-card { top:50%; max-height:calc(100% - 2rem); width:calc(100% - 3rem); animation-name:panel-reveal; }
 .story-screen[data-disk] .insert-card:is([data-kind='memo'],[data-kind='document'],[data-kind='report'],[data-kind='comparison']) {width:min(900px,calc(100% - 3rem));padding:clamp(1.25rem,3vw,2.25rem);}
 .story-screen[data-disk] .insert-card .embedded-art {width:max-content;max-width:100%;height:auto;min-height:0;margin:0 auto 1rem;background:transparent;border:0;}
-.story-screen[data-disk] .insert-card .embedded-art .real-art {position:relative;display:block;width:auto;height:auto;max-width:100%;max-height:min(36svh,340px);object-fit:contain;}
+.story-screen[data-disk] .insert-card .embedded-art .real-art {position:relative;display:block;width:auto;height:auto;max-width:100%;max-height:min(36dvh,340px);object-fit:contain;}
 .story-screen[data-disk] .insert-card:has(.embedded-art) {padding:clamp(1.25rem,2vw,1.5rem);}
 .story-screen[data-disk] .attachment-log .sheet-speech {padding:.38rem 0;}
 .report-section .embedded-art {width:max-content;max-width:100%;height:auto;min-height:0;margin:0 auto 1rem;background:transparent;border:0;}
-.report-section .embedded-art .real-art {width:auto;max-width:100%;max-height:min(36svh,340px);object-fit:contain;}
+.report-section .embedded-art .real-art {width:auto;max-width:100%;max-height:min(36dvh,340px);object-fit:contain;}
 .report-section .embedded-art > span {display:none;}
 .a-identity-hud {position:absolute;z-index:9;left:50%;bottom:calc(clamp(150px,24dvh,210px) + 16px);transform:translateX(-50%);width:min(650px,calc(100% - 2rem));padding:.6rem .8rem;border:1px solid #72d9f199;background:#05202be6;color:#bcefff;box-shadow:inset 0 0 18px #08668a30;pointer-events:none;font-size:.8rem;}
 .story-stage[data-a-composition='true'] .a-identity-hud {bottom:calc(var(--a-composition-bottom) + var(--a-caption-height,190px) + 16px);}
@@ -696,52 +696,6 @@
   .archive-open-bar {min-height:52px;padding:.2rem .65rem;}
   .archive-open-bar > div {display:flex;align-items:center;gap:.65rem;}
   .archive-open-bar strong {flex-shrink:0;}
-}
-
-/* Stable portrait viewport and overlay menu: image geometry never follows toolbars. */
-@media (max-width:760px) and (orientation:portrait) {
-  .story-screen[data-disk] {
-    height:100svh;
-    grid-template-rows:0 minmax(0,1fr);
-    transition:none;
-  }
-  .story-screen[data-disk][data-menu='open'] {
-    grid-template-rows:0 minmax(0,1fr);
-  }
-  .story-screen[data-disk] > .story-stage {
-    min-height:0;
-    height:100%;
-  }
-
-  /* B-02's opening photo remains; subsequent chat fills the reading area. */
-  .story-stage[data-record='B-02'][data-tone='chat'] .scene-art {
-    display:none;
-  }
-
-  /* Stable panels: their own text scrolls, leaving the artwork stationary. */
-  .story-stage[data-a-mobile-layout='contained'] .telemetry-panel.composition-copy {
-    height:34%;
-    max-height:36%;
-    overflow:hidden;
-  }
-  .story-stage[data-a-mobile-layout='contained'] .telemetry-panel.composition-copy #telemetry-text {
-    min-height:0;
-    flex:1 1 auto;
-    overflow-y:auto;
-  }
-  .story-stage[data-record='C-02'] .communication-panel[data-bubble='true'] {
-    height:30%;
-    max-height:34%;
-  }
-  .story-stage[data-record='C-05'] .communication-panel[data-kind='radio'] {
-    height:30%;
-    max-height:34%;
-  }
-
-  /* Keep the trauma tint but remove phone-only vertical shake. */
-  .story-stage[data-visual-treatment='trauma'] .scene-art {
-    animation:none;
-  }
 }
 
 /* Keep the photographed scene behind B-02's chat. */
