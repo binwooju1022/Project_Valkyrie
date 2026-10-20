@@ -41,7 +41,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "[최종 처분]\n\n개선 비용 대비 기대 효과 낮음. 발키리 프로젝트 종료.\n\nUNIT-01 : 별도 실험 개체 보존 없이 수리 후 통상 전력 재분류."
+      "text": "[최종 처분]\n\n개선 비용 대비 기대 효과 낮음. 발키리 프로젝트 종료.\n\nUNIT-01 : 수리 후 ■■■ 작전에 재배치 예정."
     },
     {
       "type": "text",
@@ -151,7 +151,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "[최종 처분]\n\n개선 비용 대비 기대 효과 낮음. 발키리 프로젝트 종료.\n\nUNIT-01 : 별도 실험 개체 보존 없이 수리 후 통상 전력 재분류.",
+      "text": "[최종 처분]\n\n개선 비용 대비 기대 효과 낮음. 발키리 프로젝트 종료.\n\nUNIT-01 : 수리 후 ■■■ 작전에 재배치 예정.",
       "tone": "report",
       "cardTitle": "최종 처분",
       "sourceIndices": [
@@ -164,7 +164,7 @@ window.RustedPrayerArchive.registerRecord({
         },
         {
           "speaker": "UNIT-01",
-          "text": "별도 실험 개체 보존 없이 수리 후 통상 전력 재분류."
+          "text": "수리 후 ■■■ 작전에 재배치 예정."
         }
       ],
       "report": true

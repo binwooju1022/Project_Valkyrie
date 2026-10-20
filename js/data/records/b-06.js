@@ -28,7 +28,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "UNIT-01이 UNIT-02를 업고 이동 중.\n영상 흔들림 지속. 주무장 미확인.\n이동 속도  기록상 최고 속도 초과."
+      "text": "UNIT-01이 UNIT-02를 업고 이동 중.\n영상 흔들림 지속. 주무장 미확인.\n이동 속도: 기록상 최고치 초과."
     },
     {
       "type": "text",
@@ -62,7 +62,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "UNIT-01이 UNIT-02를 업고 이동 중.\n영상 흔들림 지속. 주무장 미확인.\n이동 속도  기록상 최고 속도 초과.",
+      "text": "UNIT-01이 UNIT-02를 업고 이동 중.\n영상 흔들림 지속. 주무장 미확인.\n이동 속도: 기록상 최고치 초과.",
       "tone": "telemetry",
       "cardTitle": "영상 복구",
       "sourceIndices": [
@@ -77,7 +77,7 @@ window.RustedPrayerArchive.registerRecord({
         "alt": "b-06 이미지"
       },
       "telemetryPages": [
-        "UNIT-01이 UNIT-02를 업고 이동 중.\n영상 흔들림 지속. 주무장 미확인.\n이동 속도  기록상 최고 속도 초과."
+        "UNIT-01이 UNIT-02를 업고 이동 중.\n영상 흔들림 지속. 주무장 미확인.\n이동 속도: 기록상 최고치 초과."
       ],
       "preserveTelemetryLines": true,
       "preserveSystemPunctuation": true

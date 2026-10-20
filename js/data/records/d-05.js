@@ -147,7 +147,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "의미없는 대화 기록"
+      "text": "의미 없는 대화 기록"
     },
     {
       "type": "dialogue",
@@ -349,7 +349,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "의미없는 대화 기록",
+      "text": "의미 없는 대화 기록",
       "tone": "narration",
       "sourceIndices": [
         10

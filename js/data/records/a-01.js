@@ -85,7 +85,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "형상 구축 성공 : 5 / 5\n평균 유지 시간 : 18.7 초\n전투 지속 성공 : 0 / 5\n의식 소실 : 5 / 5"
+      "text": "형상 구축 성공 : 5 / 5\n평균 유지 시간 : 18.7초\n전투 지속 성공 : 0 / 5\n의식 소실 : 5 / 5"
     },
     {
       "type": "text",
@@ -115,7 +115,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "형상 구축 성공 : 5 / 5\n평균 유지 시간 : 18.7 초\n전투 지속 성공 : 0 / 5\n의식 소실 : 5 / 5"
+      "text": "형상 구축 성공 : 5 / 5\n평균 유지 시간 : 18.7초\n전투 지속 성공 : 0 / 5\n의식 소실 : 5 / 5"
     },
     {
       "type": "text",

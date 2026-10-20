@@ -249,7 +249,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : 예. AI 분석 결과 외형이 일부 비슷하다는 것 뿐입니다."
+      "text": "연구원 B : 예. AI 분석 결과 외형이 일부 비슷하다는 것뿐입니다."
     },
     {
       "type": "dialogue",
@@ -301,7 +301,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : 게다가 그때 로그까지 다 확인했잖아. 결론은 '원인 모름. 그냥 님프 오류로 추정됨.' 이라고 떠서 그대로 보고했고."
+      "text": "연구원 A : 게다가 그때 로그까지 다 확인했잖아. 결론은 '원인 모름. 그냥 님프 오류로 추정됨.'이라고 떠서 그대로 보고했고."
     },
     {
       "type": "dialogue",
@@ -580,7 +580,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연구원 B",
-      "text": "예. AI 분석 결과 외형이 일부 비슷하다는 것 뿐입니다.",
+      "text": "예. AI 분석 결과 외형이 일부 비슷하다는 것뿐입니다.",
       "tone": "dialogue",
       "sourceIndices": [
         21
@@ -749,7 +749,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연구원 A",
-      "text": "게다가 그때 로그까지 다 확인했잖아. 결론은 '원인 모름. 그냥 님프 오류로 추정됨.' 이라고 떠서 그대로 보고했고.",
+      "text": "게다가 그때 로그까지 다 확인했잖아. 결론은 '원인 모름. 그냥 님프 오류로 추정됨.'이라고 떠서 그대로 보고했고.",
       "tone": "dialogue",
       "sourceIndices": [
         34

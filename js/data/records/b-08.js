@@ -129,7 +129,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "원인 파악을 위한 정밀 뇌스캔 권장."
+      "text": "원인 파악을 위한 정밀 뇌 스캔 권장."
     }
   ],
   "story": [],
@@ -312,7 +312,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "[담당자 메모]\n\n사고 전환으로 보임.\n\n긍정적 변화로 인해 이전보다 쓸모 있게 변함.\n\n원인 파악 후 다른 니케에도 적용할 경우\n전선에 긍정적 변화를 유도할 수 있을 것으로 보임.\n\n원인 파악을 위한 정밀 뇌스캔 권장.",
+      "text": "[담당자 메모]\n\n사고 전환으로 보임.\n\n긍정적 변화로 인해 이전보다 쓸모 있게 변함.\n\n원인 파악 후 다른 니케에도 적용할 경우\n전선에 긍정적 변화를 유도할 수 있을 것으로 보임.\n\n원인 파악을 위한 정밀 뇌 스캔 권장.",
       "tone": "memo",
       "cardTitle": "담당자 메모",
       "sourceIndices": [
@@ -336,7 +336,7 @@ window.RustedPrayerArchive.registerRecord({
           "highlight": false
         },
         {
-          "text": "원인 파악을 위한 정밀 뇌스캔 권장.",
+          "text": "원인 파악을 위한 정밀 뇌 스캔 권장.",
           "highlight": false
         }
       ],

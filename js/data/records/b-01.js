@@ -341,7 +341,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "유라는 입술을 삐죽이다가 잠깐 멈칫한다. 잠시 거울을 들고, 연화의 머리핀과 자신의 머리핀을 번갈아 보더니 고개를 조금 기울인다."
+      "text": "유라는 입술을 삐죽이다가 멈칫한다. 거울을 들어 둘의 머리핀을 번갈아 보고 고개를 기울인다."
     },
     {
       "type": "dialogue",
@@ -365,7 +365,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "유라가 소리 내어 웃는다. 폐허 사이로 번지던 웃음은 연화의 얼굴에 시선이 닿자 조금씩 잦아든다. 입가에 미소를 남긴 채, 유라는 한동안 말을 고른다."
+      "text": "유라가 소리 내어 웃는다. 연화를 바라보며 웃음을 가라앉힌 뒤, 미소를 머금고 말을 고른다."
     },
     {
       "type": "dialogue",
@@ -923,7 +923,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "유라는 입술을 삐죽이다가 잠깐 멈칫한다. 잠시 거울을 들고, 연화의 머리핀과 자신의 머리핀을 번갈아 보더니 고개를 조금 기울인다.",
+      "text": "유라는 입술을 삐죽이다가 멈칫한다. 거울을 들어 둘의 머리핀을 번갈아 보고 고개를 기울인다.",
       "tone": "narration",
       "sourceIndices": [
         45
@@ -1002,7 +1002,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "유라가 소리 내어 웃는다. 폐허 사이로 번지던 웃음은 연화의 얼굴에 시선이 닿자 조금씩 잦아든다. 입가에 미소를 남긴 채, 유라는 한동안 말을 고른다.",
+      "text": "유라가 소리 내어 웃는다. 연화를 바라보며 웃음을 가라앉힌 뒤, 미소를 머금고 말을 고른다.",
       "tone": "narration",
       "sourceIndices": [
         51

@@ -75,7 +75,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "AI 분석 결과 일부 흡사한 외형 정보 보고됨."
+      "text": "AI 분석 결과, 일부 외형적 유사성이 보고됨."
     }
   ],
   "story": [],
@@ -164,7 +164,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "AI 분석 결과 일부 흡사한 외형 정보 보고됨.",
+      "text": "AI 분석 결과, 일부 외형적 유사성이 보고됨.",
       "tone": "report",
       "cardTitle": "AI 분석",
       "sourceIndices": [
@@ -172,7 +172,7 @@ window.RustedPrayerArchive.registerRecord({
       ],
       "rows": [
         {
-          "text": "AI 분석 결과 일부 흡사한 외형 정보 보고됨.",
+          "text": "AI 분석 결과, 일부 외형적 유사성이 보고됨.",
           "highlight": false
         }
       ],

@@ -192,7 +192,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "초희 : 드디어 동지가 늘었군! 네 녀석의 가면이 언제 벗겨지는가 했다!"
+      "text": "초희 : 드디어 동지가 늘었군! 네 녀석의 가면이 언제 벗겨지나 했더니!"
     },
     {
       "type": "dialogue",
@@ -704,7 +704,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "초희",
-      "text": "드디어 동지가 늘었군! 네 녀석의 가면이 언제 벗겨지는가 했다!",
+      "text": "드디어 동지가 늘었군! 네 녀석의 가면이 언제 벗겨지나 했더니!",
       "tone": "chat",
       "sourceIndices": [
         23

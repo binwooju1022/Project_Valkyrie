@@ -135,7 +135,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "집적 시간 : 7.8 초"
+      "text": "집적 시간 : 7.8초"
     },
     {
       "type": "text",
@@ -297,7 +297,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "",
-      "text": "[시험 결과]\n\n목표물 : 마스터급 모의 장갑 표적\n\n집적 시간 : 7.8 초\n\n결과 : 관통\n\n부수 피해 :\n\n- 모의 표적 후방 방벽 1개 파손\n- 관측용 카메라 2대 파손\n- 보급 창고 외벽 일부 파손\n- 지휘관 임시 숙소 유리창 3장 파손",
+      "text": "[시험 결과]\n\n목표물 : 마스터급 모의 장갑 표적\n\n집적 시간 : 7.8초\n\n결과 : 관통\n\n부수 피해 :\n\n- 모의 표적 후방 방벽 1개 파손\n- 관측용 카메라 2대 파손\n- 보급 창고 외벽 일부 파손\n- 지휘관 임시 숙소 유리창 3장 파손",
       "tone": "memo",
       "sourceIndices": [
         14,
@@ -314,7 +314,7 @@ window.RustedPrayerArchive.registerRecord({
           "highlight": false
         },
         {
-          "text": "집적 시간 : 7.8 초",
+          "text": "집적 시간 : 7.8초",
           "highlight": false
         },
         {

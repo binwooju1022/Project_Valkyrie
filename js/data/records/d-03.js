@@ -283,7 +283,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : 최악인 건 안 될 수도 있는 거고."
+      "text": "연구원 A : 최악인 건, 이렇게 해도 복구가 안 될 수 있다는 거고."
     },
     {
       "type": "dialogue",
@@ -776,7 +776,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연구원 A",
-      "text": "최악인 건 안 될 수도 있는 거고.",
+      "text": "최악인 건, 이렇게 해도 복구가 안 될 수 있다는 거고.",
       "tone": "dialogue",
       "sourceIndices": [
         39

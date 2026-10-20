@@ -265,7 +265,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 A : ‘침식 개체 처리 실패로 인한 UNIT-01 전투불능.’"
+      "text": "연구원 A : ‘침식 개체 처리 실패로 인한 UNIT-01 전투 불능.’"
     },
     {
       "type": "dialogue",
@@ -285,7 +285,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "dialogue",
-      "text": "연구원 B : UNIT-02를 업고 복귀한 사건 이후로 보입니다."
+      "text": "연구원 B : UNIT-02를 업고 복귀한 사건이 계기였던 것으로 보입니다."
     },
     {
       "type": "dialogue",
@@ -678,7 +678,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연구원 A",
-      "text": "‘침식 개체 처리 실패로 인한 UNIT-01 전투불능.’",
+      "text": "‘침식 개체 처리 실패로 인한 UNIT-01 전투 불능.’",
       "tone": "dialogue",
       "sourceIndices": [
         23
@@ -743,7 +743,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "speaker": "연구원 B",
-      "text": "UNIT-02를 업고 복귀한 사건 이후로 보입니다.",
+      "text": "UNIT-02를 업고 복귀한 사건이 계기였던 것으로 보입니다.",
       "tone": "dialogue",
       "sourceIndices": [
         28
