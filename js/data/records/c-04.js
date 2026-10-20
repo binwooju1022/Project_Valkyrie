@@ -709,23 +709,10 @@ window.RustedPrayerArchive.registerRecord({
     {
       "sceneId": "c-04-scene-0002",
       "speaker": "",
-      "text": "연화.",
+      "text": "연화. 붕괴된 기둥에 등을 기대고 앉아 있다.",
       "tone": "narration",
       "sourceIndices": [
-        3
-      ],
-      "sceneArt": {
-        "kind": "cutscene",
-        "fixture": "cutscene",
-        "alt": "c-04 이미지"
-      }
-    },
-    {
-      "sceneId": "c-04-scene-0003",
-      "speaker": "",
-      "text": "붕괴된 기둥에 등을 기대고 앉아 있다.",
-      "tone": "narration",
-      "sourceIndices": [
+        3,
         4
       ],
       "sceneArt": {
@@ -1929,23 +1916,10 @@ window.RustedPrayerArchive.registerRecord({
     {
       "sceneId": "c-04-scene-0087",
       "speaker": "",
-      "text": "유라가 눈을 감는다.",
+      "text": "유라가 눈을 감는다. 눈물이 뺨을 따라 흐른다.",
       "tone": "narration",
       "sourceIndices": [
-        88
-      ],
-      "sceneArt": {
-        "kind": "cutscene",
-        "fixture": "cutscene",
-        "alt": "c-04 이미지"
-      }
-    },
-    {
-      "sceneId": "c-04-scene-0088",
-      "speaker": "",
-      "text": "눈물이 뺨을 따라 흐른다.",
-      "tone": "narration",
-      "sourceIndices": [
+        88,
         89
       ],
       "sceneArt": {

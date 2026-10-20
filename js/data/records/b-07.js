@@ -3226,23 +3226,10 @@ window.RustedPrayerArchive.registerRecord({
     {
       "sceneId": "b-07-scene-0151",
       "speaker": "",
-      "text": "유라의 웃음소리.",
+      "text": "유라의 웃음소리. 문이 닫힌다.",
       "tone": "narration",
       "sourceIndices": [
-        173
-      ],
-      "sceneArt": {
-        "kind": "cutscene",
-        "fixture": "cutscene",
-        "alt": "b-07 이미지"
-      }
-    },
-    {
-      "sceneId": "b-07-scene-0152",
-      "speaker": "",
-      "text": "문이 닫힌다.",
-      "tone": "narration",
-      "sourceIndices": [
+        173,
         174
       ],
       "sceneArt": {

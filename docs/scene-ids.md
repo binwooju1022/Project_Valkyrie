@@ -21,5 +21,11 @@ must point to an existing scene, must not cycle, and must not replace a live ID.
 Use `null` to explicitly retire an ID. Deleted or unknown scenes remain visible
 as unavailable bookmarks; they must never silently jump by a saved index.
 
+The October 21 narration merges also migrate numeric resume/seen positions via
+`js/core/scene-layout.js`. `narrationLayoutVersion: 1` marks the current layout in
+saves, history entries and change journals. Historical index maps remain frozen;
+apply this final migration after them. Keep scene artwork and SFX indices aligned
+when changing the story array. Do not reuse this migration flag for a later edit.
+
 Checks: `node --test tests/bookmarks.test.mjs tests/progress-store.test.mjs`.
 Browser coverage: `tests/browser/bookmark-ids.mjs`, `progress-import.mjs`.

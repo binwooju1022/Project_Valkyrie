@@ -49,6 +49,12 @@ test('all shipped story/report scenes have unique IDs and frozen legacy mappings
   vm.runInContext(fs.readFileSync(new URL('js/data/bookmark-legacy.js',root),'utf8'),data);
   const catalog=create(records,data.window.RustedPrayerBookmarkLegacy);
   assert.ok(catalog.size>1000);
+  for(const [id,from,to,index] of [['C-04','c-04-scene-0003','c-04-scene-0002',1],['C-04','c-04-scene-0088','c-04-scene-0087',85],['B-07','b-07-scene-0152','b-07-scene-0151',150]]) {
+    const native=catalog.resolve({recordId:id,sceneId:from});
+    const legacy=catalog.resolve({recordId:id,index:Number(from.slice(-4))-1,text:'old'});
+    assert.equal(native.sceneId,to);assert.equal(native.index,index);
+    assert.equal(legacy.sceneId,to);assert.equal(legacy.index,index);
+  }
   for(const r of records) {
     const lines=r.reportSections || r.story;
     for(let i=0;i<lines.length;i++) {

@@ -30035,84 +30035,6 @@ window.RustedPrayerMediaManifest = {
             ]
           }
         ]
-      },
-      "152": {
-        "mode": "cutscene",
-        "src": "./assets/cutscenes/b-07-03.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "duration": 600,
-        "identities": [
-          {
-            "speaker": "연화",
-            "focus": [
-              43,
-              42
-            ],
-            "bounds": [
-              39,
-              35,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "초희",
-            "focus": [
-              29,
-              45
-            ],
-            "bounds": [
-              25,
-              38,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "유라",
-            "focus": [
-              56,
-              43
-            ],
-            "bounds": [
-              52,
-              36,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "세린",
-            "focus": [
-              34,
-              25
-            ],
-            "bounds": [
-              30,
-              18,
-              8,
-              14
-            ]
-          },
-          {
-            "speaker": "가은",
-            "focus": [
-              71,
-              47
-            ],
-            "bounds": [
-              67,
-              40,
-              8,
-              14
-            ]
-          }
-        ]
       }
     },
     "C-01": {
@@ -38118,7 +38040,7 @@ window.RustedPrayerMediaManifest = {
       },
       "6": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-03.png",
+        "src": "./assets/cutscenes/c-04-02-01.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -38238,7 +38160,7 @@ window.RustedPrayerMediaManifest = {
       },
       "16": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-02-01.png",
+        "src": "./assets/cutscenes/c-04-03.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -38418,7 +38340,7 @@ window.RustedPrayerMediaManifest = {
       },
       "31": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-03.png",
+        "src": "./assets/cutscenes/c-04-02-01.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -38430,7 +38352,7 @@ window.RustedPrayerMediaManifest = {
       },
       "32": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-02-01.png",
+        "src": "./assets/cutscenes/c-04-03.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -38630,18 +38552,6 @@ window.RustedPrayerMediaManifest = {
           50
         ],
         "identities": [],
-        "duration": 450
-      },
-      "49": {
-        "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-03.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "identities": [],
         "duration": 450,
         "authoredCamera": {
           "id": "lower-rifle",
@@ -38653,7 +38563,7 @@ window.RustedPrayerMediaManifest = {
           "hold": true
         }
       },
-      "50": {
+      "49": {
         "mode": "cutscene",
         "src": "./assets/cutscenes/c-04-03.png",
         "fit": "contain",
@@ -38673,6 +38583,18 @@ window.RustedPrayerMediaManifest = {
           "zoom": 1.04,
           "hold": true
         }
+      },
+      "50": {
+        "mode": "cutscene",
+        "src": "./assets/cutscenes/c-04-03.png",
+        "fit": "contain",
+        "zoom": 1,
+        "focus": [
+          50,
+          50
+        ],
+        "identities": [],
+        "duration": 450
       },
       "51": {
         "mode": "cutscene",
@@ -38712,7 +38634,7 @@ window.RustedPrayerMediaManifest = {
       },
       "54": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-03.png",
+        "src": "./assets/cutscenes/c-04-04.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -38888,7 +38810,16 @@ window.RustedPrayerMediaManifest = {
           50
         ],
         "identities": [],
-        "duration": 450
+        "duration": 450,
+        "authoredCamera": {
+          "id": "please-shoot",
+          "focus": [
+            28,
+            37
+          ],
+          "zoom": 1.16,
+          "hold": true
+        }
       },
       "69": {
         "mode": "cutscene",
@@ -38900,16 +38831,7 @@ window.RustedPrayerMediaManifest = {
           50
         ],
         "identities": [],
-        "duration": 450,
-        "authoredCamera": {
-          "id": "please-shoot",
-          "focus": [
-            28,
-            37
-          ],
-          "zoom": 1.16,
-          "hold": true
-        }
+        "duration": 450
       },
       "70": {
         "mode": "cutscene",
@@ -38949,7 +38871,7 @@ window.RustedPrayerMediaManifest = {
       },
       "73": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-04.png",
+        "src": "./assets/cutscenes/c-04-02-01.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -39009,7 +38931,7 @@ window.RustedPrayerMediaManifest = {
       },
       "78": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-02-01.png",
+        "src": "./assets/cutscenes/c-04-03.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -39021,7 +38943,7 @@ window.RustedPrayerMediaManifest = {
       },
       "79": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-03.png",
+        "src": "./assets/cutscenes/c-04-02-02.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -39029,7 +38951,8 @@ window.RustedPrayerMediaManifest = {
           50
         ],
         "identities": [],
-        "duration": 450
+        "duration": 450,
+        "cameraReturn": true
       },
       "80": {
         "mode": "cutscene",
@@ -39041,8 +38964,7 @@ window.RustedPrayerMediaManifest = {
           50
         ],
         "identities": [],
-        "duration": 450,
-        "cameraReturn": true
+        "duration": 450
       },
       "81": {
         "mode": "cutscene",
@@ -39058,7 +38980,7 @@ window.RustedPrayerMediaManifest = {
       },
       "82": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-02-02.png",
+        "src": "./assets/cutscenes/c-04-03.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -39094,7 +39016,7 @@ window.RustedPrayerMediaManifest = {
       },
       "85": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-03.png",
+        "src": "./assets/cutscenes/c-04-05.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -39154,27 +39076,13 @@ window.RustedPrayerMediaManifest = {
       },
       "90": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-05.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "identities": [],
-        "duration": 450
+        "hideArt": true,
+        "identities": []
       },
       "91": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-05.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "identities": [],
-        "duration": 450
+        "hideArt": true,
+        "identities": []
       },
       "92": {
         "mode": "cutscene",
@@ -39193,13 +39101,27 @@ window.RustedPrayerMediaManifest = {
       },
       "95": {
         "mode": "cutscene",
-        "hideArt": true,
-        "identities": []
+        "src": "./assets/cutscenes/c-04-06.jpeg",
+        "fit": "contain",
+        "zoom": 1,
+        "focus": [
+          50,
+          50
+        ],
+        "identities": [],
+        "duration": 450
       },
       "96": {
         "mode": "cutscene",
-        "hideArt": true,
-        "identities": []
+        "src": "./assets/cutscenes/c-04-06.jpeg",
+        "fit": "contain",
+        "zoom": 1,
+        "focus": [
+          50,
+          50
+        ],
+        "identities": [],
+        "duration": 450
       },
       "97": {
         "mode": "cutscene",
@@ -39215,7 +39137,7 @@ window.RustedPrayerMediaManifest = {
       },
       "98": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-06.jpeg",
+        "src": "./assets/cutscenes/c-04-07.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -39227,7 +39149,7 @@ window.RustedPrayerMediaManifest = {
       },
       "99": {
         "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-06.jpeg",
+        "src": "./assets/cutscenes/c-04-07.png",
         "fit": "contain",
         "zoom": 1,
         "focus": [
@@ -39274,30 +39196,6 @@ window.RustedPrayerMediaManifest = {
         "duration": 450
       },
       "103": {
-        "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-07.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "identities": [],
-        "duration": 450
-      },
-      "104": {
-        "mode": "cutscene",
-        "src": "./assets/cutscenes/c-04-07.png",
-        "fit": "contain",
-        "zoom": 1,
-        "focus": [
-          50,
-          50
-        ],
-        "identities": [],
-        "duration": 450
-      },
-      "105": {
         "mode": "cutscene",
         "src": "./assets/cutscenes/c-04-07.png",
         "fit": "contain",
@@ -44853,7 +44751,7 @@ window.RustedPrayerMediaManifest = {
       ],
       "C-04": [
         {
-          "at": 98,
+          "at": 96,
           "page": 0,
           "sound": "gunshot"
         }
@@ -44951,10 +44849,10 @@ window.RustedPrayerMediaManifest = {
           "sound": "bed"
         },
         {
-          "at": 151,
+          "at": 150,
           "page": 0,
           "sound": "door-close",
-          "through": 152
+          "through": 151
         }
       ],
       "B-01": [

@@ -22,6 +22,35 @@ function fixture({locks=true}={}) {
 }
 const copy = value=>JSON.parse(JSON.stringify(value));
 
+test('narrative merges migrate checkpoints and old journal positions once before merging',async()=>{
+  const context=vm.createContext({window:{}});
+  vm.runInContext(readFileSync(new URL('../js/core/scene-layout.js',import.meta.url),'utf8'),context);
+  const layout=context.window.RustedPrayerSceneLayout;
+  const normalize=value=>layout.progress(copy({records:{},bookmarks:[],resetGeneration:0,...value}));
+  const options={normalize,
+    upgradeSnapshot:value=>value.narrationLayoutVersion===1?value:{...normalize(value),_sync:layout.sync(value._sync)},
+    upgradeChange:change=>layout.change(change,normalize)};
+  const f=fixture(),old=f.store();
+  old.value.records['C-04']={completed:false,lineIndex:87,seenIndex:98,seenPages:{86:0,87:0,98:0}};
+  old.value=old.s.save(old.value).value;await f.flush();
+  const modern=f.store(options);
+  assert.equal(modern.value.records['C-04'].lineIndex,85);
+  assert.equal(modern.value.records['C-04'].seenIndex,96);
+  assert.deepEqual(Object.keys(modern.value.records['C-04'].seenPages),['85','96']);
+  modern.value.textSize='large';modern.s.save(modern.value);await f.flush();
+  assert.equal(f.store(options).value.records['C-04'].lineIndex,85);
+  // A tab running the old release still writes old numbering to its journal.
+  old.value.records['C-04'].lineIndex=105;old.value.records['C-04'].seenIndex=105;
+  old.s.save(old.value,false,[],false);
+  const updated=f.store(options);
+  assert.equal(updated.value.records['C-04'].lineIndex,103);
+  assert.equal(updated.value.records['C-04'].seenIndex,103);
+  updated.value.records['C-04'].lineIndex=85;updated.s.save(updated.value);
+  await f.flush();
+  assert.equal(f.store(options).value.records['C-04'].lineIndex,85);
+  assert.equal(f.store(options).value.records['C-04'].seenIndex,103);
+});
+
 test('bookmark journal uses stable IDs across reordered indices and stale deletions',async()=>{
   const f=fixture(),a=f.store();
   a.value.bookmarks=[{recordId:'A',sceneId:'a-scene-1',index:2,text:'before'}];

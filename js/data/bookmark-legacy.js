@@ -35,5 +35,9 @@ window.RustedPrayerBookmarkLegacy = {
     "D-11": 44,
     "D-14": 4
   },
-  "redirects": {}
+  "redirects": {
+    "c-04-scene-0003": "c-04-scene-0002",
+    "c-04-scene-0088": "c-04-scene-0087",
+    "b-07-scene-0152": "b-07-scene-0151"
+  }
 };

@@ -3,7 +3,7 @@
 
   // Each change is durable before returning to the reader. Web Locks only compact
   // the journal; closing a tab before its lock runs cannot discard its changes.
-  function create({storage, key, locks, normalize, onError, bookmarkId=(_recordId,id)=>id}) {
+  function create({storage, key, locks, normalize, onError, bookmarkId=(_recordId,id)=>id, upgradeSnapshot=value=>value, upgradeChange=value=>value}) {
     const prefix = key + ":change:";
     const clone = value => JSON.parse(JSON.stringify(value));
     const equal = (a,b) => JSON.stringify(a) === JSON.stringify(b);
@@ -96,9 +96,11 @@
           snapshot = normalize(snapshot);
           snapshot._sync = {clock:0,epoch:"",reset:[0,""],fields:{}};
         }
+        const previous=snapshot;
+        snapshot=upgradeSnapshot(snapshot);
         entries.sort((a,b)=>compare(a[1].stamp,b[1].stamp));
-        for (const [,change] of entries) snapshot = apply(snapshot,change);
-        return {snapshot,entries};
+        for (const [,change] of entries) snapshot = apply(snapshot,upgradeChange(change));
+        return {snapshot,entries,migrated:snapshot!==previous};
       }
     }
 
@@ -106,8 +108,8 @@
       // Without Web Locks retain the journal rather than use an unsafe mutex.
       if (!locks || compacting) return compacting;
       compacting = locks.request(key,()=>{
-        const {snapshot,entries} = readBatch();
-        if (entries.length) {
+        const {snapshot,entries,migrated} = readBatch();
+        if (entries.length || migrated) {
           storage.setItem(key,JSON.stringify(snapshot));
           for (const [name] of entries) storage.removeItem(name);
         }
@@ -149,7 +151,7 @@
       }
       if (reset || Object.keys(delta).length) {
         const id = crypto.randomUUID(), stamp = [latest._sync.clock+1,id];
-        const change = {id,stamp,epoch,resetGeneration:generation(latest),fields:delta};
+        const change = {id,stamp,epoch,resetGeneration:generation(latest),fields:delta,narrationLayoutVersion:current.narrationLayoutVersion};
         if (reset) {
           change.resetGeneration += 1;
           change.reset = {...clone(current),resetGeneration:change.resetGeneration};

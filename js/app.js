@@ -5,6 +5,9 @@
   archive.validate();
   const orderedRecords = archive.getDisks().flatMap(disk => archive.getRecordsByDisk(disk.id));
   const bookmarkCatalog = window.RustedPrayerBookmarks.create(orderedRecords,window.RustedPrayerBookmarkLegacy);
+  const sceneLayout=window.RustedPrayerSceneLayout;
+  const legacyBookmarkCache=new Map(orderedRecords.map(record=>[record.id,Array.from({length:window.RustedPrayerBookmarkLegacy.counts[record.id] || 0},(_,index)=>bookmarkCatalog.locate(record.id,bookmarkCatalog.legacyId(record.id,index))?.line)]));
+  const legacyBookmarkLines=record=>legacyBookmarkCache.get(record?.id);
   const mainRecords=orderedRecords.filter(record=>!record.relatedReport);
   const media = window.RustedPrayerMedia;
   const recordNumber=record=>record?.displayId || record?.id || '';
@@ -109,15 +112,20 @@
       setItem:(key,value)=>localStorage.setItem(key,value),
       removeItem:key=>localStorage.removeItem(key),
     }, key:STORAGE_KEY, locks:navigator.locks,
-    bookmarkId:(recordId,id)=>typeof id==='number' ? bookmarkCatalog.legacyId(recordId,id) || id : id,
-    normalize(saved) {
-      // Reuse the existing migrations without changing the active reader.
-      const active = {...state};
-      try { loadProgress(saved); return progressSnapshot(); }
-      finally { Object.assign(state,active); }
+    bookmarkId:(recordId,id)=>{
+      const sceneId=typeof id==='number'?bookmarkCatalog.legacyId(recordId,id) || id:id;
+      return bookmarkCatalog.locate(recordId,sceneId)?.line.sceneId || sceneId;
     },
+    normalize:normalizeStoredProgress,
+    upgradeSnapshot:saved=>saved.narrationLayoutVersion===1?saved:{...normalizeStoredProgress(saved),_sync:sceneLayout.sync(saved._sync)},
+    upgradeChange:change=>sceneLayout.change(change,normalizeStoredProgress),
     onError:()=>{$("#storage-notice").hidden=false;}
   });
+  function normalizeStoredProgress(saved) {
+    const active={...state};
+    try {loadProgress(saved);return progressSnapshot();}
+    finally {Object.assign(state,active);}
+  }
   function progressSnapshot() {
     return {...state.progress,...Object.fromEntries(progressSettings.map(name=>[name,state[name]]))};
   }
@@ -563,6 +571,7 @@
       if (!saved.version || saved.version<24) for (const progress of Object.values(state.progress.records)) {
         if (progress && typeof progress==='object') delete progress.seenPages;
       }
+      sceneLayout.progress(state.progress,saved.narrationLayoutVersion);
       state.progress.version = 24;
       state.progress.dLayoutVersion=20;
       state.instant = saved.instant === true;
@@ -588,38 +597,38 @@
         if((saved.version || 1)<9)return {...mark,status:'unresolved'};
         const octoberRecord=archive.getRecord(mark?.recordId);
         if(migrateD05 && mark?.recordId==='D-11' && Number.isInteger(mark.index)) {
-          const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];return line?{...mark,index,text:line.text}:null;
+          const index=octoberRecord.v24IndexMap[mark.index],line=legacyBookmarkLines(octoberRecord)?.[index];return line?{...mark,index,text:line.text}:null;
         }
         if(migrateB07 && mark?.recordId==='B-07' && Number.isInteger(mark.index)) {
-          const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];
+          const index=octoberRecord.v24IndexMap[mark.index],line=legacyBookmarkLines(octoberRecord)?.[index];
           return line?{...mark,index,text:line.text}:null;
         }
         if(migrateD04 && mark?.recordId==='D-06' && Number.isInteger(mark.index)) {
-          const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];
+          const index=octoberRecord.v24IndexMap[mark.index],line=legacyBookmarkLines(octoberRecord)?.[index];
           return line?{...mark,index,text:line.text}:null;
         }
         if(migrateC03 && mark?.recordId==='C-03' && Number.isInteger(mark.index)) {
-          const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];
+          const index=octoberRecord.v24IndexMap[mark.index],line=legacyBookmarkLines(octoberRecord)?.[index];
           return line?{...mark,index,text:line.text}:null;
         }
         if(migrateB03 && mark?.recordId==='B-03' && Number.isInteger(mark.index)) {
-          const index=octoberRecord.v24IndexMap[mark.index],line=octoberRecord.story[index];
+          const index=octoberRecord.v24IndexMap[mark.index],line=legacyBookmarkLines(octoberRecord)?.[index];
           return line?{...mark,index,text:line.text}:null;
         }
         if(saved.version===23 && octoberRecord?.v23IndexMap && Number.isInteger(mark.index)) {
-          const index=octoberRecord.v23IndexMap[mark.index],line=(octoberRecord.reportSections || octoberRecord.story)[index];
+          const index=octoberRecord.v23IndexMap[mark.index],line=legacyBookmarkLines(octoberRecord)?.[index];
           return line ? {...mark,index,text:line.text} : null;
         }
         if(saved.version===22 && octoberRecord?.v22IndexMap && Number.isInteger(mark.index)) {
-          const index=octoberRecord.v22IndexMap[mark.index],line=(octoberRecord.reportSections || octoberRecord.story)[index];
+          const index=octoberRecord.v22IndexMap[mark.index],line=legacyBookmarkLines(octoberRecord)?.[index];
           return line ? {...mark,index,text:line.text} : null;
         }
         if(saved.version===21 && octoberRecord?.v21IndexMap && Number.isInteger(mark.index)) {
-          const index=octoberRecord.v21IndexMap[mark.index],line=(octoberRecord.reportSections || octoberRecord.story)[index];
+          const index=octoberRecord.v21IndexMap[mark.index],line=legacyBookmarkLines(octoberRecord)?.[index];
           return line ? {...mark,index,text:line.text} : null;
         }
         if((saved.version===20 || saved.version===19 && octoberRecord?.diskId!=='D') && octoberRecord?.v20IndexMap && Number.isInteger(mark.index)) {
-          const index=octoberRecord.v20IndexMap[mark.index],line=(octoberRecord.reportSections || octoberRecord.story)[index];
+          const index=octoberRecord.v20IndexMap[mark.index],line=legacyBookmarkLines(octoberRecord)?.[index];
           return line ? {...mark,index,text:line.text} : null;
         }
         if(mark?.recordId==='C-02' && migrateC02) {
@@ -633,7 +642,7 @@
           return correction ? {...mark,text:(record.reportSections || record.story)[correction.index].text} : mark;
         }
         const record = archive.getRecord(mark?.recordId);
-        const lines = record?.reportSections || record?.story;
+        const lines = legacyBookmarkLines(record);
         if(saved.version===18 && record?.v18IndexMap && Number.isInteger(mark.index)) {
           const index=record.v18IndexMap[mark.index];
           if(lines?.[index])return {...mark,index,text:lines[index].text};
@@ -758,7 +767,7 @@
   }
 
   function viewState() {
-    return {rustedPrayer:true, presentationVersion:24, c02LayoutVersion:1, b03LayoutVersion:1, c03LayoutVersion:1, d04LayoutVersion:1, b07LayoutVersion:1,d05LayoutVersion:1, reportContext:state.reportContext?{...state.reportContext}:null,reportScroll:state.screen==='objective-screen' && currentRecord()?.readerMode==='report' ? Math.max(0,window.scrollY || 0) : undefined,resetGeneration:state.progress.resetGeneration || 0, screen:state.screen, diskId:state.selectedDisk, recordId:state.selectedRecordId, lineIndex:state.lineIndex,telemetryPage:state.telemetryLineIndex===state.lineIndex ? state.telemetryPage : 0,transitionPaused:state.screen==='transition-screen' && state.transitionPaused,transitionAuto:state.screen==='transition-screen' && state.auto,settingsStartRecordId:state.screen==='settings-screen' ? state.settingsStartRecordId : null,endingFromGallery:state.endingFromGallery,archiveRecordKind:state.archiveRecordKind};
+    return {rustedPrayer:true, narrationLayoutVersion:1, presentationVersion:24, c02LayoutVersion:1, b03LayoutVersion:1, c03LayoutVersion:1, d04LayoutVersion:1, b07LayoutVersion:1,d05LayoutVersion:1, reportContext:state.reportContext?{...state.reportContext}:null,reportScroll:state.screen==='objective-screen' && currentRecord()?.readerMode==='report' ? Math.max(0,window.scrollY || 0) : undefined,resetGeneration:state.progress.resetGeneration || 0, screen:state.screen, diskId:state.selectedDisk, recordId:state.selectedRecordId, lineIndex:state.lineIndex,telemetryPage:state.telemetryLineIndex===state.lineIndex ? state.telemetryPage : 0,transitionPaused:state.screen==='transition-screen' && state.transitionPaused,transitionAuto:state.screen==='transition-screen' && state.auto,settingsStartRecordId:state.screen==='settings-screen' ? state.settingsStartRecordId : null,endingFromGallery:state.endingFromGallery,archiveRecordKind:state.archiveRecordKind};
   }
 
   function rememberView() {
@@ -927,12 +936,13 @@
         await openObjective('replace');
         $('#report-section-'+position)?.scrollIntoView?.({block:'start'});
       } else {
-        const target=record.id==='B-03' && view.presentationVersion===24 && view.b03LayoutVersion!==1 ? record.v24IndexMap[position]??0
+        let target=record.id==='B-03' && view.presentationVersion===24 && view.b03LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='D-11' && view.presentationVersion===24 && view.d05LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='B-07' && view.presentationVersion===24 && view.b07LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='C-03' && view.presentationVersion===24 && view.c03LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='D-06' && view.presentationVersion===24 && view.d04LayoutVersion!==1 ? record.v24IndexMap[position]??0
           : record.id==='C-02' && view.c02LayoutVersion!==1 ? c02Position(position) : position;
+        if(view.narrationLayoutVersion!==1)target=sceneLayout.position(record.id,target);
         const page=Number.isInteger(view.telemetryPage) && view.presentationVersion>=24 ? view.telemetryPage
           : recordProgress(record.id).lineIndex===target ? recordProgress(record.id).telemetryPage : 0;
         await startStory(false,target,'none',null,page);
@@ -3491,6 +3501,7 @@
     for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:['slow','normal','fast'],autoSpeed:['slow','normal','fast'],archiveMusic:['auto','side-story','waiting-commander']}))
       if (key in saved) check(values.includes(saved[key]),key);
     for (const key of ['c02','b03','c03','d04','b07','d05']) if (key+'LayoutVersion' in saved) check(saved[key+'LayoutVersion']===1,key+'LayoutVersion');
+    if ('narrationLayoutVersion' in saved) check(saved.narrationLayoutVersion===1,'narrationLayoutVersion');
     if ('dLayoutVersion' in saved) check(saved.dLayoutVersion===20,'dLayoutVersion');
     if ('bookmarks' in saved) {
       check(Array.isArray(saved.bookmarks) && saved.bookmarks.length <= 2000,'북마크 목록');
