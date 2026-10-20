@@ -16,12 +16,13 @@
 }
 /* All records reveal controls by tapping the top strip. */
 .story-screen[data-disk] {grid-template-rows:0px minmax(0,1fr);}
-.story-screen[data-disk] > .story-hud {position:absolute;top:28px;left:0;right:0;max-width:none;background:#040807ed;transition:opacity .2s ease,translate .2s ease,visibility 0s .2s;}
+.story-screen[data-disk] > .story-hud {position:absolute;top:28px;left:0;right:0;max-width:none;background:#040807;transition:opacity .2s ease,translate .2s ease,visibility 0s .2s;}
 .story-screen[data-disk][data-menu='closed'] > .story-hud {opacity:0;translate:0 -8px;visibility:hidden;pointer-events:none;}
 .story-screen[data-disk][data-menu='open'] {grid-template-rows:0px minmax(0,1fr);}
 .story-screen[data-disk][data-menu='open'] > .story-hud {opacity:1;translate:0 0;visibility:visible;transition-delay:0s;}
 .story-menu-toggle {position:absolute;inset:0 0 auto;z-index:36;width:100%;height:28px;border:0;border-radius:0;background:linear-gradient(#020807a0,transparent);color:#b4c9c7a0;font:inherit;font-size:.65rem;letter-spacing:.12em;cursor:pointer;}
 .story-menu-toggle:focus-visible {outline:1px solid #bcddd7;outline-offset:-2px;}
+.story-screen[data-disk][data-menu='open'] > .story-menu-toggle {background:#040807;}
 .story-screen[data-disk] .story-stage {grid-row:2;width:100%;max-width:none;}
 .story-screen[data-disk] .scene-camera {transform-origin:center;transform:translate(var(--camera-offset-x,0%),var(--camera-offset-y,0%)) scale(var(--camera-zoom));}
 .story-screen[data-disk] #stage-camera {z-index:1;}
@@ -709,20 +710,20 @@
   .story-stage[data-record='B-02'][data-tone='chat'] .communication-panel > :is(header,.chat-members,footer) {flex-shrink:0;}
   .story-stage[data-record='B-02'][data-tone='chat'] .communication-feed {min-height:0;max-height:none;overflow-y:auto;}
 }
-/* Radio reads as part of the scene, growing only as much as its message needs. */
+/* Keep the framed radio design, growing only as much as its message needs. */
 .story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel {
   top:auto;bottom:max(.75rem,env(safe-area-inset-bottom));height:auto;
-  min-height:0;max-height:calc(100% - 1.5rem);padding:.65rem .9rem;box-sizing:border-box;
-  border:0;background:linear-gradient(90deg,#030606e6,#03060670);box-shadow:none;
+  min-height:0;max-height:calc(100% - 1.5rem);padding:0;box-sizing:border-box;
 }
-.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel > header {flex-shrink:0;padding:0 0 .5rem;border:0;}
-.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel :is(h2,footer) {display:none;}
-.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .channel-signal {top:0;right:0;font-size:.6rem;opacity:.55;}
-.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-feed {flex:0 1 auto;min-height:0;max-height:none;padding:0;overflow-y:auto;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel > header {flex-shrink:0;padding:.55rem .85rem;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel h2 {margin:.25rem 0 0;font-size:.85rem;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel > footer {flex-shrink:0;padding:.35rem .85rem;font-size:.65rem;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .channel-signal {top:.8rem;right:.85rem;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-feed {flex:0 1 auto;min-height:0;max-height:none;padding:.65rem .85rem;overflow-y:auto;}
 .story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .message {margin:0;}
 .story-stage[data-a-mobile-layout='contained']:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel {
-  top:var(--a-dialogue-top);bottom:auto;left:var(--a-composition-left);right:auto;transform:none;
-  width:var(--a-composition-width);max-height:var(--a-copy-height);padding:.65rem 1.2rem;
+  top:var(--a-dialogue-top);bottom:auto;left:calc(var(--a-composition-left) + .75rem);right:auto;transform:none;
+  width:calc(var(--a-composition-width) - 1.5rem);max-height:var(--a-copy-height);padding:0;
 }
 /* Short blackout: only the overlay moves, never the artwork's fit container. */
 .screen-fx.fx-cut-blackout {background:#020504;animation:b-cut-blackout .36s ease-out both;}
