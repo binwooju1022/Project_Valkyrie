@@ -15,10 +15,10 @@
   .boot-log {gap:.3rem;margin:.75rem 0 1rem;font-size:.85rem;}
 }
 /* All records reveal controls by tapping the top strip. */
-.story-screen[data-disk] {grid-template-rows:0px minmax(0,1fr);transition:grid-template-rows .24s ease;}
+.story-screen[data-disk] {grid-template-rows:0px minmax(0,1fr);}
 .story-screen[data-disk] > .story-hud {position:absolute;top:28px;left:0;right:0;max-width:none;background:#040807ed;transition:opacity .2s ease,translate .2s ease,visibility 0s .2s;}
 .story-screen[data-disk][data-menu='closed'] > .story-hud {opacity:0;translate:0 -8px;visibility:hidden;pointer-events:none;}
-.story-screen[data-disk][data-menu='open'] {grid-template-rows:calc(28px + var(--story-menu-height,60px)) minmax(0,1fr);}
+.story-screen[data-disk][data-menu='open'] {grid-template-rows:0px minmax(0,1fr);}
 .story-screen[data-disk][data-menu='open'] > .story-hud {opacity:1;translate:0 0;visibility:visible;transition-delay:0s;}
 .story-menu-toggle {position:absolute;inset:0 0 auto;z-index:36;width:100%;height:28px;border:0;border-radius:0;background:linear-gradient(#020807a0,transparent);color:#b4c9c7a0;font:inherit;font-size:.65rem;letter-spacing:.12em;cursor:pointer;}
 .story-menu-toggle:focus-visible {outline:1px solid #bcddd7;outline-offset:-2px;}
@@ -79,7 +79,6 @@
   display:grid;
   grid-template-rows:auto minmax(0,1fr);
   height:100svh;
-  height:100dvh;
   min-height:0;
   background:#020404;
 }
@@ -366,12 +365,12 @@
 .story-stage[data-a-mobile-layout='contained']::before {display:none;}
 .story-stage[data-a-mobile-layout='contained'] .scene-art .art-fixture {background:#030606;}
 .story-stage[data-a-mobile-layout='contained'] .composition-copy {
-  top:var(--a-dialogue-top);bottom:auto;min-height:140px;max-height:30%;
+  top:var(--a-dialogue-top);bottom:auto;min-height:0;max-height:var(--a-copy-height);
   padding:1rem 1.2rem 2rem;background:linear-gradient(#030606e6,#030606);
   left:var(--a-composition-left);right:auto;width:var(--a-composition-width);transform:none;box-sizing:border-box;
 }
-.story-stage[data-a-mobile-layout='contained'] :is(.telemetry-panel,.communication-panel).composition-copy {min-height:0;max-height:36%;padding:0;}
-.story-stage[data-a-mobile-layout='contained'] .story-caption.composition-copy {top:var(--a-dialogue-top);bottom:auto;min-height:0;font-size:clamp(1.3rem,5vw,2rem);line-height:1.6;}
+.story-stage[data-a-mobile-layout='contained'] :is(.telemetry-panel,.communication-panel).composition-copy {min-height:0;max-height:var(--a-copy-height);padding:0;}
+.story-stage[data-a-mobile-layout='contained'] .story-caption.composition-copy {top:var(--a-dialogue-top);bottom:auto;min-height:0;max-height:var(--a-copy-height);font-size:clamp(1.3rem,5vw,2rem);line-height:1.6;}
 .story-stage[data-a-mobile-layout='contained'] .cutscene-copy.composition-copy {min-height:0;padding:1rem 1.2rem 2rem;}
 .story-stage[data-a-mobile-layout='contained'] .cutscene-copy > strong {font-size:1.2rem;}
 .story-stage[data-a-mobile-layout='contained'] .cutscene-copy > p {font-size:1rem;}
@@ -431,7 +430,7 @@
 .story-stage[data-visual-treatment='trauma'] .scene-art {animation:b-trauma .65s steps(6,end);}
 .screen-fx.fx-trauma {background:repeating-linear-gradient(0deg,transparent 0 3px,#dae7e933 3px 4px),repeating-linear-gradient(91deg,#7b8e901c 0 1px,transparent 1px 4px);animation:viewport-static .65s steps(8,end) both;}
 #app .story-stage:is([data-visual-treatment='trauma'],[data-visual-treatment='vow']) :is(.story-caption,.dialogue-text,.memory-caption) {font-size:calc(clamp(1.5rem,2.8vw,2.5rem) * var(--reading-scale,1));line-height:1.6;color:#fff8ec;text-shadow:0 2px 8px #000,0 0 22px #000;}
-.story-stage[data-a-mobile-layout='contained'] #system-panel.composition-copy {transform:none;max-height:55%;overflow:auto;padding:.85rem;}
+.story-stage[data-a-mobile-layout='contained'] #system-panel.composition-copy {transform:none;max-height:var(--a-copy-height);overflow:auto;padding:.85rem;}
 .story-stage[data-a-mobile-layout='contained'] #system-panel-title {font-size:1rem;line-height:1.4;}
 .story-stage[data-a-mobile-layout='contained'] #system-panel-text {font-size:calc(.9rem * var(--reading-scale,1));line-height:1.55;margin:.65rem 0 0;}
 @media(min-width:761px) {
@@ -710,13 +709,21 @@
   .story-stage[data-record='B-02'][data-tone='chat'] .communication-panel > :is(header,.chat-members,footer) {flex-shrink:0;}
   .story-stage[data-record='B-02'][data-tone='chat'] .communication-feed {min-height:0;max-height:none;overflow-y:auto;}
 }
-/* Radio metadata must leave room for the received message, including landscape. */
+/* Radio reads as part of the scene, growing only as much as its message needs. */
 .story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel {
-  top:auto;bottom:max(.75rem,env(safe-area-inset-bottom));height:min(18rem,calc(100% - 1.5rem));
-  min-height:min(12rem,calc(100% - 1.5rem));max-height:60%;padding:0;box-sizing:border-box;
+  top:auto;bottom:max(.75rem,env(safe-area-inset-bottom));height:auto;
+  min-height:0;max-height:calc(100% - 1.5rem);padding:.65rem .9rem;box-sizing:border-box;
+  border:0;background:linear-gradient(90deg,#030606e6,#03060670);box-shadow:none;
 }
-.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel > :is(header,footer) {flex-shrink:0;}
-.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-feed {min-height:0;max-height:none;overflow-y:auto;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel > header {flex-shrink:0;padding:0 0 .5rem;border:0;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel :is(h2,footer) {display:none;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .channel-signal {top:0;right:0;font-size:.6rem;opacity:.55;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-feed {flex:0 1 auto;min-height:0;max-height:none;padding:0;overflow-y:auto;}
+.story-stage:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .message {margin:0;}
+.story-stage[data-a-mobile-layout='contained']:is([data-record='C-02'],[data-record='C-05'])[data-tone='radio'] .communication-panel {
+  top:var(--a-dialogue-top);bottom:auto;left:var(--a-composition-left);right:auto;transform:none;
+  width:var(--a-composition-width);max-height:var(--a-copy-height);padding:.65rem 1.2rem;
+}
 /* Short blackout: only the overlay moves, never the artwork's fit container. */
 .screen-fx.fx-cut-blackout {background:#020504;animation:b-cut-blackout .36s ease-out both;}
 .screen-fx.fx-cut-blackout::after {content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 38px,#a2b8b62b 38px 39px,transparent 39px 73px);opacity:.3;animation:b-cut-glitch .32s steps(3,end) both;}

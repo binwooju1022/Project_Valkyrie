@@ -1626,6 +1626,7 @@
     delete stage.dataset.aMobileLayout;
     delete stage.dataset.aComposition;
     delete stage.dataset.aPath;
+    for(const name of ['--a-picture-top','--a-picture-bottom','--a-hud-top','--a-dialogue-top','--a-copy-height'])stage.style.removeProperty(name);
     cutsceneGeometry = null;
     const portraitChat=currentRecord()?.id==='B-02' && currentStory()[state.lineIndex]?.tone==='chat'
       && window.matchMedia('(max-width:760px) and (orientation:portrait)').matches;
@@ -1685,27 +1686,26 @@
     const phase=aCameraVisit.phase;
     $('#story-stage').dataset.aCameraPhase=phase;
     stage.dataset.aComposition='true';
-    // Keep the complete artwork and its dialogue together in portrait view.
-    // Reserve the measured text/HUD height before fitting the original image.
-    const compact = width <= 760 && height > width && Boolean(copy);
-    let captionHeight=0, hudHeight=0;
+    // Fit the artwork to a viewport-owned band, independent of visible text.
+    // A radio, HUD, or silent memory must not move the picture underneath it.
+    const compact = width <= 760 && height > width;
+    let hudHeight=0;
     if (compact) {
       stage.dataset.aMobileLayout='contained';
-      captionHeight=copy.getBoundingClientRect().height;
       const hud=$('#a-identity-hud');
       hudHeight=hud.hidden ? 0 : hud.getBoundingClientRect().height+12;
     }
     // Keep one image size for both directions; animate only its transform.
-    const pictureHeight=compact ? Math.max(1,height-captionHeight-hudHeight-68) : height;
+    const bandTop=compact ? 28 : 0;
+    const pictureHeight=compact ? Math.max(1,height*.64-bandTop) : height;
     const scale = Math.min(width/image.naturalWidth,pictureHeight/image.naturalHeight);
     const bw=image.naturalWidth*scale, bh=image.naturalHeight*scale;
-    const pictureTop=compact ? Math.max(28,(height-bh-captionHeight-hudHeight-12)/2) : 0;
+    const pictureTop=compact ? bandTop+(pictureHeight-bh)/2 : 0;
     // Desktop captions stay at the screen bottom, independent of image fit/zoom.
     // Portrait keeps its separate picture and text regions below.
     stage.style.setProperty('--a-composition-left',`${(width-bw)/2}px`);
     stage.style.setProperty('--a-composition-width',`${bw}px`);
     stage.style.setProperty('--a-composition-bottom',`${compact ? Math.max(0,height-pictureTop-bh) : 0}px`);
-    stage.style.setProperty('--a-caption-height',`${copy?.getBoundingClientRect().height || 0}px`);
     let zoom=1;
     let x=(width-bw)/2, y=pictureTop;
     if (compact) {
@@ -1713,6 +1713,7 @@
       stage.style.setProperty('--a-picture-bottom',`${pictureTop+bh}px`);
       stage.style.setProperty('--a-hud-top',`${pictureTop+bh+12}px`);
       stage.style.setProperty('--a-dialogue-top',`${pictureTop+bh+12+hudHeight}px`);
+      stage.style.setProperty('--a-copy-height',`${Math.max(0,height-pictureTop-bh-hudHeight-28)}px`);
     }
     const camera=shot.faceCamera || aCameraVisit.authoredCamera;
     if (camera && phase === 'focus') {
@@ -1738,7 +1739,7 @@
       const wide={transform:`translate(${(width-bw)/2}px,${pictureTop}px) scale(1)`};
       pathFrames=shot.cameraPath.snapEntrance ? [] : [{...wide,offset:0}];
       const pathZoom=shot.cameraPath.zoom,points=shot.cameraPath.points;
-      const visibleHeight=compact ? bh : Math.max(1,bh-$('#dialogue-box').getBoundingClientRect().height);
+      const visibleHeight=compact ? bh : Math.min(bh,height*.75);
       points.forEach(([fx,fy],index)=>{
         const px=Math.max(width-bw*pathZoom,Math.min(0,width/2-fx/100*bw*pathZoom));
         const py=Math.max(pictureTop+visibleHeight-bh*pathZoom,Math.min(pictureTop,pictureTop+visibleHeight*.48-fy/100*bh*pathZoom));
@@ -3220,11 +3221,6 @@
         aFrame=requestAnimationFrame(()=>{aFrame=null;if(state.screen==='story-screen')syncStoryMenu();refreshCutsceneComposition(true);});
       });
       aLayout.observe($('#story-stage'));
-      aLayout.observe($('#dialogue-box'));
-      aLayout.observe($('.cutscene-copy'));
-      aLayout.observe($('#story-caption'));
-      aLayout.observe($('#telemetry-panel'));
-      aLayout.observe($('#communication-panel'));
       aLayout.observe($('#a-identity-hud'));
       aLayout.observe($('.story-hud'));
       const labLayout = new ResizeObserver(() => {
