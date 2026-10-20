@@ -87,7 +87,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "후방 안전선 너머에는 나머지 네 개체가 몸을 숨기고 있다."
+      "text": "후방 안전선 너머에는 나머지 넷이 몸을 숨기고 있다."
     },
     {
       "type": "text",
@@ -228,7 +228,7 @@ window.RustedPrayerArchive.registerRecord({
     {
       "sceneId": "a-04-scene-0004",
       "speaker": "",
-      "text": "후방 안전선 너머에는 나머지 네 개체가 몸을 숨기고 있다.",
+      "text": "후방 안전선 너머에는 나머지 넷이 몸을 숨기고 있다.",
       "tone": "narration",
       "sourceIndices": [
         4
