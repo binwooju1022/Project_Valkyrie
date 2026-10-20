@@ -19,6 +19,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png'
 const requests=[];
 const server=http.createServer((req,res)=>{
  const p=decodeURIComponent(new URL(req.url,'http://localhost').pathname).replace(/^\//,'')||'index.html';
+ if(p==='favicon.ico'){res.writeHead(204);res.end();return;}
  if(p==='blank'){res.end('<!doctype html><title>outside game</title><p>outside game</p>');return;}
  if(p==='js/app.js'){res.setHeader('Content-Type','text/javascript');res.end(instrumented);return;}
  const file=path.resolve(source,p);

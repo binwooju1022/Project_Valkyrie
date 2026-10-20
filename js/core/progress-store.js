@@ -118,7 +118,7 @@
       return clone(snapshot);
     }
 
-    function save(current, reset=false, forceFields=[]) {
+    function save(current, reset=false, forceFields=[], shouldCompact=true) {
       const latest = readBatch().snapshot;
       if (!reset && (generation(current) !== generation(latest) || epoch !== latest._sync.epoch))
         return {value:adopt(latest),reset:true};
@@ -144,7 +144,7 @@
         storage.setItem(prefix+id,JSON.stringify(change));
       }
       const value = adopt(readBatch().snapshot);
-      compact();
+      if (shouldCompact) compact();
       return {value,reset:false};
     }
 

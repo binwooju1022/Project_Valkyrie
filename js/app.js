@@ -678,7 +678,7 @@
     return record.c02IndexMap?.[map?.[source] ?? source] ?? 0;
   }
 
-  function saveProgress() {
+  function saveProgress(compact=true) {
     if (syncResetFromStorage()) return;
     const record = currentRecord();
     const positionFields = [];
@@ -720,7 +720,7 @@
       state.progress.version = 24;
       state.progress.instant = state.instant;
       state.progress.continuous = state.continuous;
-      const result = progressStore.save(state.progress,false,positionFields);
+      const result = progressStore.save(state.progress,false,positionFields,compact);
       if (result.reset) { adoptReset(result.value,'다른 창에서 읽기 진행이 초기화되어 새 진행을 불러왔습니다.'); return; }
       acceptProgress(result.value);
       applyReadingSettings();
@@ -1382,6 +1382,7 @@
 
   const playbackTasks = new Map();
   let playbackEpoch = 0;
+  let cachedPlayback = null, restoredHistoryEntry = null;
 
   function stopPlaybackTimer(field) {
     clearTimeout(state[field]);
@@ -3538,9 +3539,40 @@
     // Screen changes restore their own scroll; native history restoration would
     // overwrite the archive position after the popstate handler returns.
     if('scrollRestoration' in history)history.scrollRestoration='manual';
-    window.addEventListener('popstate', event => { restoreView(event.state); });
+    window.addEventListener('popstate', event => {
+      // A BFCache return already contains the live DOM and suspended closures.
+      // Its accompanying popstate must not reconstruct that same scene again.
+      if (restoredHistoryEntry!==null && JSON.stringify(event.state)===restoredHistoryEntry) {
+        restoredHistoryEntry=null;
+        return;
+      }
+      restoreView(event.state);
+    });
     window.addEventListener('scroll',()=>{if(state.screen!=='objective-screen' || currentRecord()?.relatedReport || currentRecord()?.readerMode!=='report')return;rememberReportPosition();clearTimeout(state.reportScrollTimer);state.reportScrollTimer=setTimeout(()=>{saveProgress();rememberView();},150);},{passive:true});
-    window.addEventListener('pagehide', () => { if(['story-screen','objective-screen'].includes(state.screen))saveProgress();cancelLoading(); clearPlaybackTimers(); settleACamera(); clearTimeout(state.previewTimer);clearTimeout(state.reportScrollTimer); clearEndingShutter(); });
+    window.addEventListener('pagehide', () => {
+      // The journal write is synchronous. Starting an asynchronous Web Lock here
+      // can evict the frozen page from BFCache when its callback later runs.
+      if(['story-screen','objective-screen'].includes(state.screen))saveProgress(false);
+      // Cancel any uncommitted destination first, then freeze the restored origin.
+      cancelLoading();
+      cachedPlayback={view:JSON.stringify(history.state),playback:suspendPlayback()};
+      settleACamera(); clearTimeout(state.previewTimer);clearTimeout(state.reportScrollTimer); clearEndingShutter();
+    });
+    window.addEventListener('pageshow', event => {
+      const cached=cachedPlayback;
+      cachedPlayback=null;
+      if (!event.persisted || !cached || syncResetFromStorage()) return;
+      progressStore.compact();
+      restoredHistoryEntry=JSON.stringify(history.state);
+      setTimeout(()=>{restoredHistoryEntry=null;},0);
+      if (restoredHistoryEntry!==cached.view) {
+        restoreView(history.state);
+        return;
+      }
+      resumePlayback(cached.playback);
+      refreshCutsceneComposition(true);
+      if (state.screen==='settings-screen') startSettingsPreview();
+    });
   }
 
   loadProgress();

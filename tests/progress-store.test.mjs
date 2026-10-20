@@ -125,3 +125,14 @@ test('explicit reopening of the same local cursor overrides a newer remote curso
   b.s.save(b.value,false,[JSON.stringify(['records','A','cursor'])]);
   assert.equal(f.store().value.records.A.lineIndex,3);
 });
+
+test('pagehide saves durably without starting asynchronous compaction',async()=>{
+  const f=fixture(),a=f.store();
+  a.value.records.A={completed:true,lineIndex:3};
+  a.s.save(a.value,false,[],false);
+  await f.flush();
+  assert.equal(f.storage.getItem('save'),null);
+  assert.equal(f.store().value.records.A.completed,true);
+  a.s.compact();await f.flush();
+  assert.equal(JSON.parse(f.storage.getItem('save')).records.A.lineIndex,3);
+});
