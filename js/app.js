@@ -747,7 +747,7 @@
     const active = $('#' + id);
     active.setAttribute('tabindex', '-1');
     active.focus({preventScroll:true});
-    if (id === 'archive-screen') {syncArchiveLayout();restoreArchiveScroll();}
+    if (id === 'archive-screen') {syncArchiveLayout(true);restoreArchiveScroll();}
     if (id === 'settings-screen') startSettingsPreview();
   }
 
@@ -1100,12 +1100,16 @@
     $('#archive-tools-toggle').setAttribute('aria-expanded',String(state.archiveToolsOpen));
   }
 
-  function syncArchiveLayout() {
+  let archiveLayoutWidth=0;
+  function syncArchiveLayout(force=false) {
     updateArchiveTabs();
     syncArchiveTools();
     const layout=$('#archive-layout');
     if (state.screen!=='archive-screen' || !layout.clientWidth) return;
-    // Resize and screen return restore the same page; inner panel scroll stays.
+    // Ignore unrelated resize notifications (e.g. font/media loading) while
+    // a swipe is in progress. Only actual width changes or screen entry recenter.
+    if(force!==true && archiveLayoutWidth===layout.clientWidth)return;
+    archiveLayoutWidth=layout.clientWidth;
     layout.scrollTo({left:archiveMobileQuery.matches ? layout.clientWidth*state.archivePane : 0,behavior:'instant'});
   }
 
@@ -1115,7 +1119,7 @@
     updateArchiveTabs();
     if (focusTab) $('#archive-tab-'+state.archivePane).focus({preventScroll:true});
     const layout=$('#archive-layout');
-    if (layout.clientWidth) layout.scrollTo({left:layout.clientWidth*state.archivePane,behavior:motionReduced() ? 'instant' : 'smooth'});
+    if (layout.clientWidth) layout.scrollTo({left:layout.clientWidth*state.archivePane,behavior:'instant'});
   }
 
   function stripTechnicalMetadata(value, state = {skipValue:false}) {
@@ -1653,6 +1657,7 @@
     delete stage.dataset.aMobileLayout;
     delete stage.dataset.aComposition;
     delete stage.dataset.aPath;
+    for (const key of ['--a-picture-top','--a-picture-bottom','--a-hud-top','--a-dialogue-top']) stage.style.removeProperty(key);
     cutsceneGeometry = null;
     if (shot.mode !== 'cutscene' || !image?.naturalWidth
       || typeof image.parentElement?.getBoundingClientRect !== 'function' || shot.zoom !== 1) {stopAPath();return false;}
@@ -1710,12 +1715,12 @@
     $('#story-stage').dataset.aCameraPhase=phase;
     stage.dataset.aComposition='true';
     // Reserve stable mobile space: changing HUD/chat text cannot resize the artwork.
-    const compact = width <= 760 && height > width && Boolean(copy);
+    const compact = width <= 760 && height > width;
     let captionHeight=0, hudHeight=0;
     if (compact) {
       stage.dataset.aMobileLayout='contained';
       const communication=copy===$('#telemetry-panel') || copy===$('#communication-panel');
-      captionHeight=Math.min(height*.40,Math.max(communication ? 190 : 170,height*(communication ? .34 : .30)));
+      captionHeight=copy ? Math.min(height*.40,Math.max(communication ? 190 : 170,height*(communication ? .34 : .30))) : 0;
       const hud=$('#a-identity-hud');
       hudHeight=hud.hidden ? 0 : Math.min(height*.20,128);
     }
@@ -1788,7 +1793,7 @@
     const visible=!$('#scene-art').hidden && shot.identities.length>0
       && (state.characterLabels || state.identificationIntroActive);
     hud.hidden=!(visible && state.identificationIntroActive); targets.hidden=true;
-    if (!visible) return;
+    if (!visible) {targets.parentElement.style.clipPath='';return;}
     const roster=$('#a-identity-roster'), key=JSON.stringify([shot.src,shot.identities]);
     if (roster.dataset.media !== key) {
       roster.dataset.media=key;
@@ -1844,10 +1849,21 @@
 
   function refreshCutsceneComposition(resizing = false) {
     if (state.screen !== 'story-screen' || !activeCutsceneShot) return;
-    renderAIdentities(activeCutsceneShot);
-    renderCutsceneComposition(activeCutsceneShot,resizing);
-    renderAIdentities(activeCutsceneShot);
-    renderStandingCamera(activeCutsceneShot,resizing);
+    // Clear geometry before changing identity/HUD visibility; otherwise the
+    // next scene may briefly reuse the previous scene's transform during a tap.
+    cutsceneGeometry=null;
+    try {
+      renderAIdentities(activeCutsceneShot);
+      renderCutsceneComposition(activeCutsceneShot,resizing);
+      renderAIdentities(activeCutsceneShot);
+    } catch (error) {
+      // Visual overlays must never prevent advancing the story or telemetry pages.
+      console.error('Unable to update story artwork/HUD',error);
+      cutsceneGeometry=null;
+      $('#a-identity-targets').hidden=true;
+    }
+    try {renderStandingCamera(activeCutsceneShot,resizing);}
+    catch (error) {console.error('Unable to update standing camera',error);}
   }
 
   let standingCameraVisit = null;
@@ -2281,7 +2297,7 @@
     activeCutsceneShot=shot;
     // Apply image fitting after updating the incoming panel visibility and content.
     if ($('#stage-camera')) $('#stage-camera').dataset.entry= !motionReduced() && !state.effectsReduced ? shot.cameraEffect : '';
-    renderAIdentities(shot);
+    // Identity overlays render after the new scene's geometry is prepared.
     const drone=$('#a-drone-hud');
     drone.hidden=!shot.dronePanel;
     if(shot.dronePanel)$('#a-drone-panel').src=media.url(shot.dronePanel);
@@ -2366,12 +2382,12 @@
     }
 
     refreshCutsceneComposition();
-    if (!cutsceneGeometry && $('#stage-camera') && !(shot.cameraContinuity && $('#stage-camera').dataset.geometry)) {
+    if (!cutsceneGeometry && $('#stage-camera')) {
       const waitingForEntrance=shot.mode==='cutscene' && (shot.resumeCamera ? shot.resumeCamera.phase==='focus' : shot.authoredCamera?.snapEntrance || shot.faceCamera?.snapEntrance || shot.cameraPath?.snapEntrance) && !$('#stage-camera').naturalWidth;
       $('#stage-camera').setAttribute('style',(waitingForEntrance ? 'visibility:hidden;' : '')+cameraStyle(shot));
       delete $('#stage-camera').dataset.geometry;
     }
-    renderResearchMedia(shot);
+    try {renderResearchMedia(shot);} catch (error) {console.error('Unable to update research visual',error);}
     if(shot.flashReturn && !motionReduced() && !state.effectsReduced) {
       const at=state.lineIndex,image=cutsceneMode ? $('#memory-image') : $('#stage-camera');
       bFlashTimer=setTimeout(()=>{
@@ -3492,6 +3508,24 @@
     });
     window.addEventListener('storage', event => { if (event.key === STORAGE_KEY) syncResetFromStorage(); });
     window.addEventListener('focus', syncResetFromStorage);
+    let orientationLayoutFrame=null;
+    const settleOrientationLayout=()=>{
+      if(state.screen!=='story-screen')return;
+      if(orientationLayoutFrame!==null)cancelAnimationFrame(orientationLayoutFrame);
+      orientationLayoutFrame=requestAnimationFrame(()=>{
+        orientationLayoutFrame=requestAnimationFrame(()=>{
+          orientationLayoutFrame=null;
+          if(state.screen!=='story-screen')return;
+          const stage=$('#story-stage');
+          for (const key of ['--a-picture-top','--a-picture-bottom','--a-hud-top','--a-dialogue-top']) stage.style.removeProperty(key);
+          const image=$('#stage-camera');if(image)delete image.dataset.geometry;
+          $('#a-identity-targets').parentElement.style.clipPath='';
+          refreshCutsceneComposition(true);
+        });
+      });
+    };
+    window.addEventListener('orientationchange',settleOrientationLayout);
+    window.matchMedia('(orientation:portrait)').addEventListener?.('change',settleOrientationLayout);
     window.matchMedia('(max-width:760px)').addEventListener?.('change', () => {
       if (state.screen === 'story-screen') renderResearchMedia(window.RustedPrayerVisuals.resolve(currentRecord(),state.lineIndex,getActiveVisual(state.lineIndex),state.telemetryPage));
     });
