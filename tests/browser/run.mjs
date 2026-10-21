@@ -38,8 +38,8 @@ const url=`http://127.0.0.1:${server.address().port}/`;
 const browser=await playwright.chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || undefined,headless:true,ignoreDefaultArgs:['--disable-back-forward-cache'],args:['--no-sandbox']});
 const errors=[];
 async function ready(page){page.on('pageerror',e=>errors.push(e.message));await page.goto(url);await page.waitForFunction(()=>window.__audit&&!window.__audit.state.loading);}
-async function setup({seed=false,instant=true,mobile=true,width=412,height=915}={}){
- const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1});
+async function setup({seed=false,instant=true,mobile=true,hasTouch=mobile,width=412,height=915}={}){
+ const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch,deviceScaleFactor:1});
  const page=await context.newPage();await ready(page);
  await page.evaluate(({seed,instant})=>{
   const a=window.__audit;

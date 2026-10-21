@@ -16,7 +16,9 @@ jobs:
           - suite: playback
             modules: replay-entry release-content scene-stability usability-layout playback-smoke report-lifecycle narration-merges music-ending progress-import
           - suite: reports
-            modules: report-navigation landscape
+            modules: report-navigation
+          - suite: navigation
+            modules: viewport-compatibility compact-menu landscape archive-navigation archive-interruptions
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v4

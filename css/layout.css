@@ -109,6 +109,7 @@
 .story-controls .control-button, .story-back { min-height:44px; white-space:nowrap; }
 .shortcut-control { display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:.12rem; line-height:1.05; }
 .shortcut-control kbd { min-width:1.65em; padding:.05em .3em; font-size:.55rem; color:#bbb; border-color:#ffffff26; background:transparent; }
+#app[data-input='touch'] .story-hud kbd {display:none;}
 .story-back.shortcut-control { width:auto; height:auto; min-width:44px; }
 .story-controls .shortcut-control { display:inline-flex; }
 .story-options { position:relative; }
@@ -607,7 +608,7 @@
 
 /* Mobile archive: three swipeable pages and one always-visible open action. */
 .archive-tabs,.archive-open-bar,.archive-tools-toggle,.archive-media-info {display:none;}
-@media (max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px) and (hover:none) and (pointer:coarse) {
+@media (max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px) {
   body:has(#archive-screen:not([hidden])),.app-shell:has(#archive-screen:not([hidden])) {min-height:0;height:100dvh;overflow:hidden;}
   .archive-screen {position:relative;display:flex;flex-direction:column;gap:.5rem;height:100svh;height:100dvh;min-height:0;padding:max(.6rem,env(safe-area-inset-top)) max(.6rem,env(safe-area-inset-right)) max(.6rem,env(safe-area-inset-bottom)) max(.6rem,env(safe-area-inset-left));overflow:hidden;}
   .archive-screen > .topbar {flex-shrink:0;align-items:center;min-height:44px;margin:0;padding:0;}
@@ -656,7 +657,7 @@
   .archive-open-bar .button {flex-shrink:0;min-height:44px;padding:.6rem .9rem;font-size:.85rem;}
   .archive-open-bar .button:disabled {opacity:.45;cursor:default;}
 }
-@media (max-height:500px) and (max-width:760px), (max-height:500px) and (hover:none) and (pointer:coarse) {
+@media (max-height:500px) and (max-width:760px), (max-height:500px) and (hover:none) and (pointer:coarse), (max-height:500px) and (orientation:landscape) {
   .archive-screen {gap:.35rem;padding:max(.4rem,env(safe-area-inset-top)) max(.6rem,env(safe-area-inset-right)) max(.4rem,env(safe-area-inset-bottom)) max(.6rem,env(safe-area-inset-left));}
   .archive-screen > .topbar,.archive-tools-toggle {min-height:36px;}
   .archive-screen > .topbar h1 {font-size:1.2rem;}
@@ -672,7 +673,7 @@
 }
 
 /* Landscape mobile uses its width for compact cards, files and record details. */
-@media (orientation:landscape) and (max-width:760px), (orientation:landscape) and (max-width:1180px) and (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px) and (hover:none) and (pointer:coarse) {
+@media (orientation:landscape) and (max-width:760px), (orientation:landscape) and (max-width:1180px) and (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px) {
   .archive-layout .disk-list {grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;padding:.65rem;}
   .archive-layout .disk {display:grid;grid-template-rows:10px minmax(0,1fr);gap:.4rem;height:104px;min-height:104px;padding:1.8rem .45rem .45rem;}
   .archive-layout .disk-shutter {height:10px;margin:0 auto;}
@@ -746,19 +747,27 @@
 #app[data-reduced-effects='true'] .screen-fx.fx-cut-blackout::after {display:none;}
 
 /* Browser chrome changes the usable height without changing the reading mode. */
-@media (hover:none) and (pointer:coarse) {
+@media (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px) {
   body:has(#story-screen:not([hidden])),.app-shell:has(#story-screen:not([hidden])) {min-height:0;height:100dvh;overflow:hidden;}
   .story-screen {height:100svh;height:100dvh;}
 }
 .transition-summary,.transition-actions {display:contents;}
-/* Short touch viewports need compact navigation even on wide phones/tablets. */
-@media (orientation:landscape) and (max-height:600px) and (hover:none) and (pointer:coarse) {
+/* Space, not the primary pointing device, determines short-screen layout. */
+@media (orientation:landscape) and (max-height:600px) {
   .story-screen[data-disk] {padding:max(12px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));}
   .story-screen[data-disk] .a-identity-hud {top:8px;bottom:auto;max-height:calc(100% - 120px);overflow:auto;}
   .a-identity-hud {padding:.35rem .65rem;}
   .a-identity-roster {margin:.3rem 0;}
   .a-identity-hud footer {padding-top:0;}
-  .story-screen[data-disk] .story-hud {max-height:calc(100dvh - var(--menu-entry-height) - 8px);overflow:auto;}
+  .story-screen[data-disk] .story-hud {display:grid;grid-template-columns:minmax(0,1fr);gap:.15rem;padding:.2rem max(.6rem,env(safe-area-inset-right)) .2rem max(.6rem,env(safe-area-inset-left));overflow:visible;}
+  .story-hud .story-status {min-height:36px;gap:.5rem;}
+  .story-hud .story-back {min-height:36px;}
+  .story-hud .story-controls {display:grid;grid-template-columns:repeat(7,minmax(44px,1fr));width:100%;margin:0;gap:.2rem;}
+  .story-controls > * {min-width:44px;}
+  .story-controls .control-button {width:100%;min-height:44px;padding:.35rem .2rem;font-size:.75rem;white-space:normal;word-break:keep-all;}
+  .story-options {position:static;}
+  /* Only the dropdown scrolls; clipping the header would hide it completely. */
+  .story-options-menu {top:100%;left:auto;right:max(.6rem,env(safe-area-inset-right));width:min(320px,calc(100% - 1.2rem));max-height:calc(100dvh - var(--menu-entry-height) - var(--story-menu-height,100px) - max(8px,env(safe-area-inset-bottom)));overscroll-behavior:contain;}
   .story-stage .insert-card {top:50%;max-height:calc(100% - 16px);padding:1rem 1.2rem;}
   .story-stage .communication-panel:not(.composition-copy) {top:50%;max-height:calc(100% - 16px);}
   .story-stage .communication-panel {display:flex;flex-direction:column;}
@@ -777,6 +786,15 @@
   .objective-screen .file-heading {padding-bottom:.6rem;}
   .objective-screen .file-heading h1 {font-size:1.35rem;}
   .objective-screen .file-heading .eyebrow {margin:.2rem 0 .5rem;}
+  .objective-screen.report-reader .objective-layout {margin:.35rem auto .75rem;min-height:0;gap:.4rem;}
+  .objective-screen.report-reader .objective-document {padding:.65rem 1rem;}
+  .objective-screen.report-reader .file-heading {display:flex;flex-wrap:wrap;align-items:baseline;gap:.25rem .75rem;padding-bottom:.5rem;margin-bottom:0;}
+  .objective-screen.report-reader .file-heading h1 {font-size:1.15rem;line-height:1.4;}
+  .objective-screen.report-reader .file-heading .eyebrow {margin:0;font-size:.7rem;}
+  .objective-screen.report-reader .file-source:empty {display:none;}
+  .objective-screen.report-reader .objective-body {padding-top:0;}
+  .objective-screen.terminal-reader .terminal-command {margin-top:.5rem;}
+  .objective-screen.terminal-reader .terminal-preamble {padding:.5rem 0;margin-bottom:.5rem;}
   .objective-screen:not(.report-reader) .objective-body {padding-top:.7rem;}
   .reconstruction-notice {min-height:100px;gap:.5rem;}
   .objective-screen .analysis-card {position:sticky;top:.5rem;display:flex;flex-direction:column;gap:.25rem;padding:.65rem;max-height:calc(100dvh - 1rem);overflow:auto;}
@@ -798,7 +816,11 @@
 }
 
 /* Keep the lab monitor in its own band; typing and speaker labels never resize it. */
-@media (orientation:landscape) and (max-height:600px) and (hover:none) and (pointer:coarse) {
+@media (orientation:landscape) and (max-height:600px) {
   .story-stage[data-stage-layout='lab'] .lab-monitor-area {inset:12px 5% 112px;}
   .story-stage[data-stage-layout='lab'] .lab-monitor {width:min(38cqw,100cqh,340px);}
+}
+@media (orientation:landscape) and (max-height:600px) and (max-width:900px) {
+  .d-report-browser {padding:0 .75rem;}
+  .d-report-browser .d-report-current {display:none;}
 }

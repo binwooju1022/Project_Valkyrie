@@ -13,8 +13,11 @@
   const recordNumber=record=>record?.displayId || record?.id || '';
   const numberedText=(text,record)=>String(text || '').replace(new RegExp('^'+record.id,'i'),recordNumber(record).toLowerCase());
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const archiveMobileQuery=window.matchMedia('(max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px) and (hover:none) and (pointer:coarse)');
-  const touchInputQuery=window.matchMedia('(hover:none) and (pointer:coarse)');
+  // Keep this in sync with the compact archive rules in layout.css.
+  // A short viewport needs compact navigation even with a pen or mouse.
+  const archiveMobileQuery=window.matchMedia('(max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px)');
+  const touchInputQuery=window.matchMedia('(any-pointer:coarse)');
+  const usesTouchInput=()=>touchInputQuery.matches || navigator.maxTouchPoints>0;
   const reportMobileQuery=window.matchMedia('(max-width:900px)');
   let menuTipShown=false,menuTipActive=false,menuTipTimer=null;
   const archivePanelIds=['archive-media-panel','archive-files-panel','archive-detail-panel'];
@@ -1350,6 +1353,7 @@
     $('#objective-screen').classList.toggle('report-reader', report);
     $('#objective-screen').classList.toggle('terminal-reader', report && record.reportStyle==='terminal');
     if (report) {
+      $('#objective-code').textContent=recordNumber(record);
       $('#objective-title').textContent = record.title.replace(/_/g,' ');
       $('#objective-body').innerHTML = record.reportSections.map((section,index) => `<section id="report-section-${index}" class="report-section${section.tone==='memo' ? ' report-section-memo' : ''}${record.id==='C-00' && index===0 ? ' report-section-no-divider' : ''}">${record.id==='C-00' && section.attachmentImage ? '' : `<h2>${escapeHtml(section.cardTitle || '기록')}</h2>`}${renderSheet(section,index)}</section>`).join('') + `<footer class="report-end"><span>${record.epilogue ? '— 복구 기록의 끝 —' : '— 문서 끝 —'}</span>${reportEndActions(record)}</footer>`;
       if(record.reportStyle==='terminal') {
@@ -1480,7 +1484,7 @@
     updateAutoButton();
     showScreen("story-screen", historyMode);
     renderLine();
-    if(touchInputQuery.matches && !menuTipShown) {
+    if(usesTouchInput() && !menuTipShown) {
       menuTipShown=true;menuTipActive=true;syncStoryMenu();
       menuTipTimer=setTimeout(()=>{menuTipActive=false;syncAutoStatus();},8000);
     }
@@ -2539,7 +2543,7 @@
       $('#insert-text').hidden = rich;
       $('#insert-body').hidden = !rich;
       $('#insert-card').scrollTop = 0;
-      $('#insert-hint').textContent = state.attachmentPending ? '' : touchInputQuery.matches ? '탭하여 계속' : '클릭 · Space로 계속';
+      $('#insert-hint').textContent = state.attachmentPending ? '' : usesTouchInput() ? '탭하여 계속' : '클릭 · Space로 계속';
       if (rich) {
         $('#insert-body').innerHTML = renderSheet(line);
         if (line.typeRequest) startTypewriter($('#request-typewriter'),line.text.match(/요청 품목\s*:\s*([\s\S]*?)(?=\s*수량\s*:)/)?.[1]?.trim() || line.rows[0].text);
@@ -2764,7 +2768,7 @@
     $('#transition-next').textContent = state.transitionPaused ? state.auto ? '자동으로 이어보기 ›' : '수동으로 이어보기 ›' : '다음 기록 재생 ›';
     $('#transition-hint').textContent = state.transitionPaused
       ? `불러오기를 일시 정지했습니다. 아래 버튼을 누르면 ${state.auto ? '자동' : '수동'}으로 이어집니다.`
-      : state.auto ? '잠시 후 다음 기록을 자동으로 재생합니다.' : touchInputQuery.matches ? '아래 버튼을 탭하면 계속합니다.' : '계속하려면 아래 버튼 또는 Space · Enter를 누르세요.';
+      : state.auto ? '잠시 후 다음 기록을 자동으로 재생합니다.' : usesTouchInput() ? '아래 버튼을 탭하면 계속합니다.' : '계속하려면 아래 버튼 또는 Space · Enter를 누르세요.';
     syncAutoStatus();
   }
 
@@ -2794,7 +2798,7 @@
   }
 
   function syncInputGuidance() {
-    const touch=touchInputQuery.matches;
+    const touch=usesTouchInput();
     $('#app').dataset.input=touch?'touch':'keyboard';
     $('.archive-shortcuts').textContent=touch
       ? '탭·좌우 스와이프로 선택 · 아래에서 기록 열기\n재생 중에는 위쪽 메뉴에서 자동 읽기·설정'
@@ -2810,7 +2814,7 @@
     const overflow=card.scrollHeight-(note.hidden?0:note.offsetHeight)>card.clientHeight+2;
     note.hidden=!overflow;
     note.style.visibility=overflow && card.scrollTop+card.clientHeight<card.scrollHeight-3?'visible':'hidden';
-    note.textContent=touchInputQuery.matches?'↓ 아래 내용은 위로 스와이프해서 읽으세요':'↓ 아래 내용은 휠·Page Down으로 읽으세요';
+    note.textContent=usesTouchInput()?'↓ 아래 내용은 위로 스와이프해서 읽으세요':'↓ 아래 내용은 휠·Page Down으로 읽으세요';
   }
 
   function toggleUi() {
