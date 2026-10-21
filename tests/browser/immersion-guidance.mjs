@@ -92,6 +92,12 @@ export async function run({setup,story,out,capture}) {
     // Commit programmatic boundary positions to the compositor before input.
     await page.waitForTimeout(150);
     await swipe(page,cdp,target);
+    // A native gesture can remain latched to the inner scroller while it
+    // consumes its final fractional pixel. The next gesture must reach root.
+    if(await page.evaluate(()=>scrollY===0)) {
+     out('native-boundary-first-gesture',{width,height,screen,attempt});
+     await swipe(page,cdp,target);
+    }
     const scroll=await page.evaluate(()=>({root:scrollY,max:document.documentElement.scrollHeight-innerHeight,
      panels:[...document.querySelectorAll('#archive-layout > .panel')].map(e=>({top:e.scrollTop,max:e.scrollHeight-e.clientHeight,inert:e.inert}))}));
     assert.ok(scroll.root>0,`${width}x${height} ${screen} attempt ${attempt}: native swipe must reach root: ${JSON.stringify(scroll)}`);
