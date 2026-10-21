@@ -68,6 +68,14 @@ export async function run({setup,story,out,capture}) {
    if(screen==='story-screen')await story(page,'A-01',0);
    else await page.evaluate(()=>window.__audit.showScreen('archive-screen'));
    await page.waitForTimeout(400);
+   if(screen==='archive-screen')await page.evaluate(async()=>{
+    // Staggered panel entry lasts up to 790ms and changes scrollable bounds.
+    // Test a reader's settled list, not a moving transform's temporary edge.
+    await document.fonts.ready;
+    await Promise.all(document.querySelector('#archive-screen').getAnimations({subtree:true})
+     .filter(a=>Number.isFinite(a.effect?.getComputedTiming().iterations))
+     .map(a=>a.finished.catch(()=>{})));
+   });
    assert.equal(await page.evaluate(()=>getComputedStyle(document.body).overflowY),'visible');
    assert.equal(await page.locator('#app').evaluate(e=>getComputedStyle(e).overflowY),'visible');
    assert.equal(await page.locator('#'+screen).evaluate(e=>getComputedStyle(e).position),'sticky');
