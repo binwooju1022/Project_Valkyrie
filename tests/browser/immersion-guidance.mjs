@@ -49,6 +49,7 @@ export async function run({setup,story,out,capture}) {
  assert.equal(await page.locator('#report-orientation-note').isVisible(),true);
  await capture(page,'report-orientation-once');
  await page.setViewportSize({width:375,height:812});
+ await page.waitForFunction(()=>document.querySelector('#report-orientation-note').hidden);
  assert.equal(await page.locator('.orientation-note:visible').count(),0,'rotation removes advice');
  await page.setViewportSize({width:812,height:375});
  assert.equal(await page.locator('.orientation-note:visible').count(),0,'rotating back does not nag');
