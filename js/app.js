@@ -68,7 +68,7 @@
     settingsCategory: 'reading',
     effectsReduced: false,
     endingAnimation: true,
-    archiveMusic: 'auto',
+    archiveMusic: 'side-story',
     characterLabels: false,
     autoResume: false,
     identificationIntroActive: false,
@@ -129,7 +129,12 @@
   function progressSnapshot() {
     return {...state.progress,...Object.fromEntries(progressSettings.map(name=>[name,state[name]]))};
   }
+  function archiveMusicChoice(saved) {
+    return ['side-story','waiting-commander'].includes(saved.archiveMusic) ? saved.archiveMusic
+      : saved.endingViewed === true ? 'waiting-commander' : 'side-story';
+  }
   function acceptProgress(saved) {
+    saved = {...saved,archiveMusic:archiveMusicChoice(saved)};
     state.progress = saved;
     lastSavedProgress = JSON.parse(JSON.stringify(saved));
     for (const name of progressSettings) if (name in saved) state[name] = saved[name];
@@ -586,7 +591,7 @@
         progress && (progress.completed || progress.inProgress || Number.isInteger(progress.seenIndex) || progress.lineIndex>0));
       state.effectsReduced = saved.effectsReduced === true;
       state.endingAnimation = saved.endingAnimation !== false;
-      state.archiveMusic = ['auto','side-story','waiting-commander'].includes(saved.archiveMusic) ? saved.archiveMusic : 'auto';
+      state.archiveMusic = archiveMusicChoice(saved);
       state.progress.endingViewed = saved.endingViewed === true;
       state.characterLabels = saved.characterLabels === true;
       state.autoResume = saved.autoResume === true;
@@ -3032,10 +3037,7 @@
     $('#setting-archive-music').value=state.archiveMusic;
     const endingChoice=$('#setting-archive-music option[value="waiting-commander"]');
     endingChoice.disabled=!state.progress.endingViewed && state.archiveMusic!=='waiting-commander';
-    $('#setting-archive-music option[value="auto"]').textContent='자동 선택 · '+(state.progress.endingViewed?'마지막 사진 음악':'side story');
-    $('#archive-music-note').textContent=state.progress.endingViewed
-      ? '마지막 사진을 열람했습니다. 자동 선택 시 보관소에서 마지막 사진 음악이 흐릅니다. 기록별 음악은 그대로 유지합니다.'
-      : '마지막 사진을 열람하면 보관소의 기본 음악이 바뀝니다. 기록별 음악은 그대로 유지합니다.';
+    $('#archive-music-note').textContent='보관소에서 재생할 음악을 선택합니다. 기록을 읽을 때는 해당 기록의 음악이 이어집니다.';
     $('#settings-start-story').hidden=state.settingsStartRecordId!==currentRecord()?.id || currentRecord()?.readerMode==='report';
     $('#setting-size').value = state.textSize;
     $('#setting-dialogue-position').value = state.dialoguePosition;
@@ -3432,7 +3434,7 @@
       if(saved._sync?.epoch!==progressStore.epoch){syncResetFromStorage();return;}
       if(!progressStore.adoptFields(saved,['endingViewed','archiveMusic']))return;
       state.progress.endingViewed=saved.endingViewed===true;
-      state.archiveMusic=['auto','side-story','waiting-commander'].includes(saved.archiveMusic)?saved.archiveMusic:'auto';
+      state.archiveMusic=archiveMusicChoice(saved);
       state.progress.archiveMusic=state.archiveMusic;
       window.RustedPrayerBgm?.setProgress({endingViewed:state.progress.endingViewed,archiveMusic:state.archiveMusic});
       if(state.screen==='settings-screen')renderSettings();

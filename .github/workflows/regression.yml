@@ -1,0 +1,29 @@
+name: Browser regression
+on:
+  push:
+    branches: [main, 'fix/mobile-staged-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install browser test tools
+        run: |
+          npm install --no-save --package-lock=false playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Unit regression
+        run: node --test tests/bookmarks.test.mjs tests/progress-store.test.mjs
+      - name: Browser regression
+        run: node tests/browser/run.mjs release-content music-ending narration-merges playback-smoke report-lifecycle
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-regression
+          path: test-results/

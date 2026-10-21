@@ -64,14 +64,14 @@ export async function run({setup,out,ready}) {
     await ending(page);
     await page.waitForFunction(()=>window.__audit.progressStore.read().endingViewed===true);
     assert.equal(await track(page),'waiting-commander');
-    await archive(page);assert.equal(await track(page),'waiting-commander');
+    await archive(page);assert.equal(await track(page),'side-story');
     // A directly opened introduction may still be playing the archive default.
     await page.evaluate(async()=>{const a=window.__audit;a.state.selectedRecordId='B-04';a.selectDisk('B',false);await a.openObjective();a.handleAction('show-settings');});
-    assert.equal(await track(page),'waiting-commander');
+    assert.equal(await track(page),'side-story');
     await page.locator('#settings-tab-audio').click();
     await page.locator('#setting-archive-music').selectOption('side-story');
     assert.equal(await track(page),'side-story');
-    await page.locator('#setting-archive-music').selectOption('auto');
+    await page.locator('#setting-archive-music').selectOption('waiting-commander');
     await archive(page);
     await page.evaluate(()=>{window.__bgmAudit.audio.play=window.originalPlay;window.RustedPrayerBgm.setVolume(.23);window.RustedPrayerBgm.setMuted(true);});
     await page.evaluate(()=>window.__audit.handleAction('show-settings'));
@@ -101,8 +101,8 @@ export async function run({setup,out,ready}) {
     await second.evaluate(()=>{window.RustedPrayerBgm.setVolume(.23);window.RustedPrayerBgm.setMuted(true);});
     await page.waitForFunction(()=>document.querySelector('#bgm-volume').value==='23'&&window.__bgmAudit.audio.muted);
     await page.locator('#settings-tab-audio').click();
-    await page.locator('#setting-archive-music').selectOption('auto');
-    await second.waitForFunction(()=>window.__audit.state.archiveMusic==='auto');
+    await page.locator('#setting-archive-music').selectOption('waiting-commander');
+    await second.waitForFunction(()=>window.__audit.state.archiveMusic==='waiting-commander');
     assert.equal(await track(second),'waiting-commander');
     await second.evaluate(()=>window.__audit.handleAction('show-settings'));
     await second.locator('#settings-tab-audio').click();

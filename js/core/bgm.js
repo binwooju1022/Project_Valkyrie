@@ -12,7 +12,7 @@
   } catch {}
   let location={record:null,index:0,screen:'boot-screen'};
   let settingsTrack=null;
-  let endingViewed=false,archiveMusic='auto',settingsUsesArchive=false;
+  let endingViewed=false,archiveMusic='side-story',settingsUsesArchive=false;
   let selected=null,unlocked=false,blocked=false,pending=false,revision=0;
   const FADE_IN_MS=800,FADE_OUT_MS=500;
   let gain=0,fadeTimer=null,fadeRevision=0,phase=null;
@@ -90,12 +90,12 @@
   }
   function archiveTrack() {
     const manifest=window.RustedPrayerMediaManifest.bgm;
-    const track=archiveMusic==='auto' ? endingViewed ? manifest?.ending : manifest?.main : archiveMusic;
+    const track=archiveMusic;
     return track && manifest?.tracks[track] ? {id:track,...manifest.tracks[track]} : null;
   }
   function setProgress(progress) {
     const viewed=progress.endingViewed===true;
-    const choice=['auto','side-story','waiting-commander'].includes(progress.archiveMusic)?progress.archiveMusic:'auto';
+    const choice=['side-story','waiting-commander'].includes(progress.archiveMusic) ? progress.archiveMusic : viewed ? 'waiting-commander' : 'side-story';
     if(viewed===endingViewed && choice===archiveMusic)return;
     endingViewed=viewed;archiveMusic=choice;
     if(location.screen==='settings-screen' && settingsUsesArchive)settingsTrack=archiveTrack();

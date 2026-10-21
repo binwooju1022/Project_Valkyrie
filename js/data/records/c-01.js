@@ -239,7 +239,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "잔존 랩쳐 확인."
+      "text": "잔존 랩쳐 확인 결과."
     },
     {
       "type": "text",
@@ -561,7 +561,7 @@ window.RustedPrayerArchive.registerRecord({
     {
       "sceneId": "c-01-scene-0008",
       "speaker": "",
-      "text": "UNIT-01 빠르게 사격. 0.18초. 신기록. 랩쳐 기능 정지. 잔존 랩쳐 확인. 추가 접근 없음.",
+      "text": "UNIT-01 빠르게 사격. 0.18초. 신기록. 랩쳐 기능 정지. 잔존 랩쳐 확인 결과. 추가 접근 없음.",
       "tone": "telemetry",
       "sourceIndices": [
         17,
@@ -577,7 +577,7 @@ window.RustedPrayerArchive.registerRecord({
       },
       "telemetryPages": [
         "UNIT-01 빠르게 사격.\n0.18초. 신기록. 랩쳐 기능 정지.",
-        "잔존 랩쳐 확인.\n추가 접근 없음."
+        "잔존 랩쳐 확인 결과.\n추가 접근 없음."
       ],
       "preserveTelemetryLines": true
     },

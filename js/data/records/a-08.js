@@ -39,7 +39,7 @@ window.RustedPrayerArchive.registerRecord({
     },
     {
       "type": "text",
-      "text": "전투 기록 수집 체계 :\n\n정상.\n\n블랙박스 및 초소형 드론을 이용한 자료 축적 정상 진행 중.\n\n임무 종료 후 뇌 스캔 데이터와의 통합 과정에서도 특이사항 없음."
+      "text": "전투 기록 수집 체계 :\n\n정상.\n\n블랙박스 및 드론을 이용한 자료 축적 정상 진행 중.\n\n임무 종료 후 뇌 스캔 데이터와의 통합 과정에서도 특이사항 없음."
     },
     {
       "type": "text",
@@ -150,7 +150,7 @@ window.RustedPrayerArchive.registerRecord({
     {
       "sceneId": "a-08-scene-0004",
       "speaker": "",
-      "text": "전투 기록 수집 체계 :\n\n정상.\n\n블랙박스 및 초소형 드론을 이용한 자료 축적 정상 진행 중.\n\n임무 종료 후 뇌 스캔 데이터와의 통합 과정에서도 특이사항 없음.",
+      "text": "전투 기록 수집 체계 :\n\n정상.\n\n블랙박스 및 드론을 이용한 자료 축적 정상 진행 중.\n\n임무 종료 후 뇌 스캔 데이터와의 통합 과정에서도 특이사항 없음.",
       "tone": "document",
       "cardTitle": "전투 기록 수집 체계",
       "sourceIndices": [
@@ -162,7 +162,7 @@ window.RustedPrayerArchive.registerRecord({
           "highlight": false
         },
         {
-          "text": "블랙박스 및 초소형 드론을 이용한 자료 축적 정상 진행 중.",
+          "text": "블랙박스 및 드론을 이용한 자료 축적 정상 진행 중.",
           "highlight": false
         },
         {

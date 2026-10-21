@@ -72,10 +72,6 @@ window.RustedPrayerArchive.registerRecord({
       "text": "개인 기억 다수 잔존·일부 손상. 기억 데이터 유지 상태 불안정."
     },
     {
-      "type": "text",
-      "text": "특별 관찰 대상 : 없음. 추가 정신 상담 : 불필요."
-    },
-    {
       "type": "separator",
       "text": ""
     },
@@ -171,21 +167,16 @@ window.RustedPrayerArchive.registerRecord({
     {
       "sceneId": "d-14-scene-0003",
       "speaker": "",
-      "text": "[수리 완료 후 외형]\n\n개인 기억 다수 잔존·일부 손상. 기억 데이터 유지 상태 불안정.\n\n특별 관찰 대상 : 없음. 추가 정신 상담 : 불필요.",
+      "text": "[수리 완료 후 외형]\n\n개인 기억 다수 잔존·일부 손상. 기억 데이터 유지 상태 불안정.",
       "tone": "report",
       "cardTitle": "수리 완료 후 외형",
       "sourceIndices": [
         9,
-        10,
-        11
+        10
       ],
       "rows": [
         {
           "text": "개인 기억 다수 잔존·일부 손상. 기억 데이터 유지 상태 불안정.",
-          "highlight": false
-        },
-        {
-          "text": "특별 관찰 대상 : 없음. 추가 정신 상담 : 불필요.",
           "highlight": false
         }
       ],
@@ -201,9 +192,9 @@ window.RustedPrayerArchive.registerRecord({
       "tone": "report",
       "cardTitle": "기록 종료",
       "sourceIndices": [
+        12,
         13,
-        14,
-        15
+        14
       ],
       "rows": [
         {
