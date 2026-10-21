@@ -187,7 +187,7 @@
 /* The monitor is scenery: H hides reading controls while retaining the display. */
 .lab-monitor-area {
   position:absolute; z-index:4;
-  inset:16px 5% calc(var(--lab-dialogue-height,190px) + 16px);
+  inset:16px 5% clamp(150px,28%,220px);
   display:grid; place-items:center;
   container-type:size;
   pointer-events:none;
@@ -577,7 +577,7 @@
   .story-options summary { justify-content:center; gap:.15rem; }
   .story-stage .standing-person { width:68%; }
   .story-stage[data-stage-layout='lab'] .standing-person { width:84%; height:90%; }
-  .lab-monitor-area { inset:12px 5% calc(var(--lab-dialogue-height,170px) + (100% - var(--lab-dialogue-height,170px)) * .55); }
+  .lab-monitor-area { inset:12px 5% 62%; }
   .lab-monitor { width:min(100cqw,100cqh,460px); }
   .lab-source-grid[data-layout='camera-memory'] { grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr); }
   .lab-source-grid[data-layout='camera-memory'][data-active='0'] .lab-source[data-source='1'],
@@ -747,6 +747,7 @@
 
 /* Browser chrome changes the usable height without changing the reading mode. */
 @media (hover:none) and (pointer:coarse) {
+  body:has(#story-screen:not([hidden])),.app-shell:has(#story-screen:not([hidden])) {min-height:0;height:100dvh;overflow:hidden;}
   .story-screen {height:100svh;height:100dvh;}
 }
 .transition-summary,.transition-actions {display:contents;}
@@ -792,4 +793,10 @@
   .transition-actions {display:flex;flex-direction:column;justify-content:center;min-height:0;overflow:auto;gap:.5rem;}
   .transition-actions .button {margin:0;min-height:44px;padding:.65rem .5rem;font-size:.85rem;}
   .transition-summary > :first-child {margin-top:0;}
+}
+
+/* Keep the lab monitor in its own band; typing and speaker labels never resize it. */
+@media (orientation:landscape) and (max-height:600px) and (hover:none) and (pointer:coarse) {
+  .story-stage[data-stage-layout='lab'] .lab-monitor-area {inset:12px 5% 112px;}
+  .story-stage[data-stage-layout='lab'] .lab-monitor {width:min(38cqw,100cqh,340px);}
 }

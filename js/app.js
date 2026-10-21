@@ -1855,7 +1855,7 @@
       || typeof image.parentElement?.getBoundingClientRect !== 'function' || shot.zoom !== 1) {stopAPath();return false;}
     const bounds=image.parentElement.getBoundingClientRect();
     // A visual transform must never change the dimensions used to fit the image.
-    const width=image.parentElement.clientWidth || bounds.width,height=image.parentElement.clientHeight || bounds.height;
+    const width=stage.clientWidth || bounds.width,height=stage.clientHeight || bounds.height;
     if (!width || !height) return false;
     const visitKey=currentRecord().id+'|'+shot.src;
     if (aCameraVisit?.key !== visitKey) {
@@ -3708,13 +3708,6 @@
       aLayout.observe($('#story-stage'));
       aLayout.observe($('#a-identity-hud'));
       aLayout.observe($('.story-hud'));
-      const labLayout = new ResizeObserver(() => {
-        if (state.screen !== 'story-screen' || $('#lab-monitor-area').hidden) return;
-        const height = Math.ceil($('#dialogue-box').getBoundingClientRect().height);
-        $('#story-stage').style.setProperty('--lab-dialogue-height', height+'px');
-      });
-      labLayout.observe($('#dialogue-box'));
-      labLayout.observe($('#story-stage'));
     }
     $('#profile-image').addEventListener('error', () => { $('#profile-image').hidden = true; });
     $('#profile-overlay').addEventListener('click', event => {

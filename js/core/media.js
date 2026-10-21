@@ -40,6 +40,9 @@
       if(manifest.cutscenes?.[record.id]) assets.push({type:'image',src:manifest.cutscenes[record.id]});
       addImage(manifest.backgrounds?.[record.id]);
       addShot(manifest.stages?.[record.id]);
+      // CSS scenery must be ready with the record, before the HUD is revealed.
+      if (manifest.stages?.[record.id]?.monitor || Object.values(manifest.scenes?.[record.id] || {}).some(shot=>shot?.monitor))
+        addImage('./assets/ui/lab-hud-frame.svg');
       Object.values(manifest.scenes?.[record.id] || {}).forEach(addShot);
       Object.values(manifest.attachments?.[record.id] || {}).forEach(addImage);
       (manifest.comparisons?.[record.id] || []).forEach(addImage);

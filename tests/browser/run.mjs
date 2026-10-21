@@ -50,7 +50,7 @@ async function setup({seed=false,instant=true,mobile=true,width=412,height=915}=
 }
 async function story(page,id,index=0){await page.evaluate(async({id,index})=>{const a=window.__audit;a.state.selectedRecordId=id;a.selectDisk(window.RustedPrayerArchive.getRecord(id).diskId,false);await a.startStory(true,index);},{id,index});await page.waitForFunction(()=>!window.__audit.state.loading);}
 const out=(name,data)=>console.log(JSON.stringify({test:name,...data}));
-const capture=(page,name)=>page.screenshot({path:path.join(root,name+'.png')});
+const capture=async(page,name)=>{await page.waitForTimeout(450);return page.screenshot({path:path.join(root,name+'.png')});};
 try {
  for(const name of process.argv.slice(2)) {
   console.log('RUN',name);
