@@ -1,14 +1,18 @@
 /* One reading stage for desktop and mobile. Artwork stays inside this stage. */
-.rotation-notice {display:none;align-items:center;gap:.8rem;margin:0 0 1.5rem;padding:1rem;border:1px solid #78b9c770;background:#091d20;color:#bce5ec;}
-.rotation-notice svg {flex-shrink:0;}
+.rotation-notice {display:none;align-items:center;gap:.6rem;margin:0 0 1rem;padding:0;color:#b0c6c8;}
 .rotation-notice p {margin:0;font-size:.85rem;line-height:1.7;word-break:keep-all;}
 .rotation-notice strong,.rotation-notice span {display:block;}
 .rotation-notice span {margin-top:.25rem;color:#b0c6c8;font-size:.8rem;}
-@media (orientation:portrait) and (max-width:760px), (orientation:portrait) and (hover:none) and (pointer:coarse) {
+@media (max-width:760px), (any-pointer:coarse) {
   .rotation-notice {display:flex;}
 }
+.orientation-note {margin:.25rem 0;font-size:.75rem;font-weight:400;line-height:1.5;color:var(--muted);}
+.report-reader:not(.terminal-reader) .orientation-note {color:#53685c;}
 /* Keep the entry action visible on short landscape viewports. */
 @media (orientation:landscape) and (max-height:600px) {
+  .rotation-notice {margin-bottom:.4rem;}
+  .rotation-notice strong,.rotation-notice span {display:inline;font-size:.75rem;font-weight:400;}
+  .rotation-notice span {margin-left:.5rem;}
   .boot-screen {min-height:100svh;min-height:100dvh;padding:max(.5rem,env(safe-area-inset-top)) max(.8rem,env(safe-area-inset-right)) max(.5rem,env(safe-area-inset-bottom)) max(.8rem,env(safe-area-inset-left));}
   .boot-terminal {padding:clamp(.85rem,3svh,1.5rem) clamp(1.2rem,5vw,3rem);}
   .boot-terminal h1 {font-size:clamp(2.6rem,16svh,4rem);line-height:1.25;}
@@ -24,7 +28,6 @@
 .story-screen[data-disk][data-menu='open'] {grid-template-rows:0px minmax(0,1fr);}
 .story-screen[data-disk][data-menu='open'] > .story-hud {opacity:1;translate:0 0;visibility:visible;transition-delay:0s;}
 .story-menu-toggle {position:absolute;top:max(.4rem,env(safe-area-inset-top));right:max(.6rem,env(safe-area-inset-right));z-index:36;width:auto;min-width:64px;height:44px;padding:.5rem .75rem;border:0;border-radius:3px;background:transparent;color:#eeeeee;font:inherit;font-size:.75rem;letter-spacing:.02em;text-shadow:0 1px 3px #000b;cursor:pointer;}
-.story-menu-tip {position:absolute;top:var(--menu-entry-height);right:max(.6rem,env(safe-area-inset-right));z-index:36;padding:.4rem .6rem;border-radius:3px;background:#111c;color:#eee;font-size:.75rem;pointer-events:none;}
 #story-auto-status {flex-basis:100%;margin:0;}
 .story-menu-toggle:focus-visible {outline:2px solid #fff;outline-offset:-2px;background:#ffffff14;}
 @media(hover:hover) {.story-menu-toggle:hover {color:#fff;background:#ffffff0a;}}
@@ -73,7 +76,6 @@
 .gallery-viewer img {width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;min-height:0;}
 .gallery-viewer nav {display:flex;justify-content:center;gap:2rem;}
 .story-screen:has(.story-stage.ui-hidden) > .story-menu-toggle {visibility:hidden;}
-.story-screen:has(.story-stage.ui-hidden) > .story-menu-tip {visibility:hidden;}
 .story-screen[data-disk]:has(.story-stage.ui-hidden)::before {visibility:hidden;}
 #app[data-reduced-effects='true'] .scene-camera[data-entry],#app[data-reduced-effects='true'] .standing-person.entry-rush {animation:none;}
 @media(prefers-reduced-motion:reduce) {.scene-camera[data-entry],.standing-person.entry-rush {animation:none!important;}}
@@ -609,8 +611,12 @@
 /* Mobile archive: three swipeable pages and one always-visible open action. */
 .archive-tabs,.archive-open-bar,.archive-tools-toggle,.archive-media-info {display:none;}
 @media (max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px) {
-  body:has(#archive-screen:not([hidden])),.app-shell:has(#archive-screen:not([hidden])) {min-height:0;height:100dvh;overflow:hidden;}
-  .archive-screen {position:relative;display:flex;flex-direction:column;gap:.5rem;height:100svh;height:100dvh;min-height:0;padding:max(.6rem,env(safe-area-inset-top)) max(.6rem,env(safe-area-inset-right)) max(.6rem,env(safe-area-inset-bottom)) max(.6rem,env(safe-area-inset-left));overflow:hidden;}
+  /* Let native scrolling reach the browser toolbar. The shell covers the large
+     viewport while the sticky reader fits the currently visible viewport.
+     Their difference is only the browser chrome height, not a fake spacer. */
+  body:has(#archive-screen:not([hidden])),.app-shell:has(#archive-screen:not([hidden])) {min-height:100svh;min-height:100lvh;height:auto;overflow:visible;}
+  body:has(#archive-screen:not([hidden])) {overflow-x:clip;}
+  .archive-screen {position:sticky;top:0;display:flex;flex-direction:column;gap:.5rem;height:100svh;height:100dvh;min-height:0;padding:max(.6rem,env(safe-area-inset-top)) max(.6rem,env(safe-area-inset-right)) max(.6rem,env(safe-area-inset-bottom)) max(.6rem,env(safe-area-inset-left));overflow:clip;}
   .archive-screen > .topbar {flex-shrink:0;align-items:center;min-height:44px;margin:0;padding:0;}
   .archive-screen > .topbar .eyebrow,.archive-screen .terminal-status {display:none;}
   .archive-screen > .topbar h1 {font-size:1.4rem;}
@@ -628,7 +634,7 @@
   .archive-tabs button[aria-selected='true'] {border-color:var(--phosphor);background:#1b3028;color:var(--phosphor);box-shadow:inset 0 -2px var(--phosphor);}
   .archive-screen > .archive-layout {display:flex;flex:1;gap:0;width:100%;min-width:0;min-height:0;margin:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;}
   .archive-screen > .archive-layout::-webkit-scrollbar {display:none;}
-  .archive-layout > .panel {flex:0 0 100%;min-width:0;height:100%;margin:0;overflow-y:auto;overflow-x:hidden;scroll-snap-align:start;scroll-snap-stop:always;overscroll-behavior-y:contain;box-shadow:none;}
+  .archive-layout > .panel {flex:0 0 100%;min-width:0;height:100%;margin:0;overflow-y:auto;overflow-x:hidden;scroll-snap-align:start;scroll-snap-stop:always;overscroll-behavior-y:auto;box-shadow:none;}
   .archive-layout .panel-heading {padding:.65rem .75rem;font-size:.7rem;}
   .archive-layout .disk-list {grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;padding:.75rem;overflow:visible;}
   .archive-layout .disk {min-width:0;min-height:150px;padding:.6rem;}
@@ -748,8 +754,10 @@
 
 /* Browser chrome changes the usable height without changing the reading mode. */
 @media (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px) {
-  body:has(#story-screen:not([hidden])),.app-shell:has(#story-screen:not([hidden])) {min-height:0;height:100dvh;overflow:hidden;}
-  .story-screen {height:100svh;height:100dvh;}
+  body:has(#story-screen:not([hidden])),.app-shell:has(#story-screen:not([hidden])) {min-height:100svh;min-height:100lvh;height:auto;overflow:visible;}
+  body:has(#story-screen:not([hidden])) {overflow-x:clip;}
+  .story-screen {position:sticky;top:0;height:100svh;height:100dvh;}
+  #story-stage :is(.dialogue-box,.communication-feed,.telemetry-panel,.insert-card) {overscroll-behavior-y:auto;}
 }
 .transition-summary,.transition-actions {display:contents;}
 /* Space, not the primary pointing device, determines short-screen layout. */

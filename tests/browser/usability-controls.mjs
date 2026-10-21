@@ -7,7 +7,7 @@ export async function run({setup,story,out}) {
     for(const large of [false,true]) {
       await page.evaluate(large=>{const a=window.__audit;a.state.textSize=large?'large':'normal';a.state.auto=false;a.state.autoEnabled=false;a.saveProgress();},large);
       await story(page,'A-04',5);
-      if(mobile&&!large)assert.match(await page.locator('#story-menu-tip').textContent(),/설정은 메뉴에서/);
+      assert.equal(await page.locator('#story-menu-tip').count(),0);
       await press('#story-menu-toggle');
       assert.equal(await page.evaluate(()=>window.__audit.state.lineIndex),5);
       await press('#auto-button');

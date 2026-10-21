@@ -52,13 +52,7 @@
       <section id="boot-screen" class="screen boot-screen" aria-labelledby="boot-title">
         <div class="boot-terminal">
           <div id="rotation-notice" class="rotation-notice" role="note">
-            <svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true" focusable="false">
-              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="15" y="10" width="18" height="28" rx="3" transform="rotate(-30 24 24)"/>
-                <path d="M5 22a19 19 0 0 1 29-14m0-6v6h-6M43 26a19 19 0 0 1-29 14m0 6v-6h6"/>
-              </g>
-            </svg>
-            <p><strong>가로 모드에 최적화되어 있습니다.</strong><span>기기를 가로로 돌려서 감상해 주세요.</span></p>
+            <p><strong>가로·세로 모두 즐길 수 있습니다.</strong><span>컷신은 가로 화면을 권장합니다.</span></p>
           </div>
           <p class="eyebrow">발키리 프로젝트</p>
           <h1 id="boot-title">녹슨 기도</h1>
@@ -165,6 +159,7 @@
               <p id="objective-code" class="eyebrow"></p>
               <h1 id="objective-title"></h1>
               <p id="objective-source" class="file-source" hidden></p>
+              <p id="report-orientation-note" class="orientation-note" role="note" hidden>세로 화면에서 더 편하게 읽을 수 있습니다.</p>
             </div>
             <div id="objective-body" class="objective-body"></div>
           </article>
@@ -190,6 +185,7 @@
               <button id="reading-setup-preview" class="button" data-action="show-settings" type="button">읽기 설정·미리보기</button>
             </section>
             <div class="playback-primary">
+            <p id="cutscene-orientation-note" class="orientation-note" role="note" hidden>컷신은 가로 화면을 권장합니다.</p>
             <button id="start-story" class="button button-danger" type="button">
               인지 기록 동기화
             </button>
@@ -221,7 +217,6 @@
 
       <section id="story-screen" class="screen story-screen" hidden aria-label="인지 기록 재생">
           <button id="story-menu-toggle" class="story-menu-toggle" data-action="toggle-story-menu" type="button" aria-controls="story-hud" aria-expanded="false" hidden>메뉴 ▾</button>
-          <span id="story-menu-tip" class="story-menu-tip" hidden>자동 읽기·설정은 메뉴에서</span>
           <header id="story-hud" class="story-hud">
             <div class="story-status">
               <button class="story-back shortcut-control" data-action="exit-story" type="button" aria-label="인지 기록 종료"><span aria-hidden="true">←</span><kbd>Esc</kbd></button>
@@ -437,7 +432,7 @@
               <div><dt><kbd>Esc</kbd></dt><dd>열린 창 닫기 / 장면 재생 나가기</dd></div>
             </dl>
             <p class="reading-note">장면 클릭으로도 진행합니다. UI가 숨겨져 있으면 진행 키로 먼저 표시합니다.</p>
-            <p class="reading-note">터치 화면에서는 장면을 탭해 진행하고 위쪽 메뉴에서 자동 읽기·설정을 엽니다. 긴 첨부 문서는 위로 스와이프하거나 휠·Page Down으로 읽은 뒤 확인 버튼을 누르세요. 외부 키보드에서도 위 단축키를 사용할 수 있습니다.</p>
+            <p class="reading-note">터치 화면에서는 장면을 탭해 진행합니다. 긴 문서는 끝까지 읽은 뒤 확인 버튼을 눌러 주세요. 외부 키보드에서도 위 단축키를 사용할 수 있습니다.</p>
           </section>
           </section>
           <section id="settings-panel-data" class="settings-category" role="tabpanel" aria-labelledby="settings-tab-data" data-settings-panel="data" hidden>

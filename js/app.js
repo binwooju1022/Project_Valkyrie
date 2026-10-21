@@ -19,7 +19,8 @@
   const touchInputQuery=window.matchMedia('(any-pointer:coarse)');
   const usesTouchInput=()=>touchInputQuery.matches || navigator.maxTouchPoints>0;
   const reportMobileQuery=window.matchMedia('(max-width:900px)');
-  let menuTipShown=false,menuTipActive=false,menuTipTimer=null;
+  const orientationNoticesSeen=new Set();
+  const portraitQuery=window.matchMedia('(orientation:portrait)');
   const archivePanelIds=['archive-media-panel','archive-files-panel','archive-detail-panel'];
   const defaultDialoguePosition=()=>archiveMobileQuery.matches ? 'left' : 'center';
 
@@ -784,6 +785,7 @@
   }
 
   function showScreen(id, historyMode = 'push') {
+    hideOrientationNotices();
     clearTimeout(state.reportScrollTimer);
     if(state.screen==='archive-screen' && id!=='archive-screen')rememberArchiveScroll();
     if (!['settings-screen','reset-screen'].includes(id)) state.settingsStartRecordId=null;
@@ -1372,6 +1374,7 @@
         if(record.diskId==='D')state.reportContext={recordId:record.id,screen:'objective-screen',lineIndex:state.lineIndex,scrollTop,telemetryPage:0};
       }
       showScreen('objective-screen',historyMode);
+      offerOrientationNotice(record,scrollTop);
       if(report) {
         window.scrollTo({top:scrollTop,behavior:'instant'});
         if(!record.relatedReport) {progress.reportScroll=window.scrollY || 0;saveProgress();}
@@ -1484,10 +1487,6 @@
     updateAutoButton();
     showScreen("story-screen", historyMode);
     renderLine();
-    if(usesTouchInput() && !menuTipShown) {
-      menuTipShown=true;menuTipActive=true;syncStoryMenu();
-      menuTipTimer=setTimeout(()=>{menuTipActive=false;syncAutoStatus();},8000);
-    }
   }
 
   function getActiveVisual(index) {
@@ -2163,7 +2162,6 @@
     return `inset:auto;left:${-100*x/w}%;top:${-100*y/h}%;width:${100/w}%;height:${100/h}%;max-width:none;object-fit:fill;`;
   }
   function setStoryMenu(open) {
-    if(open){menuTipActive=false;clearTimeout(menuTipTimer);}
     state.menuOpen=open;
     syncStoryMenu();
     scheduleAutoAdvance();
@@ -2790,7 +2788,6 @@
     $('#story-menu-toggle').setAttribute('aria-label',label+(reason?' · 자동 켜짐: '+reason:' · 자동 꺼짐'));
     $('#story-menu-toggle').title=reason?'자동 켜짐 · '+reason:'재생 메뉴 열기·닫기';
     $('#story-menu-toggle').dataset.autoState=reason;
-    $('#story-menu-tip').hidden=!menuTipActive || state.menuOpen;
     $('#story-auto-status').textContent=reason?'자동 켜짐 · '+reason:'';
     if(state.menuOpen)$('#story-screen').style.setProperty('--story-menu-height',`${$('.story-hud').getBoundingClientRect().height}px`);
     $('[data-auto-status="profile"]').textContent=reason?'자동 켜짐 · '+reason:'';
@@ -2801,7 +2798,7 @@
     const touch=usesTouchInput();
     $('#app').dataset.input=touch?'touch':'keyboard';
     $('.archive-shortcuts').textContent=touch
-      ? '탭·좌우 스와이프로 선택 · 아래에서 기록 열기\n재생 중에는 위쪽 메뉴에서 자동 읽기·설정'
+      ? '탭·좌우 스와이프로 선택 · 아래에서 기록 열기'
       : 'Space · Enter · → : 다음 · ← : 이전\nL : 기록 보기·닫기 · Esc : 나가기 · H : UI 숨기기';
     $('#complete-next-hint').textContent=touch?'아래 버튼을 탭하면 다음 기록을 엽니다.':'Space를 누르면 다음 기록을 엽니다.';
     $('#insert-hint').textContent=state.attachmentPending?'':touch?'탭하여 계속':'클릭 · Space로 계속';
@@ -2814,7 +2811,30 @@
     const overflow=card.scrollHeight-(note.hidden?0:note.offsetHeight)>card.clientHeight+2;
     note.hidden=!overflow;
     note.style.visibility=overflow && card.scrollTop+card.clientHeight<card.scrollHeight-3?'visible':'hidden';
-    note.textContent=usesTouchInput()?'↓ 아래 내용은 위로 스와이프해서 읽으세요':'↓ 아래 내용은 휠·Page Down으로 읽으세요';
+    note.textContent='아래에 내용이 더 있습니다.';
+  }
+
+  function hideOrientationNotices() {
+    $('#cutscene-orientation-note').hidden=true;
+    $('#report-orientation-note').hidden=true;
+  }
+
+  function offerOrientationNotice(record,scrollTop=0) {
+    // Only at a reading entry, never over the scene or after a rotation.
+    // One notice per kind per visit; returning from settings must not repeat it.
+    if(!usesTouchInput() || !archiveMobileQuery.matches) return;
+    const report=record.readerMode==='report';
+    const kind=report?'report':'cutscene';
+    if(orientationNoticesSeen.has(kind))return;
+    if(report) {
+      // Keep resumed positions and very short landscape reading space intact.
+      if(portraitQuery.matches || scrollTop>0 || innerHeight<340 || $('#objective-body').scrollHeight<innerHeight)return;
+    } else {
+      if(!portraitQuery.matches || !record.story.some((line,index)=>
+        window.RustedPrayerVisuals.resolve(record,index,line.visual || record.defaultVisual).mode==='cutscene'))return;
+    }
+    orientationNoticesSeen.add(kind);
+    $('#'+kind+'-orientation-note').hidden=false;
   }
 
   function toggleUi() {
@@ -3702,6 +3722,7 @@
       moveArchivePane(event.code==='Home' ? 0 : event.code==='End' ? 2 : index+(event.code==='ArrowRight' ? 1 : -1),true);
     });
     archiveMobileQuery.addEventListener?.('change',()=>syncArchiveLayout());
+    portraitQuery.addEventListener?.('change',hideOrientationNotices);
     if (typeof ResizeObserver==='function') new ResizeObserver(()=>syncArchiveLayout()).observe(archiveLayout);
     $('#scene-art').addEventListener('load', event => {
       if (event.target?.id === 'stage-camera') refreshCutsceneComposition();

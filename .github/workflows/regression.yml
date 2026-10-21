@@ -18,7 +18,7 @@ jobs:
           - suite: reports
             modules: report-navigation
           - suite: navigation
-            modules: viewport-compatibility compact-menu landscape archive-navigation archive-interruptions
+            modules: immersion-guidance viewport-compatibility compact-menu landscape archive-navigation archive-interruptions usability-controls
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
