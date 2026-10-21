@@ -9,6 +9,14 @@ jobs:
   browser:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - suite: playback
+            modules: replay-entry release-content scene-stability usability-layout playback-smoke report-lifecycle narration-merges music-ending progress-import
+          - suite: reports
+            modules: report-navigation landscape
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
@@ -21,9 +29,9 @@ jobs:
       - name: Unit regression
         run: node --test tests/bookmarks.test.mjs tests/progress-store.test.mjs
       - name: Browser regression
-        run: node tests/browser/run.mjs replay-entry release-content scene-stability landscape usability-layout playback-smoke report-lifecycle narration-merges music-ending progress-import report-navigation
+        run: node tests/browser/run.mjs ${{ matrix.modules }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: browser-regression
+          name: browser-regression-${{ matrix.suite }}
           path: test-results/

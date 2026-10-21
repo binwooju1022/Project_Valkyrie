@@ -772,6 +772,8 @@
   .objective-screen > .viewer-bar > button {min-height:44px;padding:.4rem .6rem;}
   .objective-screen:not(.report-reader) .objective-layout {display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,32%);gap:.75rem;min-height:0;align-items:start;}
   .objective-screen .objective-document {padding:.85rem 1rem;}
+  /* A paper-sized minimum leaves blank space below short reports on phones. */
+  .objective-screen.report-reader .objective-document {min-height:0;}
   .objective-screen .file-heading {padding-bottom:.6rem;}
   .objective-screen .file-heading h1 {font-size:1.35rem;}
   .objective-screen .file-heading .eyebrow {margin:.2rem 0 .5rem;}
