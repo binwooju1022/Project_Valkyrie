@@ -13,7 +13,7 @@
   const recordNumber=record=>record?.displayId || record?.id || '';
   const numberedText=(text,record)=>String(text || '').replace(new RegExp('^'+record.id,'i'),recordNumber(record).toLowerCase());
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const archiveMobileQuery=window.matchMedia('(max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse)');
+  const archiveMobileQuery=window.matchMedia('(max-width:760px), (max-width:1180px) and (hover:none) and (pointer:coarse), (orientation:landscape) and (max-height:600px) and (hover:none) and (pointer:coarse)');
   const touchInputQuery=window.matchMedia('(hover:none) and (pointer:coarse)');
   const reportMobileQuery=window.matchMedia('(max-width:900px)');
   let menuTipShown=false,menuTipActive=false,menuTipTimer=null;

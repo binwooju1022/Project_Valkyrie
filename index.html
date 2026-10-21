@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#050707" />
     <meta
       name="description"
@@ -368,6 +368,7 @@
 
       <section id="transition-screen" class="screen complete-screen transition-screen" hidden aria-labelledby="transition-title">
         <div class="complete-card transition-card">
+          <div class="transition-summary">
           <p id="transition-kicker" class="eyebrow"></p>
           <p id="transition-completion"></p>
           <h1 id="transition-title"></h1>
@@ -375,9 +376,12 @@
           <p id="transition-meta"></p>
           <div id="transition-intro" class="objective-body"></div>
           <p id="transition-hint" class="reading-note" role="status"></p>
+          </div>
+          <div class="transition-actions">
           <button id="transition-next" class="button button-primary" data-action="continue-transition" type="button">다음 기록 재생 ›</button>
           <button id="transition-auto" class="button" data-action="toggle-auto" type="button" aria-pressed="false">자동 읽기 켜기</button>
           <button class="button" data-action="stop-transition" type="button">여기서 멈추기 · 완료 화면</button>
+          </div>
         </div>
       </section>
 

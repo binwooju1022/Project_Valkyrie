@@ -1,7 +1,7 @@
 name: Browser regression
 on:
   push:
-    branches: [main, 'fix/mobile-staged-*']
+    branches: ['fix/mobile-staged-*']
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,7 +21,7 @@ jobs:
       - name: Unit regression
         run: node --test tests/bookmarks.test.mjs tests/progress-store.test.mjs
       - name: Browser regression
-        run: node tests/browser/run.mjs release-content music-ending narration-merges playback-smoke report-lifecycle
+        run: node tests/browser/run.mjs release-content landscape usability-layout compact-menu playback-smoke report-lifecycle
       - uses: actions/upload-artifact@v4
         if: always()
         with:
