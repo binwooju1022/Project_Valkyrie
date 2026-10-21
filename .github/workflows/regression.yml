@@ -21,7 +21,7 @@ jobs:
       - name: Unit regression
         run: node --test tests/bookmarks.test.mjs tests/progress-store.test.mjs
       - name: Browser regression
-        run: node tests/browser/run.mjs release-content scene-stability landscape usability-layout playback-smoke report-lifecycle
+        run: node tests/browser/run.mjs replay-entry release-content scene-stability landscape usability-layout playback-smoke report-lifecycle narration-merges music-ending progress-import report-navigation
       - uses: actions/upload-artifact@v4
         if: always()
         with:

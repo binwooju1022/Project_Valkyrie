@@ -2622,6 +2622,13 @@
   function previousLine() {
     if (syncResetFromStorage()) return;
     if (state.screen !== 'story-screen' || state.loading) return;
+    if (state.lineIndex === 0 && state.telemetryPage === 0) return;
+    // An explicit previous step is a new presentation visit. Forward steps and
+    // saved/settings restores still retain their camera continuity.
+    resumePresentation = null;
+    resetACameraVisit();
+    standingCameraVisit = null;
+    delete $('#scene-art').dataset.media;
     if (state.telemetryPage > 0) {
       state.telemetryPage-=1;
       renderLine();
