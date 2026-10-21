@@ -81,8 +81,12 @@ export async function run({setup,story,out,capture}) {
     await page.evaluate(()=>scrollTo(0,0));
     const target=screen==='archive-screen'?'#archive-layout':'#story-stage';
     if(screen==='archive-screen')await page.locator('#archive-layout > .panel').evaluateAll(es=>es.forEach(e=>e.scrollTop=e.scrollHeight));
+    // Commit programmatic boundary positions to the compositor before input.
+    await page.waitForTimeout(150);
     await swipe(page,cdp,target);
-    assert.ok(await page.evaluate(()=>scrollY>0),'native swipe must reach unlocked root after toolbar reappears');
+    const scroll=await page.evaluate(()=>({root:scrollY,max:document.documentElement.scrollHeight-innerHeight,
+     panels:[...document.querySelectorAll('#archive-layout > .panel')].map(e=>({top:e.scrollTop,max:e.scrollHeight-e.clientHeight,inert:e.inert}))}));
+    assert.ok(scroll.root>0,`${width}x${height} ${screen} attempt ${attempt}: native swipe must reach root: ${JSON.stringify(scroll)}`);
     await visibleBounds(page,screen==='archive-screen'?'#archive-open-record':'#story-menu-toggle');
     assert.ok(Math.abs((await page.locator('#'+screen).boundingBox()).y)<1,'reader must stay in view while root scrolls');
     await page.setViewportSize({width,height:height+96});
