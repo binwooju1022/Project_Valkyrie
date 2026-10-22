@@ -133,12 +133,20 @@
   function progressSnapshot() {
     return {...state.progress,...Object.fromEntries(progressSettings.map(name=>[name,state[name]]))};
   }
+  function endingMusicAvailable(saved=state.progress) {
+    return saved.endingMusicUnlocked===true || saved.endingViewed===true ||
+      mainRecords.every(record=>saved.records?.[record.id]?.completed===true);
+  }
   function archiveMusicChoice(saved) {
-    return ['side-story','waiting-commander'].includes(saved.archiveMusic) ? saved.archiveMusic
-      : saved.endingViewed === true ? 'waiting-commander' : 'side-story';
+    const unlocked=endingMusicAvailable(saved);
+    // Apply the new default once, including saves made before music unlocking
+    // was recorded. Subsequent explicit choices survive re-entry and restart.
+    if(unlocked && saved.endingMusicUnlocked!==true)return 'waiting-commander';
+    if(saved.archiveMusic==='side-story' || unlocked && saved.archiveMusic==='waiting-commander')return saved.archiveMusic;
+    return unlocked ? 'waiting-commander' : 'side-story';
   }
   function acceptProgress(saved) {
-    saved = {...saved,archiveMusic:archiveMusicChoice(saved)};
+    saved = {...saved,archiveMusic:archiveMusicChoice(saved),endingMusicUnlocked:endingMusicAvailable(saved)};
     state.progress = saved;
     lastSavedProgress = JSON.parse(JSON.stringify(saved));
     for (const name of progressSettings) if (name in saved) state[name] = saved[name];
@@ -595,7 +603,9 @@
         progress && (progress.completed || progress.inProgress || Number.isInteger(progress.seenIndex) || progress.lineIndex>0));
       state.effectsReduced = saved.effectsReduced === true;
       state.endingAnimation = saved.endingAnimation !== false;
-      state.archiveMusic = archiveMusicChoice(saved);
+      const musicProgress={...saved,records:state.progress.records};
+      state.archiveMusic = archiveMusicChoice(musicProgress);
+      state.progress.endingMusicUnlocked = endingMusicAvailable(musicProgress);
       state.progress.endingViewed = saved.endingViewed === true;
       state.characterLabels = saved.characterLabels === true;
       state.autoResume = saved.autoResume === true;
@@ -689,11 +699,14 @@
       }).map((mark,index)=>mark || {...saved.bookmarks[index],status:'unresolved'}) : [];
       state.progress.bookmarks=bookmarkCatalog.normalize(state.progress.bookmarks);
       if (!imported) {
-        // Persist the identity migration as ordinary bookmark changes, not a reset.
-        if(JSON.stringify(saved.bookmarks || [])!==JSON.stringify(state.progress.bookmarks)) {
+        // Persist migrations without resetting progress; the unlock/default pair
+        // must be durable before closing this tab or choosing another song.
+        if(JSON.stringify(saved.bookmarks || [])!==JSON.stringify(state.progress.bookmarks) ||
+            saved.endingMusicUnlocked!==state.progress.endingMusicUnlocked || saved.archiveMusic!==state.archiveMusic) {
           progressStore.adopt(saved);
           try {
-            const result=progressStore.save({...saved,bookmarks:state.progress.bookmarks});
+            const result=progressStore.save({...saved,bookmarks:state.progress.bookmarks,
+              endingMusicUnlocked:state.progress.endingMusicUnlocked,archiveMusic:state.archiveMusic});
             if(result.reset) {
               loadProgress(result.value);
               acceptProgress(progressStore.adopt({...progressSnapshot(),_sync:result.value._sync}));
@@ -756,6 +769,8 @@
       lastPlaybackPosition = position;
     }
 
+    state.archiveMusic=archiveMusicChoice({...state.progress,archiveMusic:state.archiveMusic});
+    state.progress.endingMusicUnlocked=endingMusicAvailable();
     Object.assign(state.progress, {version:24,b03LayoutVersion:1,c03LayoutVersion:1,d04LayoutVersion:1,b07LayoutVersion:1,d05LayoutVersion:1,instant:state.instant,continuous:state.continuous,textSize:state.textSize,
       dialoguePosition:state.dialoguePosition,textSpeed:state.textSpeed,autoSpeed:state.autoSpeed,rememberAuto:state.rememberAuto,autoEnabled:state.autoEnabled,effectsReduced:state.effectsReduced,endingAnimation:state.endingAnimation,characterLabels:state.characterLabels,autoResume:state.autoResume,archiveMusic:state.archiveMusic});
     if (!storageAvailable) return;
@@ -3067,7 +3082,7 @@
   function renderSettings() {
     $('#setting-archive-music').value=state.archiveMusic;
     const endingChoice=$('#setting-archive-music option[value="waiting-commander"]');
-    endingChoice.disabled=!state.progress.endingViewed && state.archiveMusic!=='waiting-commander';
+    endingChoice.disabled=!endingMusicAvailable();
     $('#archive-music-note').textContent='보관소에서 재생할 음악을 선택합니다. 기록을 읽을 때는 해당 기록의 음악이 이어집니다.';
     $('#settings-start-story').hidden=state.settingsStartRecordId!==currentRecord()?.id || currentRecord()?.readerMode==='report';
     $('#setting-size').value = state.textSize;
@@ -3463,10 +3478,13 @@
     try {
       const saved=progressStore.read();
       if(saved._sync?.epoch!==progressStore.epoch){syncResetFromStorage();return;}
-      if(!progressStore.adoptFields(saved,['endingViewed','archiveMusic']))return;
+      const newlyUnlocked=endingMusicAvailable(saved) && !state.progress.endingMusicUnlocked;
+      if(!progressStore.adoptFields(saved,['endingViewed','archiveMusic','endingMusicUnlocked']) && !newlyUnlocked)return;
       state.progress.endingViewed=saved.endingViewed===true;
       state.archiveMusic=archiveMusicChoice(saved);
+      state.progress.endingMusicUnlocked=endingMusicAvailable(saved);
       state.progress.archiveMusic=state.archiveMusic;
+      if(newlyUnlocked && saved.endingMusicUnlocked!==true)saveProgress(false);
       window.RustedPrayerBgm?.setProgress({endingViewed:state.progress.endingViewed,archiveMusic:state.archiveMusic});
       if(state.screen==='settings-screen')renderSettings();
     } catch {}
@@ -3478,7 +3496,7 @@
     try {
       if (!storageAvailable) throw Error('Storage unavailable');
       const latest = progressStore.read();
-      next = {...latest,version:24,records:{},aIdentificationIntroSeen:false,endingViewed:false,
+      next = {...latest,version:24,records:{},aIdentificationIntroSeen:false,endingViewed:false,endingMusicUnlocked:false,archiveMusic:'side-story',
         bookmarks:$('#reset-keep-bookmarks').checked ? [...(latest.bookmarks || [])] : []};
       delete next.resumeRecordId;
       // Commit first: failed writes leave both the saved and visible progress intact.
@@ -3529,7 +3547,7 @@
     }
     if ('resumeRecordId' in saved) check(knownId(saved.resumeRecordId),'이어 읽기 위치');
     if ('resetGeneration' in saved) check(integer(saved.resetGeneration),'초기화 정보');
-    for (const key of ['instant','continuous','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume','readingSetupSeen','aIdentificationIntroSeen','endingViewed'])
+    for (const key of ['instant','continuous','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume','readingSetupSeen','aIdentificationIntroSeen','endingViewed','endingMusicUnlocked'])
       if (key in saved) check(typeof saved[key] === 'boolean',key);
     for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:['slow','normal','fast'],autoSpeed:['slow','normal','fast'],archiveMusic:['auto','side-story','waiting-commander']}))
       if (key in saved) check(values.includes(saved[key]),key);
@@ -3599,6 +3617,7 @@
       next.aIdentificationIntroSeen ||= previous.aIdentificationIntroSeen === true;
       next.readingSetupSeen ||= previous.readingSetupSeen === true;
       next.endingViewed ||= previous.endingViewed === true;
+      next.endingMusicUnlocked = imported.endingMusicUnlocked === true || previous.endingMusicUnlocked === true;
       for (const [id,incoming] of Object.entries(candidate.records)) {
         const before=previous.records[id] || {};
         const keepPosition=(before.lineIndex || 0)>incoming.lineIndex;
@@ -3623,6 +3642,8 @@
       for (const mark of candidate.bookmarks)
         if (!next.bookmarks.some(before=>bookmarkCatalog.key(before)===bookmarkCatalog.key(mark))) next.bookmarks.push(mark);
       if (next.bookmarks.length>2000) throw Error('합친 북마크가 2,000개를 넘습니다. 북마크를 정리한 뒤 다시 시도해 주세요.');
+      next.archiveMusic=archiveMusicChoice(next);
+      next.endingMusicUnlocked=endingMusicAvailable(next);
       let result;
       try {
         progressStore.adopt(previous);
@@ -3655,7 +3676,8 @@
 
   function bindEvents() {
     $('#setting-archive-music').addEventListener('change',event=>{
-      if(!['auto','side-story','waiting-commander'].includes(event.target.value))return;
+      if(!['side-story','waiting-commander'].includes(event.target.value))return;
+      if(event.target.value==='waiting-commander' && !endingMusicAvailable())return;
       state.archiveMusic=event.target.value;saveProgress();
     });
     touchInputQuery.addEventListener('change',syncInputGuidance);

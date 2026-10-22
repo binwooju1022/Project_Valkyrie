@@ -35,7 +35,7 @@ export async function run({setup,story,out,capture}) {
     await page.evaluate(()=>window.__audit.handleAction('show-settings'));
     await press('#settings-tab-audio');
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    assert.equal(await page.locator('#setting-archive-music option[value="waiting-commander"]').isDisabled(),true);
+    assert.equal(await page.locator('#setting-archive-music option[value="waiting-commander"]').isDisabled(),false);
     await capture(page,`music-settings-${width}`);
     out('compact-menu',{width,height,mobile,cornerTarget:true,oldStripRemoved:true,noAccidentalAdvance:true,autoStatus:true,settingsFit:true});
     await context.close();

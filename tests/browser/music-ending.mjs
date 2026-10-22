@@ -16,12 +16,66 @@ export async function run({setup,out,ready}) {
   const fresh=await setup();
   assert.equal(await viewed(fresh.page),false);
   assert.equal(await track(fresh.page),'side-story');
+  await fresh.page.evaluate(()=>window.__audit.handleAction('show-settings'));
+  assert.equal(await fresh.page.locator('#setting-archive-music option[value="waiting-commander"]').isDisabled(),true);
   await fresh.context.close();
+  // Reload a real legacy checkpoint, without letting the current save path
+  // repair it first. Photo availability and actual viewing are distinct.
+  for(const wasViewed of [false,true]) {
+    const {context,page}=await setup({seed:true});
+    await page.evaluate(wasViewed=>{
+      const saved=window.__audit.progressStore.read();
+      delete saved.endingMusicUnlocked;delete saved._sync;
+      saved.archiveMusic='side-story';saved.endingViewed=wasViewed;
+      localStorage.clear();localStorage.setItem('rusted-prayer-mvp-progress',JSON.stringify(saved));
+    },wasViewed);
+    await page.reload();await page.waitForFunction(()=>window.__audit&&!window.__audit.state.loading);
+    await archive(page);
+    assert.equal(await track(page),'waiting-commander');
+    assert.equal(await viewed(page),wasViewed,'unlock must not fabricate photo viewing');
+    await page.evaluate(()=>window.__audit.handleAction('show-settings'));
+    assert.equal(await page.locator('#setting-archive-music option[value="waiting-commander"]').isDisabled(),false);
+    assert.deepEqual(await page.evaluate(()=>{
+      const p=window.__audit.progressStore.read();return [p.endingMusicUnlocked,p.archiveMusic];
+    }),[true,'waiting-commander'],'migration is immediately durable');
+    await page.close();
+    const reopened=await context.newPage();await ready(reopened);await archive(reopened);
+    assert.equal(await track(reopened),'waiting-commander');
+    await context.close();
+  }
+  // Completing the last record switches the default even before opening the photo.
+  // Importing complementary progress must use the combined completion state too.
+  for(const viaImport of [false,true]) {
+    const {context,page}=await setup();
+    await page.evaluate(()=>{
+      const a=window.__audit,records=a.orderedRecords.filter(r=>!r.relatedReport);
+      window.lastMainRecord=records.at(-1).id;
+      for(const r of records.slice(0,-1))a.recordProgress(r.id).completed=true;
+      a.saveProgress(false);
+    });
+    assert.equal(await track(page),'side-story');
+    await page.evaluate(async viaImport=>{
+      const a=window.__audit;
+      if(viaImport)await a.importProgress(new File([JSON.stringify({version:24,records:{[window.lastMainRecord]:{completed:true,lineIndex:0}}})],'last.json'));
+      else {a.recordProgress(window.lastMainRecord).completed=true;a.saveProgress(false);}
+    },viaImport);
+    await archive(page);assert.equal(await track(page),'waiting-commander');
+    assert.equal(await page.evaluate(()=>window.__audit.progressStore.read().endingMusicUnlocked),true);
+    // Leave in the reveal frame, before the photo-view callback or audio fade.
+    await page.evaluate(async()=>{
+      const a=window.__audit;await a.openEnding();a.showScreen('archive-screen');
+    });
+    assert.equal(await viewed(page),false);
+    assert.equal(await track(page),'waiting-commander');
+    await page.reload();await page.waitForFunction(()=>window.__audit&&!window.__audit.state.loading);
+    await archive(page);assert.equal(await track(page),'waiting-commander');
+    await context.close();
+  }
   for(const mobile of [true,false]) {
     const {context,page}=await setup({seed:true,width:mobile?412:1366,height:mobile?915:768,mobile});
     await archive(page);
     assert.equal(await viewed(page),false,'legacy completed records do not imply photo viewing');
-    assert.equal(await track(page),'side-story');
+    assert.equal(await track(page),'waiting-commander');
     await page.keyboard.press('Shift');await playing(page);
     await page.evaluate(()=>window.RustedPrayerBgm.setMuted(true));
     assert.equal(await page.evaluate(()=>window.__bgmAudit.audio.paused),true);
@@ -64,10 +118,10 @@ export async function run({setup,out,ready}) {
     await ending(page);
     await page.waitForFunction(()=>window.__audit.progressStore.read().endingViewed===true);
     assert.equal(await track(page),'waiting-commander');
-    await archive(page);assert.equal(await track(page),'side-story');
+    await archive(page);assert.equal(await track(page),'waiting-commander');
     // A directly opened introduction may still be playing the archive default.
     await page.evaluate(async()=>{const a=window.__audit;a.state.selectedRecordId='B-04';a.selectDisk('B',false);await a.openObjective();a.handleAction('show-settings');});
-    assert.equal(await track(page),'side-story');
+    assert.equal(await track(page),'waiting-commander');
     await page.locator('#settings-tab-audio').click();
     await page.locator('#setting-archive-music').selectOption('side-story');
     assert.equal(await track(page),'side-story');
@@ -111,6 +165,7 @@ export async function run({setup,out,ready}) {
     await page.evaluate(()=>{const a=window.__audit;a.handleAction('open-reset');a.confirmReset();});
     await second.waitForFunction(()=>window.__audit.state.progress.endingViewed===false);
     assert.equal(await viewed(page),false);assert.equal(await track(second),'side-story');
+    assert.equal(await page.evaluate(()=>window.__audit.progressStore.read().endingMusicUnlocked),false);
     assert.equal(await page.locator('#bgm-volume').inputValue(),'23');
     assert.equal(await page.evaluate(()=>window.__bgmAudit.audio.muted),true);
     // A valid backup restores actual viewing; invalid new fields are rejected atomically.
@@ -122,7 +177,7 @@ export async function run({setup,out,ready}) {
     assert.equal(await page.evaluate(()=>window.__audit.state.archiveMusic),'side-story');
     for(const selector of ['meta[name="description"]','meta[property="og:description"]','meta[name="twitter:description"]'])
       assert.equal(await page.locator(selector).getAttribute('content'),'기록 복원 완료. 접근 승인');
-    out('music-ending',{mobile,legacySave:true,a08Restored:true,relatedMusic:true,cancelAndFailure:true,viewedAfterPaint:true,blockedPlaybackIndependent:true,preferences:true,reload:true,import:true,reset:true,crossTab:true,metadata:true});
+    out('music-ending',{mobile,legacyUnlockMigration:true,unlockBeforePlayback:true,earlyExit:true,mergedImportUnlock:true,a08Restored:true,relatedMusic:true,cancelAndFailure:true,viewedAfterPaint:true,blockedPlaybackIndependent:true,preferences:true,reload:true,import:true,reset:true,crossTab:true,metadata:true});
     await context.close();
   }
 }

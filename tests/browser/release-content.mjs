@@ -13,7 +13,7 @@ export async function run({setup,out}) {
  await page.evaluate(()=>window.__audit.handleAction('show-settings'));
  assert.deepEqual(await page.locator('#setting-archive-music option').evaluateAll(es=>es.map(e=>e.value)),['side-story','waiting-commander']);
  for(const viewed of [false,true]) {
-  const choice=await page.evaluate(viewed=>{const a=window.__audit;a.loadProgress({...a.progressStore.read(),archiveMusic:'auto',endingViewed:viewed});return a.state.archiveMusic;},viewed);
+  const choice=await page.evaluate(viewed=>{const a=window.__audit;a.loadProgress({...a.progressStore.read(),records:{},archiveMusic:'auto',endingMusicUnlocked:false,endingViewed:viewed});return a.state.archiveMusic;},viewed);
   assert.equal(choice,viewed?'waiting-commander':'side-story');
  }
  out('release-content',{copy:true,credits:true,twoChoices:true,legacyAutoMigration:true});await context.close();

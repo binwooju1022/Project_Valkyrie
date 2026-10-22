@@ -81,9 +81,10 @@ test('legacy numeric journal entries share the new identity; unresolved marks re
 
 test('ending photo viewing is monotone while archive music follows explicit changes',async()=>{
   const f=fixture(),a=f.store(),b=f.store();
-  a.value.endingViewed=true;a.value.archiveMusic='waiting-commander';a.value=a.s.save(a.value).value;
-  b.value.endingViewed=false;b.value.textSize='large';b.value=b.s.save(b.value).value;
+  a.value.endingViewed=true;a.value.endingMusicUnlocked=true;a.value.archiveMusic='waiting-commander';a.value=a.s.save(a.value).value;
+  b.value.endingViewed=false;b.value.endingMusicUnlocked=false;b.value.textSize='large';b.value=b.s.save(b.value).value;
   assert.equal(f.store().value.endingViewed,true);
+  assert.equal(f.store().value.endingMusicUnlocked,true);
   assert.equal(f.store().value.archiveMusic,'waiting-commander');
   a.value.archiveMusic='side-story';a.s.save(a.value);
   b.value.volume=.2;b.s.save(b.value);
@@ -94,13 +95,14 @@ test('ending photo viewing is monotone while archive music follows explicit chan
 
 test('reset clears ending viewing and stale tabs cannot restore it or overwrite music',async()=>{
   const f=fixture(),a=f.store();
-  a.value.endingViewed=true;a.value.archiveMusic='side-story';a.value=a.s.save(a.value).value;
+  a.value.endingViewed=true;a.value.endingMusicUnlocked=true;a.value.archiveMusic='side-story';a.value=a.s.save(a.value).value;
   const stale=f.store();
-  a.s.save({...a.value,records:{},endingViewed:false},true);
+  a.s.save({...a.value,records:{},endingViewed:false,endingMusicUnlocked:false},true);
   stale.value.archiveMusic='waiting-commander';
   assert.equal(stale.s.save(stale.value).reset,true);
   await f.flush();
   assert.equal(f.store().value.endingViewed,false);
+  assert.equal(f.store().value.endingMusicUnlocked,false);
   assert.equal(f.store().value.archiveMusic,'side-story');
 });
 

@@ -53,7 +53,7 @@
         if(parts[0]==="bookmarks")parts[2]=bookmarkId(parts[1],parts[2]);
         const path=JSON.stringify(parts);
         const previousStamp = compare(meta.fields[path],meta.fields[rawPath])>=0 ? meta.fields[path] : meta.fields[rawPath];
-        const monotone = ["completed","seenIndex","seenPages","profileViews","readingSetupSeen","aIdentificationIntroSeen","endingViewed"].includes(name);
+        const monotone = ["completed","seenIndex","seenPages","profileViews","readingSetupSeen","aIdentificationIntroSeen","endingViewed","endingMusicUnlocked"].includes(name);
         if (!monotone && compare(change.stamp,previousStamp) <= 0) continue;
         if (parts[0] === "bookmarks") {
           snapshot.bookmarks = (snapshot.bookmarks || []).filter(mark => mark.recordId !== parts[1] || markIdentity(mark) !== parts[2]);
@@ -63,7 +63,7 @@
           for (const part of parts.slice(0,-1)) target = target[part] ||= {};
           const field = parts.at(-1);
           if (name === "cursor") Object.assign(target,value);
-          else if (["completed","readingSetupSeen","aIdentificationIntroSeen","endingViewed"].includes(name)) target[field] ||= value === true;
+          else if (["completed","readingSetupSeen","aIdentificationIntroSeen","endingViewed","endingMusicUnlocked"].includes(name)) target[field] ||= value === true;
           else if (["seenIndex","seenPages"].includes(name)) target[field] = Math.max(target[field] ?? -1,value ?? -1);
           else if (name === "profileViews") target[field] = [...new Set([...(target[field] || []),...(value || [])])];
           else if (value === null) delete target[field];
