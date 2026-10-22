@@ -3543,7 +3543,7 @@
     if ('resetGeneration' in saved) check(integer(saved.resetGeneration),'초기화 정보');
     for (const key of ['instant','continuous','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume','readingSetupSeen','aIdentificationIntroSeen','endingViewed','endingMusicUnlocked'])
       if (key in saved) check(typeof saved[key] === 'boolean',key);
-    for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:[...readingSpeed.textValues,...readingSpeed.legacy],autoSpeed:[...readingSpeed.values,...readingSpeed.legacy],archiveMusic:['auto','side-story','waiting-commander']}))
+    for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:[...readingSpeed.textValues,...readingSpeed.textLegacy],autoSpeed:[...readingSpeed.values,...readingSpeed.legacy],archiveMusic:['auto','side-story','waiting-commander']}))
       if (key in saved) check(values.includes(saved[key]),key);
     for (const key of ['c02','b03','c03','d04','b07','d05']) if (key+'LayoutVersion' in saved) check(saved[key+'LayoutVersion']===1,key+'LayoutVersion');
     if ('narrationLayoutVersion' in saved) check(saved.narrationLayoutVersion===1,'narrationLayoutVersion');

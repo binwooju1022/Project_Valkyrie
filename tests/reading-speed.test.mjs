@@ -10,27 +10,27 @@ vm.runInContext(source('js/core/reading-speed.js'),context);
 vm.runInContext(source('js/core/progress-store.js'),context);
 const speed=context.window.RustedPrayerReadingSpeed;
 const levels=['auto-fast','auto-normal','auto-slow','auto-slowest'];
-const textLevels=['text-fast','text-normal','text-slow','text-slowest'];
+const textLevels=['text-quick','text-normal','text-slow','text-slowest'];
 
-test('four text speeds start at the previous slow pace for letters, spaces and punctuation',()=>{
-  assert.deepEqual(textLevels.map(id=>speed.characterDelay('가',id)),[51,71,92,117]);
-  assert.deepEqual(textLevels.map(id=>speed.characterDelay(' ',id)),[27,38,49,62]);
-  assert.deepEqual(textLevels.map(id=>speed.characterDelay('.',id)),[158,221,284,362]);
+test('normal text speed matches the former fastest pace, with slower options unchanged',()=>{
+  assert.deepEqual(textLevels.map(id=>speed.characterDelay('가',id)),[34,51,92,117]);
+  assert.deepEqual(textLevels.map(id=>speed.characterDelay(' ',id)),[18,27,49,62]);
+  assert.deepEqual(textLevels.map(id=>speed.characterDelay('.',id)),[105,158,284,362]);
   assert.equal(speed.normalizeText(undefined),'text-normal');
-  for(const old of ['slow','normal','fast'])assert.equal(speed.normalizeText(old),'text-fast');
+  for(const old of ['slow','normal','fast','text-fast'])assert.equal(speed.normalizeText(old),'text-normal');
   for(const id of textLevels)assert.equal(speed.normalizeText(id),id);
 });
 
 test('text speed migration preserves instant mode and independent auto choices',()=>{
   const before={textSpeed:'slow',autoSpeed:'auto-slow',instant:true,records:{'A-01':{lineIndex:3}}};
   const after=speed.upgradeSnapshot(before);
-  assert.equal(after.textSpeed,'text-fast');assert.equal(after.autoSpeed,'auto-slow');
+  assert.equal(after.textSpeed,'text-normal');assert.equal(after.autoSpeed,'auto-slow');
   assert.equal(after.instant,true);assert.equal(after.records,before.records);
   assert.equal(before.textSpeed,'slow');assert.equal(speed.upgradeSnapshot(after),after);
   const key=JSON.stringify(['textSpeed']);
   const changed=speed.upgradeChange({fields:{[key]:'normal','["instant"]':true}});
-  assert.equal(changed.fields[key],'text-fast');assert.equal(changed.fields['["instant"]'],true);
-  assert.equal(speed.upgradeChange({reset:before}).reset.textSpeed,'text-fast');
+  assert.equal(changed.fields[key],'text-normal');assert.equal(changed.fields['["instant"]'],true);
+  assert.equal(speed.upgradeChange({reset:before}).reset.textSpeed,'text-normal');
 });
 
 test('four levels use the agreed 40-character durations and independent completion floors',()=>{
@@ -59,7 +59,7 @@ test('new default and legacy mapping are unambiguous and idempotent',()=>{
   assert.equal(speed.normalize('invalid'),'auto-normal');
   for(const old of ['slow','normal','fast'])assert.equal(speed.normalize(old),'auto-fast');
   for(const id of levels) {
-    const saved={autoSpeed:id,textSpeed:'text-fast',records:{}};
+    const saved={autoSpeed:id,textSpeed:'text-normal',records:{}};
     assert.equal(speed.upgradeSnapshot(saved),saved);
     assert.equal(speed.normalize(speed.normalize(id)),id);
   }
@@ -81,7 +81,7 @@ test('checkpoint, journal, reset and stale-tab saves retain a chosen new speed',
   assert.equal(make(true).read().autoSpeed,'auto-slowest');
   assert.equal(make(true).read().textSpeed,'text-slowest');
   oldValue.textSpeed='normal';oldValue=old.save(oldValue).value;
-  assert.equal(make(true).read().textSpeed,'text-fast');
+  assert.equal(make(true).read().textSpeed,'text-normal');
   assert.equal(make(true).read().autoSpeed,'auto-slowest');
   oldValue.autoSpeed='normal';old.save(oldValue); // legacy speed journal
   assert.equal(make(true).read().autoSpeed,'auto-fast');
@@ -198,7 +198,7 @@ test('settings expose four speeds for each control and separate instant output',
   const html=source('index.html');
   const options=id=>[...html.match(new RegExp('<select id="'+id+'"[\\s\\S]*?</select>'))[0].matchAll(/<option value="([^"]+)"[^>]*>([^<]+)<\/option>/g)].map(m=>[m[1],m[2]]);
   assert.deepEqual(options('setting-auto'),[['auto-slowest','아주 느리게'],['auto-slow','느리게'],['auto-normal','보통'],['auto-fast','빠르게']]);
-  assert.deepEqual(options('setting-speed'),[['text-slowest','아주 느리게'],['text-slow','느리게'],['text-normal','보통'],['text-fast','빠르게']]);
+  assert.deepEqual(options('setting-speed'),[['text-slowest','아주 느리게'],['text-slow','느리게'],['text-normal','보통'],['text-quick','빠르게']]);
   assert.deepEqual(options('setting-instant'),[['off','끄기'],['on','켜기']]);
   assert.ok(html.indexOf('./js/core/reading-speed.js')<html.indexOf('./js/app.js'));
 });

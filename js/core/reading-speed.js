@@ -9,11 +9,14 @@
   });
   const legacy = ['fast','normal','slow'];
   const defaultSpeed = 'auto-normal';
-  const textLevels = Object.freeze({'text-fast':1,'text-normal':1.4,'text-slow':1.8,'text-slowest':2.3});
+  // The former fastest pace is now normal. A new ID distinguishes the new
+  // faster option from saved choices that should keep their 51 ms interval.
+  const textLevels = Object.freeze({'text-quick':2/3,'text-normal':1,'text-slow':1.8,'text-slowest':2.3});
+  const textLegacy = [...legacy,'text-fast'];
   const defaultTextSpeed = 'text-normal';
   function normalizeText(value) {
     if (Object.hasOwn(textLevels,value)) return value;
-    return legacy.includes(value) ? 'text-fast' : defaultTextSpeed;
+    return defaultTextSpeed;
   }
   function characterDelay(character, speed = defaultTextSpeed) {
     const base=/[.!?·。]/.test(character) ? 105 : character===' ' ? 18 : 34;
@@ -54,5 +57,5 @@
     return fields===change.fields ? change : {...change,fields};
   }
   window.RustedPrayerReadingSpeed={defaultSpeed,values:Object.keys(levels),legacy,normalize,duration,wait,transition,
-    defaultTextSpeed,textValues:Object.keys(textLevels),normalizeText,characterDelay,upgradeSnapshot,upgradeChange};
+    defaultTextSpeed,textValues:Object.keys(textLevels),textLegacy,normalizeText,characterDelay,upgradeSnapshot,upgradeChange};
 })();

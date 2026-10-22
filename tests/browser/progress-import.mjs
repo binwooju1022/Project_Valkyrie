@@ -69,7 +69,7 @@ export async function run({setup,ready,out,capture}) {
   assert.equal(saved.records['A-04'].completed,true);
   assert.equal(saved.resumeRecordId,'A-02');
   assert.equal(saved.bookmarks.length,2);
-  assert.equal(saved.textSize,'large');assert.equal(saved.textSpeed,'text-fast');
+  assert.equal(saved.textSize,'large');assert.equal(saved.textSpeed,'text-normal');
   await page.reload();await page.waitForFunction(()=>window.__audit&&!window.__audit.state.loading);
   await settings(page);
   assert.equal((await snapshot(page)).saved.records['A-04'].completed,true);
