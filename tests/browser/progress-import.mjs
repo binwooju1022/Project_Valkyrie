@@ -69,7 +69,7 @@ export async function run({setup,ready,out,capture}) {
   assert.equal(saved.records['A-04'].completed,true);
   assert.equal(saved.resumeRecordId,'A-02');
   assert.equal(saved.bookmarks.length,2);
-  assert.equal(saved.textSize,'large');assert.equal(saved.textSpeed,'fast');
+  assert.equal(saved.textSize,'large');assert.equal(saved.textSpeed,'text-fast');
   await page.reload();await page.waitForFunction(()=>window.__audit&&!window.__audit.state.loading);
   await settings(page);
   assert.equal((await snapshot(page)).saved.records['A-04'].completed,true);
@@ -141,9 +141,9 @@ export async function run({setup,ready,out,capture}) {
   await page.evaluate(()=>{
     window.pendingImport=window.__audit.importProgress({size:100,text:()=>new Promise(resolve=>window.releaseImport=resolve)});
   });
-  assert.match(await upload(page,backup({textSpeed:'slow'})),/합쳤습니다/);
+  assert.match(await upload(page,backup({textSpeed:'text-slowest'})),/합쳤습니다/);
   await page.evaluate(async text=>{window.releaseImport(text);await window.pendingImport;},JSON.stringify(backup({textSpeed:'fast'})));
-  assert.equal((await snapshot(page)).saved.textSpeed,'slow');
+  assert.equal((await snapshot(page)).saved.textSpeed,'text-slowest');
   out('overlapping-file-reads',{latestSelectionWins:true});
   await context.close();
 

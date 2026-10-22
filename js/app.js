@@ -64,7 +64,7 @@
     transitionPaused: false,
     textSize: 'normal',
     dialoguePosition: defaultDialoguePosition(),
-    textSpeed: 'normal',
+    textSpeed: readingSpeed.defaultTextSpeed,
     autoSpeed: readingSpeed.defaultSpeed,
     rememberAuto: true,
     autoEnabled: false,
@@ -153,7 +153,6 @@
     for (const name of progressSettings) if (name in saved) state[name] = saved[name];
   }
   const motionReduced = () => reduceMotion;
-  const speedFactor = value => ({slow:1.5, normal:1, fast:.6}[value] || 1);
   function readingDuration(text, line = null) {
     return readingSpeed.duration(text,line,state.autoSpeed);
   }
@@ -591,7 +590,7 @@
       state.continuous = saved.continuous !== false;
       state.textSize = ['small','normal','large'].includes(saved.textSize) ? saved.textSize : 'normal';
       state.dialoguePosition = ['left','center','right'].includes(saved.dialoguePosition) ? saved.dialoguePosition : defaultDialoguePosition();
-      state.textSpeed = ['slow','normal','fast'].includes(saved.textSpeed) ? saved.textSpeed : 'normal';
+      state.textSpeed = readingSpeed.normalizeText(saved.textSpeed);
       state.autoSpeed = readingSpeed.normalize(saved.autoSpeed);
       state.rememberAuto = saved.rememberAuto !== false;
       state.autoEnabled = saved.autoEnabled === true;
@@ -1648,8 +1647,7 @@
       }
 
       const character = state.fullText[index - 1];
-      const delay = /[.!?·。]/.test(character) ? 105 : character === " " ? 18 : 34;
-      wait=Math.round(delay * speedFactor(state.textSpeed));
+      wait=readingSpeed.characterDelay(character,state.textSpeed);
       setPlaybackTimer('typeTimer',typeNext,wait);
     };
 
@@ -3083,7 +3081,8 @@
     $('#settings-start-story').hidden=state.settingsStartRecordId!==currentRecord()?.id || currentRecord()?.readerMode==='report';
     $('#setting-size').value = state.textSize;
     $('#setting-dialogue-position').value = state.dialoguePosition;
-    $('#setting-speed').value = state.instant ? 'instant' : state.textSpeed;
+    $('#setting-speed').value = state.textSpeed;
+    $('#setting-instant').value = state.instant ? 'on' : 'off';
     $('#setting-auto').value = state.autoSpeed;
     $('#setting-remember-auto').value = state.rememberAuto ? 'on' : 'off';
     $('#setting-effects').value = state.effectsReduced ? 'reduced' : 'normal';
@@ -3111,9 +3110,8 @@
   function changeReadingSettings() {
     state.textSize = $('#setting-size').value;
     state.dialoguePosition = ['left','center','right'].includes($('#setting-dialogue-position').value) ? $('#setting-dialogue-position').value : defaultDialoguePosition();
-    const speed = $('#setting-speed').value;
-    state.instant = speed === 'instant';
-    if (!state.instant) state.textSpeed = speed;
+    state.textSpeed = readingSpeed.normalizeText($('#setting-speed').value);
+    state.instant = $('#setting-instant').value === 'on';
     state.autoSpeed = readingSpeed.normalize($('#setting-auto').value);
     state.rememberAuto = $('#setting-remember-auto').value === 'on';
     state.effectsReduced = $('#setting-effects').value === 'reduced';
@@ -3151,7 +3149,7 @@
           $('#reading-sample').textContent = text.slice(0,index);
           if(index<text.length) {
             const character = text[index-1];
-            wait=Math.round((/[.!?·。]/.test(character) ? 105 : character===' ' ? 18 : 34)*speedFactor(state.textSpeed));
+            wait=readingSpeed.characterDelay(character,state.textSpeed);
             state.previewTimer=setTimeout(type,wait);return;
           }
         }
@@ -3545,7 +3543,7 @@
     if ('resetGeneration' in saved) check(integer(saved.resetGeneration),'초기화 정보');
     for (const key of ['instant','continuous','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume','readingSetupSeen','aIdentificationIntroSeen','endingViewed','endingMusicUnlocked'])
       if (key in saved) check(typeof saved[key] === 'boolean',key);
-    for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:['slow','normal','fast'],autoSpeed:[...readingSpeed.values,...readingSpeed.legacy],archiveMusic:['auto','side-story','waiting-commander']}))
+    for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:[...readingSpeed.textValues,...readingSpeed.legacy],autoSpeed:[...readingSpeed.values,...readingSpeed.legacy],archiveMusic:['auto','side-story','waiting-commander']}))
       if (key in saved) check(values.includes(saved[key]),key);
     for (const key of ['c02','b03','c03','d04','b07','d05']) if (key+'LayoutVersion' in saved) check(saved[key+'LayoutVersion']===1,key+'LayoutVersion');
     if ('narrationLayoutVersion' in saved) check(saved.narrationLayoutVersion===1,'narrationLayoutVersion');
@@ -3763,7 +3761,7 @@
     $('#profile-overlay').addEventListener('click', event => {
       if (event.target === $('#profile-overlay')) closeProfile();
     });
-    ['#setting-size','#setting-dialogue-position','#setting-speed','#setting-auto','#setting-remember-auto','#setting-effects','#setting-ending','#setting-identities','#setting-resume'].forEach(selector => $(selector).addEventListener('change',changeReadingSettings));
+    ['#setting-size','#setting-dialogue-position','#setting-speed','#setting-instant','#setting-auto','#setting-remember-auto','#setting-effects','#setting-ending','#setting-identities','#setting-resume'].forEach(selector => $(selector).addEventListener('change',changeReadingSettings));
     $('#library-search').addEventListener('input',() => { state.libraryRecordLimits={}; renderLibrary(); });
     $('#save-import').addEventListener('change',event => importProgress(event.target.files?.[0]));
     $('#ending-image').addEventListener('error',() => {

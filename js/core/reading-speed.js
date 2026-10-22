@@ -9,6 +9,16 @@
   });
   const legacy = ['fast','normal','slow'];
   const defaultSpeed = 'auto-normal';
+  const textLevels = Object.freeze({'text-fast':1,'text-normal':1.4,'text-slow':1.8,'text-slowest':2.3});
+  const defaultTextSpeed = 'text-normal';
+  function normalizeText(value) {
+    if (Object.hasOwn(textLevels,value)) return value;
+    return legacy.includes(value) ? 'text-fast' : defaultTextSpeed;
+  }
+  function characterDelay(character, speed = defaultTextSpeed) {
+    const base=/[.!?·。]/.test(character) ? 105 : character===' ' ? 18 : 34;
+    return Math.round(base*1.5*textLevels[normalizeText(speed)]);
+  }
   function normalize(value) {
     if (Object.hasOwn(levels,value)) return value;
     // Old normal/fast are below the new minimum; clamp them to the fastest level.
@@ -31,13 +41,18 @@
   }
   function upgradeSnapshot(saved) {
     const autoSpeed=normalize(saved.autoSpeed);
-    return saved.autoSpeed===autoSpeed ? saved : {...saved,autoSpeed};
+    const textSpeed=normalizeText(saved.textSpeed);
+    return saved.autoSpeed===autoSpeed && saved.textSpeed===textSpeed ? saved : {...saved,autoSpeed,textSpeed};
   }
   function upgradeChange(change) {
     if (change.reset) return {...change,reset:upgradeSnapshot(change.reset)};
-    const key=JSON.stringify(['autoSpeed']);
-    if (!Object.hasOwn(change.fields || {},key)) return change;
-    return {...change,fields:{...change.fields,[key]:normalize(change.fields[key])}};
+    let fields=change.fields;
+    for (const [name,normalizeValue] of [['autoSpeed',normalize],['textSpeed',normalizeText]]) {
+      const key=JSON.stringify([name]);
+      if (Object.hasOwn(fields || {},key)) fields={...fields,[key]:normalizeValue(fields[key])};
+    }
+    return fields===change.fields ? change : {...change,fields};
   }
-  window.RustedPrayerReadingSpeed={defaultSpeed,values:Object.keys(levels),legacy,normalize,duration,wait,transition,upgradeSnapshot,upgradeChange};
+  window.RustedPrayerReadingSpeed={defaultSpeed,values:Object.keys(levels),legacy,normalize,duration,wait,transition,
+    defaultTextSpeed,textValues:Object.keys(textLevels),normalizeText,characterDelay,upgradeSnapshot,upgradeChange};
 })();
