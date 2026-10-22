@@ -395,7 +395,7 @@
 <section id="reading-speed-settings" class="reading-speed-settings" aria-label="읽기 속도 조절">
             <p class="reading-note">속도를 조절한 뒤 아래 미리보기로 확인하세요.</p>
             <div class="setting-row"><div class="setting-copy"><label for="setting-speed">문자 출력 속도</label><p id="setting-speed-note" class="reading-note">글자가 나타나는 속도입니다.</p></div><div class="setting-control"><select id="setting-speed" aria-describedby="setting-speed-note"><option value="slow">느리게</option><option value="normal">보통</option><option value="fast">빠르게</option><option value="instant">즉시 출력</option></select></div></div>
-            <div class="setting-row"><div class="setting-copy"><label for="setting-auto">자동 읽기 속도</label><p id="setting-auto-note" class="reading-note">자동을 켰을 때 다음 문장으로 넘어가는 속도입니다.</p></div><div class="setting-control"><select id="setting-auto" aria-describedby="setting-auto-note"><option value="slow">느리게</option><option value="normal">보통</option><option value="fast">빠르게</option></select></div></div>
+            <div class="setting-row"><div class="setting-copy"><label for="setting-auto">자동 읽기 속도</label><p id="setting-auto-note" class="reading-note">자동을 켰을 때 다음 문장으로 넘어가는 속도입니다.</p></div><div class="setting-control"><select id="setting-auto" aria-describedby="setting-auto-note"><option value="auto-slowest">아주 느리게</option><option value="auto-slow">느리게</option><option value="auto-normal" selected>보통</option><option value="auto-fast">빠르게</option></select></div></div>
             <div id="settings-preview" class="settings-preview"><span class="eyebrow">미리보기 · 다음 문장으로 자동 전환</span><p id="reading-sample" class="reading-sample"></p><progress id="preview-progress" max="100" value="0" aria-label="다음 문장 대기"></progress><p id="preview-status" class="reading-note"></p></div>
             
           </section>
@@ -590,6 +590,7 @@
     <script defer src="./js/core/bookmarks.js"></script>
     <script defer src="./js/core/scene-layout.js"></script>
     <script defer src="./js/core/progress-store.js"></script>
+    <script defer src="./js/core/reading-speed.js"></script>
     <script defer src="./js/app.js"></script>
   </body>
 </html>

@@ -10,6 +10,7 @@
   const legacyBookmarkLines=record=>legacyBookmarkCache.get(record?.id);
   const mainRecords=orderedRecords.filter(record=>!record.relatedReport);
   const media = window.RustedPrayerMedia;
+  const readingSpeed = window.RustedPrayerReadingSpeed;
   const recordNumber=record=>record?.displayId || record?.id || '';
   const numberedText=(text,record)=>String(text || '').replace(new RegExp('^'+record.id,'i'),recordNumber(record).toLowerCase());
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -64,7 +65,7 @@
     textSize: 'normal',
     dialoguePosition: defaultDialoguePosition(),
     textSpeed: 'normal',
-    autoSpeed: 'normal',
+    autoSpeed: readingSpeed.defaultSpeed,
     rememberAuto: true,
     autoEnabled: false,
     settingsPlaybackReturn: null,
@@ -121,8 +122,8 @@
       return bookmarkCatalog.locate(recordId,sceneId)?.line.sceneId || sceneId;
     },
     normalize:normalizeStoredProgress,
-    upgradeSnapshot:saved=>saved.narrationLayoutVersion===1?saved:{...normalizeStoredProgress(saved),_sync:sceneLayout.sync(saved._sync)},
-    upgradeChange:change=>sceneLayout.change(change,normalizeStoredProgress),
+    upgradeSnapshot:saved=>readingSpeed.upgradeSnapshot(saved.narrationLayoutVersion===1?saved:{...normalizeStoredProgress(saved),_sync:sceneLayout.sync(saved._sync)}),
+    upgradeChange:change=>readingSpeed.upgradeChange(sceneLayout.change(change,normalizeStoredProgress)),
     onError:()=>{$("#storage-notice").hidden=false;}
   });
   function normalizeStoredProgress(saved) {
@@ -146,7 +147,7 @@
     return unlocked ? 'waiting-commander' : 'side-story';
   }
   function acceptProgress(saved) {
-    saved = {...saved,archiveMusic:archiveMusicChoice(saved),endingMusicUnlocked:endingMusicAvailable(saved)};
+    saved = {...readingSpeed.upgradeSnapshot(saved),archiveMusic:archiveMusicChoice(saved),endingMusicUnlocked:endingMusicAvailable(saved)};
     state.progress = saved;
     lastSavedProgress = JSON.parse(JSON.stringify(saved));
     for (const name of progressSettings) if (name in saved) state[name] = saved[name];
@@ -154,12 +155,7 @@
   const motionReduced = () => reduceMotion;
   const speedFactor = value => ({slow:1.5, normal:1, fast:.6}[value] || 1);
   function readingDuration(text, line = null) {
-    const value=String(text || '').trim();
-    const factor={fast:1,normal:1.4,slow:1.9}[state.autoSpeed] || 1.4;
-    const sound=/^(?:탕|타앙|쾅|콰앙|철컥|찰칵|딸깍|탁|쿵|퍽|툭|짤랑|끼익|총성|폭발음)[\s\-—–.!！·…]*$/u.test(value);
-    let duration=sound ? 600 : /^[.·…\s]+$/u.test(value) ? 1200 : Math.max(800,350+value.length*40);
-    if (['memo','document','report','comparison','objective'].includes(line?.tone)) duration=Math.max(1200,duration*1.2);
-    return Math.round(Math.min(18000,duration)*factor);
+    return readingSpeed.duration(text,line,state.autoSpeed);
   }
   function telemetryPages(text) {
     const sentences=String(text || '').trim().split(/(?<=[.!?。])\s+/u).filter(Boolean);
@@ -596,7 +592,7 @@
       state.textSize = ['small','normal','large'].includes(saved.textSize) ? saved.textSize : 'normal';
       state.dialoguePosition = ['left','center','right'].includes(saved.dialoguePosition) ? saved.dialoguePosition : defaultDialoguePosition();
       state.textSpeed = ['slow','normal','fast'].includes(saved.textSpeed) ? saved.textSpeed : 'normal';
-      state.autoSpeed = ['slow','normal','fast'].includes(saved.autoSpeed) ? saved.autoSpeed : 'normal';
+      state.autoSpeed = readingSpeed.normalize(saved.autoSpeed);
       state.rememberAuto = saved.rememberAuto !== false;
       state.autoEnabled = saved.autoEnabled === true;
       state.progress.readingSetupSeen = saved.readingSetupSeen === true || Object.values(state.progress.records).some(progress=>
@@ -1581,7 +1577,7 @@
       if (state.transitionPaused) return;
       const next = archive.getRecord(state.transition.toId);
       const length = next.objective.map(item => item.text || '').join('').length + next.title.length;
-      setPlaybackTimer('autoTimer',()=>{if(canAutoAdvance())continueRecordTransition();}, Math.max(4000, Math.min(24000, length * 85 * speedFactor(state.autoSpeed))));
+      setPlaybackTimer('autoTimer',()=>{if(canAutoAdvance())continueRecordTransition();}, readingSpeed.transition(length,state.autoSpeed));
       return;
     }
     if (state.screen !== 'story-screen') return;
@@ -1589,7 +1585,7 @@
     if (state.menuOpen || !$("#backlog").hidden || $('#story-options').open || state.uiHidden || document.hidden) return;
     const story=currentStory(),line=story[state.lineIndex],next=story[state.lineIndex+1];
     const chatEnd=line?.tone==='chat' && (!next || next.tone!=='chat' || next.channel!==line.channel || next.session!==line.session);
-    const delay = Math.max(250,readingDuration(state.fullText,line)-state.typingCredit,line?.autoPause || 0) + (line?.readingBeat?.extraAutoDelay || 0) + (chatEnd ? 1000 : 0);
+    const delay = readingSpeed.wait(state.fullText,line,state.autoSpeed,state.typingCredit,chatEnd);
     setPlaybackTimer('autoTimer',()=>{if(canAutoAdvance())nextLine(true);},delay);
   }
 
@@ -3118,7 +3114,7 @@
     const speed = $('#setting-speed').value;
     state.instant = speed === 'instant';
     if (!state.instant) state.textSpeed = speed;
-    state.autoSpeed = $('#setting-auto').value;
+    state.autoSpeed = readingSpeed.normalize($('#setting-auto').value);
     state.rememberAuto = $('#setting-remember-auto').value === 'on';
     state.effectsReduced = $('#setting-effects').value === 'reduced';
     state.characterLabels = $('#setting-identities').value === 'on';
@@ -3160,7 +3156,7 @@
           }
         }
         {
-          const total = Math.max(250,readingDuration(text)-credit);
+          const total = readingSpeed.wait(text,null,state.autoSpeed,credit);
           let remaining = total;
           const tick = () => {
             $('#preview-status').textContent = `${kind} · 다음 문장까지 ${(remaining/1000).toFixed(1)}초`;
@@ -3549,7 +3545,7 @@
     if ('resetGeneration' in saved) check(integer(saved.resetGeneration),'초기화 정보');
     for (const key of ['instant','continuous','rememberAuto','autoEnabled','effectsReduced','endingAnimation','characterLabels','autoResume','readingSetupSeen','aIdentificationIntroSeen','endingViewed','endingMusicUnlocked'])
       if (key in saved) check(typeof saved[key] === 'boolean',key);
-    for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:['slow','normal','fast'],autoSpeed:['slow','normal','fast'],archiveMusic:['auto','side-story','waiting-commander']}))
+    for (const [key,values] of Object.entries({textSize:['small','normal','large'],dialoguePosition:['left','center','right'],textSpeed:['slow','normal','fast'],autoSpeed:[...readingSpeed.values,...readingSpeed.legacy],archiveMusic:['auto','side-story','waiting-commander']}))
       if (key in saved) check(values.includes(saved[key]),key);
     for (const key of ['c02','b03','c03','d04','b07','d05']) if (key+'LayoutVersion' in saved) check(saved[key+'LayoutVersion']===1,key+'LayoutVersion');
     if ('narrationLayoutVersion' in saved) check(saved.narrationLayoutVersion===1,'narrationLayoutVersion');
